@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://mp7msrg85bwo"]
+
+[ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Player/Player.tscn" id="1_q3npf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ea8a7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wwsw3"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ji1jq"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_52ajt"]
+
+[node name="World" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32881, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_ea8a7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_wwsw3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_ji1jq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_52ajt")
+skeleton = NodePath("")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.776013, -0.445984, 0.445984, 0, 0.707107, 0.707107, -0.630717, -0.548724, 0.548724, 0, 10.0841, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_q3npf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.28895, 3)
