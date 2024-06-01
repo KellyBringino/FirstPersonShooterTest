@@ -1,8 +1,7 @@
 extends Gun
 
 func _ready():
-	damage = 15
+	damage = 10
 
-func _process(delta):
+func heldFire():
 	pass
-

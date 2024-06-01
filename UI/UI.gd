@@ -1,9 +1,17 @@
 extends Node2D
 
+@onready var healthbar = $CanvasLayer/InGameGUI/HealthBarContainer/HealthBarController/HealthBar
+@onready var ammobar = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoBar
+@onready var ammocounter = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoCounter
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	unpause()
+	healthbar.max_value = $"../Player".maxHealth
+	healthbar.value = $"../Player".health
+
+func _process(delta):
+	healthbar.value = $"../Player".health
 
 func pause():
 	$CanvasLayer/PauseMenu.show()

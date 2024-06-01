@@ -1,29 +1,29 @@
 extends CharacterBody3D
 
-
 const SPEED = 4.0
 const SPRINT_MULT = 1.5
 const JUMP_VELOCITY = 7
+const TILT_LOWER_LIMIT := deg_to_rad(-90.0)
+const TILT_UPPER_LIMIT := deg_to_rad(90.0)
 
-@export var TILT_LOWER_LIMIT := deg_to_rad(-90.0)
-@export var TILT_UPPER_LIMIT := deg_to_rad(90.0)
-@export var CAMERA_CONTROLLER : Camera3D
-
-var mouseInput : bool = false
 var sprinting : bool = false
+var health : float
+var maxHealth : float
+
+var holdingPrimary : bool = true
+var holdingHeavy : bool = false
+var leadTrigger : bool = false
+var primary
+var secondary
+var heavy
+
 var mouseRot : Vector3
 var rotInput : float
 var tiltInput : float
 var horizontalsens : float = 1.0
 var verticalsens : float = 1.0
 
-var holdingPrimary : bool = true
-var holdingHeavy : bool = false
-var primary
-var secondary
-var heavy
-
-var DEV_pos : Vector3
+#var DEV_pos : Vector3
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -37,20 +37,31 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
+	holdFireHeldGun()
 	pointGun()
 	move(delta)
 	updateCamera(delta)
 	
 	move_and_slide()
 
-func fireHeldGun():
+func holdFireHeldGun():
+	if leadTrigger:
+		if holdingHeavy:
+			heavy.heldFire()
+		else:
+			if holdingPrimary:
+				primary.heldFire()
+			else:
+				secondary.heldFire()
+
+func singleFireHeldGun():
 	if holdingHeavy:
-		heavy.fire()
+		heavy.singleFire()
 	else:
 		if holdingPrimary:
-			primary.fire()
+			primary.singleFire()
 		else:
-			secondary.fire()
+			secondary.singleFire()
 
 func move(delta):
 	# Handle jump.
@@ -100,11 +111,6 @@ func updateCamera(delta):
 	rotInput = 0.0
 	tiltInput = 0.0
 
-
-func setSens(x,y):
-	horizontalsens = x
-	verticalsens = y
-
 func swapWeapons():
 	if holdingHeavy:
 		if holdingPrimary:
@@ -116,9 +122,6 @@ func swapWeapons():
 			equipSecondary()
 		else:
 			equipPrimary()
-
-func swapHeavy():
-	equipHeavy()
 
 func equipPrimary():
 	holdingPrimary = true
@@ -137,6 +140,16 @@ func equipHeavy():
 	$CameraController/GunController/Weapon1.hide()
 	$CameraController/GunController/Weapon2.hide()
 	$CameraController/GunController/Weapon3.show()
+
+func setSens(x,y):
+	horizontalsens = x
+	verticalsens = y
+
+func setHealth(amount):
+	maxHealth = amount
+	health = amount
+func getHealth():
+	return health
 
 func setGuns(allThree):
 	match allThree[0]:
@@ -159,7 +172,7 @@ func setGuns(allThree):
 		equipPrimary()
 
 func _on_swap_button_timer_timeout():
-	swapHeavy()
+	equipHeavy()
 
 func _input(event):
 	if event.is_action_pressed("weapon_swap"):
@@ -169,10 +182,12 @@ func _input(event):
 		$SwapButtonTimer.stop()
 	
 	if event.is_action_pressed("fire"):
-		fireHeldGun()
+		singleFireHeldGun()
+		leadTrigger = true
+	elif event.is_action_released("fire"):
+		leadTrigger = false
 
 func _unhandled_input(event):
-	mouseInput = !Game.pauseCheck() and event is InputEventMouseMotion
-	if mouseInput:
+	if !Game.pauseCheck() and event is InputEventMouseMotion:
 		rotInput = -event.relative.x
 		tiltInput = -event.relative.y

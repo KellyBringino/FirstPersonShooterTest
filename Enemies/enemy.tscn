@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0hem5d3ho1dn"]
+[gd_scene load_steps=10 format=3 uid="uid://d0hem5d3ho1dn"]
 
 [ext_resource type="ArrayMesh" uid="uid://cnfey8w2vh5qx" path="res://Models/dummy_obj.obj" id="1_40vdc"]
 [ext_resource type="Texture2D" uid="uid://dtck2t5ukosyx" path="res://Models/dummy_wood.jpg" id="1_neysr"]
 [ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_qr6at"]
+[ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Sprites/health.svg" id="4_n2ayh"]
+[ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Sprites/bar back.svg" id="4_nf1n1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1t7xa"]
 
@@ -10,6 +12,9 @@
 albedo_texture = ExtResource("1_neysr")
 
 [sub_resource type="Skin" id="Skin_sen5a"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_xdtsg"]
+viewport_path = NodePath("Sprite3D/SubViewport")
 
 [node name="Enemy" type="CharacterBody3D"]
 editor_description = "Enemy"
@@ -30,3 +35,18 @@ material_override = SubResource("StandardMaterial3D_ol6x3")
 mesh = ExtResource("1_40vdc")
 skin = SubResource("Skin_sen5a")
 skeleton = NodePath("../..")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2.14703, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_xdtsg")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+size = Vector2i(760, 105)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Sprite3D/SubViewport"]
+offset_right = 756.0
+offset_bottom = 102.0
+value = 100.0
+texture_under = ExtResource("4_nf1n1")
+texture_progress = ExtResource("4_n2ayh")

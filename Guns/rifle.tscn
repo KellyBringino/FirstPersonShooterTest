@@ -15,3 +15,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.133079, -0.965736)
 [node name="ShootRay" type="RayCast3D" parent="BarrelEnd"]
 target_position = Vector3(0, 0, -50)
 collision_mask = 5
+
+[node name="ShotTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]
