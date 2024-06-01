@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://4ls3lt2ptfh0"]
+
+[ext_resource type="Script" path="res://Guns/rifle.gd" id="1_xgiiu"]
+[ext_resource type="ArrayMesh" uid="uid://d1ieu2re8xxlw" path="res://Models/rifle.obj" id="2_8rcnw"]
+
+[node name="Rifle" type="Node3D"]
+script = ExtResource("1_xgiiu")
+
+[node name="Rifle" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_8rcnw")
+
+[node name="BarrelEnd" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.133079, -0.965736)
+
+[node name="ShootRay" type="RayCast3D" parent="BarrelEnd"]
+target_position = Vector3(0, 0, -50)
+collision_mask = 5

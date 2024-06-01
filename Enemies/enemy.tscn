@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0hem5d3ho1dn"]
+
+[ext_resource type="ArrayMesh" uid="uid://cnfey8w2vh5qx" path="res://Models/dummy_obj.obj" id="1_40vdc"]
+[ext_resource type="Texture2D" uid="uid://dtck2t5ukosyx" path="res://Models/dummy_wood.jpg" id="1_neysr"]
+[ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_qr6at"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1t7xa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ol6x3"]
+albedo_texture = ExtResource("1_neysr")
+
+[sub_resource type="Skin" id="Skin_sen5a"]
+
+[node name="Enemy" type="CharacterBody3D"]
+editor_description = "Enemy"
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_qr6at")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_1t7xa")
+
+[node name="ModelController" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="DummyObj" type="MeshInstance3D" parent="ModelController"]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_ol6x3")
+mesh = ExtResource("1_40vdc")
+skin = SubResource("Skin_sen5a")
+skeleton = NodePath("../..")
