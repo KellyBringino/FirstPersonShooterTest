@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://d0hem5d3ho1dn"]
 
-[ext_resource type="ArrayMesh" uid="uid://cnfey8w2vh5qx" path="res://Models/dummy_obj.obj" id="1_40vdc"]
-[ext_resource type="Texture2D" uid="uid://dtck2t5ukosyx" path="res://Models/dummy_wood.jpg" id="1_neysr"]
+[ext_resource type="ArrayMesh" uid="uid://b1mgk0rh4chsd" path="res://Models/dummy_obj.obj" id="1_40vdc"]
+[ext_resource type="Texture2D" uid="uid://cx1ymn20prop4" path="res://Models/dummy_wood.jpg" id="1_neysr"]
 [ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_qr6at"]
 [ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Sprites/health.svg" id="4_n2ayh"]
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Sprites/bar back.svg" id="4_nf1n1"]

@@ -1,7 +1,7 @@
 extends Gun
 
 func _ready():
-	damage = 10
+	startup(300,10,10)
 
 func heldFire():
 	pass

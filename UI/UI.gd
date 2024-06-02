@@ -12,6 +12,9 @@ func _ready():
 
 func _process(delta):
 	healthbar.value = $"../Player".health
+	ammobar.max_value = $"../Player".heldGun.MAG_MAX
+	ammobar.value = $"../Player".heldGun.mag
+	ammocounter.text = "ammo:\n" + str($"../Player".heldGun.mag)
 
 func pause():
 	$CanvasLayer/PauseMenu.show()

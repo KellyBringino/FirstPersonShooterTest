@@ -38,7 +38,7 @@ func StartUI():
 func playerReady():
 	var player = $"../World/Player"
 	player.setSens(0.8,0.8)
-	player.setHealth(200.0)
+	player.setHealth(2000.0)
 	
 	if weapons[0] == GunType.RIFLE:
 		var rifle = rifleInstance.instantiate()

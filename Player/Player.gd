@@ -13,6 +13,7 @@ var maxHealth : float
 var holdingPrimary : bool = true
 var holdingHeavy : bool = false
 var leadTrigger : bool = false
+var heldGun
 var primary
 var secondary
 var heavy
@@ -37,31 +38,27 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
-	holdFireHeldGun()
 	pointGun()
-	move(delta)
-	updateCamera(delta)
+	
+	if !Game.pauseCheck():
+		holdFireHeldGun()
+		move(delta)
+		updateCamera(delta)
 	
 	move_and_slide()
 
 func holdFireHeldGun():
 	if leadTrigger:
-		if holdingHeavy:
-			heavy.heldFire()
-		else:
-			if holdingPrimary:
-				primary.heldFire()
-			else:
-				secondary.heldFire()
+		heldGun.heldFire()
 
 func singleFireHeldGun():
-	if holdingHeavy:
-		heavy.singleFire()
-	else:
-		if holdingPrimary:
-			primary.singleFire()
-		else:
-			secondary.singleFire()
+	heldGun.singleFire()
+
+func releaseFireHeldGun():
+	heldGun.releaseFire()
+
+func reloadHeldGun():
+	heldGun.reload()
 
 func move(delta):
 	# Handle jump.
@@ -124,22 +121,28 @@ func swapWeapons():
 			equipPrimary()
 
 func equipPrimary():
-	holdingPrimary = true
-	holdingHeavy = false
-	$CameraController/GunController/Weapon2.hide()
-	$CameraController/GunController/Weapon3.hide()
-	$CameraController/GunController/Weapon1.show()
+	if primary != null:
+		holdingPrimary = true
+		holdingHeavy = false
+		heldGun = primary
+		$CameraController/GunController/Weapon2.hide()
+		$CameraController/GunController/Weapon3.hide()
+		$CameraController/GunController/Weapon1.show()
 func equipSecondary():
-	holdingPrimary = false
-	holdingHeavy = false
-	$CameraController/GunController/Weapon1.hide()
-	$CameraController/GunController/Weapon3.hide()
-	$CameraController/GunController/Weapon2.show()
+	if secondary != null:
+		holdingPrimary = false
+		holdingHeavy = false
+		heldGun = secondary
+		$CameraController/GunController/Weapon1.hide()
+		$CameraController/GunController/Weapon3.hide()
+		$CameraController/GunController/Weapon2.show()
 func equipHeavy():
-	holdingHeavy = true
-	$CameraController/GunController/Weapon1.hide()
-	$CameraController/GunController/Weapon2.hide()
-	$CameraController/GunController/Weapon3.show()
+	if heavy != null:
+		holdingHeavy = true
+		heldGun = heavy
+		$CameraController/GunController/Weapon1.hide()
+		$CameraController/GunController/Weapon2.hide()
+		$CameraController/GunController/Weapon3.show()
 
 func setSens(x,y):
 	horizontalsens = x
@@ -175,17 +178,21 @@ func _on_swap_button_timer_timeout():
 	equipHeavy()
 
 func _input(event):
-	if event.is_action_pressed("weapon_swap"):
-		$SwapButtonTimer.start()
-		swapWeapons()
-	if event.is_action_released("weapon_swap"):
-		$SwapButtonTimer.stop()
-	
-	if event.is_action_pressed("fire"):
-		singleFireHeldGun()
-		leadTrigger = true
-	elif event.is_action_released("fire"):
-		leadTrigger = false
+	if !Game.pauseCheck():
+		if event.is_action_pressed("weapon_swap"):
+			$SwapButtonTimer.start()
+			swapWeapons()
+		if event.is_action_released("weapon_swap"):
+			$SwapButtonTimer.stop()
+		
+		if event.is_action_pressed("fire"):
+			singleFireHeldGun()
+			leadTrigger = true
+		elif event.is_action_released("fire"):
+			leadTrigger = false
+			
+		if event.is_action_pressed("reload"):
+			reloadHeldGun()
 
 func _unhandled_input(event):
 	if !Game.pauseCheck() and event is InputEventMouseMotion:

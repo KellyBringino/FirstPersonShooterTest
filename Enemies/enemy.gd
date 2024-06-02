@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
-var health = 200.0
+var health = 2000.0
 
-const MAX_HEALTH = 200.0
+const MAX_HEALTH = 2000.0
 const SPEED = 4.0
 const JUMP_VELOCITY = 4.5
 

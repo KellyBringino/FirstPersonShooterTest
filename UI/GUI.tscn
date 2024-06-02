@@ -21,6 +21,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="CrosshairCenterContainer" type="CenterContainer" parent="CanvasLayer/InGameGUI"]
+layout_mode = 0
 offset_left = 576.0
 offset_top = 324.0
 offset_right = 576.0
