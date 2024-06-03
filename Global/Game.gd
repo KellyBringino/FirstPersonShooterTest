@@ -49,6 +49,10 @@ func playerReady():
 		$"../World/Player/CameraController/GunController/Weapon2".add_child(pistol)
 	
 	player.setGuns(weapons)
+	$"../World/GUI".setWeapons(weapons)
+
+func equip(hea,pri):
+	$"../World/GUI".equip(hea,pri)
 
 func pauseCheck():
 	return paused

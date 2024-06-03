@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5gjr4qrdvma7"]
+[gd_scene load_steps=7 format=3 uid="uid://b5gjr4qrdvma7"]
 
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_81un3"]
 [ext_resource type="Texture2D" uid="uid://drchcncoxm6r2" path="res://Sprites/crosshair.svg" id="2_ekvqs"]
+[ext_resource type="PackedScene" uid="uid://bsjyb8wyeokxq" path="res://temp/selection_wheel.tscn" id="3_7ldfk"]
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Sprites/bar back.svg" id="3_mt0so"]
 [ext_resource type="Texture2D" uid="uid://crmjikty86roj" path="res://Sprites/circle bar.svg" id="3_wyimq"]
 [ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Sprites/health.svg" id="4_0u4fy"]
@@ -48,6 +49,13 @@ grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
 
+[node name="selection_wheel" parent="CanvasLayer/InGameGUI/AmmoContainer" instance=ExtResource("3_7ldfk")]
+layout_mode = 1
+offset_left = -74.0
+offset_top = -74.0
+offset_right = -34.0
+offset_bottom = -34.0
+
 [node name="AmmoController" type="Node2D" parent="CanvasLayer/InGameGUI/AmmoContainer"]
 position = Vector2(40, 40)
 scale = Vector2(0.5, 0.5)
@@ -66,10 +74,10 @@ value = 100.0
 fill_mode = 4
 texture_under = ExtResource("3_wyimq")
 texture_progress = ExtResource("3_wyimq")
-tint_under = Color(0, 0, 0, 0)
+tint_under = Color(1, 1, 1, 0)
 tint_progress = Color(0.380392, 0.380392, 0.380392, 1)
-radial_initial_angle = 220.0
-radial_fill_degrees = 151.1
+radial_initial_angle = 245.0
+radial_fill_degrees = 145.0
 
 [node name="AmmoCounter" type="Label" parent="CanvasLayer/InGameGUI/AmmoContainer/AmmoController"]
 anchors_preset = 3
@@ -100,7 +108,7 @@ grow_vertical = 0
 mouse_filter = 2
 
 [node name="HealthBarController" type="Node2D" parent="CanvasLayer/InGameGUI/HealthBarContainer"]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.5, 0.4)
 
 [node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer/InGameGUI/HealthBarContainer/HealthBarController"]
 anchors_preset = 2

@@ -128,6 +128,7 @@ func equipPrimary():
 		$CameraController/GunController/Weapon2.hide()
 		$CameraController/GunController/Weapon3.hide()
 		$CameraController/GunController/Weapon1.show()
+		Game.equip(holdingHeavy,holdingPrimary)
 func equipSecondary():
 	if secondary != null:
 		holdingPrimary = false
@@ -136,6 +137,7 @@ func equipSecondary():
 		$CameraController/GunController/Weapon1.hide()
 		$CameraController/GunController/Weapon3.hide()
 		$CameraController/GunController/Weapon2.show()
+		Game.equip(holdingHeavy,holdingPrimary)
 func equipHeavy():
 	if heavy != null:
 		holdingHeavy = true
@@ -143,6 +145,7 @@ func equipHeavy():
 		$CameraController/GunController/Weapon1.hide()
 		$CameraController/GunController/Weapon2.hide()
 		$CameraController/GunController/Weapon3.show()
+		Game.equip(holdingHeavy,holdingPrimary)
 
 func setSens(x,y):
 	horizontalsens = x

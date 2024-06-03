@@ -4,6 +4,10 @@ extends Node2D
 @onready var ammobar = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoBar
 @onready var ammocounter = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoCounter
 
+var weapons
+var holdingPri : bool = true
+var holdingHea : bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	unpause()
@@ -20,6 +24,22 @@ func pause():
 	$CanvasLayer/PauseMenu.show()
 func unpause():
 	$CanvasLayer/PauseMenu.hide()
+
+func setWeapons(w):
+	weapons = w
+	var pri = 0
+	var sec = 0
+	var hea = 0
+	if weapons[0] == Game.GunType.RIFLE:
+		pri = 1
+	if weapons[1] == Game.GunType.PISTOL:
+		sec = 1
+	$CanvasLayer/InGameGUI/AmmoContainer/selection_wheel.setWeapons(pri,sec,hea)
+
+func equip(hea,pri):
+	holdingHea = hea
+	holdingPri = pri
+	$CanvasLayer/InGameGUI/AmmoContainer/selection_wheel.equip(hea,pri)
 
 func _on_resume_button_pressed():
 	Game.resume()
