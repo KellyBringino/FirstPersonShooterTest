@@ -20,8 +20,11 @@ func fire():
 		anim.play("Shoot")
 		mag -= 1
 		var object = shootRay.get_collider()
+		if object.collision_layer == 16:
+			object = object.get_node("../")
 		if (object != null):
 			#print("hit a " + str(object))
+			#print(str(object.collision_layer))
 			if object.editor_description.contains("Enemy"):
 				object.hit(shootRay.get_collision_point(),damage)
 		chambered = false
