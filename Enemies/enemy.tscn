@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0hem5d3ho1dn"]
+[gd_scene load_steps=7 format=3 uid="uid://d0hem5d3ho1dn"]
 
 [ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_qr6at"]
-[ext_resource type="PackedScene" uid="uid://t7gjbrn433l" path="res://Models/doll.glb" id="2_c0nj7"]
+[ext_resource type="PackedScene" uid="uid://btblrptk4sci8" path="res://Models/doll.tscn" id="2_bfte6"]
 [ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Sprites/health.svg" id="4_n2ayh"]
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Sprites/bar back.svg" id="4_nf1n1"]
 
@@ -9,8 +9,6 @@
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_xdtsg"]
 viewport_path = NodePath("Sprite3D/SubViewport")
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_kpbdn"]
 
 [node name="Enemy" type="CharacterBody3D"]
 editor_description = "Enemy"
@@ -26,8 +24,7 @@ shape = SubResource("CapsuleShape3D_1t7xa")
 [node name="ModelController" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="doll" parent="ModelController" instance=ExtResource("2_c0nj7")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+[node name="doll" parent="ModelController" instance=ExtResource("2_bfte6")]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2.14703, 0)
@@ -43,11 +40,3 @@ offset_bottom = 102.0
 value = 100.0
 texture_under = ExtResource("4_nf1n1")
 texture_progress = ExtResource("4_n2ayh")
-
-[node name="Area3D" type="Area3D" parent="."]
-collision_layer = 16
-collision_mask = 16
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 1, 0)
-shape = SubResource("CylinderShape3D_kpbdn")

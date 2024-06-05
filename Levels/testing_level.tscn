@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://mp7msrg85bwo"]
+[gd_scene load_steps=9 format=3 uid="uid://mp7msrg85bwo"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_8n7cw"]
 [ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Player/Player.tscn" id="1_q3npf"]
 [ext_resource type="PackedScene" uid="uid://d0hem5d3ho1dn" path="res://Enemies/enemy.tscn" id="2_jvg7n"]
+[ext_resource type="PackedScene" uid="uid://bqvtyxpdghbsl" path="res://Models/battlefield1.glb" id="4_yuqeh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ea8a7"]
 
@@ -50,3 +51,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -8)
 
 [node name="Enemy2" parent="." instance=ExtResource("2_jvg7n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1)
+
+[node name="battlefield1" parent="." instance=ExtResource("4_yuqeh")]

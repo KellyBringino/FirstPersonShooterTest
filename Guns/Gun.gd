@@ -21,7 +21,7 @@ func fire():
 		mag -= 1
 		var object = shootRay.get_collider()
 		if object.collision_layer == 16:
-			object = object.get_node("../")
+			object = object.get_node("../../../../../")
 		if (object != null):
 			#print("hit a " + str(object))
 			#print(str(object.collision_layer))

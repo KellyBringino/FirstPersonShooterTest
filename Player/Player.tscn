@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dq3sqbqaxx6kc"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_c8ruj"]
-[ext_resource type="PackedScene" uid="uid://t7gjbrn433l" path="res://Models/doll.glb" id="2_x6hyk"]
+[ext_resource type="PackedScene" uid="uid://btblrptk4sci8" path="res://Models/doll.tscn" id="2_bncf3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gp11y"]
 
@@ -35,8 +35,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18532, -0.019666, -0.404361
 [node name="ModelController" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="doll" parent="ModelController" instance=ExtResource("2_x6hyk")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+[node name="doll2" parent="ModelController" instance=ExtResource("2_bncf3")]
 
 [node name="SwapButtonTimer" type="Timer" parent="."]
 one_shot = true
