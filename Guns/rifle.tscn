@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://4ls3lt2ptfh0"]
 
 [ext_resource type="Script" path="res://Guns/rifle.gd" id="1_xgiiu"]
-[ext_resource type="PackedScene" uid="uid://bbawoyb4stvdb" path="res://Models/riflescene.tscn" id="2_17fg7"]
+[ext_resource type="PackedScene" uid="uid://bbawoyb4stvdb" path="res://Models/Guns/riflescene.tscn" id="2_17fg7"]
 
 [node name="Rifle" type="Node3D"]
 script = ExtResource("1_xgiiu")

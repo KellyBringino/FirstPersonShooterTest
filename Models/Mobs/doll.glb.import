@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dar0hwttlqd1d"
-path="res://.godot/imported/rifle.glb-7c3d469b123546cf47b85a1297eab768.scn"
+uid="uid://t7gjbrn433l"
+path="res://.godot/imported/doll.glb-84f8cfd03827f39ec36a67bf3e0ded85.scn"
 
 [deps]
 
-source_file="res://Models/rifle.glb"
-dest_files=["res://.godot/imported/rifle.glb-7c3d469b123546cf47b85a1297eab768.scn"]
+source_file="res://Models/Mobs/doll.glb"
+dest_files=["res://.godot/imported/doll.glb-84f8cfd03827f39ec36a67bf3e0ded85.scn"]
 
 [params]
 

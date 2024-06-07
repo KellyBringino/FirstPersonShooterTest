@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d0hem5d3ho1dn"]
 
 [ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_qr6at"]
-[ext_resource type="PackedScene" uid="uid://btblrptk4sci8" path="res://Models/doll.tscn" id="2_bfte6"]
+[ext_resource type="PackedScene" uid="uid://btblrptk4sci8" path="res://Models/Mobs/enemydoll.tscn" id="2_bfte6"]
 [ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Sprites/health.svg" id="4_n2ayh"]
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Sprites/bar back.svg" id="4_nf1n1"]
 
@@ -40,3 +40,7 @@ offset_bottom = 102.0
 value = 100.0
 texture_under = ExtResource("4_nf1n1")
 texture_progress = ExtResource("4_n2ayh")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+radius = 0.7

@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://bbawoyb4stvdb"]
 
-[ext_resource type="Material" uid="uid://c6v6m61tsjjla" path="res://Models/blackGunMetal.tres" id="1_8t3dd"]
+[ext_resource type="Material" uid="uid://c6v6m61tsjjla" path="res://Models/Materials/blackGunMetal.tres" id="1_8t3dd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yiiq2"]
 resource_name = "Default OBJ"

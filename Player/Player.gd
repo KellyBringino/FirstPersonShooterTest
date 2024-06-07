@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 const SPEED = 4.0
-const SPRINT_MULT = 1.5
+const SPRINT_MULT = 2.0
 const JUMP_VELOCITY = 7
 const TILT_LOWER_LIMIT := deg_to_rad(-90.0)
 const TILT_UPPER_LIMIT := deg_to_rad(90.0)
@@ -93,9 +93,9 @@ func pointGun():
 
 func updateCamera(delta):
 	#find mouse movement
-	mouseRot.x += tiltInput * delta * 0.7 * verticalsens
+	mouseRot.x += tiltInput * delta * 0.5 * verticalsens
 	mouseRot.x = clamp(mouseRot.x, TILT_LOWER_LIMIT, TILT_UPPER_LIMIT)
-	mouseRot.y += rotInput * delta * 0.6 * horizontalsens
+	mouseRot.y += rotInput * delta * 0.4 * horizontalsens
 	#move camera up and down
 	CameraController.transform.basis = Basis.from_euler(mouseRot)
 	CameraController.rotation.y = 0.0
