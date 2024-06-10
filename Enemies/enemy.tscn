@@ -58,12 +58,12 @@ transform = Transform3D(10, 0, 0, 0, -8.74228e-07, -10, 0, 20, -4.37114e-07, 0, 
 visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="vision"]
-transform = Transform3D(10, 0, 0, 0, -8.74228e-07, -10, 0, 20, -4.37114e-07, 0, 0, 0)
+transform = Transform3D(15, 0, 0, 0, -1.74846e-06, -15, 0, 40, -6.55671e-07, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_ctnd0")
 
 [node name="LookRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89151, 0)
-target_position = Vector3(0, 0, -25)
+target_position = Vector3(0, 0, -50)
 collision_mask = 9
 collide_with_areas = true
 
@@ -71,6 +71,19 @@ collide_with_areas = true
 wait_time = 0.25
 autostart = true
 
+[node name="PatrolTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="DiscoverTimer" type="Timer" parent="."]
+
+[node name="MemoryTimer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
 [connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="vision" to="." method="_on_vision_body_exited"]
 [connection signal="timeout" from="LookCheck" to="." method="_on_look_check_timeout"]
+[connection signal="timeout" from="PatrolTimer" to="." method="_on_patrol_timer_timeout"]
+[connection signal="timeout" from="DiscoverTimer" to="." method="_on_discover_timer_timeout"]
+[connection signal="timeout" from="MemoryTimer" to="." method="_on_memory_timer_timeout"]
