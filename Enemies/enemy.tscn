@@ -1,14 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0hem5d3ho1dn"]
+[gd_scene load_steps=9 format=3 uid="uid://d0hem5d3ho1dn"]
 
 [ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_qr6at"]
 [ext_resource type="PackedScene" uid="uid://btblrptk4sci8" path="res://Models/Mobs/enemydoll.tscn" id="2_bfte6"]
 [ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Sprites/health.svg" id="4_n2ayh"]
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Sprites/bar back.svg" id="4_nf1n1"]
+[ext_resource type="PackedScene" uid="uid://t4fxq0m12mut" path="res://Models/cone.tscn" id="5_2fex8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1t7xa"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_xdtsg"]
 viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ctnd0"]
+points = PackedVector3Array(-9.78708e-05, 0, -9.78708e-05, 0.0974941, -1, -0.490407, -9.78708e-05, -1, -0.5, -0.097592, -1, -0.490407, -0.191366, -1, -0.46202, -0.2778, -1, -0.415818, -0.353563, -1, -0.353563, -0.415818, -1, -0.2778, -0.46202, -1, -0.191366, -0.490407, -1, -0.097592, -0.5, -1, -9.78708e-05, -0.490407, -1, 0.0974941, -0.46202, -1, 0.191269, -0.415818, -1, 0.277702, -0.353563, -1, 0.353465, -0.2778, -1, 0.41572, -0.191366, -1, 0.461922, -0.097592, -1, 0.490309, -9.78708e-05, -1, 0.5, 0.0974941, -1, 0.490309, 0.191269, -1, 0.461922, 0.277702, -1, 0.41572, 0.353465, -1, 0.353465, 0.41572, -1, 0.277702, 0.461922, -1, 0.191269, 0.490309, -1, 0.0974941, 0.499902, -1, -9.78708e-05, 0.490309, -1, -0.097592, 0.461922, -1, -0.191366, 0.41572, -1, -0.2778, 0.353465, -1, -0.353563, 0.277702, -1, -0.415818, 0.191269, -1, -0.46202)
 
 [node name="Enemy" type="CharacterBody3D"]
 editor_description = "Enemy"
@@ -18,7 +22,6 @@ script = ExtResource("1_qr6at")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-visible = false
 shape = SubResource("CapsuleShape3D_1t7xa")
 
 [node name="ModelController" type="Node3D" parent="."]
@@ -35,8 +38,8 @@ texture = SubResource("ViewportTexture_xdtsg")
 size = Vector2i(760, 105)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Sprite3D/SubViewport"]
-offset_right = 756.0
-offset_bottom = 102.0
+offset_right = 40.0
+offset_bottom = 40.0
 value = 100.0
 texture_under = ExtResource("4_nf1n1")
 texture_progress = ExtResource("4_n2ayh")
@@ -44,3 +47,30 @@ texture_progress = ExtResource("4_n2ayh")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 radius = 0.7
+
+[node name="vision" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89151, 0)
+collision_layer = 0
+collision_mask = 8
+
+[node name="Cone" parent="vision" instance=ExtResource("5_2fex8")]
+transform = Transform3D(10, 0, 0, 0, -8.74228e-07, -10, 0, 20, -4.37114e-07, 0, 0, 0)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="vision"]
+transform = Transform3D(10, 0, 0, 0, -8.74228e-07, -10, 0, 20, -4.37114e-07, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_ctnd0")
+
+[node name="LookRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89151, 0)
+target_position = Vector3(0, 0, -25)
+collision_mask = 9
+collide_with_areas = true
+
+[node name="LookCheck" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]
+[connection signal="body_exited" from="vision" to="." method="_on_vision_body_exited"]
+[connection signal="timeout" from="LookCheck" to="." method="_on_look_check_timeout"]

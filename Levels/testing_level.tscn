@@ -29,14 +29,14 @@ size = Vector3(20, 1, 20)
 [node name="GUI" parent="." instance=ExtResource("1_8n7cw")]
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32881, 0)
-collision_mask = 7
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5138, 1.32881, 0)
+collision_layer = 32
+collision_mask = 39
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("BoxShape3D_ea8a7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31874, 0, 0)
 mesh = SubResource("BoxMesh_wwsw3")
 
 [node name="Player" parent="." instance=ExtResource("1_q3npf")]
@@ -93,9 +93,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.1956, 4.13006, -8.94975)
 omni_range = 9.93915
 
 [node name="Enemies" type="Node3D" parent="."]
-
-[node name="Enemy" parent="Enemies" instance=ExtResource("2_jvg7n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -8)
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource("2_jvg7n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1)
