@@ -1,0 +1,31 @@
+start
+0 -> Idle
+
+Idle
+TimeToMove -> Patrolling
+SeePlayer -> Discovering
+
+Patrolling
+ReachedSpot -> Idle
+SeePlayer -> Discovering
+
+Discovering
+PlayerIsTooFar -> Chasing
+CantSeePlayer -> Chasing
+PlayerCloseEnough -> Shooting
+
+Chasing
+ReachLastKnownLocation -> Looking
+PlayerCloseEnough -> Shooting
+
+Looking
+CantFindPlayer -> Idle
+FindPlayer -> Discovering
+
+Shooting
+LoseSightOfPlayer -> Chasing
+NearCover -> Hiding
+PlayerTooFarAway -> Chasing
+
+Hiding
+HidForLongEnough -> Shooting
