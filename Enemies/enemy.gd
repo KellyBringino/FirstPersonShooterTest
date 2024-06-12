@@ -4,11 +4,12 @@ extends CharacterBody3D
 
 
 const MAX_HEALTH = 2000.0
-const RUN_SPEED = 4.0
+const RUN_SPEED = 1.0
 const WALK_SPEED = 2.0
 const JUMP_VELOCITY = 4.5
 const REACH_DIST = 0.5
 const SHOOT_DIST = 10.0
+const LOOK_SPIN = [180.0,135.0,225]
 
 enum state {IDLE, PATROLLING, DISCOVERING, CHASING, LOOKING, HIDING, SHOOTING}
 
@@ -42,8 +43,12 @@ func _physics_process(delta):
 		state.DISCOVERING:
 			pass
 		state.CHASING:
-			if see.size() > 0 && distanceCheck(lastKnowLoc):
+			if see.size() > 0 and distanceCheck(lastKnowLoc):
 				shoot()
+			elif see.size() == 0 and distanceCheck(lastKnowLoc):
+				look_at(player.position,Vector3.UP)
+				rotation.x = 0.0
+				rotation.z = 0.0
 			elif reached(lastKnowLoc):
 				look()
 			else:
@@ -66,6 +71,8 @@ func _physics_process(delta):
 	move_and_slide()
 
 func move(point):
+	velocity.x = 0
+	velocity.z = 0
 	if reached(point):
 		return
 	nav_agent.set_target_position(point)
@@ -163,3 +170,10 @@ func _on_memory_timer_timeout():
 	memory = false
 	if currentState == state.LOOKING:
 		idle()
+
+
+func _on_looking_timer_timeout():
+	if currentState == state.LOOKING:
+		var r = randi()%3
+		transform.basis = transform.basis.rotated(Vector3.UP, deg_to_rad(LOOK_SPIN[r]))
+		$LookingTimer.start()

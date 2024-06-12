@@ -2,4 +2,4 @@
 Prop3=19,11
 [InternetShortcut]
 IDList=
-URL=https://jimmyhmiller.github.io/fsm-maker/#start%0A0%20-%3E%20Idle%0A%0AIdle%0ATimeToMove%20-%3E%20Patrolling%0ASeePlayer%20-%3E%20Discovering%0A%0APatrolling%0AReachedSpot%20-%3E%20Idle%0ASeePlayer%20-%3E%20Discovering%0A%0ADiscovering%0APlayerIsTooFar%20-%3E
+URL=https://jimmyhmiller.github.io/fsm-maker/#%0A

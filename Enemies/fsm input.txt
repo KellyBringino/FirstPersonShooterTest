@@ -1,3 +1,4 @@
+
 start
 0 -> Idle
 
@@ -17,6 +18,11 @@ PlayerCloseEnough -> Shooting
 Chasing
 ReachLastKnownLocation -> Looking
 PlayerCloseEnough -> Shooting
+LoseSightOfPLayer -> TurnToLookAtPlayer
+
+TurnToLookAtPlayer
+SeePlayer -> Chasing
+CantSeePlayer -> Looking
 
 Looking
 CantFindPlayer -> Idle
