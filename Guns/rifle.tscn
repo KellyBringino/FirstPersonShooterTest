@@ -7,7 +7,7 @@
 script = ExtResource("1_xgiiu")
 
 [node name="BarrelEnd" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.133079, -0.965736)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.966)
 
 [node name="ShootRay" type="RayCast3D" parent="BarrelEnd"]
 target_position = Vector3(0, 0, -50)

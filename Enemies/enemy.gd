@@ -8,7 +8,7 @@ const RUN_SPEED = 4.0
 const WALK_SPEED = 2.0
 const JUMP_VELOCITY = 4.5
 const REACH_DIST = 0.5
-const SHOOT_DIST = 10.0
+const SHOOT_DIST = 15.0
 const SCAN_SPEED = 0.01
 const LOOK_SPIN = [180.0,135.0,225.0,90.0,270.0]
 
@@ -51,7 +51,8 @@ func _physics_process(delta):
 		state.CHASING:
 			if see.size() > 0 and distanceCheck(lastKnowLoc):
 				stateChange(state.SHOOTING)
-			elif see.size() == 0 and distanceCheck(player.global_transform.origin):
+			elif see.size() == 0 \
+			and distanceCheck(player.global_transform.origin):
 				look_at(player.position,Vector3.UP)
 				rotation.x = 0.0
 				rotation.z = 0.0
@@ -94,24 +95,24 @@ func move(point):
 	nav_agent.set_target_position(point)
 	var nextNavPoint = nav_agent.get_next_path_position()
 	if currentState == state.CHASING:
-		velocity = ((nextNavPoint - global_transform.origin) * Vector3(1,0,1)).normalized() * RUN_SPEED
+		velocity = ((nextNavPoint - global_transform.origin) \
+		* Vector3(1,0,1)).normalized() * RUN_SPEED
 	elif currentState == state.PATROLLING \
 	or currentState == state.IDLE \
 	or currentState == state.LOOKING:
-		velocity = ((nextNavPoint - global_transform.origin) * Vector3(1,0,1)).normalized() * WALK_SPEED
+		velocity = ((nextNavPoint - global_transform.origin) \
+		* Vector3(1,0,1)).normalized() * WALK_SPEED
 
 func scanning(delta):
 	if scanLeft:
 		scanDelta += delta
 		$ViewControl.rotation.y = lerp_angle($ViewControl.rotation.y,deg_to_rad(30.0),scanDelta * SCAN_SPEED)
-		print(rad_to_deg($ViewControl.rotation.y))
 		if $ViewControl.rotation.y >= deg_to_rad(29.0) and $ScanTimer.is_stopped():
 			scanDelta = 0.0
 			$ScanTimer.start() 
 	else:
 		scanDelta += delta
 		$ViewControl.rotation.y = lerp_angle($ViewControl.rotation.y,deg_to_rad(-30.0),scanDelta * SCAN_SPEED)
-		print(rad_to_deg($ViewControl.rotation.y))
 		if $ViewControl.rotation.y <= deg_to_rad(-29.0) and $ScanTimer.is_stopped():
 			scanDelta = 0.0
 			$ScanTimer.start()

@@ -10,7 +10,7 @@ script = ExtResource("1_xr2x7")
 visible = false
 
 [node name="BarrelEnd" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0936219, -0.251805)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.252)
 
 [node name="ShootRay" type="RayCast3D" parent="BarrelEnd"]
 target_position = Vector3(0, 0, -50)
