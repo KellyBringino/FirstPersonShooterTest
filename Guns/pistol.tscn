@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Guns/pistol.gd" id="1_xr2x7"]
 [ext_resource type="PackedScene" uid="uid://dkq3lxnbrqad" path="res://Models/Guns/pistolscene.tscn" id="3_hlukl"]
 
-[node name="Pistol" type="Node3D"]
+[node name="Gun" type="Node3D"]
 script = ExtResource("1_xr2x7")
 
 [node name="Pistol" type="MeshInstance3D" parent="."]
@@ -22,5 +22,8 @@ wait_time = 0.3
 one_shot = true
 
 [node name="model" parent="." instance=ExtResource("3_hlukl")]
+
+[node name="Grip" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101253, 0)
 
 [connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]

@@ -13,6 +13,7 @@ var maxHealth : float
 var holdingPrimary : bool = true
 var holdingHeavy : bool = false
 var leadTrigger : bool = false
+var crouching : bool = false
 var heldGun
 var primary
 var secondary
@@ -162,12 +163,12 @@ func setGuns(allThree):
 		Game.GunType.NONE:
 			primary = null
 		Game.GunType.RIFLE:
-			primary = $CameraController/GunController/Weapon1/Rifle
+			primary = $CameraController/GunController/Weapon1/Gun
 	match allThree[1]:
 		Game.GunType.NONE:
 			secondary = null
 		Game.GunType.PISTOL:
-			secondary = $CameraController/GunController/Weapon2/Pistol
+			secondary = $CameraController/GunController/Weapon2/Gun
 	match allThree[2]:
 		Game.GunType.NONE:
 			heavy = null
@@ -196,6 +197,11 @@ func _input(event):
 			
 		if event.is_action_pressed("reload"):
 			reloadHeldGun()
+			
+		if event.is_action_pressed("crouch"):
+			crouching = true
+		elif event.is_action_released("crouch"):
+			crouching = false
 
 func _unhandled_input(event):
 	if !Game.pauseCheck() and event is InputEventMouseMotion:

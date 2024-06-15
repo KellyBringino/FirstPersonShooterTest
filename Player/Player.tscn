@@ -25,7 +25,7 @@ target_position = Vector3(0, 0, -100)
 collision_mask = 17
 
 [node name="GunController" type="Node3D" parent="CameraController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18532, 0.070969, -0.404361)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18532, -0.019666, -0.404361)
 
 [node name="Weapon1" type="Node3D" parent="CameraController/GunController"]
 

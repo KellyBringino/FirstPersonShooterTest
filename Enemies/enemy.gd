@@ -1,6 +1,16 @@
 extends CharacterBody3D
 
 @onready var nav_agent : NavigationAgent3D = $NavigationAgent3D
+@onready var skl : Skeleton3D = $ModelController/doll/Armature/Skeleton3D
+@onready var headBone = skl.find_bone("head")
+@onready var leftStep = $StepTargetController/LeftStepRayCast/LeftStepTarget
+@onready var rightStep = $StepTargetController/RightStepRayCast/RightStepTarget
+@onready var lookTimer = $TimerController/LookCheck
+@onready var patTimer = $TimerController/PatrolTimer
+@onready var DisTimer = $TimerController/DiscoverTimer
+@onready var memTimer = $TimerController/MemoryTimer
+@onready var lookingTimer = $TimerController/LookingTimer
+@onready var scanTimer = $TimerController/ScanTimer
 
 
 const MAX_HEALTH = 2000.0
@@ -10,6 +20,7 @@ const JUMP_VELOCITY = 4.5
 const REACH_DIST = 0.5
 const SHOOT_DIST = 15.0
 const SCAN_SPEED = 0.01
+const STEP_DIS = 1.4
 const LOOK_SPIN = [180.0,135.0,225.0,90.0,270.0]
 
 enum state {IDLE, PATROLLING, DISCOVERING, CHASING, LOOKING, HIDING, SHOOTING}
@@ -32,12 +43,48 @@ func _ready():
 	$Sprite3D/SubViewport/TextureProgressBar.max_value = MAX_HEALTH
 	$Sprite3D/SubViewport/TextureProgressBar.value = health
 	player = $"../../Player"
+	$ModelController/doll/Armature/Skeleton3D/LeftArmIK.start()
+	$ModelController/doll/Armature/Skeleton3D/RightArmIK.start()
+	$ModelController/doll/Armature/Skeleton3D/LeftLegIK.start()
+	$ModelController/doll/Armature/Skeleton3D/RightLegIK.start()
 
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
+	$ModelController/doll/WeaponTarget.global_transform.origin \
+	= $ViewControl/vision/GunController/Weapon/Gun/Grip.global_transform.origin
+	
+	if(see.size() > 0):
+		$ViewControl.look_at(lastKnowLoc)
+		$ViewControl/vision/GunController/Weapon.look_at(lastKnowLoc)
+	
+	var headrot = Quaternion(Vector3.UP,$ViewControl.rotation.y)
+	skl.set_bone_pose_rotation(headBone,headrot)
+	
+	if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftStep.global_position)) > STEP_DIS:
+		stepL()
+	if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightStep.global_position)) > STEP_DIS:
+		stepR()
+	
+	handleStates(delta)
+	
+	if see.size() > 0:
+		look_at(lastKnowLoc,Vector3.UP)
+		rotation.x = 0.0
+		rotation.z = 0.0
+	
+	velocity.x = 0
+	velocity.z = 0
+	if currentState != state.IDLE \
+	and currentState != state.DISCOVERING \
+	and currentState != state.LOOKING \
+	and currentState != state.SHOOTING:
+		move(POI)
+	move_and_slide()
+
+func handleStates(delta):
 	match currentState:
 		state.IDLE:
 			scanning(delta)
@@ -73,20 +120,25 @@ func _physics_process(delta):
 				stateChange(state.CHASING)
 			else:
 				stopScanning()
+
+func stepL():
+	var ltarget_pos = leftStep.global_position
+	var lhalf = ($ModelController/doll/LeftLegTarget.global_position + ltarget_pos) /2
 	
-	if see.size() > 0:
-		look_at(lastKnowLoc,Vector3.UP)
-		rotation.x = 0.0
-		rotation.z = 0.0
+	var t = get_tree().create_tween()
+	t.set_parallel(true)
+	t.tween_property($ModelController/doll/LeftLegTarget, "global_position", ltarget_pos, 0.1)
+	t.tween_property($ModelController/doll/LeftLegTarget, "global_rotation", leftStep.global_rotation, 0.1)
+	t.set_parallel(false)
+func stepR():
+	var rtarget_pos = rightStep.global_position
+	var rhalf = ($ModelController/doll/RightLegTarget.global_position + rtarget_pos) /2
 	
-	velocity.x = 0
-	velocity.z = 0
-	if currentState != state.IDLE \
-	and currentState != state.DISCOVERING \
-	and currentState != state.LOOKING \
-	and currentState != state.SHOOTING:
-		move(POI)
-	move_and_slide()
+	var t = get_tree().create_tween()
+	t.set_parallel(true)
+	t.tween_property($ModelController/doll/RightLegTarget, "global_position", rtarget_pos, 0.1)
+	t.tween_property($ModelController/doll/RightLegTarget, "global_rotation", rightStep.global_rotation, 0.1)
+	t.set_parallel(false)
 
 func move(point):
 	if global_transform.origin.distance_to(point) <= (REACH_DIST/2.0):
@@ -107,15 +159,15 @@ func scanning(delta):
 	if scanLeft:
 		scanDelta += delta
 		$ViewControl.rotation.y = lerp_angle($ViewControl.rotation.y,deg_to_rad(30.0),scanDelta * SCAN_SPEED)
-		if $ViewControl.rotation.y >= deg_to_rad(29.0) and $ScanTimer.is_stopped():
+		if $ViewControl.rotation.y >= deg_to_rad(29.0) and scanTimer.is_stopped():
 			scanDelta = 0.0
-			$ScanTimer.start() 
+			scanTimer.start() 
 	else:
 		scanDelta += delta
 		$ViewControl.rotation.y = lerp_angle($ViewControl.rotation.y,deg_to_rad(-30.0),scanDelta * SCAN_SPEED)
-		if $ViewControl.rotation.y <= deg_to_rad(-29.0) and $ScanTimer.is_stopped():
+		if $ViewControl.rotation.y <= deg_to_rad(-29.0) and scanTimer.is_stopped():
 			scanDelta = 0.0
-			$ScanTimer.start()
+			scanTimer.start()
 func stopScanning():
 	scanDelta = 0.0
 	$ViewControl.rotation.y = 0.0
@@ -143,7 +195,7 @@ func stateChange(nState):
 		state.DISCOVERING:
 			currentState = state.DISCOVERING
 			suspicious = true
-			$DiscoverTimer.start() 
+			DisTimer.start() 
 			print("discovering now")
 		state.CHASING:
 			currentState = state.CHASING
@@ -151,7 +203,7 @@ func stateChange(nState):
 			print("chasing now, lkl is " + str(lastKnowLoc))
 		state.LOOKING:
 			currentState = state.LOOKING
-			$LookingTimer.start()
+			lookingTimer.start()
 			suspicious = true
 			print("looking now, distance is " + str(global_transform.origin.distance_to(POI)))
 		state.SHOOTING:
@@ -184,17 +236,18 @@ func _on_vision_body_exited(body):
 
 func _on_look_check_timeout():
 	see = []
-	for v in vision:
-		$LookRay.look_at(v.global_transform.origin, Vector3.UP)
-		$LookRay.force_raycast_update()
-		if $LookRay.is_colliding():
-			var collider = $LookRay.get_collider()
-			if collider == v:
-				see.append(v)
+	if !player.crouching:
+		for v in vision:
+			$LookRay.look_at(v.global_transform.origin, Vector3.UP)
+			$LookRay.force_raycast_update()
+			if $LookRay.is_colliding():
+				var collider = $LookRay.get_collider()
+				if collider == v:
+					see.append(v)
 	
 	if see.size() > 0:
 		memory = true
-		$MemoryTimer.start()
+		memTimer.start()
 		if currentState == state.IDLE \
 		or currentState == state.PATROLLING \
 		or currentState == state.LOOKING:
@@ -227,7 +280,7 @@ func _on_looking_timer_timeout():
 	if currentState == state.LOOKING:
 		var r = randi()%3
 		transform.basis = transform.basis.rotated(Vector3.UP, deg_to_rad(LOOK_SPIN[r]))
-		$LookingTimer.start()
+		lookingTimer.start()
 
 
 func _on_scan_timer_timeout():

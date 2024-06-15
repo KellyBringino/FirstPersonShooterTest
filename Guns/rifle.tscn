@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Guns/rifle.gd" id="1_xgiiu"]
 [ext_resource type="PackedScene" uid="uid://bbawoyb4stvdb" path="res://Models/Guns/riflescene.tscn" id="2_17fg7"]
 
-[node name="Rifle" type="Node3D"]
+[node name="Gun" type="Node3D"]
 script = ExtResource("1_xgiiu")
 
 [node name="BarrelEnd" type="Node3D" parent="."]
@@ -19,5 +19,8 @@ wait_time = 0.2
 one_shot = true
 
 [node name="model" parent="." instance=ExtResource("2_17fg7")]
+
+[node name="Grip" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.148568, 0)
 
 [connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]
