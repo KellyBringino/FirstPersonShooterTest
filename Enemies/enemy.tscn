@@ -48,24 +48,32 @@ texture_progress = ExtResource("4_n2ayh")
 avoidance_enabled = true
 radius = 0.7
 
-[node name="vision" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89151, 0)
-collision_layer = 0
-collision_mask = 8
-
-[node name="Cone" parent="vision" instance=ExtResource("5_2fex8")]
-transform = Transform3D(10, 0, 0, 0, -8.74228e-07, -10, 0, 20, -4.37114e-07, 0, 0, 0)
-visible = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="vision"]
-transform = Transform3D(70, 0, 0, 0, -4.37114e-07, -70, 0, 10, -3.0598e-06, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_ctnd0")
-
 [node name="LookRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89151, 0)
 target_position = Vector3(0, 0, -80)
 collision_mask = 9
 collide_with_areas = true
+
+[node name="ViewControl" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70172, 0)
+
+[node name="vision" type="Area3D" parent="ViewControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.173085, 0)
+collision_layer = 0
+collision_mask = 8
+
+[node name="Cone" parent="ViewControl/vision" instance=ExtResource("5_2fex8")]
+transform = Transform3D(10, 0, 0, 0, -8.74228e-07, -10, 0, 20, -4.37114e-07, 0, 0, 0)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewControl/vision"]
+transform = Transform3D(70, 0, 0, 0, -3.0598e-06, -70, 0, 70, -3.0598e-06, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_ctnd0")
+
+[node name="GunController" type="Node3D" parent="ViewControl/vision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18532, -0.127866, -0.404361)
+
+[node name="Weapon" type="Node3D" parent="ViewControl/vision/GunController"]
 
 [node name="LookCheck" type="Timer" parent="."]
 wait_time = 0.25
@@ -79,7 +87,7 @@ one_shot = true
 one_shot = true
 
 [node name="MemoryTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 60.0
 one_shot = true
 
 [node name="LookingTimer" type="Timer" parent="."]
@@ -87,10 +95,14 @@ wait_time = 3.0
 one_shot = true
 autostart = true
 
-[connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]
-[connection signal="body_exited" from="vision" to="." method="_on_vision_body_exited"]
+[node name="ScanTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="ViewControl/vision" to="." method="_on_vision_body_entered"]
+[connection signal="body_exited" from="ViewControl/vision" to="." method="_on_vision_body_exited"]
 [connection signal="timeout" from="LookCheck" to="." method="_on_look_check_timeout"]
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_patrol_timer_timeout"]
 [connection signal="timeout" from="DiscoverTimer" to="." method="_on_discover_timer_timeout"]
 [connection signal="timeout" from="MemoryTimer" to="." method="_on_memory_timer_timeout"]
 [connection signal="timeout" from="LookingTimer" to="." method="_on_looking_timer_timeout"]
+[connection signal="timeout" from="ScanTimer" to="." method="_on_scan_timer_timeout"]
