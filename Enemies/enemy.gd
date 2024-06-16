@@ -18,7 +18,7 @@ const RUN_SPEED = 4.0
 const WALK_SPEED = 2.0
 const JUMP_VELOCITY = 4.5
 const REACH_DIST = 0.5
-const SHOOT_DIST = 15.0
+const SHOOT_DIST = 2.0
 const SCAN_SPEED = 0.01
 const STEP_DIS = 1.4
 const LOOK_SPIN = [180.0,135.0,225.0,90.0,270.0]
@@ -36,6 +36,7 @@ var see : Array = []
 var memory : bool = false
 var scanLeft : bool = false
 var suspicious : bool = false
+var leftFootNext : bool = false
 var player
 
 func _ready():
@@ -63,10 +64,12 @@ func _physics_process(delta):
 	var headrot = Quaternion(Vector3.UP,$ViewControl.rotation.y)
 	skl.set_bone_pose_rotation(headBone,headrot)
 	
-	if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftStep.global_position)) > STEP_DIS:
-		stepL()
-	if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightStep.global_position)) > STEP_DIS:
-		stepR()
+	if leftFootNext:
+		if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftStep.global_position)) > STEP_DIS:
+			stepL()
+	else:
+		if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightStep.global_position)) > STEP_DIS:
+			stepR()
 	
 	handleStates(delta)
 	
@@ -130,6 +133,7 @@ func stepL():
 	t.tween_property($ModelController/doll/LeftLegTarget, "global_position", ltarget_pos, 0.1)
 	t.tween_property($ModelController/doll/LeftLegTarget, "global_rotation", leftStep.global_rotation, 0.1)
 	t.set_parallel(false)
+	leftFootNext = false
 func stepR():
 	var rtarget_pos = rightStep.global_position
 	var rhalf = ($ModelController/doll/RightLegTarget.global_position + rtarget_pos) /2
@@ -139,6 +143,7 @@ func stepR():
 	t.tween_property($ModelController/doll/RightLegTarget, "global_position", rtarget_pos, 0.1)
 	t.tween_property($ModelController/doll/RightLegTarget, "global_rotation", rightStep.global_rotation, 0.1)
 	t.set_parallel(false)
+	leftFootNext = true
 
 func move(point):
 	if global_transform.origin.distance_to(point) <= (REACH_DIST/2.0):
