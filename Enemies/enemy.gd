@@ -146,8 +146,8 @@ func stepL(step):
 	var t = get_tree().create_tween()
 	t.tween_property($ModelController/doll/LeftLegTarget,"global_position", lhalf + $ModelController/doll/LeftLegTarget.owner.basis.y, 0.1)
 	t.set_parallel(true)
-	t.tween_property($ModelController/doll/LeftLegTarget, "global_position", ltarget_pos, 0.1)
-	t.tween_property($ModelController/doll/LeftLegTarget, "global_rotation", step.global_rotation, 0.1)
+	t.tween_property($ModelController/doll/LeftLegTarget, "global_position", ltarget_pos, 0.5)
+	t.tween_property($ModelController/doll/LeftLegTarget, "global_rotation", step.global_rotation, 0.5)
 	t.set_parallel(false)
 	t.tween_callback(func(): leftStepNext = false)
 func stepR(step):

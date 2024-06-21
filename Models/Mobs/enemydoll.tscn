@@ -869,7 +869,7 @@ mesh = SubResource("ArrayMesh_eqlof")
 skeleton = NodePath("")
 
 [node name="Physical Bone handL" type="PhysicalBone3D" parent="Armature/Skeleton3D/hands"]
-transform = Transform3D(-3.37737, -0.256645, -0.0860179, 0.0754875, -0.997082, 0.00976335, -0.0260269, 0.00780524, 0.999872, -0.00210913, 0.0383186, 0.0246996)
+transform = Transform3D(-3.37737, -0.256645, -0.0860173, 0.0754875, -0.997082, 0.00976314, -0.0260267, 0.00780501, 0.999872, -0.00210945, 0.0383186, 0.0247006)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -896,7 +896,7 @@ mesh = SubResource("ArrayMesh_k3d86")
 skeleton = NodePath("")
 
 [node name="Physical Bone forearmL" type="PhysicalBone3D" parent="Armature/Skeleton3D/forearms"]
-transform = Transform3D(1, -1.04249e-06, -2.01478e-06, 3.22849e-06, 0.992458, -0.122661, 3.46538e-06, 0.0882128, 0.71372, -0.000600846, 0.000493288, -0.0121261)
+transform = Transform3D(1, -1.04633e-06, -1.81061e-06, 3.2314e-06, 0.992458, -0.122661, 3.31981e-06, 0.0882132, 0.71372, -0.00060105, 0.000493288, -0.0121254)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -923,7 +923,7 @@ mesh = SubResource("ArrayMesh_uh3ea")
 skeleton = NodePath("")
 
 [node name="Physical Bone bicepL" type="PhysicalBone3D" parent="Armature/Skeleton3D/bicepts_001"]
-transform = Transform3D(0.999995, -0.000610036, 0.0137869, -7.72249e-05, 1.00034, 0.0489941, -0.00992036, -0.0352384, 0.71824, -0.001195, -0.00436091, -0.0117709)
+transform = Transform3D(0.999995, -0.000610079, 0.0137871, -7.72074e-05, 1.00034, 0.0489936, -0.0099205, -0.035238, 0.71824, -0.00119511, -0.00436091, -0.0117709)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -950,7 +950,7 @@ mesh = SubResource("ArrayMesh_kno5j")
 skeleton = NodePath("")
 
 [node name="Physical Bone handR" type="PhysicalBone3D" parent="Armature/Skeleton3D/hands_001"]
-transform = Transform3D(3.37983, -0.256846, -0.0859931, -0.0755296, -1.00045, 0.00973256, -0.0260401, -0.00781859, -1.00045, -0.00211924, 0.00024116, -0.0246817)
+transform = Transform3D(3.37983, -0.256846, -0.0859909, -0.0755296, -1.00045, 0.009734, -0.0260396, -0.00782007, -1.00045, -0.00212156, 0.00024116, -0.0246817)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -977,7 +977,7 @@ mesh = SubResource("ArrayMesh_3v1ru")
 skeleton = NodePath("")
 
 [node name="Physical Bone forearmR" type="PhysicalBone3D" parent="Armature/Skeleton3D/forearms_001"]
-transform = Transform3D(1.00006, -7.85012e-07, 3.56357e-05, -1.91946e-06, -0.992596, -0.122666, -3.68429e-06, 0.0882359, -0.713792, -0.00191918, 0.00052619, 0.0121147)
+transform = Transform3D(1.00006, -8.49118e-07, 3.63464e-05, -1.99635e-06, -0.992596, -0.122665, -3.20047e-06, 0.0882351, -0.713792, -0.0019197, 0.000526071, 0.0121147)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -1004,7 +1004,7 @@ mesh = SubResource("ArrayMesh_8y5sb")
 skeleton = NodePath("")
 
 [node name="Physical Bone bicepR" type="PhysicalBone3D" parent="Armature/Skeleton3D/bicepts"]
-transform = Transform3D(0.999905, 0.000584704, 0.0137275, -7.29821e-05, -0.998879, 0.0491242, 0.00992315, -0.0352285, -0.720086, -0.00123181, -0.00438035, 0.011772)
+transform = Transform3D(0.999905, 0.000584762, 0.0137282, -7.30765e-05, -0.998879, 0.0491254, 0.00992364, -0.0352293, -0.720086, -0.00123212, -0.00438035, 0.0117713)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -1031,7 +1031,7 @@ mesh = SubResource("ArrayMesh_iowba")
 skeleton = NodePath("")
 
 [node name="Physical Bone head" type="PhysicalBone3D" parent="Armature/Skeleton3D/head_2"]
-transform = Transform3D(1, -3.20064e-10, 7.3748e-07, 7.82174e-07, -8.64035e-07, -1.00001, -2.36789e-09, 1.00001, 3.0035e-08, -1.26833e-07, -0.0622165, -2.38969e-07)
+transform = Transform3D(1, 2.98463e-11, -7.58558e-09, -7.58757e-09, -8.64267e-07, -1.00001, -2.25273e-09, 1.00001, 2.98023e-08, -3.83352e-10, -0.0622165, -2.3878e-07)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -1068,7 +1068,7 @@ mesh = SubResource("ArrayMesh_3iynu")
 skeleton = NodePath("")
 
 [node name="Physical Bone footR" type="PhysicalBone3D" parent="Armature/Skeleton3D/feet"]
-transform = Transform3D(0.0827942, 0.40424, -0.91795, -0.531684, 0.809333, 0.293118, 0.836684, 0.470882, 0.278621, -0.110297, 0.0147643, 0.00727727)
+transform = Transform3D(0.0827939, 0.404241, -0.917948, -0.531683, 0.809333, 0.29312, 0.836685, 0.47088, 0.278622, -0.110297, 0.0147648, 0.00727834)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -1095,7 +1095,7 @@ mesh = SubResource("ArrayMesh_f1hv3")
 skeleton = NodePath("")
 
 [node name="Physical Bone calfR" type="PhysicalBone3D" parent="Armature/Skeleton3D/calves"]
-transform = Transform3D(0.999736, -0.000876619, 0.0335163, -0.0334154, -0.112903, 0.993173, 0.00205543, -0.714589, -0.0811857, -0.0542964, -0.0532184, 0.00482764)
+transform = Transform3D(0.999736, -0.000877386, 0.0335165, -0.0334156, -0.112904, 0.993173, 0.00205491, -0.714589, -0.0811867, -0.0542966, -0.0532183, 0.00482844)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -1122,7 +1122,7 @@ mesh = SubResource("ArrayMesh_62doo")
 skeleton = NodePath("")
 
 [node name="Physical Bone thighR" type="PhysicalBone3D" parent="Armature/Skeleton3D/thighs"]
-transform = Transform3D(0.96812, 0.000490448, 0.202942, -0.201487, -0.0526925, 0.977893, 0.00795694, -0.718199, -0.0370591, -0.0360429, -0.0169482, 0.00311587)
+transform = Transform3D(0.96812, 0.000489688, 0.202942, -0.201487, -0.0526935, 0.977893, 0.0079566, -0.718199, -0.0370602, -0.036043, -0.0169482, 0.00311591)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -1149,7 +1149,7 @@ mesh = SubResource("ArrayMesh_juspy")
 skeleton = NodePath("")
 
 [node name="Physical Bone footL" type="PhysicalBone3D" parent="Armature/Skeleton3D/feet_001"]
-transform = Transform3D(-0.0828062, 0.389698, -0.916126, 0.531726, 0.794953, 0.292449, 0.842869, -0.452609, -0.274164, -0.112016, 0.0148493, -0.00349267)
+transform = Transform3D(-0.0828048, 0.3897, -0.916125, 0.531725, 0.794953, 0.292452, 0.842869, -0.452608, -0.274164, -0.112017, 0.0148495, -0.00349368)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -1176,7 +1176,7 @@ mesh = SubResource("ArrayMesh_efs0i")
 skeleton = NodePath("")
 
 [node name="Physical Bone calfL" type="PhysicalBone3D" parent="Armature/Skeleton3D/calves_001"]
-transform = Transform3D(0.990752, 0.000888205, 0.0335781, -0.033632, 0.113523, 0.99984, -0.00202292, -0.714547, 0.0809341, -0.0542762, -0.0530715, -0.00461483)
+transform = Transform3D(0.990752, 0.000888447, 0.0335796, -0.0336333, 0.113525, 0.99984, -0.00202283, -0.714547, 0.0809352, -0.0542773, -0.0530715, -0.00461561)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -1203,7 +1203,7 @@ mesh = SubResource("ArrayMesh_6btbr")
 skeleton = NodePath("")
 
 [node name="Physical Bone thighL" type="PhysicalBone3D" parent="Armature/Skeleton3D/thighs_001"]
-transform = Transform3D(0.979434, -0.000420823, 0.203002, -0.20265, 0.0523122, 0.978343, -0.00798385, -0.718185, 0.0367478, -0.036036, -0.0169159, -0.00305901)
+transform = Transform3D(0.979434, -0.000420681, 0.203003, -0.202652, 0.0523135, 0.978343, -0.00798394, -0.718185, 0.0367488, -0.0360364, -0.0169159, -0.00305904)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
