@@ -3,8 +3,12 @@ extends CharacterBody3D
 @onready var nav_agent : NavigationAgent3D = $NavigationAgent3D
 @onready var skl : Skeleton3D = $ModelController/doll/Armature/Skeleton3D
 @onready var headBone = skl.find_bone("head")
-@onready var leftStep = $StepTargetController/LeftStepRayCast/LeftStepTarget
-@onready var rightStep = $StepTargetController/RightStepRayCast/RightStepTarget
+@onready var leftSprint = $StepTargetController/LeftSprintRayCast/LeftStepTarget
+@onready var rightSprint = $StepTargetController/RightSprintRayCast/RightStepTarget
+@onready var leftWalk = $StepTargetController/LeftWalkRayCast/LeftStepTarget
+@onready var rightWalk = $StepTargetController/RightWalkRayCast/RightStepTarget
+@onready var leftStand = $StepTargetController/LeftStandRayCast/LeftStepTarget
+@onready var rightStand = $StepTargetController/RightStandRayCast/RightStepTarget
 @onready var lookTimer = $TimerController/LookCheck
 @onready var patTimer = $TimerController/PatrolTimer
 @onready var DisTimer = $TimerController/DiscoverTimer
@@ -12,15 +16,16 @@ extends CharacterBody3D
 @onready var lookingTimer = $TimerController/LookingTimer
 @onready var scanTimer = $TimerController/ScanTimer
 
-
 const MAX_HEALTH = 2000.0
-const RUN_SPEED = 4.0
+const RUN_SPEED = 1.0
 const WALK_SPEED = 2.0
 const JUMP_VELOCITY = 4.5
 const REACH_DIST = 0.5
-const SHOOT_DIST = 15.0
+const SHOOT_DIST = 4.0
 const SCAN_SPEED = 0.01
-const STEP_DIS = 1.4
+const SPRINT_STEP_DIS = 1.4
+const WALK_STEP_DIS = 0.7
+const STAND_STEP_DIS = 0.2
 const LOOK_SPIN = [180.0,135.0,225.0,90.0,270.0]
 
 enum state {IDLE, PATROLLING, DISCOVERING, CHASING, LOOKING, HIDING, SHOOTING}
@@ -36,6 +41,7 @@ var see : Array = []
 var memory : bool = false
 var scanLeft : bool = false
 var suspicious : bool = false
+var leftStepNext : bool = false
 var player
 
 func _ready():
@@ -63,10 +69,22 @@ func _physics_process(delta):
 	var headrot = Quaternion(Vector3.UP,$ViewControl.rotation.y)
 	skl.set_bone_pose_rotation(headBone,headrot)
 	
-	if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftStep.global_position)) > STEP_DIS:
-		stepL()
-	if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightStep.global_position)) > STEP_DIS:
-		stepR()
+	match currentState:
+		state.IDLE, state.DISCOVERING, state.LOOKING, state.SHOOTING:
+			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftStand.global_position)) > STAND_STEP_DIS && leftStepNext:
+				stepL(leftStand)
+			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightStand.global_position)) > STAND_STEP_DIS && !leftStepNext:
+				stepR(rightStand)
+		state.PATROLLING:
+			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftWalk.global_position)) > WALK_STEP_DIS && leftStepNext:
+				stepL(leftWalk)
+			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightWalk.global_position)) > WALK_STEP_DIS && !leftStepNext:
+				stepR(rightWalk)
+		state.CHASING:
+			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftSprint.global_position)) > SPRINT_STEP_DIS && leftStepNext:
+				stepL(leftSprint)
+			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightSprint.global_position)) > SPRINT_STEP_DIS && !leftStepNext:
+				stepR(rightSprint)
 	
 	handleStates(delta)
 	
@@ -121,24 +139,28 @@ func handleStates(delta):
 			else:
 				stopScanning()
 
-func stepL():
-	var ltarget_pos = leftStep.global_position
-	var lhalf = ($ModelController/doll/LeftLegTarget.global_position + ltarget_pos) /2
+func stepL(step):
+	var ltarget_pos = step.global_position
+	var lhalf = ($ModelController/doll/LeftLegTarget.global_position + step.global_position) /2
 	
 	var t = get_tree().create_tween()
+	t.tween_property($ModelController/doll/LeftLegTarget,"global_position", lhalf + $ModelController/doll/LeftLegTarget.owner.basis.y, 0.1)
 	t.set_parallel(true)
 	t.tween_property($ModelController/doll/LeftLegTarget, "global_position", ltarget_pos, 0.1)
-	t.tween_property($ModelController/doll/LeftLegTarget, "global_rotation", leftStep.global_rotation, 0.1)
+	t.tween_property($ModelController/doll/LeftLegTarget, "global_rotation", step.global_rotation, 0.1)
 	t.set_parallel(false)
-func stepR():
-	var rtarget_pos = rightStep.global_position
+	t.tween_callback(func(): leftStepNext = false)
+func stepR(step):
+	var rtarget_pos = step.global_position
 	var rhalf = ($ModelController/doll/RightLegTarget.global_position + rtarget_pos) /2
 	
 	var t = get_tree().create_tween()
+	t.tween_property($ModelController/doll/RightLegTarget,"global_position", rhalf + $ModelController/doll/RightLegTarget.owner.basis.y, 0.1)
 	t.set_parallel(true)
-	t.tween_property($ModelController/doll/RightLegTarget, "global_position", rtarget_pos, 0.1)
-	t.tween_property($ModelController/doll/RightLegTarget, "global_rotation", rightStep.global_rotation, 0.1)
+	t.tween_property($ModelController/doll/RightLegTarget, "global_position", rtarget_pos, 0.5)
+	t.tween_property($ModelController/doll/RightLegTarget, "global_rotation", step.global_rotation, 0.5)
 	t.set_parallel(false)
+	t.tween_callback(func(): leftStepNext = true)
 
 func move(point):
 	if global_transform.origin.distance_to(point) <= (REACH_DIST/2.0):

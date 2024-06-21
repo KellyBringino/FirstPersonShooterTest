@@ -128,20 +128,52 @@ one_shot = true
 [node name="StepTargetController" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="RightStepRayCast" type="RayCast3D" parent="StepTargetController"]
+[node name="RightSprintRayCast" type="RayCast3D" parent="StepTargetController"]
 transform = Transform3D(1, 0, 2.74655e-09, 1.86265e-08, -1.49012e-08, 1, 0, -1, -4.8434e-08, -0.155, 0.5, 0.7)
 target_position = Vector3(0, 0, -1)
 script = SubResource("GDScript_sa0ua")
 
-[node name="RightStepTarget" type="Node3D" parent="StepTargetController/RightStepRayCast"]
+[node name="RightStepTarget" type="Node3D" parent="StepTargetController/RightSprintRayCast"]
 transform = Transform3D(0.0449435, -0.254887, -0.965926, 0.167731, -0.951251, 0.258819, -0.984808, -0.173648, -4.2222e-08, 0, 2.98023e-08, -0.5)
 
-[node name="LeftStepRayCast" type="RayCast3D" parent="StepTargetController"]
+[node name="LeftSprintRayCast" type="RayCast3D" parent="StepTargetController"]
 transform = Transform3D(1, -8.9407e-08, -1.88775e-08, 0, 0, 1, 0, -1, 2.67405e-08, 0.155, 0.5, 0.7)
 target_position = Vector3(0, 0, -1)
 script = SubResource("GDScript_1nrij")
 
-[node name="LeftStepTarget" type="Node3D" parent="StepTargetController/LeftStepRayCast"]
+[node name="LeftStepTarget" type="Node3D" parent="StepTargetController/LeftSprintRayCast"]
+transform = Transform3D(-0.0449434, 0.254887, -0.965926, 0.167731, -0.951251, -0.258819, -0.984808, -0.173648, -4.2222e-08, -1.49012e-08, 0, -0.5)
+
+[node name="RightWalkRayCast" type="RayCast3D" parent="StepTargetController"]
+transform = Transform3D(1, 0, 2.74655e-09, 1.86265e-08, -1.49012e-08, 1, 0, -1, -4.8434e-08, -0.155, 0.5, 0.4)
+target_position = Vector3(0, 0, -1)
+script = SubResource("GDScript_sa0ua")
+
+[node name="RightStepTarget" type="Node3D" parent="StepTargetController/RightWalkRayCast"]
+transform = Transform3D(0.0449435, -0.254887, -0.965926, 0.167731, -0.951251, 0.258819, -0.984808, -0.173648, -4.2222e-08, 0, 2.98023e-08, -0.5)
+
+[node name="LeftWalkRayCast" type="RayCast3D" parent="StepTargetController"]
+transform = Transform3D(1, -8.9407e-08, -1.88775e-08, 0, 0, 1, 0, -1, 2.67405e-08, 0.155, 0.5, 0.4)
+target_position = Vector3(0, 0, -1)
+script = SubResource("GDScript_1nrij")
+
+[node name="LeftStepTarget" type="Node3D" parent="StepTargetController/LeftWalkRayCast"]
+transform = Transform3D(-0.0449434, 0.254887, -0.965926, 0.167731, -0.951251, -0.258819, -0.984808, -0.173648, -4.2222e-08, -1.49012e-08, 0, -0.5)
+
+[node name="RightStandRayCast" type="RayCast3D" parent="StepTargetController"]
+transform = Transform3D(1, 0, 2.74655e-09, 1.86265e-08, -1.49012e-08, 1, 0, -1, -4.8434e-08, -0.155, 0.5, 0)
+target_position = Vector3(0, 0, -1)
+script = SubResource("GDScript_sa0ua")
+
+[node name="RightStepTarget" type="Node3D" parent="StepTargetController/RightStandRayCast"]
+transform = Transform3D(0.0449435, -0.254887, -0.965926, 0.167731, -0.951251, 0.258819, -0.984808, -0.173648, -4.2222e-08, 0, 2.98023e-08, -0.5)
+
+[node name="LeftStandRayCast" type="RayCast3D" parent="StepTargetController"]
+transform = Transform3D(1, -8.9407e-08, -1.88775e-08, 0, 0, 1, 0, -1, 2.67405e-08, 0.155, 0.5, 0)
+target_position = Vector3(0, 0, -1)
+script = SubResource("GDScript_1nrij")
+
+[node name="LeftStepTarget" type="Node3D" parent="StepTargetController/LeftStandRayCast"]
 transform = Transform3D(-0.0449434, 0.254887, -0.965926, 0.167731, -0.951251, -0.258819, -0.984808, -0.173648, -4.2222e-08, -1.49012e-08, 0, -0.5)
 
 [connection signal="body_entered" from="ViewControl/vision" to="." method="_on_vision_body_entered"]
