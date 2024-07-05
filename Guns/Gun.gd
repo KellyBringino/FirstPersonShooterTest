@@ -1,6 +1,8 @@
 class_name Gun
 extends Node3D
 
+const pitchModMax = 0.5
+
 @onready var shootRay: RayCast3D = get_node("BarrelEnd/ShootRay")
 @onready var bSound : AudioStreamPlayer3D = get_node("BarrelEnd/AudioStreamPlayer3D")
 @onready var anim : AnimationPlayer = get_node("model/AnimationPlayer")
@@ -19,6 +21,8 @@ func startup(startDamage, startMag, fullMag):
 func fire():
 	if chambered && !reloading && mag > 0:
 		anim.play("Shoot")
+		var modulation = (randf() * pitchModMax) - (pitchModMax/2.0)
+		bSound.set_pitch_scale(1.0 + modulation)
 		bSound.play()
 		mag -= 1
 		var object = shootRay.get_collider()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bsjyb8wyeokxq"]
+[gd_scene load_steps=15 format=3 uid="uid://bsjyb8wyeokxq"]
 
 [ext_resource type="Texture2D" uid="uid://bt4116u3kliy3" path="res://Sprites/null.svg" id="1_hf77t"]
 [ext_resource type="Texture2D" uid="uid://c3p0w407rsla6" path="res://Sprites/rifle_icon.png" id="1_p67ue"]
 [ext_resource type="Texture2D" uid="uid://bl2230jvnhsyv" path="res://Sprites/pistol_icon.png" id="2_nmv5i"]
+[ext_resource type="Texture2D" uid="uid://dfn0k6x8ocd8o" path="res://Sprites/sniper_icon.png" id="3_y4anq"]
 
 [sub_resource type="GDScript" id="GDScript_sip4t"]
 script/source = "@tool
@@ -82,6 +83,10 @@ region = Rect2(0, 0, 4080, 4080)
 atlas = ExtResource("1_p67ue")
 region = Rect2(0, 0, 1080, 1080)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_pxkrx"]
+atlas = ExtResource("3_y4anq")
+region = Rect2(0, 0, 1080, 1080)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_4230t"]
 atlas = ExtResource("1_hf77t")
 region = Rect2(0, 0, 4080, 4080)
@@ -122,7 +127,7 @@ grow_vertical = 2
 script = SubResource("GDScript_sip4t")
 bkr_color = Color(0.180392, 0.180392, 0.180392, 0.392157)
 outer_radius = 200
-priText = Array[AtlasTexture]([SubResource("AtlasTexture_j83ai"), SubResource("AtlasTexture_l473q")])
+priText = Array[AtlasTexture]([SubResource("AtlasTexture_j83ai"), SubResource("AtlasTexture_l473q"), SubResource("AtlasTexture_pxkrx")])
 secText = Array[AtlasTexture]([SubResource("AtlasTexture_4230t"), SubResource("AtlasTexture_p3uby")])
 heaText = Array[AtlasTexture]([SubResource("AtlasTexture_8hvy6")])
 currentText = Array[AtlasTexture]([SubResource("AtlasTexture_nf731"), SubResource("AtlasTexture_f1n3k"), SubResource("AtlasTexture_uardj")])

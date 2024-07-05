@@ -32,6 +32,8 @@ func setWeapons(w):
 	var hea = 0
 	if weapons[0] == Game.GunType.RIFLE:
 		pri = 1
+	elif weapons[0] == Game.GunType.SNIPER:
+		pri = 2
 	if weapons[1] == Game.GunType.PISTOL:
 		sec = 1
 	$CanvasLayer/InGameGUI/AmmoContainer/selection_wheel.setWeapons(pri,sec,hea)

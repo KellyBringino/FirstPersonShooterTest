@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4rkks8m14a1q"]
+
+[ext_resource type="PackedScene" uid="uid://cfienmlpk6grd" path="res://Models/Guns/sniper.glb" id="1_t0kfr"]
+[ext_resource type="Material" uid="uid://c6v6m61tsjjla" path="res://Models/Materials/blackGunMetal.tres" id="2_mqbms"]
+
+[node name="sniper" instance=ExtResource("1_t0kfr")]
+
+[node name="MainBone" parent="Armature" index="0"]
+transform = Transform3D(1, 7.10543e-15, 2.38419e-07, -6.33225e-08, 0.964085, 0.265594, -2.29856e-07, -0.265594, 0.964085, -1.80127e-17, -0.081122, 0.246462)
+
+[node name="MagBone" parent="Armature/MainBone" index="0"]
+transform = Transform3D(1, -6.5982e-08, -2.29107e-07, -7.10543e-15, 0.960942, -0.276749, 2.38419e-07, 0.276748, 0.960943, 5.62585e-08, 0.0782879, -0.235965)
+
+[node name="Cube_005" parent="Armature/MainBone/MagBone" index="0"]
+material_override = ExtResource("2_mqbms")
+
+[node name="Cube" parent="Armature/MainBone" index="1"]
+material_override = ExtResource("2_mqbms")
+
+[node name="Cube_001" parent="Armature/MainBone" index="2"]
+material_override = ExtResource("2_mqbms")
+
+[node name="Cube_002" parent="Armature/MainBone" index="3"]
+material_override = ExtResource("2_mqbms")
+
+[node name="Cube_003" parent="Armature/MainBone" index="4"]
+material_override = ExtResource("2_mqbms")
+
+[node name="Cube_004" parent="Armature/MainBone" index="5"]
+material_override = ExtResource("2_mqbms")
+
+[node name="Cylinder" parent="Armature/MainBone" index="6"]
+material_override = ExtResource("2_mqbms")
+
+[node name="Cylinder_001" parent="Armature/MainBone" index="7"]
+material_override = ExtResource("2_mqbms")
+
+[node name="Cylinder_002" parent="Armature/MainBone" index="8"]
+material_override = ExtResource("2_mqbms")
+
+[node name="Cylinder_003" parent="Armature/MainBone" index="9"]
+material_override = ExtResource("2_mqbms")
+
+[node name="Cylinder_004" parent="Armature/MainBone" index="10"]
+material_override = ExtResource("2_mqbms")
+
+[node name="Cylinder_005" parent="Armature/MainBone" index="11"]
+material_override = ExtResource("2_mqbms")

@@ -1,15 +1,16 @@
 extends Node
 
-enum GunType {NONE, RIFLE, PISTOL}
+enum GunType {NONE, RIFLE, SNIPER, PISTOL}
 
 
 const pistolInstance = preload("res://Guns/pistol.tscn")
 const rifleInstance = preload("res://Guns/rifle.tscn")
+const sniperInstance = preload("res://Guns/sniper.tscn")
 
 var paused : bool = false
 var horizontalSensitivity = 0.5
 var verticalSensitivity = 0.5
-var weapons = [GunType.RIFLE,GunType.PISTOL,GunType.NONE]
+var weapons = [GunType.SNIPER,GunType.PISTOL,GunType.NONE]
 
 func _input(event):
 	if event.is_action_pressed("pause"):
@@ -43,6 +44,9 @@ func playerReady():
 	if weapons[0] == GunType.RIFLE:
 		var rifle = rifleInstance.instantiate()
 		$"../World/Player/CameraController/GunController/Weapon1".add_child(rifle)
+	elif weapons[0] == GunType.SNIPER:
+		var sniper = sniperInstance.instantiate()
+		$"../World/Player/CameraController/GunController/Weapon1".add_child(sniper)
 	
 	if weapons[1] == GunType.PISTOL:
 		var pistol = pistolInstance.instantiate()
