@@ -2,6 +2,7 @@ class_name Gun
 extends Node3D
 
 @onready var shootRay: RayCast3D = get_node("BarrelEnd/ShootRay")
+@onready var bSound : AudioStreamPlayer3D = get_node("BarrelEnd/AudioStreamPlayer3D")
 @onready var anim : AnimationPlayer = get_node("model/AnimationPlayer")
 
 var damage : float
@@ -18,6 +19,7 @@ func startup(startDamage, startMag, fullMag):
 func fire():
 	if chambered && !reloading && mag > 0:
 		anim.play("Shoot")
+		bSound.play()
 		mag -= 1
 		var object = shootRay.get_collider()
 		if (object != null):
