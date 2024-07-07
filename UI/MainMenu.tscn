@@ -35,7 +35,7 @@ size_flags_vertical = 3
 
 [node name="Title Label" type="Label" parent="CanvasLayer/Menu Container/Menu Options Container/VBox/Title Container"]
 layout_mode = 2
-text = "Game Name"
+text = "Cube Shoot"
 horizontal_alignment = 1
 
 [node name="Start Button Container" type="MarginContainer" parent="CanvasLayer/Menu Container/Menu Options Container/VBox"]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcpt7q4kjxehn"]
+
+[ext_resource type="Script" path="res://Destructables/box_breakable.gd" id="1_45mpm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gvcfu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vmxww"]
+
+[node name="RigidBody3D" type="RigidBody3D"]
+editor_description = "Dest"
+collision_layer = 128
+collision_mask = 135
+script = ExtResource("1_45mpm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_gvcfu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_vmxww")
