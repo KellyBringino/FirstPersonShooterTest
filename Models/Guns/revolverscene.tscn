@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbon5mcs536ww"]
+
+[ext_resource type="PackedScene" uid="uid://bodoko2dh7cin" path="res://Models/Guns/revolver.glb" id="1_tkf08"]
+[ext_resource type="Material" uid="uid://disufmym10kpb" path="res://Models/Materials/Brass.tres" id="2_67xpf"]
+[ext_resource type="Material" uid="uid://c6wmmdgpjbok6" path="res://Models/Materials/GunMetal.tres" id="3_0is42"]
+[ext_resource type="Material" uid="uid://l5rob7segohk" path="res://Models/Materials/Wood.tres" id="4_gduy0"]
+
+[node name="revolver" instance=ExtResource("1_tkf08")]
+
+[node name="Bone" parent="Armature" index="0"]
+transform = Transform3D(1, -7.10543e-15, -2.38419e-07, 8.88771e-08, 0.927921, 0.372778, 2.21234e-07, -0.372778, 0.927921, -1.39198e-17, -0.0626891, 0.0169161)
+
+[node name="Bone_001" parent="Armature/Bone" index="0"]
+transform = Transform3D(1, -2.21234e-07, 8.88771e-08, 0, 0.372778, 0.927921, -2.38419e-07, -0.927921, 0.372778, -7.31905e-09, 0.175807, -0.0326515)
+
+[node name="Bullet4" parent="Armature/Bone/Bone_001/Bone_003" index="0"]
+material_override = ExtResource("2_67xpf")
+
+[node name="Bullet5" parent="Armature/Bone/Bone_001/Bone_004" index="0"]
+material_override = ExtResource("2_67xpf")
+
+[node name="Bullet6" parent="Armature/Bone/Bone_001/Bone_005" index="0"]
+material_override = ExtResource("2_67xpf")
+
+[node name="Bullet1" parent="Armature/Bone/Bone_001/Bone_006" index="0"]
+material_override = ExtResource("2_67xpf")
+
+[node name="Bullet2" parent="Armature/Bone/Bone_001/Bone_007" index="0"]
+material_override = ExtResource("2_67xpf")
+
+[node name="Bullet3" parent="Armature/Bone/Bone_001/Bone_008" index="0"]
+material_override = ExtResource("2_67xpf")
+
+[node name="Cylinder" parent="Armature/Bone/Bone_001" index="6"]
+material_override = ExtResource("3_0is42")
+
+[node name="Bone_002" parent="Armature/Bone" index="1"]
+transform = Transform3D(1, 1.20534e-07, -3.27123e-08, -1.20534e-07, 0.862795, -0.505554, -3.27123e-08, 0.505554, 0.862795, 3.59865e-09, 0.155244, 0.0150938)
+
+[node name="Cube_002" parent="Armature/Bone/Bone_002" index="0"]
+material_override = ExtResource("3_0is42")
+
+[node name="Cube" parent="Armature/Bone" index="2"]
+material_override = ExtResource("3_0is42")
+
+[node name="Cube_001" parent="Armature/Bone" index="3"]
+material_override = ExtResource("4_gduy0")
+
+[node name="Cylinder_001" parent="Armature/Bone" index="4"]
+material_override = ExtResource("3_0is42")

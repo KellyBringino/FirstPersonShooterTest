@@ -171,9 +171,13 @@ func setGuns(allThree):
 			secondary = null
 		Game.GunType.PISTOL:
 			secondary = $CameraController/GunController/Weapon2/Gun
+		Game.GunType.REVOLVER:
+			secondary = $CameraController/GunController/Weapon2/Gun
 	match allThree[2]:
 		Game.GunType.NONE:
 			heavy = null
+		Game.GunType.ROCKETLAUNCHER:
+			heavy = $CameraController/GunController/Weapon3/Gun
 	
 	if allThree[0] == Game.GunType.NONE:
 		equipSecondary()

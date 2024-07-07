@@ -3,38 +3,27 @@ extends Node3D
 
 const pitchModMax = 0.5
 
-@onready var shootRay: RayCast3D = get_node("BarrelEnd/ShootRay")
 @onready var bSound : AudioStreamPlayer3D = get_node("BarrelEnd/AudioStreamPlayer3D")
 @onready var anim : AnimationPlayer = get_node("model/AnimationPlayer")
 
 var damage : float
+var critMult : float
 var mag : float
 var MAG_MAX : float
 var chambered : bool = true
 var reloading : bool = false
 
-func startup(startDamage, startMag, fullMag):
+func startup(startDamage, critical, fullMag):
 	damage = startDamage
-	mag = startMag
+	critMult = critical
+	mag = fullMag
 	MAG_MAX = fullMag
 
 func fire():
-	if chambered && !reloading && mag > 0:
-		anim.play("Shoot")
-		var modulation = (randf() * pitchModMax) - (pitchModMax/2.0)
-		bSound.set_pitch_scale(1.0 + modulation)
-		bSound.play()
-		mag -= 1
-		var object = shootRay.get_collider()
-		if (object != null):
-			#print("hit a " + str(object))
-			#print(str(object.collision_layer))
-			if object.collision_layer == 16:
-				object = object.get_node("../../../../../../")
-			if object.editor_description.contains("Enemy"):
-				object.hit(shootRay.get_collision_point(),damage)
-		chambered = false
-		$ShotTimer.start()
+	anim.play("Shoot")
+	var modulation = (randf() * pitchModMax) - (pitchModMax/2.0)
+	bSound.set_pitch_scale(1.0 + modulation)
+	bSound.play()
 
 func singleFire():
 	fire()

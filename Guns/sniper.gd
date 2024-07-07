@@ -1,7 +1,7 @@
-extends Gun
+extends HitScanGun
 
 func _ready():
-	startup(500,3,3)
+	startup(1000,2.0,3)
 
 func heldFire():
 	pass

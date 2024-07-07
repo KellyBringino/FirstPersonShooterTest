@@ -22,7 +22,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.196773, 0)
 
 [node name="lookRay" type="RayCast3D" parent="CameraController/Camera3D"]
 target_position = Vector3(0, 0, -100)
-collision_mask = 17
+collision_mask = 49
 
 [node name="GunController" type="Node3D" parent="CameraController"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18532, -0.019666, -0.404361)

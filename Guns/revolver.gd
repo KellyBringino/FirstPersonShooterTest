@@ -1,7 +1,7 @@
 extends HitScanGun
 
 func _ready():
-	startup(100,1.3,40)
+	startup(500,1.5,6)
 
-func singleFire():
+func heldFire():
 	pass
