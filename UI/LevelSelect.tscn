@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxy1m8yvdslnd"]
+[gd_scene load_steps=3 format=3 uid="uid://cxy1m8yvdslnd"]
 
 [ext_resource type="Script" path="res://UI/LevelSelect.gd" id="1_kl2xt"]
+[ext_resource type="Texture2D" uid="uid://drmxvy61s5l3m" path="res://Sprites/arrow.svg" id="2_2obha"]
 
 [node name="Level Select" type="Node2D"]
 script = ExtResource("1_kl2xt")
@@ -28,38 +29,164 @@ theme_override_constants/margin_bottom = 50
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer"]
+[node name="TopTextContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/TopTextContainer"]
 layout_mode = 2
-text = "Start in"
+color = Color(0.352941, 0.352941, 0.352941, 1)
+
+[node name="TopText" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/TopTextContainer"]
+layout_mode = 2
+text = "Press start when ready"
 horizontal_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer"]
+[node name="SelectionsContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 200
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 200
-theme_override_constants/margin_bottom = 50
 
-[node name="Start Button" type="Button" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer"]
 layout_mode = 2
-text = "Start"
 
-[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Weapons"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 200
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+color = Color(0.352941, 0.352941, 0.352941, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Primary"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("2_2obha")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "Rifle"
+horizontal_alignment = 1
+
+[node name="TextureButton2" type="TextureButton" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("2_2obha")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+color = Color(0.352941, 0.352941, 0.352941, 1)
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer3"]
+layout_mode = 2
+color = Color(0.352941, 0.352941, 0.352941, 1)
+
+[node name="StartAndBackButtons" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BackButtonContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/StartAndBackButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 200
+theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="Back Button" type="Button" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/MarginContainer3"]
+[node name="Back Button" type="Button" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/StartAndBackButtons/BackButtonContainer"]
 layout_mode = 2
 text = "Back"
 
-[connection signal="pressed" from="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/MarginContainer2/Start Button" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/MarginContainer3/Back Button" to="." method="_on_back_button_pressed"]
+[node name="SpacerContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/StartAndBackButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StartButtonContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/StartAndBackButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Start Button" type="Button" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/StartAndBackButtons/StartButtonContainer"]
+layout_mode = 2
+text = "Start"
+
+[connection signal="pressed" from="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/StartAndBackButtons/BackButtonContainer/Back Button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/StartAndBackButtons/StartButtonContainer/Start Button" to="." method="_on_start_button_pressed"]
