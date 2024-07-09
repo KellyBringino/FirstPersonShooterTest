@@ -9,6 +9,15 @@ const sniperInstance = preload("res://Guns/sniper.tscn")
 const revolverInstance = preload("res://Guns/revolver.tscn")
 const rocketlauncherInstance = preload("res://Guns/rocketlauncher.tscn")
 
+const enemyHealth = 2000.0
+const playerHealth = 2000.0
+
+const rifleDamage = 300.0
+const sniperDamage = 1000.0
+const pistolDamage = 150.0
+const revolverDamage = 300.0
+const rocketlauncherDamage = 300.0
+
 var paused : bool = false
 var horizontalSensitivity = 0.5
 var verticalSensitivity = 0.5
@@ -29,7 +38,8 @@ func pause():
 
 func resume():
 	paused = false
-	$"../World/GUI".unpause()
+	if get_node_or_null("../World/GUI") != null:
+		$"../World/GUI".unpause()
 	StartLevel()
 
 func StartLevel():
@@ -63,6 +73,29 @@ func playerReady():
 	
 	player.setGuns(weapons)
 	$"../World/GUI".setWeapons(weapons)
+
+func choose(pri,sec,hea):
+	match pri:
+		0:
+			weapons[0] = GunType.NONE
+		1:
+			weapons[0] = GunType.RIFLE
+		2:
+			weapons[0] = GunType.SNIPER
+	
+	match sec:
+		0:
+			weapons[1] = GunType.NONE
+		1:
+			weapons[1] = GunType.PISTOL
+		2:
+			weapons[1] = GunType.REVOLVER
+	
+	match hea:
+		0:
+			weapons[2] = GunType.NONE
+		1:
+			weapons[2] = GunType.ROCKETLAUNCHER
 
 func equip(hea,pri):
 	$"../World/GUI".equip(hea,pri)

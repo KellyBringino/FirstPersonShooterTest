@@ -32,6 +32,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var CameraController = get_node("CameraController")
 
 func _ready():
+	maxHealth = Game.playerHealth
+	health = maxHealth
 	Game.playerReady()
 
 func _physics_process(delta):
@@ -61,7 +63,7 @@ func releaseFireHeldGun():
 func reloadHeldGun():
 	heldGun.reload()
 
-func move(delta):
+func move(_delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY

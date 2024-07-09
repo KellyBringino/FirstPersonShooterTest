@@ -29,7 +29,7 @@ func destructableCheck(object):
 	return object.editor_description.contains("Enemy") or \
 	object.editor_description.contains("Dest")
 
-func _on_detonator_shape_body_entered(body):
+func _on_detonator_shape_body_entered(_body):
 	if !isExploding:
 		isExploding = true
 		process_mode = Node.PROCESS_MODE_DISABLED

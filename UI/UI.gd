@@ -14,7 +14,7 @@ func _ready():
 	healthbar.max_value = $"../Player".maxHealth
 	healthbar.value = $"../Player".health
 
-func _process(delta):
+func _process(_delta):
 	healthbar.value = $"../Player".health
 	ammobar.max_value = $"../Player".heldGun.MAG_MAX
 	ammobar.value = $"../Player".heldGun.mag

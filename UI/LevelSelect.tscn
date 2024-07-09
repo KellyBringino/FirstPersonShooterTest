@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxy1m8yvdslnd"]
+[gd_scene load_steps=6 format=3 uid="uid://cxy1m8yvdslnd"]
 
 [ext_resource type="Script" path="res://UI/LevelSelect.gd" id="1_kl2xt"]
+[ext_resource type="Texture2D" uid="uid://c3p0w407rsla6" path="res://Sprites/rifle_icon.png" id="2_2lacs"]
 [ext_resource type="Texture2D" uid="uid://drmxvy61s5l3m" path="res://Sprites/arrow.svg" id="2_2obha"]
+[ext_resource type="Texture2D" uid="uid://bl2230jvnhsyv" path="res://Sprites/pistol_icon.png" id="4_2o20a"]
+[ext_resource type="Texture2D" uid="uid://cv2i8ak446n8u" path="res://Sprites/rocketlauncher_icon.png" id="5_fpi1g"]
 
 [node name="Level Select" type="Node2D"]
 script = ExtResource("1_kl2xt")
@@ -48,22 +51,22 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer"]
+[node name="CardsTitleContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer"]
+[node name="CardsTitle" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/CardsTitleContainer"]
 layout_mode = 2
 text = "Weapons"
 horizontal_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer"]
+[node name="WeaponCardsContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="PrimaryCard" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
@@ -71,22 +74,22 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer"]
+[node name="Background" type="ColorRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard"]
 layout_mode = 2
 color = Color(0.352941, 0.352941, 0.352941, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="PrimaryCardLabelContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="PrimaryCardLabel" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer/PrimaryCardLabelContainer"]
 layout_mode = 2
 text = "Primary"
 horizontal_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="PrimaryCardContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 10
@@ -94,20 +97,30 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer/PrimaryCardContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="PrimaryCard" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer/PrimaryCardContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="GunIconContainer" type="CenterContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer/PrimaryCardContainer/VBoxContainer/PrimaryCard"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2"]
+[node name="PrimaryGunIcon" type="TextureRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer/PrimaryCardContainer/VBoxContainer/PrimaryCard/GunIconContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2_2lacs")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="LowerCardContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer/PrimaryCardContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer/PrimaryCardContainer/VBoxContainer/LowerCardContainer"]
+layout_mode = 2
+
+[node name="PrimaryLeftButton" type="TextureButton" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer/PrimaryCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 texture_normal = ExtResource("2_2obha")
@@ -115,23 +128,23 @@ ignore_texture_size = true
 stretch_mode = 0
 flip_h = true
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="PrimaryLabelContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer/PrimaryCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer2"]
+[node name="PrimaryLabel" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer/PrimaryCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer/PrimaryLabelContainer"]
 layout_mode = 2
 text = "Rifle"
 horizontal_alignment = 1
 
-[node name="TextureButton2" type="TextureButton" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="PrimaryRightButton" type="TextureButton" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer/PrimaryCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 texture_normal = ExtResource("2_2obha")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="SecondaryCard" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
@@ -139,11 +152,77 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer2"]
+[node name="Background" type="ColorRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard"]
 layout_mode = 2
 color = Color(0.352941, 0.352941, 0.352941, 1)
 
-[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard"]
+layout_mode = 2
+
+[node name="SecondaryCardLabelContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer"]
+layout_mode = 2
+
+[node name="SecondaryCardLabel" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer/SecondaryCardLabelContainer"]
+layout_mode = 2
+text = "Secondary"
+horizontal_alignment = 1
+
+[node name="SecondaryCardContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer/SecondaryCardContainer"]
+layout_mode = 2
+
+[node name="SecondaryCard" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer/SecondaryCardContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GunIconContainer" type="CenterContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer/SecondaryCardContainer/VBoxContainer/SecondaryCard"]
+layout_mode = 2
+
+[node name="SecondaryGunIcon" type="TextureRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer/SecondaryCardContainer/VBoxContainer/SecondaryCard/GunIconContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("4_2o20a")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="LowerCardContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer/SecondaryCardContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer/SecondaryCardContainer/VBoxContainer/LowerCardContainer"]
+layout_mode = 2
+
+[node name="SecondaryLeftButton" type="TextureButton" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer/SecondaryCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("2_2obha")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+
+[node name="SecondaryLabelContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer/SecondaryCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SecondaryLabel" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer/SecondaryCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer/SecondaryLabelContainer"]
+layout_mode = 2
+text = "Pistol"
+horizontal_alignment = 1
+
+[node name="SecondaryRightButton" type="TextureButton" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer/SecondaryCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("2_2obha")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="HeavyCard" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
@@ -151,9 +230,75 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer3"]
+[node name="Background" type="ColorRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard"]
 layout_mode = 2
 color = Color(0.352941, 0.352941, 0.352941, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard"]
+layout_mode = 2
+
+[node name="HeavyCardLabelContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer"]
+layout_mode = 2
+
+[node name="HeavyCardLabel" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer/HeavyCardLabelContainer"]
+layout_mode = 2
+text = "Heavy"
+horizontal_alignment = 1
+
+[node name="HeavyCardContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer/HeavyCardContainer"]
+layout_mode = 2
+
+[node name="HeavyCard" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer/HeavyCardContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GunIconContainer" type="CenterContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer/HeavyCardContainer/VBoxContainer/HeavyCard"]
+layout_mode = 2
+
+[node name="HeavyGunIcon" type="TextureRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer/HeavyCardContainer/VBoxContainer/HeavyCard/GunIconContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("5_fpi1g")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="LowerCardContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer/HeavyCardContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer/HeavyCardContainer/VBoxContainer/LowerCardContainer"]
+layout_mode = 2
+
+[node name="HeavyLeftButton" type="TextureButton" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer/HeavyCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("2_2obha")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+
+[node name="HeavyLabelContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer/HeavyCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HeavyLabel" type="Label" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer/HeavyCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer/HeavyLabelContainer"]
+layout_mode = 2
+text = "Rocket Launcher"
+horizontal_alignment = 1
+
+[node name="HeavyRightButton" type="TextureButton" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer/HeavyCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("2_2obha")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="StartAndBackButtons" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -188,5 +333,11 @@ theme_override_constants/margin_bottom = 50
 layout_mode = 2
 text = "Start"
 
+[connection signal="pressed" from="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer/PrimaryCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer/PrimaryLeftButton" to="." method="_on_primary_left_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/PrimaryCard/VBoxContainer/PrimaryCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer/PrimaryRightButton" to="." method="_on_primary_right_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer/SecondaryCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer/SecondaryLeftButton" to="." method="_on_secondary_left_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/SecondaryCard/VBoxContainer/SecondaryCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer/SecondaryRightButton" to="." method="_on_secondary_right_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer/HeavyCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer/HeavyLeftButton" to="." method="_on_heavy_left_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/WeaponCardsContainer/HBoxContainer/HeavyCard/VBoxContainer/HeavyCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer/HeavyRightButton" to="." method="_on_heavy_right_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/StartAndBackButtons/BackButtonContainer/Back Button" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/StartAndBackButtons/StartButtonContainer/Start Button" to="." method="_on_start_button_pressed"]

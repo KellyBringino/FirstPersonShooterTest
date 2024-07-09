@@ -4,11 +4,17 @@ extends CharacterBody3D
 @onready var skl : Skeleton3D = $ModelController/doll/Armature/Skeleton3D
 @onready var headBone = skl.find_bone("head")
 @onready var leftSprint = $StepTargetController/LeftSprintRayCast/LeftStepTarget
+@onready var leftSprintRaise = $StepTargetController/LeftSprintRayCast/LeftRaiseTarget
 @onready var rightSprint = $StepTargetController/RightSprintRayCast/RightStepTarget
+@onready var rightSprintRaise = $StepTargetController/RightSprintRayCast/RightRaiseTarget
 @onready var leftWalk = $StepTargetController/LeftWalkRayCast/LeftStepTarget
+@onready var leftWalkRaise = $StepTargetController/LeftWalkRayCast/LeftRaiseTarget
 @onready var rightWalk = $StepTargetController/RightWalkRayCast/RightStepTarget
+@onready var rightWalkRaise = $StepTargetController/RightWalkRayCast/RightRaiseTarget
 @onready var leftStand = $StepTargetController/LeftStandRayCast/LeftStepTarget
+@onready var leftStandRaise = $StepTargetController/LeftStandRayCast/LeftRaiseTarget
 @onready var rightStand = $StepTargetController/RightStandRayCast/RightStepTarget
+@onready var rightStandRaise = $StepTargetController/RightStandRayCast/RightRaiseTarget
 @onready var lookTimer = $TimerController/LookCheck
 @onready var patTimer = $TimerController/PatrolTimer
 @onready var DisTimer = $TimerController/DiscoverTimer
@@ -16,14 +22,15 @@ extends CharacterBody3D
 @onready var lookingTimer = $TimerController/LookingTimer
 @onready var scanTimer = $TimerController/ScanTimer
 
-const MAX_HEALTH = 2000.0
-const RUN_SPEED = 1.0
+const RUN_SPEED = 4.0
 const WALK_SPEED = 2.0
 const JUMP_VELOCITY = 4.5
 const REACH_DIST = 0.5
-const SHOOT_DIST = 4.0
+const SHOOT_DIST = 0.0
 const SCAN_SPEED = 0.01
-const SPRINT_STEP_DIS = 1.4
+const SPRINT_STEP_DIS = 1.2
+const STEP_UP_SPEED = 0.1
+const STEP_SPEED = 0.03
 const WALK_STEP_DIS = 0.7
 const STAND_STEP_DIS = 0.2
 const LOOK_SPIN = [180.0,135.0,225.0,90.0,270.0]
@@ -31,6 +38,7 @@ const LOOK_SPIN = [180.0,135.0,225.0,90.0,270.0]
 enum state {IDLE, PATROLLING, DISCOVERING, CHASING, LOOKING, HIDING, SHOOTING}
 
 var currentState : state = state.IDLE
+var maxHealth = 2000.0
 var health : float = 2000.0
 var scanDelta : float = 0.0
 var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -45,8 +53,10 @@ var leftStepNext : bool = false
 var player
 
 func _ready():
+	maxHealth = Game.enemyHealth
+	health = maxHealth
 	$Sprite3D.texture = $Sprite3D/SubViewport.get_texture()
-	$Sprite3D/SubViewport/TextureProgressBar.max_value = MAX_HEALTH
+	$Sprite3D/SubViewport/TextureProgressBar.max_value = maxHealth
 	$Sprite3D/SubViewport/TextureProgressBar.value = health
 	player = $"../../Player"
 	$ModelController/doll/Armature/Skeleton3D/LeftArmIK.start()
@@ -72,19 +82,19 @@ func _physics_process(delta):
 	match currentState:
 		state.IDLE, state.DISCOVERING, state.LOOKING, state.SHOOTING:
 			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftStand.global_position)) > STAND_STEP_DIS && leftStepNext:
-				stepL(leftStand)
+				stepL(leftStand,leftStandRaise)
 			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightStand.global_position)) > STAND_STEP_DIS && !leftStepNext:
-				stepR(rightStand)
+				stepR(rightStand,rightStandRaise)
 		state.PATROLLING:
 			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftWalk.global_position)) > WALK_STEP_DIS && leftStepNext:
-				stepL(leftWalk)
+				stepL(leftWalk,leftWalkRaise)
 			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightWalk.global_position)) > WALK_STEP_DIS && !leftStepNext:
-				stepR(rightWalk)
+				stepR(rightWalk,rightWalkRaise)
 		state.CHASING:
 			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftSprint.global_position)) > SPRINT_STEP_DIS && leftStepNext:
-				stepL(leftSprint)
+				stepL(leftSprint,leftSprintRaise)
 			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightSprint.global_position)) > SPRINT_STEP_DIS && !leftStepNext:
-				stepR(rightSprint)
+				stepR(rightSprint,rightSprintRaise)
 	
 	handleStates(delta)
 	
@@ -139,27 +149,28 @@ func handleStates(delta):
 			else:
 				stopScanning()
 
-func stepL(step):
+func stepL(step, stepraise):
 	var ltarget_pos = step.global_position
-	var lhalf = ($ModelController/doll/LeftLegTarget.global_position + step.global_position) /2
+	var lhalf = stepraise.global_position
 	
 	var t = get_tree().create_tween()
-	t.tween_property($ModelController/doll/LeftLegTarget,"global_position", lhalf + $ModelController/doll/LeftLegTarget.owner.basis.y, 0.1)
-	t.set_parallel(true)
-	t.tween_property($ModelController/doll/LeftLegTarget, "global_position", ltarget_pos, 0.5)
-	t.tween_property($ModelController/doll/LeftLegTarget, "global_rotation", step.global_rotation, 0.5)
+	t.tween_property($ModelController/doll/LeftLegTarget,"global_position", lhalf, STEP_UP_SPEED)
 	t.set_parallel(false)
+	t.tween_property($ModelController/doll/LeftLegTarget, "global_position", ltarget_pos, STEP_SPEED)
+	t.tween_property($ModelController/doll/LeftLegTarget, "global_rotation", step.global_rotation, STEP_SPEED)
+	t.set_parallel(true)
 	t.tween_callback(func(): leftStepNext = false)
-func stepR(step):
+func stepR(step,stepraise):
 	var rtarget_pos = step.global_position
-	var rhalf = ($ModelController/doll/RightLegTarget.global_position + rtarget_pos) /2
+	var rhalf = stepraise.global_position
 	
 	var t = get_tree().create_tween()
-	t.tween_property($ModelController/doll/RightLegTarget,"global_position", rhalf + $ModelController/doll/RightLegTarget.owner.basis.y, 0.1)
-	t.set_parallel(true)
-	t.tween_property($ModelController/doll/RightLegTarget, "global_position", rtarget_pos, 0.5)
-	t.tween_property($ModelController/doll/RightLegTarget, "global_rotation", step.global_rotation, 0.5)
 	t.set_parallel(false)
+	t.tween_property($ModelController/doll/RightLegTarget,"global_position", rhalf, STEP_UP_SPEED)
+	t.set_parallel(false)
+	t.tween_property($ModelController/doll/RightLegTarget, "global_position", rtarget_pos, STEP_SPEED)
+	t.tween_property($ModelController/doll/RightLegTarget, "global_rotation", step.global_rotation, STEP_SPEED)
+	t.set_parallel(true)
 	t.tween_callback(func(): leftStepNext = true)
 
 func move(point):
@@ -239,9 +250,9 @@ func damage(amount):
 	if health <= 0:
 		dead()
 
-func hit(point, damage):
+func hit(_point, d):
 	print(str(health))
-	damage(damage)
+	damage(d)
 
 func dead():
 	print("dead")

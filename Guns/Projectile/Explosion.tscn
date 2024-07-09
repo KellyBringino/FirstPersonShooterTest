@@ -1,4 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://db1r0io2qn2iy"]
+[gd_scene load_steps=22 format=3 uid="uid://db1r0io2qn2iy"]
+
+[ext_resource type="AudioStream" uid="uid://dvglqnaoap546" path="res://Sound/Gunshots/Explosion.wav" id="1_tmi55"]
 
 [sub_resource type="GDScript" id="GDScript_k6a8m"]
 script/source = "extends Node3D
@@ -6,11 +8,13 @@ script/source = "extends Node3D
 @onready var debris : GPUParticles3D = $Debris
 @onready var fire : GPUParticles3D = $Fire
 @onready var smoke : GPUParticles3D = $Smoke
+@onready var sound : AudioStreamPlayer3D = $Sound
 
 func _ready():
 	debris.emitting = true
 	fire.emitting = true
 	smoke.emitting = true
+	sound.play()
 	await get_tree().create_timer(2.0).timeout
 	queue_free()
 "
@@ -146,3 +150,6 @@ explosiveness = 1.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_x3tsr")
 draw_pass_1 = SubResource("BoxMesh_fhpvq")
+
+[node name="Sound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("1_tmi55")

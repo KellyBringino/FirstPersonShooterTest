@@ -3,7 +3,7 @@ extends RigidBody3D
 
 var health : float
 
-func hit(position,damage):
+func hit(_pos,damage):
 	health -= damage
 	if health <= 0:
 		brake()

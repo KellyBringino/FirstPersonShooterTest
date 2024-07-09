@@ -35,7 +35,7 @@ func _draw():
 		var start_rads = (((TAU * (end_angle/360.0)) * (i-1)) / 3) + (TAU * (start_angle/360.0))
 		var end_rads = (((TAU * (end_angle/360.0)) * i) / 3) + (TAU * (start_angle/360.0))
 		var mid_rad = (start_rads + end_rads)/2.0 * -1
-		var radius_mid = (inner_radius + outer_radius) / 2
+		var radius_mid = (inner_radius + outer_radius) / 2.0
 		
 		var draw_pos = radius_mid * Vector2.from_angle(mid_rad) + offset
 		if i == 1:
@@ -45,7 +45,7 @@ func _draw():
 			Rect2(draw_pos, SPRITE_SIZE/picture_scale),
 			currentText[i-1].region
 		)
-func _process(delta):
+func _process(_delta):
 	queue_redraw()
 
 func setWeapons(pri,sec,hea):
