@@ -1,7 +1,8 @@
 extends Node
 
 const levels = [
-	"res://Levels/testing_level.tscn"
+	"res://Levels/testing_level.tscn",
+	"res://Levels/rooms.tscn"
 ]
 
 func quitGame():

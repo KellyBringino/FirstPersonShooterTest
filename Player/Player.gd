@@ -29,6 +29,7 @@ var holdingHeavy : bool = false
 var leadTrigger : bool = false
 var crouching : bool = false
 var leftStepNext : bool = false
+var jumpGrace : bool = false
 var curMoveState : movestate = movestate.STANDING
 var heldGun
 var primary
@@ -166,14 +167,16 @@ func step(step, stepraise, upspeed, downspeed, left):
 		t.tween_callback(func(): leftStepNext = true)
 
 func holdFireHeldGun():
-	if leadTrigger:
+	if leadTrigger && !sprinting:
 		heldGun.heldFire()
 
 func singleFireHeldGun():
-	heldGun.singleFire()
+	if !sprinting:
+		heldGun.singleFire()
 
 func releaseFireHeldGun():
-	heldGun.releaseFire()
+	if !sprinting:
+		heldGun.releaseFire()
 
 func reloadHeldGun():
 	heldGun.reload()
@@ -197,26 +200,37 @@ func move(_delta):
 	#check if sprinting, then modify speed if sprinting
 	sprinting = Input.is_action_pressed("sprint") && Input.is_action_pressed("forward")
 	if sprinting:
+		$CameraController/Camera3D/AnimationPlayer.play("SHeadBob")
 		curMoveState = movestate.SPRINTING
 		velocity.x = sprintDir.x * SPEED
 		velocity.z = sprintDir.z * SPEED
 	#handle movement and deceleration
 	elif direction:
+		$CameraController/Camera3D/AnimationPlayer.play("HeadBob")
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 		
+	if Input.is_action_just_pressed("jump"):
+		jumpGrace = true
+		$JumpGraceTimer.start()
+		
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		curMoveState = movestate.JUMPING
-		velocity.y = JUMP_VELOCITY
+	if jumpGrace and is_on_floor():
+		jump()
+
+func jump():
+	curMoveState = movestate.JUMPING
+	velocity.y = JUMP_VELOCITY
 
 func pointGun():
-	if $CameraController/Camera3D/lookRay.is_colliding():
+	if $CameraController/Camera3D/lookRay.is_colliding() && !sprinting:
 		var lookpoint = $CameraController/Camera3D/lookRay.get_collision_point()
 		$CameraController/GunController.look_at(lookpoint, Vector3(0,1,0))
+	elif sprinting:
+		$CameraController/GunController.rotation = Vector3.UP
 	else:
 		$CameraController/GunController.rotation = Vector3.ZERO
 
@@ -341,3 +355,7 @@ func _unhandled_input(event):
 	if !Game.pauseCheck() and event is InputEventMouseMotion:
 		rotInput = -event.relative.x
 		tiltInput = -event.relative.y
+
+
+func _on_jump_grace_timer_timeout():
+	jumpGrace = false

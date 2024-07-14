@@ -26,7 +26,7 @@ func _on_back_button_pressed():
 
 func _on_start_button_pressed():
 	Game.choose(pri,sec+1,hea)
-	Utils.loadLevel(0)
+	Utils.loadLevel(1)
 
 func movePri(amount):
 	pri = (pri + amount) % priMax
