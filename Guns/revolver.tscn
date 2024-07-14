@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" path="res://Guns/revolver.gd" id="1_r0vrp"]
 [ext_resource type="AudioStream" uid="uid://mmb585c2n40m" path="res://Sound/Gunshots/PistolSound.wav" id="2_h5t7a"]
-[ext_resource type="PackedScene" uid="uid://dbon5mcs536ww" path="res://Models/Guns/revolverscene.tscn" id="3_ggpm8"]
+[ext_resource type="PackedScene" uid="uid://dbon5mcs536ww" path="res://Models/Guns/revolverscene.tscn" id="2_qdmc0"]
 
 [node name="Gun" type="Node3D"]
 script = ExtResource("1_r0vrp")
+
+[node name="model" parent="." instance=ExtResource("2_qdmc0")]
 
 [node name="BarrelEnd" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.350982)
@@ -22,9 +24,10 @@ stream = ExtResource("2_h5t7a")
 wait_time = 0.7
 one_shot = true
 
-[node name="model" parent="." instance=ExtResource("3_ggpm8")]
-
 [node name="Grip" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101253, 0)
+
+[node name="OffhandGrip" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101253, 0)
 
 [connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]

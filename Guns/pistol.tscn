@@ -2,13 +2,12 @@
 
 [ext_resource type="Script" path="res://Guns/pistol.gd" id="1_xr2x7"]
 [ext_resource type="AudioStream" uid="uid://mmb585c2n40m" path="res://Sound/Gunshots/PistolSound.wav" id="2_4gqil"]
-[ext_resource type="PackedScene" uid="uid://dkq3lxnbrqad" path="res://Models/Guns/pistolscene.tscn" id="3_hlukl"]
+[ext_resource type="PackedScene" uid="uid://dkq3lxnbrqad" path="res://Models/Guns/pistolscene.tscn" id="2_5rj72"]
 
 [node name="Gun" type="Node3D"]
 script = ExtResource("1_xr2x7")
 
-[node name="Pistol" type="MeshInstance3D" parent="."]
-visible = false
+[node name="model" parent="." instance=ExtResource("2_5rj72")]
 
 [node name="BarrelEnd" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.252)
@@ -25,9 +24,10 @@ stream = ExtResource("2_4gqil")
 wait_time = 0.3
 one_shot = true
 
-[node name="model" parent="." instance=ExtResource("3_hlukl")]
-
 [node name="Grip" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101253, 0)
+
+[node name="OffhandGrip" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101253, 0)
 
 [connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]

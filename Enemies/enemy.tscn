@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://btblrptk4sci8" path="res://Models/Mobs/enemydoll.tscn" id="2_bfte6"]
 [ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Sprites/health.svg" id="4_n2ayh"]
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Sprites/bar back.svg" id="4_nf1n1"]
-[ext_resource type="PackedScene" uid="uid://t4fxq0m12mut" path="res://Models/cone.tscn" id="5_2fex8"]
+[ext_resource type="PackedScene" uid="uid://t4fxq0m12mut" path="res://Models/Collider Shapes/cone.tscn" id="5_2fex8"]
 [ext_resource type="PackedScene" uid="uid://xr8qex6bgmn5" path="res://Guns/pistol.tscn" id="6_5sg3o"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1t7xa"]
@@ -179,6 +179,7 @@ script = SubResource("GDScript_sa0ua")
 transform = Transform3D(0.0449435, -0.254887, -0.965926, 0.167731, -0.951251, 0.258819, -0.984808, -0.173648, -4.2222e-08, 0, 2.98023e-08, -0.5)
 
 [node name="RightRaiseTarget" type="Node3D" parent="StepTargetController/RightStandRayCast"]
+transform = Transform3D(1, 0, 1.53885e-17, 0, 1, 0, -4.73652e-16, 0, 1, 0, 1.61702e-08, -0.33386)
 
 [node name="LeftStandRayCast" type="RayCast3D" parent="StepTargetController"]
 transform = Transform3D(1, -8.9407e-08, -1.88775e-08, 0, 0, 1, 0, -1, 2.67405e-08, 0.155, 0.5, 0)
@@ -189,6 +190,7 @@ script = SubResource("GDScript_1nrij")
 transform = Transform3D(-0.0449434, 0.254887, -0.965926, 0.167731, -0.951251, -0.258819, -0.984808, -0.173648, -4.2222e-08, -1.49012e-08, 0, -0.5)
 
 [node name="LeftRaiseTarget" type="Node3D" parent="StepTargetController/LeftStandRayCast"]
+transform = Transform3D(1, 0, 6.00553e-16, 0, 1, 0, 0, 0, 1, -2.98023e-08, -8.92758e-09, -0.33386)
 
 [connection signal="body_entered" from="ViewControl/vision" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="ViewControl/vision" to="." method="_on_vision_body_exited"]

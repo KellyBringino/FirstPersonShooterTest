@@ -1,11 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://4ls3lt2ptfh0"]
 
 [ext_resource type="Script" path="res://Guns/rifle.gd" id="1_xgiiu"]
-[ext_resource type="PackedScene" uid="uid://bbawoyb4stvdb" path="res://Models/Guns/riflescene.tscn" id="2_17fg7"]
+[ext_resource type="PackedScene" uid="uid://bbawoyb4stvdb" path="res://Models/Guns/riflescene.tscn" id="2_rjcwj"]
 [ext_resource type="AudioStream" uid="uid://d1y1nd6em8wt8" path="res://Sound/Gunshots/RifleShot.wav" id="2_yivoo"]
 
 [node name="Gun" type="Node3D"]
 script = ExtResource("1_xgiiu")
+
+[node name="model" parent="." instance=ExtResource("2_rjcwj")]
 
 [node name="BarrelEnd" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.966)
@@ -23,9 +25,10 @@ volume_db = -20.0
 wait_time = 0.2
 one_shot = true
 
-[node name="model" parent="." instance=ExtResource("2_17fg7")]
-
 [node name="Grip" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.148568, 0)
+
+[node name="OffhandGrip" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0603707, -0.268515)
 
 [connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]

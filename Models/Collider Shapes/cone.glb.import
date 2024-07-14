@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bc6fr77vdixly"
-path="res://.godot/imported/cone.glb-24f0315fbae120a5c436118e8c486ba4.scn"
+path="res://.godot/imported/cone.glb-5c4aad15b46be8ce5197fe8205e390a2.scn"
 
 [deps]
 
-source_file="res://Models/cone.glb"
-dest_files=["res://.godot/imported/cone.glb-24f0315fbae120a5c436118e8c486ba4.scn"]
+source_file="res://Models/Collider Shapes/cone.glb"
+dest_files=["res://.godot/imported/cone.glb-5c4aad15b46be8ce5197fe8205e390a2.scn"]
 
 [params]
 

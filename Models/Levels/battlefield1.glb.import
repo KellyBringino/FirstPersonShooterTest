@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bqvtyxpdghbsl"
-path="res://.godot/imported/battlefield1.glb-7f47a42a87c5846af4d075affc589b93.scn"
+path="res://.godot/imported/battlefield1.glb-168258028340731f1f1a5782a931f799.scn"
 
 [deps]
 
-source_file="res://Models/battlefield1.glb"
-dest_files=["res://.godot/imported/battlefield1.glb-7f47a42a87c5846af4d075affc589b93.scn"]
+source_file="res://Models/Levels/battlefield1.glb"
+dest_files=["res://.godot/imported/battlefield1.glb-168258028340731f1f1a5782a931f799.scn"]
 
 [params]
 

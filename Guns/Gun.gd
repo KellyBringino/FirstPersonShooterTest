@@ -5,6 +5,9 @@ const pitchModMax = 0.5
 
 @onready var bSound : AudioStreamPlayer3D = get_node("BarrelEnd/AudioStreamPlayer3D")
 @onready var anim : AnimationPlayer = get_node("model/AnimationPlayer")
+@onready var ske : Skeleton3D = get_node("model/Armature/Skeleton3D")
+@onready var gripBoneAtt : BoneAttachment3D = $model/Armature/Skeleton3D/GripAttachment
+@onready var OffBoneAtt : BoneAttachment3D = $model/Armature/Skeleton3D/OffhandAttachment
 
 var damage : float
 var critMult : float
@@ -18,6 +21,10 @@ func startup(startDamage, critical, fullMag):
 	critMult = critical
 	mag = fullMag
 	MAG_MAX = fullMag
+
+func _process(_delta):
+	$Grip.global_transform.origin = gripBoneAtt.global_transform.origin
+	$OffhandGrip.global_transform.origin = OffBoneAtt.global_transform.origin
 
 func fire():
 	anim.play("Shoot")

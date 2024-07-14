@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_8n7cw"]
 [ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Player/Player.tscn" id="1_q3npf"]
 [ext_resource type="PackedScene" uid="uid://d0hem5d3ho1dn" path="res://Enemies/enemy.tscn" id="2_jvg7n"]
-[ext_resource type="PackedScene" uid="uid://bxjeujmi3bung" path="res://Models/battlefield_1.tscn" id="4_yirrq"]
-[ext_resource type="PackedScene" uid="uid://xrpu33s0xidh" path="res://Models/stairsscene.tscn" id="5_y6sba"]
+[ext_resource type="PackedScene" uid="uid://bxjeujmi3bung" path="res://Models/Levels/battlefield_1.tscn" id="4_yirrq"]
+[ext_resource type="PackedScene" uid="uid://xrpu33s0xidh" path="res://Models/Levels/stairsscene.tscn" id="5_y6sba"]
 [ext_resource type="PackedScene" uid="uid://bcpt7q4kjxehn" path="res://Destructables/box_breakable.tscn" id="6_na5i8"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_xvuhc"]

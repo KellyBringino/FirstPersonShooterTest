@@ -1,11 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://coplcaocg45fh"]
 
 [ext_resource type="Script" path="res://Guns/rocketlauncher.gd" id="1_n5w4w"]
+[ext_resource type="PackedScene" uid="uid://c3qvm7o8lnv1d" path="res://Models/Guns/rocketlauncherscene.tscn" id="2_bjcj1"]
 [ext_resource type="AudioStream" uid="uid://mmb585c2n40m" path="res://Sound/Gunshots/PistolSound.wav" id="2_bmu1i"]
-[ext_resource type="PackedScene" uid="uid://c3qvm7o8lnv1d" path="res://Models/Guns/rocketlauncherscene.tscn" id="3_pq4d5"]
 
 [node name="Gun" type="Node3D"]
 script = ExtResource("1_n5w4w")
+
+[node name="model" parent="." instance=ExtResource("2_bjcj1")]
 
 [node name="BarrelEnd" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.429893)
@@ -25,6 +27,7 @@ one_shot = true
 [node name="Grip" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101253, 0)
 
-[node name="model" parent="." instance=ExtResource("3_pq4d5")]
+[node name="OffhandGrip" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101253, -0.205263)
 
 [connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]
