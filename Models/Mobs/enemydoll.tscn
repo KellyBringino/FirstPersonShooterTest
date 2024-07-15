@@ -869,7 +869,7 @@ mesh = SubResource("ArrayMesh_eqlof")
 skeleton = NodePath("")
 
 [node name="Physical Bone handL" type="PhysicalBone3D" parent="Armature/Skeleton3D/hands"]
-transform = Transform3D(-3.37737, -0.256598, -0.086019, 0.0754871, -0.997089, 0.0097655, -0.0260267, 0.00780714, 0.999893, -0.00210897, 0.0383059, 0.0247006)
+transform = Transform3D(-3.37737, -0.256598, -0.086019, 0.0754871, -0.997089, 0.0097655, -0.0260267, 0.00780714, 0.999893, -0.00210892, 0.0383016, 0.0247006)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -896,11 +896,11 @@ mesh = SubResource("ArrayMesh_k3d86")
 skeleton = NodePath("")
 
 [node name="Physical Bone forearmL" type="PhysicalBone3D" parent="Armature/Skeleton3D/forearms"]
-transform = Transform3D(1, -1.03901e-06, -1.81078e-06, 3.23461e-06, 0.996818, -0.122669, 3.31972e-06, 0.0883848, 0.71375, -0.000601139, 0.000492573, -0.0121256)
+transform = Transform3D(1, -1.03901e-06, -1.81077e-06, 3.23461e-06, 0.996822, -0.122669, 3.31972e-06, 0.0883852, 0.713748, -0.000601169, 0.000492334, -0.0121255)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000651272, -2.71677e-06, 0.148923)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000651272, -2.71676e-06, 0.148923)
 body_offset = Transform3D(1, -1.00582e-06, -1.79801e-06, -4.17179e-06, 0.000297539, -1.00004, 3.74336e-06, 1.00437, -2.47359e-06, 0.00065154, 0.148929, 3.09944e-06)
 can_sleep = false
 bone_name = "forearmL"
@@ -923,11 +923,11 @@ mesh = SubResource("ArrayMesh_uh3ea")
 skeleton = NodePath("")
 
 [node name="Physical Bone bicepL" type="PhysicalBone3D" parent="Armature/Skeleton3D/bicepts_001"]
-transform = Transform3D(0.999995, -0.0006104, 0.0137914, -7.72074e-05, 1.00034, 0.0490039, -0.0099205, -0.0352382, 0.718239, -0.00119184, -0.00438666, -0.0117718)
+transform = Transform3D(0.999995, -0.0006104, 0.0137914, -7.72074e-05, 1.00034, 0.0490039, -0.0099205, -0.0352382, 0.718239, -0.00119184, -0.00438809, -0.0117714)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2322e-07, 2.82925e-05, 0.152937)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.23219e-07, 2.82925e-05, 0.152936)
 body_offset = Transform3D(1.00009, -1.46741e-05, 4.88851e-06, -5.3905e-06, -6.01572e-05, -1.00003, 2.97825e-06, 1.00154, 1.42645e-05, -6.23986e-07, 0.152941, -3.05176e-05)
 can_sleep = false
 bone_name = "bicepL"
@@ -950,11 +950,11 @@ mesh = SubResource("ArrayMesh_kno5j")
 skeleton = NodePath("")
 
 [node name="Physical Bone handR" type="PhysicalBone3D" parent="Armature/Skeleton3D/hands_001"]
-transform = Transform3D(3.37983, -0.256846, -0.0859909, -0.0755312, -1.00045, 0.00973399, -0.0260397, -0.00782007, -1.00045, -0.00211859, 0.000144124, -0.0246361)
+transform = Transform3D(3.37983, -0.256846, -0.0859909, -0.0755312, -1.00045, 0.009734, -0.0260397, -0.00782007, -1.00045, -0.00211874, 0.000140429, -0.024636)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.76676e-06, -9.62994e-05, 0.0247253)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.76679e-06, -9.62995e-05, 0.0247252)
 body_offset = Transform3D(0.997338, -0.0766159, -0.0027583, -3.61726e-06, 0.0363189, -1.00016, 0.0766485, 0.999758, 0.0361294, 6.85677e-05, 0.0247327, -0.000796437)
 can_sleep = false
 bone_name = "handR"
@@ -977,11 +977,11 @@ mesh = SubResource("ArrayMesh_3v1ru")
 skeleton = NodePath("")
 
 [node name="Physical Bone forearmR" type="PhysicalBone3D" parent="Armature/Skeleton3D/forearms_001"]
-transform = Transform3D(1.00006, -8.57409e-07, 3.63425e-05, -1.99633e-06, -0.9926, -0.122669, -3.20049e-06, 0.0882355, -0.713791, -0.00191966, 0.000524998, 0.0121139)
+transform = Transform3D(1.00006, -8.57403e-07, 3.63424e-05, -1.99633e-06, -0.992596, -0.122669, -3.20049e-06, 0.088235, -0.713791, -0.00191965, 0.000525355, 0.012114)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000661531, 3.78036e-05, 0.148902)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000661532, 3.78037e-05, 0.148902)
 body_offset = Transform3D(1.00006, 2.35359e-07, 3.63251e-05, -4.67899e-06, 1.36569e-05, -1.0001, 3.42705e-07, 1.00015, -4.93977e-06, -0.00066698, 0.148917, -3.70741e-05)
 can_sleep = false
 bone_name = "forearmR"
@@ -1004,11 +1004,11 @@ mesh = SubResource("ArrayMesh_8y5sb")
 skeleton = NodePath("")
 
 [node name="Physical Bone bicepR" type="PhysicalBone3D" parent="Armature/Skeleton3D/bicepts"]
-transform = Transform3D(0.999905, 0.000578472, 0.0137301, -7.32737e-05, -0.998879, 0.0491285, 0.00992364, -0.0352293, -0.720176, -0.0012322, -0.00438762, 0.0117713)
+transform = Transform3D(0.999905, 0.000578472, 0.0137301, -7.32737e-05, -0.998879, 0.0491283, 0.00992364, -0.0352293, -0.720173, -0.00123222, -0.00438881, 0.011771)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.52658e-05, -3.05648e-05, 0.152526)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.52659e-05, -3.05649e-05, 0.152527)
 body_offset = Transform3D(1, -2.45413e-05, -9.36044e-05, -1.21072e-08, 1.5182e-06, -1.00272, 1.67172e-07, 1.00008, -6.70841e-06, -4.09894e-05, 0.152942, 3.15905e-05)
 can_sleep = false
 bone_name = "bicepR"
@@ -1031,7 +1031,7 @@ mesh = SubResource("ArrayMesh_iowba")
 skeleton = NodePath("")
 
 [node name="Physical Bone head" type="PhysicalBone3D" parent="Armature/Skeleton3D/head_2"]
-transform = Transform3D(0.988105, 7.72584e-10, -1.44658e-08, -9.7682e-09, -8.52923e-07, -0.98811, -2.44006e-09, 1.00001, 2.98155e-08, -3.84148e-10, -0.0622165, -2.41616e-07)
+transform = Transform3D(0.988105, 7.7258e-10, -1.4466e-08, -9.76843e-09, -8.52922e-07, -0.98811, -2.44005e-09, 1.00001, 2.98155e-08, -3.84262e-10, -0.0622165, -2.41615e-07)
 collision_layer = 32
 collision_mask = 32
 joint_type = 1
@@ -1068,7 +1068,7 @@ mesh = SubResource("ArrayMesh_3iynu")
 skeleton = NodePath("")
 
 [node name="Physical Bone footR" type="PhysicalBone3D" parent="Armature/Skeleton3D/feet"]
-transform = Transform3D(0.0828153, 0.404269, -0.918203, -0.531363, 0.809208, 0.293125, 0.841488, 0.470964, 0.281035, -0.11038, 0.0145946, 0.00845328)
+transform = Transform3D(0.0828153, 0.404269, -0.918203, -0.531363, 0.809208, 0.293125, 0.841488, 0.470964, 0.281036, -0.11038, 0.0145946, 0.00845298)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -1095,7 +1095,7 @@ mesh = SubResource("ArrayMesh_f1hv3")
 skeleton = NodePath("")
 
 [node name="Physical Bone calfR" type="PhysicalBone3D" parent="Armature/Skeleton3D/calves"]
-transform = Transform3D(1.00012, -0.000867889, 0.0335102, -0.033425, -0.112935, 0.993594, 0.0020543, -0.714712, -0.0812158, -0.0543076, -0.0533701, 0.0048506)
+transform = Transform3D(1.00012, -0.000867887, 0.0335102, -0.0334249, -0.112935, 0.993594, 0.00205429, -0.714712, -0.0812158, -0.0543076, -0.0533698, 0.00485093)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -1122,11 +1122,11 @@ mesh = SubResource("ArrayMesh_62doo")
 skeleton = NodePath("")
 
 [node name="Physical Bone thighR" type="PhysicalBone3D" parent="Armature/Skeleton3D/thighs"]
-transform = Transform3D(0.968171, 0.000507733, 0.20305, -0.201491, -0.0527031, 0.978604, 0.00795822, -0.718321, -0.0370835, -0.0360974, -0.0169834, 0.00311788)
+transform = Transform3D(0.968171, 0.000507733, 0.20305, -0.201491, -0.0527031, 0.978604, 0.00795822, -0.718321, -0.0370835, -0.0360974, -0.0169833, 0.00311781)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.48685e-05, -9.83826e-07, 0.183232)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.48872e-05, -9.83011e-07, 0.183232)
 body_offset = Transform3D(0.977333, 0.000324203, 0.151958, 0.151315, -0.00353144, -0.989167, 0.00027481, 1.00023, -0.00350782, -0.0278874, 0.18124, 0.000643715)
 can_sleep = false
 bone_name = "thighR"
@@ -1149,7 +1149,7 @@ mesh = SubResource("ArrayMesh_juspy")
 skeleton = NodePath("")
 
 [node name="Physical Bone footL" type="PhysicalBone3D" parent="Armature/Skeleton3D/feet_001"]
-transform = Transform3D(-0.0828099, 0.389699, -0.916128, 0.531744, 0.79498, 0.292457, 0.837062, -0.45261, -0.271252, -0.112016, 0.0152559, -0.00495024)
+transform = Transform3D(-0.0828099, 0.389699, -0.916128, 0.531744, 0.79498, 0.292457, 0.837062, -0.45261, -0.271252, -0.112016, 0.0152558, -0.00494987)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
@@ -1176,11 +1176,11 @@ mesh = SubResource("ArrayMesh_efs0i")
 skeleton = NodePath("")
 
 [node name="Physical Bone calfL" type="PhysicalBone3D" parent="Armature/Skeleton3D/calves_001"]
-transform = Transform3D(0.990883, 0.000875917, 0.0335803, -0.0336356, 0.113529, 0.999899, -0.00202234, -0.714549, 0.0809396, -0.0541342, -0.0530173, -0.00461566)
+transform = Transform3D(0.990883, 0.000875917, 0.0335803, -0.0336356, 0.113529, 0.999899, -0.00202234, -0.714549, 0.0809396, -0.0541342, -0.0530175, -0.00461599)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.056052, 0.00134276, 0.228664)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.056052, 0.00134277, 0.228664)
 body_offset = Transform3D(0.991309, -0.00028842, -0.0180993, -0.0171523, -0.0226655, -1.00639, -0.000259463, 0.99981, -0.0211013, -0.0514258, 0.231117, 0.00349714)
 can_sleep = false
 bone_name = "calfL"
@@ -1203,11 +1203,11 @@ mesh = SubResource("ArrayMesh_6btbr")
 skeleton = NodePath("")
 
 [node name="Physical Bone thighL" type="PhysicalBone3D" parent="Armature/Skeleton3D/thighs_001"]
-transform = Transform3D(0.979645, -0.000425185, 0.203213, -0.202813, 0.0523718, 0.983635, -0.00798414, -0.718183, 0.0367333, -0.0360414, -0.0169156, -0.00305966)
+transform = Transform3D(0.979645, -0.000425185, 0.203214, -0.202813, 0.0523718, 0.983635, -0.00798415, -0.718183, 0.0367334, -0.0360414, -0.0169156, -0.00305955)
 collision_layer = 16
 collision_mask = 16
 joint_type = 1
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00015985, -5.82527e-05, 0.182253)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000159809, -5.82524e-05, 0.182253)
 body_offset = Transform3D(0.98886, -0.000226368, 0.151862, 0.15204, 0.00384456, -0.994164, -0.000311614, 1.00002, 0.0042746, -0.0278353, 0.181165, -0.000720754)
 can_sleep = false
 bone_name = "thighL"
