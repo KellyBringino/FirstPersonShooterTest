@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Guns/rocketlauncher.gd" id="1_n5w4w"]
 [ext_resource type="PackedScene" uid="uid://c3qvm7o8lnv1d" path="res://Models/Guns/rocketlauncherscene.tscn" id="2_bjcj1"]
-[ext_resource type="AudioStream" uid="uid://mmb585c2n40m" path="res://Sound/Gunshots/PistolSound.wav" id="2_bmu1i"]
+[ext_resource type="AudioStream" uid="uid://cvw4hu24mah3q" path="res://Sound/Gunshots/RocketLauncherSound.wav" id="3_hocv3"]
 
 [node name="Gun" type="Node3D"]
 script = ExtResource("1_n5w4w")
@@ -18,7 +18,7 @@ collision_mask = 49
 collide_with_areas = true
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="BarrelEnd"]
-stream = ExtResource("2_bmu1i")
+stream = ExtResource("3_hocv3")
 
 [node name="ShotTimer" type="Timer" parent="."]
 wait_time = 2.0

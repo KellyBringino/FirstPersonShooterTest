@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Player/Player.tscn" id="2_74qte"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pwrux"]
-size = Vector3(50, 1, 50)
+size = Vector3(200, 1, 50)
 
 [node name="World" type="Node3D"]
 
@@ -23,24 +23,24 @@ shadow_opacity = 0.65
 shadow_blur = 4.96
 
 [node name="OmniLight3D" type="OmniLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 7.79436, -50)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5393, 2.19706, -34.0794)
 shadow_enabled = true
 omni_range = 10.0
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.37329, 1.22163, -55.636)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.1338, 2.30181, -23.0382)
 omni_range = 9.93915
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5487, 4.13006, -31.0937)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.76297, 2.85348, -31.0937)
 omni_range = 9.93915
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.7832, 4.13006, -8.94975)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.7832, 2.26429, -22.7974)
 omni_range = 9.93915
 
 [node name="OmniLight3D5" type="OmniLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.1956, 4.13006, -8.94975)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.3771, 4.13006, -28.7321)
 omni_range = 9.93915
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
