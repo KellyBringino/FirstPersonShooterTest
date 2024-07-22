@@ -1,17 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://cm28wnjxm83ll"]
 
-[ext_resource type="PackedScene" uid="uid://gnrh0udtgvel" path="res://Models/Levels/Rooms.glb" id="1_1npwj"]
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_t15kf"]
 [ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Player/Player.tscn" id="2_74qte"]
+[ext_resource type="PackedScene" uid="uid://dqlc6fb5v8aft" path="res://Models/Levels/roomsscene.tscn" id="2_nknt2"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_pwrux"]
-size = Vector3(200, 1, 50)
+[sub_resource type="BoxShape3D" id="BoxShape3D_npjpi"]
+size = Vector3(40, 1, 40)
 
 [node name="World" type="Node3D"]
 
 [node name="GUI" parent="." instance=ExtResource("1_t15kf")]
 
-[node name="Rooms" parent="." instance=ExtResource("1_1npwj")]
+[node name="Rooms2" parent="." instance=ExtResource("2_nknt2")]
 
 [node name="lights" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.999, 0, 27.9478)
@@ -43,11 +43,27 @@ omni_range = 9.93915
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.3771, 4.13006, -28.7321)
 omni_range = 9.93915
 
+[node name="OmniLight3D6" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5304, 4.13006, -4.78486)
+omni_range = 20.359
+
+[node name="OmniLight3D7" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.5556, 4.13006, -4.78486)
+omni_range = 20.359
+
+[node name="OmniLight3D8" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.3924, 4.13006, -4.78486)
+omni_range = 20.359
+
+[node name="OmniLight3D9" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.5556, 4.13006, -27.8962)
+omni_range = 21.4312
+
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-shape = SubResource("BoxShape3D_pwrux")
+shape = SubResource("BoxShape3D_npjpi")
 
 [node name="Player" parent="." instance=ExtResource("2_74qte")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 5)
