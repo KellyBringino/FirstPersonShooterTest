@@ -1,12 +1,17 @@
 class_name Level_Base
 extends Node
 
+@onready var spawns : Array = $Spawns.get_children()
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _on_spawn_timer_timeout():
+	var mainCandi = null
+	var candidates = []
+	for s in spawns:
+		if mainCandi == null:
+			mainCandi = s
+			pass
+		else:
+			if $Player.global_transform.origin.distance_to(s.global_transform.origin) < \
+			$Player.global_transform.origin.distance_to(mainCandi.global_transform.origin):
+				mainCandi = s
+	print(mainCandi.name)

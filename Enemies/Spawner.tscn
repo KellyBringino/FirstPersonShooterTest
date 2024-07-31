@@ -1,25 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwitxudiy4fij"]
+[gd_scene load_steps=5 format=3 uid="uid://dbsybglsvsypq"]
 
-[ext_resource type="Script" path="res://Enemies/Spawner.gd" id="1_fb7rf"]
+[ext_resource type="Script" path="res://Enemies/spawner.gd" id="1_637pe"]
+[ext_resource type="PackedScene" uid="uid://d0hem5d3ho1dn" path="res://Enemies/enemy.tscn" id="2_v6sd0"]
 
-[sub_resource type="Curve" id="Curve_knmf6"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_lgleg"]
-curve = SubResource("Curve_knmf6")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tu5jm"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i1dj4"]
 emission_shape = 1
 emission_sphere_radius = 1.0
-scale_curve = SubResource("CurveTexture_lgleg")
 
-[sub_resource type="SphereMesh" id="SphereMesh_u0efd"]
+[sub_resource type="SphereMesh" id="SphereMesh_ojfvn"]
 radius = 0.1
 height = 0.2
 
 [node name="Spawner" type="Node3D"]
-script = ExtResource("1_fb7rf")
+script = ExtResource("1_637pe")
+mob_scene = ExtResource("2_v6sd0")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -28,11 +26,7 @@ amount = 20
 lifetime = 0.2
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_tu5jm")
-draw_pass_1 = SubResource("SphereMesh_u0efd")
-
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
-autostart = true
+process_material = SubResource("ParticleProcessMaterial_i1dj4")
+draw_pass_1 = SubResource("SphereMesh_ojfvn")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
