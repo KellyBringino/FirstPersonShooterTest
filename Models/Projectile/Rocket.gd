@@ -42,7 +42,7 @@ func _on_detonator_shape_body_entered(_body):
 					break
 				cur = cur.get_parent()
 			if destructableCheck(cur):
-				cur.hit(position,damage)
+				cur.hit(position,damage,1)
 		var expl = explosionInstance.instantiate()
 		get_tree().root.add_child(expl)
 		expl.global_position = global_position

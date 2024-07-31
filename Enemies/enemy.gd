@@ -173,6 +173,12 @@ func stepR(step,stepraise):
 	t.set_parallel(true)
 	t.tween_callback(func(): leftStepNext = true)
 
+func alert(point):
+	var statelist:Array = [state.IDLE,state.PATROLLING,state.LOOKING,state.CHASING]
+	if statelist.has(currentState):
+		lastKnowLoc = point
+		currentState = state.CHASING
+
 func move(point):
 	if global_transform.origin.distance_to(point) <= (REACH_DIST/2.0):
 		print("made it")
@@ -244,17 +250,22 @@ func stateChange(nState):
 			suspicious = true
 			print("shooting now")
 
-func damage(amount):
+func damage(point, amount, source):
 	health -= amount
 	$Sprite3D/SubViewport/TextureProgressBar.value = health
 	if health <= 0:
-		dead()
+		dead(point,source)
 
-func hit(_point, d):
+func hit(point, d, source):
 	print(str(health))
-	damage(d)
+	damage(point,d,source)
 
-func dead():
+func dead(_point, source):
+	match source:
+		0:#hitscan
+			queue_free()
+		1:#explosion
+			queue_free()
 	print("dead")
 
 func _on_vision_body_entered(body):

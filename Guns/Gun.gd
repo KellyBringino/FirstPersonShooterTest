@@ -27,6 +27,10 @@ func _process(_delta):
 	$OffhandGrip.global_transform.origin = OffBoneAtt.global_transform.origin
 
 func fire():
+	var enemies = get_node("/root/World/Enemies").get_children()
+	for e in enemies:
+		if global_transform.origin.distance_to(e.global_transform.origin) < 50.0:
+			e.alert(global_transform.origin)
 	anim.play("Shoot")
 	var modulation = (randf() * pitchModMax) - (pitchModMax/2.0)
 	bSound.set_pitch_scale(1.0 + modulation)

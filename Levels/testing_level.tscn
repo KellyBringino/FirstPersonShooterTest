@@ -31,7 +31,6 @@ script = ExtResource("1_e1co7")
 
 [node name="Player" parent="." instance=ExtResource("1_q3npf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.28895, 3)
-visible = false
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_xvuhc")
@@ -84,7 +83,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.1956, 4.13006, -8.94975)
 omni_range = 9.93915
 
 [node name="Enemies" type="Node3D" parent="."]
-visible = false
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource("2_jvg7n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1)
@@ -127,6 +125,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.63109, 0, 4.71053)
 [node name="WorldComponents" type="Node3D" parent="."]
 
 [node name="SpawnTimer" type="Timer" parent="WorldComponents"]
+wait_time = 30.0
 autostart = true
 
 [connection signal="timeout" from="WorldComponents/SpawnTimer" to="." method="_on_spawn_timer_timeout"]

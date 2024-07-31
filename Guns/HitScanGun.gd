@@ -14,10 +14,10 @@ func fire():
 			if object.collision_layer == 16:
 				object = object.get_node("../../../../../../")
 				if object.editor_description.contains("Enemy"):
-					object.hit(shootRay.get_collision_point(),damage)
+					object.hit(shootRay.get_collision_point(),damage,0)
 			elif object.collision_layer == 32:
 				object = object.get_node("../../../../../../")
 				if object.editor_description.contains("Enemy"):
-					object.hit(shootRay.get_collision_point(),damage * critMult)
+					object.hit(shootRay.get_collision_point(),damage * critMult,0)
 		chambered = false
 		$ShotTimer.start()

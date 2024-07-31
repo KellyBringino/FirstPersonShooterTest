@@ -103,29 +103,29 @@ func _physics_process(delta):
 	match curMoveState:
 		movestate.STANDING:
 			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftStand.global_position)) > STAND_STEP_DIS && leftStepNext:
-				step(leftStand,leftStandRaise,SPRINT_UPSPEED,SPRINT_UPSPEED,true)
+				take_step(leftStand,leftStandRaise,SPRINT_UPSPEED,SPRINT_UPSPEED,true)
 			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightStand.global_position)) > STAND_STEP_DIS && !leftStepNext:
-				step(rightStand,rightStandRaise,SPRINT_UPSPEED,SPRINT_UPSPEED,false)
+				take_step(rightStand,rightStandRaise,SPRINT_UPSPEED,SPRINT_UPSPEED,false)
 		movestate.WALKING:
 			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftWalk.global_position)) > WALK_STEP_DIS && leftStepNext:
-				step(leftWalk,leftWalkRaise,WALK_UPSPEED,WALK_DOWNSPEED,true)
+				take_step(leftWalk,leftWalkRaise,WALK_UPSPEED,WALK_DOWNSPEED,true)
 			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightWalk.global_position)) > WALK_STEP_DIS && !leftStepNext:
-				step(rightWalk,rightWalkRaise,WALK_UPSPEED,WALK_DOWNSPEED,false)
+				take_step(rightWalk,rightWalkRaise,WALK_UPSPEED,WALK_DOWNSPEED,false)
 		movestate.BACKWARDS:
 			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftBack.global_position)) > WALK_STEP_DIS && leftStepNext:
-				step(leftBack,leftBackRaise,WALK_UPSPEED,WALK_DOWNSPEED,true)
+				take_step(leftBack,leftBackRaise,WALK_UPSPEED,WALK_DOWNSPEED,true)
 			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightBack.global_position)) > WALK_STEP_DIS && !leftStepNext:
-				step(rightBack,rightBackRaise,WALK_UPSPEED,WALK_DOWNSPEED,false)
+				take_step(rightBack,rightBackRaise,WALK_UPSPEED,WALK_DOWNSPEED,false)
 		movestate.SPRINTING:
 			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftSprint.global_position)) > SPRINT_STEP_DIS && leftStepNext:
-				step(leftSprint,leftSprintRaise,SPRINT_UPSPEED,SPRINT_UPSPEED, true)
+				take_step(leftSprint,leftSprintRaise,SPRINT_UPSPEED,SPRINT_UPSPEED, true)
 			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightSprint.global_position)) > SPRINT_STEP_DIS && !leftStepNext:
-				step(rightSprint,rightSprintRaise,SPRINT_UPSPEED,SPRINT_UPSPEED,false)
+				take_step(rightSprint,rightSprintRaise,SPRINT_UPSPEED,SPRINT_UPSPEED,false)
 		movestate.STRAFE:
 			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftStrafe.global_position)) > STRAFE_STEP_DIS && leftStepNext:
-				step(leftStrafe,leftStrafeRaise, STRAFE_UPSPEED, STRAFE_DOWNSPEED, true)
+				take_step(leftStrafe,leftStrafeRaise, STRAFE_UPSPEED, STRAFE_DOWNSPEED, true)
 			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightStrafe.global_position)) > STRAFE_STEP_DIS && !leftStepNext:
-				step(rightStrafe,rightStrafeRaise, STRAFE_UPSPEED, STRAFE_DOWNSPEED,false)
+				take_step(rightStrafe,rightStrafeRaise, STRAFE_UPSPEED, STRAFE_DOWNSPEED,false)
 		movestate.JUMPING:
 			$ModelController/doll/LeftLegTarget.global_position = leftJump.global_position
 			$ModelController/doll/LeftLegTarget.global_rotation = leftJump.global_rotation
@@ -146,7 +146,7 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
-func step(step, stepraise, upspeed, downspeed, left):
+func take_step(step, stepraise, upspeed, downspeed, left):
 	var target_pos = step.global_position
 	var half = stepraise.global_position
 	
