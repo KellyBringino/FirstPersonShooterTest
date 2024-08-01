@@ -15,6 +15,7 @@ var mag : float
 var MAG_MAX : float
 var chambered : bool = true
 var reloading : bool = false
+var grace : bool = false
 
 func startup(startDamage, critical, fullMag):
 	damage = startDamage
@@ -31,10 +32,12 @@ func fire():
 	for e in enemies:
 		if global_transform.origin.distance_to(e.global_transform.origin) < 50.0:
 			e.alert(global_transform.origin)
+	anim.stop()
 	anim.play("Shoot")
 	var modulation = (randf() * pitchModMax) - (pitchModMax/2.0)
 	bSound.set_pitch_scale(1.0 + modulation)
 	bSound.play()
+	grace = false
 
 func singleFire():
 	fire()
@@ -45,14 +48,18 @@ func releaseFire():
 
 func reload():
 	if mag < MAG_MAX:
-		print("reloading " + str(mag))
 		reloading = true
 		anim.play("Reload")
-		print(anim.current_animation)
 		await anim.animation_finished
 		mag = MAG_MAX
 		reloading = false
-		print("reloaded " + str(mag))
+		if grace:
+			fire()
 
 func _on_shot_timer_timeout():
 	chambered = true
+	if grace:
+		fire()
+
+func _on_grace_timer_timeout():
+	grace = false

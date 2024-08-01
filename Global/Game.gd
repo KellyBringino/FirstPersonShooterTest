@@ -14,13 +14,13 @@ const playerHealth = 2000.0
 
 const rifleDamage = 300.0
 const sniperDamage = 1000.0
-const pistolDamage = 150.0
-const revolverDamage = 300.0
+const pistolDamage = 300.0
+const revolverDamage = 500.0
 const rocketlauncherDamage = 300.0
 
 var paused : bool = false
-var horizontalSensitivity = 0.5
-var verticalSensitivity = 0.5
+var horizontalSensitivity = 0.8
+var verticalSensitivity = 0.8
 var weapons = [GunType.RIFLE,GunType.REVOLVER,GunType.ROCKETLAUNCHER]
 
 func _input(event):
@@ -50,7 +50,7 @@ func StartUI():
 
 func playerReady():
 	var player = $"../World/Player"
-	player.setSens(0.8,0.8)
+	player.setSens(horizontalSensitivity,verticalSensitivity)
 	player.setHealth(2000.0)
 	
 	if weapons[0] == GunType.RIFLE:

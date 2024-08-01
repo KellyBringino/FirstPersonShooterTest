@@ -3,11 +3,10 @@ extends RigidBody3D
 
 var health : float
 
-func hit(_pos,damage):
+func hit(_pos,damage,_source):
 	health -= damage
 	if health <= 0:
-		brake()
+		destroy()
 
-func brake():
-	print("ahh oh no im broken")
+func destroy():
 	queue_free()

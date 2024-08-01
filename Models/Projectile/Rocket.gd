@@ -33,8 +33,6 @@ func _on_detonator_shape_body_entered(_body):
 	if !isExploding:
 		isExploding = true
 		process_mode = Node.PROCESS_MODE_DISABLED
-		#$rocket.hide()
-		print("explosion!")
 		for index in objects.size():
 			var cur = objects[index]
 			while !destructableCheck(cur):
@@ -46,5 +44,4 @@ func _on_detonator_shape_body_entered(_body):
 		var expl = explosionInstance.instantiate()
 		get_tree().root.add_child(expl)
 		expl.global_position = global_position
-		print("dead rocket")
 		queue_free()

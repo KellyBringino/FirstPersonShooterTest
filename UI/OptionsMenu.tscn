@@ -1,0 +1,166 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnute3ndeadul"]
+
+[ext_resource type="Script" path="res://UI/OptionsMenu.gd" id="1_8rcfj"]
+
+[node name="OptionsMenu" type="Node2D"]
+script = ExtResource("1_8rcfj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="OptionsContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background Color" type="ColorRect" parent="CanvasLayer/OptionsContainer"]
+layout_mode = 2
+color = Color(0.470588, 0.470588, 0.470588, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/OptionsContainer"]
+layout_mode = 2
+
+[node name="TopButtonContainer" type="MarginContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TopButtons" type="HBoxContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/TopButtonContainer"]
+layout_mode = 2
+
+[node name="BackButtonContainer" type="MarginContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/TopButtonContainer/TopButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 25
+
+[node name="Back Button" type="Button" parent="CanvasLayer/OptionsContainer/VBoxContainer/TopButtonContainer/TopButtons/BackButtonContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="SpacerContainer" type="MarginContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/TopButtonContainer/TopButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SaveButtonContainer" type="MarginContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/TopButtonContainer/TopButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 25
+
+[node name="Save Button" type="Button" parent="CanvasLayer/OptionsContainer/VBoxContainer/TopButtonContainer/TopButtons/SaveButtonContainer"]
+layout_mode = 2
+text = "Save
+"
+
+[node name="OptionsMenuContainer" type="MarginContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer"]
+layout_mode = 2
+
+[node name="TitleContainer" type="MarginContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 25
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/TitleContainer"]
+layout_mode = 2
+color = Color(0.352941, 0.352941, 0.352941, 1)
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/TitleContainer"]
+layout_mode = 2
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ListContainer" type="MarginContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer"]
+layout_mode = 2
+
+[node name="OptionsVBox" type="VBoxContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSensContainer" type="MarginContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox/HSensContainer"]
+layout_mode = 2
+
+[node name="HSensLabelContainer" type="MarginContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox/HSensContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="HSensLabel" type="Label" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox/HSensContainer/HBoxContainer/HSensLabelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Horizontal Sensitivity"
+vertical_alignment = 1
+
+[node name="HSliderContainer" type="MarginContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox/HSensContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="HSensSlider" type="HSlider" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox/HSensContainer/HBoxContainer/HSliderContainer"]
+layout_mode = 2
+max_value = 12.0
+value = 6.0
+tick_count = 13
+
+[node name="VSensContainer" type="MarginContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox/VSensContainer"]
+layout_mode = 2
+
+[node name="VSensLabelContainer" type="MarginContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox/VSensContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="VSensLabel" type="Label" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox/VSensContainer/HBoxContainer/VSensLabelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Vertical Sensitivity"
+vertical_alignment = 1
+
+[node name="VSliderContainer" type="MarginContainer" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox/VSensContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="VSensSlider" type="HSlider" parent="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox/VSensContainer/HBoxContainer/VSliderContainer"]
+layout_mode = 2
+max_value = 12.0
+value = 6.0
+tick_count = 13
+
+[connection signal="pressed" from="CanvasLayer/OptionsContainer/VBoxContainer/TopButtonContainer/TopButtons/BackButtonContainer/Back Button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/OptionsContainer/VBoxContainer/TopButtonContainer/TopButtons/SaveButtonContainer/Save Button" to="." method="_on_save_button_pressed"]
+[connection signal="drag_ended" from="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox/HSensContainer/HBoxContainer/HSliderContainer/HSensSlider" to="." method="_on_h_sens_slider_drag_ended"]
+[connection signal="drag_ended" from="CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox/VSensContainer/HBoxContainer/VSliderContainer/VSensSlider" to="." method="_on_v_sens_slider_drag_ended"]

@@ -34,6 +34,7 @@ const STEP_SPEED = 0.03
 const WALK_STEP_DIS = 0.7
 const STAND_STEP_DIS = 0.1
 const LOOK_SPIN = [180.0,135.0,225.0,90.0,270.0]
+const WALK_STATES : Array = [state.PATROLLING, state.IDLE, state.LOOKING]
 
 enum state {IDLE, PATROLLING, DISCOVERING, CHASING, LOOKING, HIDING, SHOOTING}
 
@@ -99,6 +100,12 @@ func _physics_process(delta):
 	handleStates(delta)
 	
 	if see.size() > 0:
+		look_at(lastKnowLoc,Vector3.UP)
+		rotation.x = 0.0
+		rotation.z = 0.0
+	else:
+		var vel = velocity.normalized()
+		vel = global_transform.origin + vel
 		look_at(lastKnowLoc,Vector3.UP)
 		rotation.x = 0.0
 		rotation.z = 0.0
@@ -174,10 +181,11 @@ func stepR(step,stepraise):
 	t.tween_callback(func(): leftStepNext = true)
 
 func alert(point):
-	var statelist:Array = [state.IDLE,state.PATROLLING,state.LOOKING,state.CHASING]
+	var statelist = [state.IDLE,state.PATROLLING,state.LOOKING,state.CHASING]
 	if statelist.has(currentState):
 		lastKnowLoc = point
-		currentState = state.CHASING
+		memTimer.start()
+		stateChange(state.CHASING)
 
 func move(point):
 	if global_transform.origin.distance_to(point) <= (REACH_DIST/2.0):
@@ -188,9 +196,7 @@ func move(point):
 	if currentState == state.CHASING:
 		velocity = ((nextNavPoint - global_transform.origin) \
 		* Vector3(1,0,1)).normalized() * RUN_SPEED
-	elif currentState == state.PATROLLING \
-	or currentState == state.IDLE \
-	or currentState == state.LOOKING:
+	elif WALK_STATES.has(currentState):
 		velocity = ((nextNavPoint - global_transform.origin) \
 		* Vector3(1,0,1)).normalized() * WALK_SPEED
 
@@ -257,7 +263,6 @@ func damage(point, amount, source):
 		dead(point,source)
 
 func hit(point, d, source):
-	print(str(health))
 	damage(point,d,source)
 
 func dead(_point, source):
@@ -266,7 +271,6 @@ func dead(_point, source):
 			queue_free()
 		1:#explosion
 			queue_free()
-	print("dead")
 
 func _on_vision_body_entered(body):
 	if body.collision_layer == 8:
@@ -280,14 +284,13 @@ func _on_vision_body_exited(body):
 
 func _on_look_check_timeout():
 	see = []
-	if !player.crouching:
-		for v in vision:
-			$LookRay.look_at(v.global_transform.origin, Vector3.UP)
-			$LookRay.force_raycast_update()
-			if $LookRay.is_colliding():
-				var collider = $LookRay.get_collider()
-				if collider == v:
-					see.append(v)
+	for v in vision:
+		$LookRay.look_at(v.global_transform.origin, Vector3.UP)
+		$LookRay.force_raycast_update()
+		if $LookRay.is_colliding():
+			var collider = $LookRay.get_collider()
+			if collider == v:
+				see.append(v)
 	
 	if see.size() > 0:
 		memory = true
