@@ -356,7 +356,7 @@ size_flags_vertical = 3
 [node name="MapIconContainer" type="CenterContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/CardsContainer/MapCardsContainer/VBoxContainer/MapCardContainer/VBoxContainer/MapCard"]
 layout_mode = 2
 
-[node name="PrimaryGunIcon" type="TextureRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/CardsContainer/MapCardsContainer/VBoxContainer/MapCardContainer/VBoxContainer/MapCard/MapIconContainer"]
+[node name="MapIcon" type="TextureRect" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/CardsContainer/MapCardsContainer/VBoxContainer/MapCardContainer/VBoxContainer/MapCard/MapIconContainer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 texture = ExtResource("2_2lacs")

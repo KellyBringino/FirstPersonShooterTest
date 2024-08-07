@@ -1,6 +1,8 @@
 class_name HitScanGun
 extends Gun
 
+const misfireInst = preload("res://Guns/Projectile/Misfire.tscn")
+
 @onready var shootRay: RayCast3D = get_node("BarrelEnd/ShootRay")
 
 func fire():
@@ -11,14 +13,18 @@ func fire():
 		if (object != null):
 			if object.collision_layer == 16:
 				object = object.get_node("../../../../../../")
-				if object.editor_description.contains("Enemy") || object.editor_description.contains("Dest"):
+				if object.editor_description.contains("Enemy"):
 					object.hit(shootRay.get_collision_point(),damage,0)
 			elif object.collision_layer == 32:
 				object = object.get_node("../../../../../../")
-				if object.editor_description.contains("Enemy") :
+				if object.editor_description.contains("Enemy"):
 					object.hit(shootRay.get_collision_point(),damage * critMult,0)
 			elif object.collision_layer == 128:
 				object.hit(shootRay.get_collision_point(),damage,0)
+			elif object.collision_layer == 1:
+				var misfire = misfireInst.instantiate()
+				get_tree().root.add_child(misfire)
+				misfire.global_transform.origin = shootRay.get_collision_point()
 		chambered = false
 		$ShotTimer.start()
 	else:

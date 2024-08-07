@@ -23,7 +23,7 @@ func _ready():
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.369048, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_tfseu"]
+[sub_resource type="CurveTexture" id="CurveTexture_jwptu"]
 curve = SubResource("Curve_0by7x")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_psdkb"]
@@ -33,16 +33,16 @@ initial_velocity_min = 12.0
 initial_velocity_max = 14.0
 scale_min = 0.5
 scale_max = 1.5
-scale_curve = SubResource("CurveTexture_tfseu")
+scale_curve = SubResource("CurveTexture_jwptu")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cv17u"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylr3m"]
 albedo_color = Color(0.929412, 0.478431, 0, 1)
 emission_enabled = true
 emission = Color(0.592157, 0.298039, 0.00392157, 1)
 emission_energy_multiplier = 2.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wsai7"]
-material = SubResource("StandardMaterial3D_cv17u")
+material = SubResource("StandardMaterial3D_ylr3m")
 top_radius = 0.03
 bottom_radius = 0.0
 height = 1.0
@@ -51,14 +51,14 @@ height = 1.0
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.653846, 0.934066), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_jqvco"]
+[sub_resource type="CurveTexture" id="CurveTexture_fatqg"]
 curve = SubResource("Curve_qkjyh")
 
 [sub_resource type="Curve" id="Curve_gpln3"]
 _data = [Vector2(0, 0.142857), 0.0, 0.0, 0, 0, Vector2(0.345238, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_6ko0d"]
+[sub_resource type="CurveTexture" id="CurveTexture_majw3"]
 curve = SubResource("Curve_gpln3")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jw58t"]
@@ -70,16 +70,16 @@ initial_velocity_max = 2.0
 gravity = Vector3(0, 5, 0)
 scale_min = 0.8
 scale_max = 1.2
-scale_curve = SubResource("CurveTexture_6ko0d")
+scale_curve = SubResource("CurveTexture_majw3")
 color = Color(0.266667, 0.266667, 0.266667, 1)
-alpha_curve = SubResource("CurveTexture_jqvco")
+alpha_curve = SubResource("CurveTexture_fatqg")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lrqww"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6axtg"]
 transparency = 1
 vertex_color_use_as_albedo = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_fhpvq"]
-material = SubResource("StandardMaterial3D_lrqww")
+material = SubResource("StandardMaterial3D_6axtg")
 size = Vector3(0.6, 0.6, 0.6)
 
 [sub_resource type="Gradient" id="Gradient_frtgo"]

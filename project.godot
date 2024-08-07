@@ -114,6 +114,17 @@ crouch={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Environment"
+3d_physics/layer_2="PlayerCollider"
+3d_physics/layer_3="EnemyCollider"
+3d_physics/layer_4="PlayerHitbox"
+3d_physics/layer_5="EnemyBodyHitbox"
+3d_physics/layer_6="EnemyHeadHitbox"
+3d_physics/layer_7="Projectile"
+3d_physics/layer_8="Destructibles"
+
 [physics]
 
 3d/default_gravity=20.0
