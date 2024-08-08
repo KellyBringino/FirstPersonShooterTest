@@ -67,3 +67,5 @@ shape = SubResource("BoxShape3D_npjpi")
 
 [node name="Player" parent="." instance=ExtResource("2_74qte")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 5)
+
+[node name="Enemies" type="Node3D" parent="."]
