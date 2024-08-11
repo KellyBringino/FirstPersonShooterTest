@@ -24,6 +24,8 @@ func fire():
 			elif object.collision_layer == 1:
 				var misfire = misfireInst.instantiate()
 				get_tree().root.add_child(misfire)
+				misfire.look_at(shootRay.get_collision_normal())
+				print(misfire.rotation_degrees)
 				misfire.global_transform.origin = shootRay.get_collision_point()
 		chambered = false
 		$ShotTimer.start()
