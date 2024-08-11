@@ -1,0 +1,162 @@
+[gd_scene load_steps=12 format=3 uid="uid://bb1i806nt4qjq"]
+
+[ext_resource type="Script" path="res://Enemies/enemy_basic.gd" id="1_75185"]
+[ext_resource type="PackedScene" uid="uid://btblrptk4sci8" path="res://Models/Mobs/enemydoll.tscn" id="1_f66bl"]
+[ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Sprites/bar back.svg" id="2_5kol5"]
+[ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Sprites/health.svg" id="3_04mkt"]
+[ext_resource type="PackedScene" uid="uid://t4fxq0m12mut" path="res://Models/Collider Shapes/cone.tscn" id="4_qtwdq"]
+[ext_resource type="PackedScene" uid="uid://xr8qex6bgmn5" path="res://Guns/pistol.tscn" id="5_1q31j"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2p6i3"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_x4x6m"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0qlg0"]
+points = PackedVector3Array(-9.78708e-05, 0, -9.78708e-05, 0.0974941, -1, -0.490407, -9.78708e-05, -1, -0.5, -0.097592, -1, -0.490407, -0.191366, -1, -0.46202, -0.2778, -1, -0.415818, -0.353563, -1, -0.353563, -0.415818, -1, -0.2778, -0.46202, -1, -0.191366, -0.490407, -1, -0.097592, -0.5, -1, -9.78708e-05, -0.490407, -1, 0.0974941, -0.46202, -1, 0.191269, -0.415818, -1, 0.277702, -0.353563, -1, 0.353465, -0.2778, -1, 0.41572, -0.191366, -1, 0.461922, -0.097592, -1, 0.490309, -9.78708e-05, -1, 0.5, 0.0974941, -1, 0.490309, 0.191269, -1, 0.461922, 0.277702, -1, 0.41572, 0.353465, -1, 0.353465, 0.41572, -1, 0.277702, 0.461922, -1, 0.191269, 0.490309, -1, 0.0974941, 0.499902, -1, -9.78708e-05, 0.490309, -1, -0.097592, 0.461922, -1, -0.191366, 0.41572, -1, -0.2778, 0.353465, -1, -0.353563, 0.277702, -1, -0.415818, 0.191269, -1, -0.46202)
+
+[sub_resource type="GDScript" id="GDScript_sel0h"]
+script/source = "extends RayCast3D
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	var hit_point = get_collision_point()
+	if hit_point:
+		get_children()[0].global_position = hit_point
+"
+
+[sub_resource type="GDScript" id="GDScript_slcol"]
+script/source = "extends RayCast3D
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	var hit_point = get_collision_point()
+	if hit_point:
+		get_children()[0].global_position = hit_point
+"
+
+[node name="Enemy_Basic" type="CharacterBody3D"]
+editor_description = "Enemy"
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_75185")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_2p6i3")
+
+[node name="ModelController" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="doll" parent="ModelController" instance=ExtResource("1_f66bl")]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2.14703, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_x4x6m")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+size = Vector2i(760, 105)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Sprite3D/SubViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
+value = 100.0
+texture_under = ExtResource("2_5kol5")
+texture_progress = ExtResource("3_04mkt")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+radius = 0.7
+
+[node name="LookRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89151, 0)
+target_position = Vector3(0, 0, -80)
+collision_mask = 9
+collide_with_areas = true
+
+[node name="ViewControl" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70172, 0)
+
+[node name="vision" type="Area3D" parent="ViewControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.173085, 0)
+collision_layer = 0
+collision_mask = 8
+
+[node name="Cone" parent="ViewControl/vision" instance=ExtResource("4_qtwdq")]
+transform = Transform3D(10, 0, 0, 0, -8.74228e-07, -10, 0, 20, -4.37114e-07, 0, 0, 0)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewControl/vision"]
+transform = Transform3D(70, 0, 0, 0, -3.0598e-06, -70, 0, 70, -3.0598e-06, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_0qlg0")
+
+[node name="GunController" type="Node3D" parent="ViewControl/vision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11331, -0.315432, -0.479749)
+
+[node name="Weapon" type="Node3D" parent="ViewControl/vision/GunController"]
+
+[node name="Gun" parent="ViewControl/vision/GunController/Weapon" instance=ExtResource("5_1q31j")]
+
+[node name="TimerController" type="Node3D" parent="."]
+
+[node name="LookCheck" type="Timer" parent="TimerController"]
+wait_time = 0.1
+autostart = true
+
+[node name="PathfindTimer" type="Timer" parent="TimerController"]
+autostart = true
+
+[node name="StepTargetController" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="RightSprintRayCast" type="RayCast3D" parent="StepTargetController"]
+transform = Transform3D(1, 0, 2.74655e-09, 1.86265e-08, -1.49012e-08, 1, 0, -1, -4.8434e-08, -0.155, 0.5, 0.7)
+target_position = Vector3(0, 0, -1)
+script = SubResource("GDScript_sel0h")
+
+[node name="RightStepTarget" type="Node3D" parent="StepTargetController/RightSprintRayCast"]
+transform = Transform3D(0.0449435, -0.254887, -0.965926, 0.167731, -0.951251, 0.258819, -0.984808, -0.173648, -4.2222e-08, 0, 2.98023e-08, -0.5)
+
+[node name="RightRaiseTarget" type="Node3D" parent="StepTargetController/RightSprintRayCast"]
+transform = Transform3D(0.0449435, -0.254887, -0.965926, 0.167731, -0.951251, 0.258819, -0.984808, -0.173648, -4.2222e-08, 0, 0.2, -0.2)
+
+[node name="LeftSprintRayCast" type="RayCast3D" parent="StepTargetController"]
+transform = Transform3D(1, -8.9407e-08, -1.88775e-08, 0, 0, 1, 0, -1, 2.67405e-08, 0.155, 0.5, 0.7)
+target_position = Vector3(0, 0, -1)
+script = SubResource("GDScript_slcol")
+
+[node name="LeftStepTarget" type="Node3D" parent="StepTargetController/LeftSprintRayCast"]
+transform = Transform3D(-0.0449434, 0.254887, -0.965926, 0.167731, -0.951251, -0.258819, -0.984808, -0.173648, -4.2222e-08, -1.49012e-08, 0, -0.5)
+
+[node name="LeftRaiseTarget" type="Node3D" parent="StepTargetController/LeftSprintRayCast"]
+transform = Transform3D(-0.0449434, 0.254887, -0.965926, 0.167731, -0.951251, -0.258819, -0.984808, -0.173648, -4.2222e-08, -4.47035e-08, 0.2, -0.2)
+
+[node name="RightStandRayCast" type="RayCast3D" parent="StepTargetController"]
+transform = Transform3D(1, 0, 2.74655e-09, 1.86265e-08, -1.49012e-08, 1, 0, -1, -4.8434e-08, -0.155, 0.5, 0)
+target_position = Vector3(0, 0, -1)
+script = SubResource("GDScript_sel0h")
+
+[node name="RightStepTarget" type="Node3D" parent="StepTargetController/RightStandRayCast"]
+transform = Transform3D(0.0449435, -0.254887, -0.965926, 0.167731, -0.951251, 0.258819, -0.984808, -0.173648, -4.2222e-08, 0, 2.98023e-08, -0.5)
+
+[node name="RightRaiseTarget" type="Node3D" parent="StepTargetController/RightStandRayCast"]
+transform = Transform3D(1, 0, 1.53885e-17, 0, 1, 0, -4.73652e-16, 0, 1, 0, 1.61702e-08, -0.33386)
+
+[node name="LeftStandRayCast" type="RayCast3D" parent="StepTargetController"]
+transform = Transform3D(1, -8.9407e-08, -1.88775e-08, 0, 0, 1, 0, -1, 2.67405e-08, 0.155, 0.5, 0)
+target_position = Vector3(0, 0, -1)
+script = SubResource("GDScript_slcol")
+
+[node name="LeftStepTarget" type="Node3D" parent="StepTargetController/LeftStandRayCast"]
+transform = Transform3D(-0.0449434, 0.254887, -0.965926, 0.167731, -0.951251, -0.258819, -0.984808, -0.173648, -4.2222e-08, -1.49012e-08, 0, -0.5)
+
+[node name="LeftRaiseTarget" type="Node3D" parent="StepTargetController/LeftStandRayCast"]
+transform = Transform3D(1, 0, 6.00553e-16, 0, 1, 0, 0, 0, 1, -2.98023e-08, -8.92758e-09, -0.33386)
+
+[connection signal="body_entered" from="ViewControl/vision" to="." method="_on_vision_body_entered"]
+[connection signal="body_exited" from="ViewControl/vision" to="." method="_on_vision_body_exited"]
+[connection signal="timeout" from="TimerController/LookCheck" to="." method="_on_look_check_timeout"]
+[connection signal="timeout" from="TimerController/PathfindTimer" to="." method="_on_pathfind_timer_timeout"]

@@ -10,6 +10,7 @@ func fire():
 		super.fire()
 		mag -= 1
 		var object = shootRay.get_collider()
+		print(object.collision_layer)
 		if (object != null):
 			if object.collision_layer == 16:
 				object = object.get_node("../../../../../../")
