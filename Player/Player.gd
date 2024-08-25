@@ -253,7 +253,8 @@ func pointGun():
 	if curgun.shootRay.is_colliding():
 		get_node("/root/World/GUI").pointgun(curgun.shootRay.get_collision_point())
 	else:
-		get_node("/root/World/GUI").dontpointgun()
+		var faraway = curgun.shootRay.global_position + (curgun.shootRay.global_transform.looking_at() * 10)
+		get_node("/root/World/GUI").pointgun(faraway) 
 
 func updateCamera(delta):
 	#find mouse movement
