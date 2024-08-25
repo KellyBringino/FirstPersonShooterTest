@@ -2,6 +2,7 @@ class_name HitScanGun
 extends Gun
 
 const misfireInst = preload("res://Guns/Projectile/Misfire.tscn")
+const bulletInst = preload("res://Guns/Projectile/bullet_particle.tscn")
 
 @onready var barrelEnd : Node3D = $BarrelEnd
 
@@ -18,7 +19,14 @@ func fire():
 		mag -= 1
 		var object = shootRay.get_collider()
 		if (object != null):
-			print(object.collision_layer)
+			var bullet = bulletInst.instantiate()
+			get_tree().root.add_child(bullet)
+			bullet.global_transform.origin = shootRay.global_transform.origin
+			bullet.global_rotation = shootRay.global_rotation
+			var dist = shootRay.global_transform.origin.distance_to\
+				(shootRay.get_collision_point())
+			bullet.startup(dist)
+			#print(object.collision_layer)
 			if object.collision_layer == 16:
 				object = object.get_node("../../../../../../")
 				if object.editor_description.contains("Enemy"):
@@ -33,8 +41,13 @@ func fire():
 				var misfire = misfireInst.instantiate()
 				get_tree().root.add_child(misfire)
 				misfire.look_at(shootRay.get_collision_normal())
-				print(misfire.rotation_degrees)
 				misfire.global_transform.origin = shootRay.get_collision_point()
+		else:
+			var bullet = bulletInst.instantiate()
+			get_tree().root.add_child(bullet)
+			bullet.global_position = barrelEnd.global_position
+			bullet.global_rotation = barrelEnd.global_rotation
+			bullet.startup(100)
 		
 		get_node("/root/World/Player").recoil(flinch)
 		var t = get_tree().create_tween()

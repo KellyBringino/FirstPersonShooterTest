@@ -16,7 +16,8 @@ func startup(a):
 func spawn():
 	while amount > 0:
 		var mob = mob_scene.instantiate()
-		mob.position = position + Vector3(rng.randf_range(-2,2),0,rng.randf_range(-2,2))
+		mob.position = position + \
+			Vector3(rng.randf_range(-2,2),0,rng.randf_range(-2,2))
 		get_node("/root/World/Enemies").add_child(mob)
 		amount -= 1
 		await get_tree().create_timer(1.0).timeout
