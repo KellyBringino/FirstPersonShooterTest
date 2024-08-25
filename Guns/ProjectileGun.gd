@@ -3,12 +3,12 @@ extends Gun
 
 var projectile
 
-func pstartup(startDamage, proj, fullMag):
-	damage = startDamage
-	projectile = proj
-	mag = fullMag
-	MAG_MAX = fullMag
-	startup(startDamage,1.0,fullMag)
+func pstartup(object):
+	damage = object.damage
+	projectile = object.proj
+	mag = object.magsize
+	MAG_MAX = object.magsize
+	startup(object)
 
 func fire():
 	if chambered && !reloading && mag > 0:

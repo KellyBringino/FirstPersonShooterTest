@@ -9,14 +9,20 @@ const sniperInstance = preload("res://Guns/sniper.tscn")
 const revolverInstance = preload("res://Guns/revolver.tscn")
 const rocketlauncherInstance = preload("res://Guns/rocketlauncher.tscn")
 
+const rocketInstance = preload("res://Guns/Projectile/rocket.tscn")
+
 const enemyHealth = 2000.0
 const playerHealth = 2000.0
 
-const rifleDamage = 300.0
-const sniperDamage = 1000.0
-const pistolDamage = 300.0
-const revolverDamage = 500.0
-const rocketlauncherDamage = 300.0
+
+const rifle = {name = "rifle", damage = 300.0, crit = 1.3, magsize = 40, flinch = 0.4}
+const sniper = {name = "sniper", damage = 1000.0, crit = 2.0, magsize = 3, flinch = 1.0}
+
+const pistol = {name = "pistol", damage = 300.0, crit = 1.5, magsize = 10, flinch = 0.4}
+const revolver = {name = "revolver", damage = 500.0, crit = 1.5, magsize = 6, flinch = 0.8}
+
+const rocketlauncher = {name = "rocketlauncher", damage = 300.0, crit = 1.0, magsize = 1, flinch = 0.0, proj = rocketInstance}
+
 
 var paused : bool = false
 var horizontalSensitivity = 0.8

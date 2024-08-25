@@ -1,9 +1,8 @@
 extends ProjectileGun
 
-const rocketInstance = preload("res://Guns/Projectile/rocket.tscn")
 
 func _ready():
-	pstartup(Game.rocketlauncherDamage,rocketInstance,1)
+	pstartup(Game.rocketlauncher)
 
 func heldFire():
 	pass

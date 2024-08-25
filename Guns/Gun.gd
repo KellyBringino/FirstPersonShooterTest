@@ -8,6 +8,7 @@ const pitchModMax = 0.5
 @onready var ske : Skeleton3D = get_node("model/Armature/Skeleton3D")
 @onready var gripBoneAtt : BoneAttachment3D = $model/Armature/Skeleton3D/GripAttachment
 @onready var OffBoneAtt : BoneAttachment3D = $model/Armature/Skeleton3D/OffhandAttachment
+@onready var shootRay : RayCast3D = $BarrelEnd/ShootRay
 
 var damage : float
 var critMult : float
@@ -17,11 +18,11 @@ var chambered : bool = true
 var reloading : bool = false
 var grace : bool = false
 
-func startup(startDamage, critical, fullMag):
-	damage = startDamage
-	critMult = critical
-	mag = fullMag
-	MAG_MAX = fullMag
+func startup(object):
+	damage = object.damage
+	critMult = object.crit
+	mag = object.magsize
+	MAG_MAX = object.magsize
 
 func _process(_delta):
 	$Grip.global_transform.origin = gripBoneAtt.global_transform.origin

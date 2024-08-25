@@ -43,6 +43,16 @@ func switchTo(page):
 			hsensbar.value = int((Game.horizontalSensitivity - 0.2) * 10)
 			vsensbar.value = int((Game.verticalSensitivity - 0.2) * 10)
 
+func pointgun(point):
+	var cam = get_tree().root.get_camera_3d()
+	if !cam.is_position_behind(point):
+		var pos = cam.unproject_position(point)
+		$CanvasLayer/InGameGUI/Hitmark.position = pos
+	else:
+		$CanvasLayer/InGameGUI/Hitmark.position = $CanvasLayer/InGameGUI/CrosshairCenterContainer.position
+func dontpointgun():
+	$CanvasLayer/InGameGUI/Hitmark.position = $CanvasLayer/InGameGUI/CrosshairCenterContainer.position
+
 func setWeapons(w):
 	weapons = w
 	var pri = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5gjr4qrdvma7"]
+[gd_scene load_steps=8 format=3 uid="uid://b5gjr4qrdvma7"]
 
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_81un3"]
 [ext_resource type="Texture2D" uid="uid://drchcncoxm6r2" path="res://Sprites/crosshair.svg" id="2_ekvqs"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Sprites/bar back.svg" id="3_mt0so"]
 [ext_resource type="Texture2D" uid="uid://crmjikty86roj" path="res://Sprites/circle bar.svg" id="3_wyimq"]
 [ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Sprites/health.svg" id="4_0u4fy"]
+[ext_resource type="Texture2D" uid="uid://cyvgtgfpwye8m" path="res://Sprites/hitmark.svg" id="7_kq6is"]
 
 [node name="GUI" type="Node2D"]
 script = ExtResource("1_81un3")
@@ -123,7 +124,20 @@ value = 70.0
 texture_under = ExtResource("3_mt0so")
 texture_progress = ExtResource("4_0u4fy")
 
+[node name="Hitmark" type="Control" parent="CanvasLayer/InGameGUI"]
+layout_mode = 2
+anchors_preset = 0
+offset_left = 576.0
+offset_top = 324.0
+offset_right = 576.0
+offset_bottom = 324.0
+
+[node name="Hitmark" type="Sprite2D" parent="CanvasLayer/InGameGUI/Hitmark"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("7_kq6is")
+
 [node name="PauseMenu" type="MarginContainer" parent="CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -39,6 +39,7 @@ var heavy
 var mouseRot : Vector3
 var rotInput : float
 var tiltInput : float
+var flinchadd : float = 0.0
 var horizontalsens : float = 1.0
 var verticalsens : float = 1.0
 
@@ -146,6 +147,12 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
+func recoil(amount):
+	var t = get_tree().create_tween()
+	amount /= 10
+	t.tween_property(get_node("."),"flinchadd",flinchadd + amount,0.02)
+	t.tween_property(get_node("."),"flinchadd",0.0,0.5)
+
 func take_step(step, stepraise, upspeed, downspeed, left):
 	var target_pos = step.global_position
 	var half = stepraise.global_position
@@ -233,10 +240,24 @@ func pointGun():
 		$CameraController/GunController.rotation = Vector3.UP
 	else:
 		$CameraController/GunController.rotation = Vector3.ZERO
+		
+	var curgun = null
+	if holdingHeavy:
+		curgun = heavy 
+	else:
+		if holdingPrimary:
+			curgun = primary
+		else:
+			curgun = secondary
+	curgun.shootRay.force_raycast_update()
+	if curgun.shootRay.is_colliding():
+		get_node("/root/World/GUI").pointgun(curgun.shootRay.get_collision_point())
+	else:
+		get_node("/root/World/GUI").dontpointgun()
 
 func updateCamera(delta):
 	#find mouse movement
-	mouseRot.x += tiltInput * delta * 0.5 * verticalsens
+	mouseRot.x += (tiltInput * delta * 0.5 * verticalsens) + flinchadd
 	mouseRot.x = clamp(mouseRot.x, TILT_LOWER_LIMIT, TILT_UPPER_LIMIT)
 	mouseRot.y += rotInput * delta * 0.4 * horizontalsens
 	#move camera up and down
