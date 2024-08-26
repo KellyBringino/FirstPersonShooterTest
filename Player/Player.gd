@@ -86,15 +86,21 @@ func _physics_process(delta):
 	var handle = $ModelController/doll/WeaponTarget.global_transform.origin
 	var offhand = $ModelController/doll/OffhandTarget.global_transform.origin
 	if holdingHeavy:
-		handle = $CameraController/GunController/Weapon3/Gun/Grip.global_transform.origin
-		offhand = $CameraController/GunController/Weapon3/Gun/OffhandGrip.global_transform.origin
+		handle = $CameraController/GunController/Weapon3/Gun/Grip\
+			.global_transform.origin
+		offhand = $CameraController/GunController/Weapon3/Gun/OffhandGrip\
+			.global_transform.origin
 	else:
 		if holdingPrimary:
-			handle = $CameraController/GunController/Weapon1/Gun/Grip.global_transform.origin
-			offhand = $CameraController/GunController/Weapon1/Gun/OffhandGrip.global_transform.origin
+			handle = $CameraController/GunController/Weapon1/Gun/Grip\
+				.global_transform.origin
+			offhand = $CameraController/GunController/Weapon1/Gun/OffhandGrip\
+				.global_transform.origin
 		else:
-			handle = $CameraController/GunController/Weapon2/Gun/Grip.global_transform.origin
-			offhand = $CameraController/GunController/Weapon2/Gun/OffhandGrip.global_transform.origin
+			handle = $CameraController/GunController/Weapon2/Gun/Grip\
+				.global_transform.origin
+			offhand = $CameraController/GunController/Weapon2/Gun/OffhandGrip\
+				.global_transform.origin
 	$ModelController/doll/WeaponTarget.global_transform.origin = handle
 	$ModelController/doll/OffhandTarget.global_transform.origin = offhand
 	
@@ -103,29 +109,39 @@ func _physics_process(delta):
 	
 	match curMoveState:
 		movestate.STANDING:
-			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftStand.global_position)) > STAND_STEP_DIS && leftStepNext:
+			if abs($ModelController/doll/LeftLegTarget.global_position\
+			.distance_to(leftStand.global_position)) > STAND_STEP_DIS && leftStepNext:
 				take_step(leftStand,leftStandRaise,SPRINT_UPSPEED,SPRINT_UPSPEED,true)
-			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightStand.global_position)) > STAND_STEP_DIS && !leftStepNext:
+			if abs($ModelController/doll/RightLegTarget.global_position\
+			.distance_to(rightStand.global_position)) > STAND_STEP_DIS && !leftStepNext:
 				take_step(rightStand,rightStandRaise,SPRINT_UPSPEED,SPRINT_UPSPEED,false)
 		movestate.WALKING:
-			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftWalk.global_position)) > WALK_STEP_DIS && leftStepNext:
+			if abs($ModelController/doll/LeftLegTarget.global_position\
+			.distance_to(leftWalk.global_position)) > WALK_STEP_DIS && leftStepNext:
 				take_step(leftWalk,leftWalkRaise,WALK_UPSPEED,WALK_DOWNSPEED,true)
-			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightWalk.global_position)) > WALK_STEP_DIS && !leftStepNext:
+			if abs($ModelController/doll/RightLegTarget.global_position\
+			.distance_to(rightWalk.global_position)) > WALK_STEP_DIS && !leftStepNext:
 				take_step(rightWalk,rightWalkRaise,WALK_UPSPEED,WALK_DOWNSPEED,false)
 		movestate.BACKWARDS:
-			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftBack.global_position)) > WALK_STEP_DIS && leftStepNext:
+			if abs($ModelController/doll/LeftLegTarget.global_position\
+			.distance_to(leftBack.global_position)) > WALK_STEP_DIS && leftStepNext:
 				take_step(leftBack,leftBackRaise,WALK_UPSPEED,WALK_DOWNSPEED,true)
-			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightBack.global_position)) > WALK_STEP_DIS && !leftStepNext:
+			if abs($ModelController/doll/RightLegTarget.global_position\
+			.distance_to(rightBack.global_position)) > WALK_STEP_DIS && !leftStepNext:
 				take_step(rightBack,rightBackRaise,WALK_UPSPEED,WALK_DOWNSPEED,false)
 		movestate.SPRINTING:
-			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftSprint.global_position)) > SPRINT_STEP_DIS && leftStepNext:
+			if abs($ModelController/doll/LeftLegTarget.global_position\
+			.distance_to(leftSprint.global_position)) > SPRINT_STEP_DIS && leftStepNext:
 				take_step(leftSprint,leftSprintRaise,SPRINT_UPSPEED,SPRINT_UPSPEED, true)
-			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightSprint.global_position)) > SPRINT_STEP_DIS && !leftStepNext:
+			if abs($ModelController/doll/RightLegTarget.global_position\
+			.distance_to(rightSprint.global_position)) > SPRINT_STEP_DIS && !leftStepNext:
 				take_step(rightSprint,rightSprintRaise,SPRINT_UPSPEED,SPRINT_UPSPEED,false)
 		movestate.STRAFE:
-			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftStrafe.global_position)) > STRAFE_STEP_DIS && leftStepNext:
+			if abs($ModelController/doll/LeftLegTarget.global_position\
+			.distance_to(leftStrafe.global_position)) > STRAFE_STEP_DIS && leftStepNext:
 				take_step(leftStrafe,leftStrafeRaise, STRAFE_UPSPEED, STRAFE_DOWNSPEED, true)
-			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightStrafe.global_position)) > STRAFE_STEP_DIS && !leftStepNext:
+			if abs($ModelController/doll/RightLegTarget.global_position\
+			.distance_to(rightStrafe.global_position)) > STRAFE_STEP_DIS && !leftStepNext:
 				take_step(rightStrafe,rightStrafeRaise, STRAFE_UPSPEED, STRAFE_DOWNSPEED,false)
 		movestate.JUMPING:
 			$ModelController/doll/LeftLegTarget.global_position = leftJump.global_position
@@ -159,17 +175,23 @@ func take_step(step, stepraise, upspeed, downspeed, left):
 	
 	var t = get_tree().create_tween()
 	if left:
-		t.tween_property($ModelController/doll/LeftLegTarget,"global_position", half, upspeed)
+		t.tween_property($ModelController/doll/LeftLegTarget,\
+			"global_position", half, upspeed)
 		t.set_parallel(false)
-		t.tween_property($ModelController/doll/LeftLegTarget, "global_position", target_pos, downspeed)
-		t.tween_property($ModelController/doll/LeftLegTarget, "global_rotation", step.global_rotation, downspeed)
+		t.tween_property($ModelController/doll/LeftLegTarget, \
+			"global_position", target_pos, downspeed)
+		t.tween_property($ModelController/doll/LeftLegTarget, \
+			"global_rotation", step.global_rotation, downspeed)
 		t.set_parallel(true)
 		t.tween_callback(func(): leftStepNext = false)
 	else:
-		t.tween_property($ModelController/doll/RightLegTarget,"global_position", half, upspeed)
+		t.tween_property($ModelController/doll/RightLegTarget,\
+			"global_position", half, upspeed)
 		t.set_parallel(false)
-		t.tween_property($ModelController/doll/RightLegTarget, "global_position", target_pos, downspeed)
-		t.tween_property($ModelController/doll/RightLegTarget, "global_rotation", step.global_rotation, downspeed)
+		t.tween_property($ModelController/doll/RightLegTarget, \
+			"global_position", target_pos, downspeed)
+		t.tween_property($ModelController/doll/RightLegTarget, \
+			"global_rotation", step.global_rotation, downspeed)
 		t.set_parallel(true)
 		t.tween_callback(func(): leftStepNext = true)
 
@@ -205,7 +227,8 @@ func move(_delta):
 		curMoveState = movestate.WALKING
 	
 	#check if sprinting, then modify speed if sprinting
-	sprinting = Input.is_action_pressed("sprint") && Input.is_action_pressed("forward")
+	sprinting = Input.is_action_pressed("sprint") && \
+		Input.is_action_pressed("forward")
 	if sprinting:
 		$CameraController/Camera3D/AnimationPlayer.play("SHeadBob")
 		curMoveState = movestate.SPRINTING
@@ -239,7 +262,8 @@ func pointGun():
 	elif sprinting:
 		$CameraController/GunController.rotation = Vector3.UP
 	else:
-		$CameraController/GunController.rotation = Vector3.ZERO
+		var lookpoint = $CameraController/Camera3D/lookRay/DistanceRef.global_position
+		$CameraController/GunController.look_at(lookpoint, Vector3(0,1,0))
 		
 	var curgun = null
 	if holdingHeavy:
@@ -253,8 +277,9 @@ func pointGun():
 	if curgun.shootRay.is_colliding():
 		get_node("/root/World/GUI").pointgun(curgun.shootRay.get_collision_point())
 	else:
-		var faraway = curgun.shootRay.global_position + (curgun.shootRay.global_transform.looking_at() * 10)
+		var faraway = curgun.get_node("BarrelEnd/ShootRay/DistanceRef").global_position
 		get_node("/root/World/GUI").pointgun(faraway) 
+		#get_node("/root/World/GUI").dontpointgun()
 
 func updateCamera(delta):
 	#find mouse movement
