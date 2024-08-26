@@ -119,6 +119,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0.048058, -0.306158)
 
 [node name="Weapon3" type="Node3D" parent="CameraController/GunController"]
 
+[node name="AimDownSightsRef" type="Node3D" parent="CameraController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.143444, -0.306)
+
 [node name="ModelController" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 

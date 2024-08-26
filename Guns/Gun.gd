@@ -17,6 +17,7 @@ var MAG_MAX : int
 var reserve : int
 var reserveMax : int
 var reloadMult : float
+var adsOffset : float
 var limited : bool = false
 var chambered : bool = true
 var reloading : bool = false
@@ -28,6 +29,7 @@ func startup(object):
 	mag = object.magsize
 	MAG_MAX = object.magsize
 	reloadMult = object.reloadMult
+	adsOffset = object.adsOffset / 10.0
 	if object.ammoLimited:
 		limited = true
 		reserveMax = object.ammoMax

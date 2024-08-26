@@ -27,6 +27,7 @@ var parts : int
 
 var holdingPrimary : bool = true
 var holdingHeavy : bool = false
+var ADS : bool = false
 var leadTrigger : bool = false
 var crouching : bool = false
 var leftStepNext : bool = false
@@ -73,6 +74,10 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var rightStrafeRaise = $StepTargetController/RightStrafeRayCast/RightRaiseTarget
 @onready var rightJump = $StepTargetController/RightJumpTarget
 @onready var leftJump = $StepTargetController/LeftJumpTarget
+@onready var primaryContainer = $CameraController/GunController/Weapon1
+@onready var secondaryContainer = $CameraController/GunController/Weapon2
+@onready var heavyContainer = $CameraController/GunController/Weapon3
+@onready var aimDownSightsRef = $CameraController/AimDownSightsRef
 
 func _ready():
 	maxHealth = Game.playerHealth
@@ -175,13 +180,14 @@ func _physics_process(delta):
 			$ModelController/doll/RightLegTarget.global_rotation = rightJump\
 				.global_rotation
 	
-	pointGun()
 	
 	curMoveState = movestate.STANDING
 	if !Game.pauseCheck():
+		holdADS()
 		holdFireHeldGun()
 		move(delta)
 		updateCamera(delta)
+	pointGun()
 	
 	if not is_on_floor():
 		curMoveState = movestate.JUMPING
@@ -232,6 +238,32 @@ func singleFireHeldGun():
 func releaseFireHeldGun():
 	if !sprinting:
 		heldGun.releaseFire()
+
+func holdADS():
+	if ADS && !sprinting:
+		var curgun
+		if holdingHeavy:
+			curgun = heavyContainer 
+		else:
+			if holdingPrimary:
+				curgun = primaryContainer
+			else:
+				curgun = secondaryContainer
+		curgun.global_transform.origin = \
+			aimDownSightsRef.global_transform.origin
+		curgun.position += Vector3(0.0, curgun.get_child(0).adsOffset,0.0)
+		
+func releaseADS():
+	pass
+	var curgun
+	if holdingHeavy:
+		curgun = heavyContainer 
+	else:
+		if holdingPrimary:
+			curgun = primaryContainer
+		else:
+			curgun = secondaryContainer
+	curgun.position = Vector3(0.0,0.0,0.0)
 
 func reloadHeldGun():
 	heldGun.reload()
@@ -341,6 +373,7 @@ func swapWeapons():
 
 func equipPrimary():
 	if primary != null:
+		releaseADS()
 		holdingPrimary = true
 		holdingHeavy = false
 		heldGun = primary
@@ -350,6 +383,7 @@ func equipPrimary():
 		Game.equip(holdingHeavy,holdingPrimary)
 func equipSecondary():
 	if secondary != null:
+		releaseADS()
 		holdingPrimary = false
 		holdingHeavy = false
 		heldGun = secondary
@@ -359,6 +393,7 @@ func equipSecondary():
 		Game.equip(holdingHeavy,holdingPrimary)
 func equipHeavy():
 	if heavy != null:
+		releaseADS()
 		holdingHeavy = true
 		heldGun = heavy
 		$CameraController/GunController/Weapon1.hide()
@@ -422,7 +457,13 @@ func _input(event):
 			leadTrigger = true
 		elif event.is_action_released("fire"):
 			leadTrigger = false
-			
+		
+		if event.is_action_pressed("ads"):
+			ADS = true
+		elif event.is_action_released("ads"):
+			ADS = false
+			releaseADS()
+		
 		if event.is_action_pressed("reload"):
 			reloadHeldGun()
 			
