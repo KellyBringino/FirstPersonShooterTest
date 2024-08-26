@@ -12,8 +12,11 @@ const pitchModMax = 0.5
 
 var damage : float
 var critMult : float
-var mag : float
-var MAG_MAX : float
+var mag : int
+var MAG_MAX : int
+var reserve : int
+var reserveMax : int
+var limited : bool = false
 var chambered : bool = true
 var reloading : bool = false
 var grace : bool = false
@@ -23,6 +26,10 @@ func startup(object):
 	critMult = object.crit
 	mag = object.magsize
 	MAG_MAX = object.magsize
+	if object.ammoLimited:
+		limited = true
+		reserveMax = object.ammoMax
+		reserve = object.ammoMax
 
 func _process(_delta):
 	$Grip.global_transform.origin = gripBoneAtt.global_transform.origin
@@ -48,11 +55,19 @@ func releaseFire():
 	pass
 
 func reload():
-	if mag < MAG_MAX:
+	if mag < MAG_MAX && !(limited && reserve==0):
 		reloading = true
 		anim.play("Reload")
 		await anim.animation_finished
-		mag = MAG_MAX
+		if limited:
+			if reserve < MAG_MAX:
+				mag = reserve
+				reserve = 0
+			else:
+				reserve -= MAG_MAX - mag
+				mag = MAG_MAX
+		else:
+			mag = MAG_MAX
 		reloading = false
 		if grace:
 			fire()

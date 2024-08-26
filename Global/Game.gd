@@ -23,9 +23,11 @@ const playerHealth = 2000.0
 const rifle = \
 {\
 	name = "rifle", \
+	ammoLimited = true,\
 	damage = 300.0, \
 	crit = 1.3, \
 	magsize = 40, \
+	ammoMax = 240,\
 	flinch = 0.2,\
 	ammoCost = 1,\
 	upgradeCost = 600,\
@@ -34,9 +36,11 @@ const rifle = \
 const sniper = \
 {\
 	name = "sniper", \
+	ammoLimited = true,\
 	damage = 1000.0, \
 	crit = 2.0, \
 	magsize = 3, \
+	ammoMax = 18,\
 	flinch = 1.0,\
 	ammoCost = 20,\
 	upgradeCost = 600,\
@@ -46,6 +50,7 @@ const sniper = \
 const pistol = \
 {\
 	name = "pistol", \
+	ammoLimited = false,\
 	damage = 300.0, \
 	crit = 1.5, \
 	magsize = 10, \
@@ -56,6 +61,7 @@ const pistol = \
 const revolver = \
 {\
 	name = "revolver", \
+	ammoLimited = false,\
 	damage = 500.0, \
 	crit = 1.5, \
 	magsize = 6, \
@@ -67,8 +73,11 @@ const revolver = \
 const rocketlauncher = \
 {\
 	name = "rocketlauncher", \
+	ammoLimited = true,\
 	damage = 300.0, \
-	crit = 1.0, magsize = 1, \
+	crit = 1.0, \
+	magsize = 1, \
+	ammoMax = 4,\
 	flinch = 0.0,\
 	ammoCost = 40,\
 	upgradeCost = 1000,\

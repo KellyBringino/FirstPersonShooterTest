@@ -27,6 +27,8 @@ func _process(_delta):
 	ammobar.max_value = $"../Player".heldGun.MAG_MAX
 	ammobar.value = $"../Player".heldGun.mag
 	ammocounter.text = "ammo:\n" + str($"../Player".heldGun.mag)
+	if $"../Player".heldGun.limited:
+		ammocounter.text += " / " + str($"../Player".heldGun.reserve)
 	partscounter.text = "Parts: " + str($"../Player".parts)
 
 func pause():
