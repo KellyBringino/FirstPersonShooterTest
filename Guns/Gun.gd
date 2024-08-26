@@ -16,6 +16,7 @@ var mag : int
 var MAG_MAX : int
 var reserve : int
 var reserveMax : int
+var reloadMult : float
 var limited : bool = false
 var chambered : bool = true
 var reloading : bool = false
@@ -26,6 +27,7 @@ func startup(object):
 	critMult = object.crit
 	mag = object.magsize
 	MAG_MAX = object.magsize
+	reloadMult = object.reloadMult
 	if object.ammoLimited:
 		limited = true
 		reserveMax = object.ammoMax
@@ -57,7 +59,7 @@ func releaseFire():
 func reload():
 	if mag < MAG_MAX && !(limited && reserve==0):
 		reloading = true
-		anim.play("Reload")
+		anim.play("Reload",-1,reloadMult,false)
 		await anim.animation_finished
 		if limited:
 			if reserve < MAG_MAX:
