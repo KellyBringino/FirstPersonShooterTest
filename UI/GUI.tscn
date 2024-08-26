@@ -136,6 +136,24 @@ offset_bottom = 324.0
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_kq6is")
 
+[node name="InfoBox" type="Control" parent="CanvasLayer/InGameGUI"]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="InfoContainer" type="MarginContainer" parent="CanvasLayer/InGameGUI/InfoBox"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+
+[node name="PartsLabel" type="Label" parent="CanvasLayer/InGameGUI/InfoBox/InfoContainer"]
+layout_mode = 2
+text = "Parts: "
+vertical_alignment = 2
+
 [node name="PauseMenu" type="MarginContainer" parent="CanvasLayer"]
 visible = false
 anchors_preset = 15

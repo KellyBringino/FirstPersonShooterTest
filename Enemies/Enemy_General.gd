@@ -36,6 +36,7 @@ var vision : Array = []
 var see : Array = []
 var suspicious : bool = false
 var leftStepNext : bool = false
+var dying : bool = false
 var player
 
 func _ready():
@@ -66,14 +67,18 @@ func _physics_process(delta):
 	skl.set_bone_pose_rotation(headBone,headrot)
 	
 	if currentState == state.CHASING:
-		if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftSprint.global_position)) > SPRINT_STEP_DIS && leftStepNext:
+		if abs($ModelController/doll/LeftLegTarget.global_position\
+		.distance_to(leftSprint.global_position)) > SPRINT_STEP_DIS && leftStepNext:
 			stepL(leftSprint,leftSprintRaise)
-		if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightSprint.global_position)) > SPRINT_STEP_DIS && !leftStepNext:
+		if abs($ModelController/doll/RightLegTarget.global_position\
+		.distance_to(rightSprint.global_position)) > SPRINT_STEP_DIS && !leftStepNext:
 			stepR(rightSprint,rightSprintRaise)
 	elif currentState == state.SHOOTING:
-		if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftStand.global_position)) > STAND_STEP_DIS && leftStepNext:
+		if abs($ModelController/doll/LeftLegTarget.global_position\
+		.distance_to(leftStand.global_position)) > STAND_STEP_DIS && leftStepNext:
 			stepL(leftStand,leftStandRaise)
-		if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightStand.global_position)) > STAND_STEP_DIS && !leftStepNext:
+		if abs($ModelController/doll/RightLegTarget.global_position\
+		.distance_to(rightStand.global_position)) > STAND_STEP_DIS && !leftStepNext:
 			stepR(rightStand,rightStandRaise)
 	
 	handleStates(delta)
@@ -95,7 +100,7 @@ func _physics_process(delta):
 		move()
 	move_and_slide()
 
-func handleStates(delta):
+func handleStates(_delta):
 	match currentState:
 		state.CHASING:
 			if see.size() > 0 and distanceCheck(lastKnowLoc):
@@ -120,10 +125,13 @@ func stepL(step, stepraise):
 	var lhalf = stepraise.global_position
 	
 	var t = get_tree().create_tween()
-	t.tween_property($ModelController/doll/LeftLegTarget,"global_position", lhalf, STEP_UP_SPEED)
+	t.tween_property($ModelController/doll/LeftLegTarget,"global_position",\
+		lhalf, STEP_UP_SPEED)
 	t.set_parallel(false)
-	t.tween_property($ModelController/doll/LeftLegTarget, "global_position", ltarget_pos, STEP_SPEED)
-	t.tween_property($ModelController/doll/LeftLegTarget, "global_rotation", step.global_rotation, STEP_SPEED)
+	t.tween_property($ModelController/doll/LeftLegTarget, "global_position",\
+		ltarget_pos, STEP_SPEED)
+	t.tween_property($ModelController/doll/LeftLegTarget, "global_rotation", \
+		step.global_rotation, STEP_SPEED)
 	t.set_parallel(true)
 	t.tween_callback(func(): leftStepNext = false)
 func stepR(step,stepraise):
@@ -132,10 +140,13 @@ func stepR(step,stepraise):
 	
 	var t = get_tree().create_tween()
 	t.set_parallel(false)
-	t.tween_property($ModelController/doll/RightLegTarget,"global_position", rhalf, STEP_UP_SPEED)
+	t.tween_property($ModelController/doll/RightLegTarget,"global_position", \
+		rhalf, STEP_UP_SPEED)
 	t.set_parallel(false)
-	t.tween_property($ModelController/doll/RightLegTarget, "global_position", rtarget_pos, STEP_SPEED)
-	t.tween_property($ModelController/doll/RightLegTarget, "global_rotation", step.global_rotation, STEP_SPEED)
+	t.tween_property($ModelController/doll/RightLegTarget, "global_position", \
+		rtarget_pos, STEP_SPEED)
+	t.tween_property($ModelController/doll/RightLegTarget, "global_rotation", \
+		step.global_rotation, STEP_SPEED)
 	t.set_parallel(true)
 	t.tween_callback(func(): leftStepNext = true)
 
@@ -146,7 +157,7 @@ func alert(point):
 
 func move():
 	if global_transform.origin.distance_to(lastKnowLoc) <= (REACH_DIST/2.0):
-		print("made it")
+		#print("made it")
 		return
 	var nextNavPoint = nav_agent.get_next_path_position()
 	if currentState == state.CHASING:
@@ -158,7 +169,8 @@ func reached(point):
 	var p = Vector2(point.x,point.z)
 	var v = e.distance_to(p) <= REACH_DIST
 	if v:
-		print("made it")
+		#print("made it")
+		pass
 	return v
 func distanceCheck(point):
 	return global_transform.origin.distance_to(point) <= SHOOT_DIST
@@ -168,11 +180,11 @@ func stateChange(nState):
 		state.CHASING:
 			currentState = state.CHASING
 			suspicious = true
-			print("chasing now, lkl is " + str(lastKnowLoc))
+			#print("chasing now, lkl is " + str(lastKnowLoc))
 		state.SHOOTING:
 			currentState = state.SHOOTING
 			suspicious = true
-			print("shooting now")
+			#print("shooting now")
 
 func damage(point, amount, source):
 	health -= amount
@@ -182,11 +194,15 @@ func damage(point, amount, source):
 func hit(point, d, source):
 	damage(point,d,source)
 func dead(_point, source):
-	match source:
-		0:#hitscan
-			queue_free()
-		1:#explosion
-			queue_free()
+	if !dying:
+		dying = true
+		match source:
+			0:#hitscan
+				$"../../".enemydeath(0)
+				queue_free()
+			1:#explosion
+				$"../../".enemydeath(0)
+				queue_free()
 
 func _on_vision_body_entered(body):
 	if body.collision_layer == 8:

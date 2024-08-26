@@ -40,7 +40,6 @@ func fire():
 			elif object.collision_layer == 1:
 				var misfire = misfireInst.instantiate()
 				get_tree().root.add_child(misfire)
-				misfire.look_at(shootRay.get_collision_normal())
 				misfire.global_transform.origin = shootRay.get_collision_point()
 		else:
 			var bullet = bulletInst.instantiate()
@@ -57,7 +56,6 @@ func fire():
 			,0.0)
 		t.tween_property(barrelEnd,"rotation",barrelEnd.rotation + f,0.2)
 		t.tween_property(barrelEnd,"rotation",Vector3(0,0,0),0.5)
-		barrelEnd.rotation
 		
 		chambered = false
 		$ShotTimer.start()

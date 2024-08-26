@@ -13,6 +13,7 @@ const rocketInstance = preload("res://Guns/Projectile/rocket.tscn")
 
 const enemyHealth = 2000.0
 const playerHealth = 2000.0
+const enemyPartCount = 20
 
 #primary stats
 const rifle = \
@@ -21,7 +22,7 @@ const rifle = \
 	damage = 300.0, \
 	crit = 1.3, \
 	magsize = 40, \
-	flinch = 0.4\
+	flinch = 0.2\
 }
 const sniper = \
 {\
@@ -38,7 +39,7 @@ const pistol = \
 	damage = 300.0, \
 	crit = 1.5, \
 	magsize = 10, \
-	flinch = 0.4\
+	flinch = 0.2\
 }
 const revolver = \
 {\
@@ -95,27 +96,27 @@ func playerReady():
 	player.setHealth(2000.0)
 	
 	if weapons[0] == GunType.RIFLE:
-		var rifle = rifleInstance.instantiate()
+		var riflegun = rifleInstance.instantiate()
 		$"../World/Player/CameraController/GunController/Weapon1"\
-			.add_child(rifle)
+			.add_child(riflegun)
 	elif weapons[0] == GunType.SNIPER:
-		var sniper = sniperInstance.instantiate()
+		var snipergun = sniperInstance.instantiate()
 		$"../World/Player/CameraController/GunController/Weapon1"\
-			.add_child(sniper)
+			.add_child(snipergun)
 	
 	if weapons[1] == GunType.PISTOL:
-		var pistol = pistolInstance.instantiate()
+		var pistolgun = pistolInstance.instantiate()
 		$"../World/Player/CameraController/GunController/Weapon2"\
-			.add_child(pistol)
+			.add_child(pistolgun)
 	elif weapons[1] == GunType.REVOLVER:
-		var revolver = revolverInstance.instantiate()
+		var revolvergun = revolverInstance.instantiate()
 		$"../World/Player/CameraController/GunController/Weapon2"\
-			.add_child(revolver)
+			.add_child(revolvergun)
 	
 	if weapons[2] == GunType.ROCKETLAUNCHER:
-		var rocket = rocketlauncherInstance.instantiate()
+		var rocketgun = rocketlauncherInstance.instantiate()
 		$"../World/Player/CameraController/GunController/Weapon3"\
-			.add_child(rocket)
+			.add_child(rocketgun)
 	
 	player.setGuns(weapons)
 	$"../World/GUI".setWeapons(weapons)

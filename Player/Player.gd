@@ -23,6 +23,7 @@ enum movestate {SPRINTING, WALKING, STANDING, JUMPING, BACKWARDS, STRAFE}
 var sprinting : bool = false
 var health : float
 var maxHealth : float
+var parts : int
 
 var holdingPrimary : bool = true
 var holdingHeavy : bool = false
@@ -76,6 +77,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ready():
 	maxHealth = Game.playerHealth
 	health = maxHealth
+	parts = 0
 	Game.playerReady()
 	$ModelController/doll/Armature/Skeleton3D/LeftArmIK.start()
 	$ModelController/doll/Armature/Skeleton3D/RightArmIK.start()
@@ -165,7 +167,7 @@ func _physics_process(delta):
 
 func recoil(amount):
 	var t = get_tree().create_tween()
-	amount /= 10
+	amount /= 5
 	t.tween_property(get_node("."),"flinchadd",flinchadd + amount,0.02)
 	t.tween_property(get_node("."),"flinchadd",0.0,0.5)
 
@@ -336,6 +338,9 @@ func equipHeavy():
 		$CameraController/GunController/Weapon2.hide()
 		$CameraController/GunController/Weapon3.show()
 		Game.equip(holdingHeavy,holdingPrimary)
+
+func addParts(amount):
+	parts += amount
 
 func setSens(x,y):
 	horizontalsens = x

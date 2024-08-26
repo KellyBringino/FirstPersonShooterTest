@@ -6,6 +6,9 @@ const spawnDis = 25.0
 
 @onready var spawns : Array = $Spawns.get_children()
 var rng = RandomNumberGenerator.new()
+var enemyMax : int = 15;
+var enemyCount : int = 0;
+var enemiesAtOnce : int = 3
 
 func _ready():
 	make_spawner()
@@ -14,7 +17,13 @@ func spawner_at(point):
 	var s = spawnerinstance.instantiate()
 	s.position = point
 	add_child(s)
-	s.startup(3)
+	var dif = enemyMax - enemyCount
+	if (dif) > enemiesAtOnce:
+		s.startup(enemiesAtOnce)
+		enemyCount += enemiesAtOnce
+	else:
+		s.startup(dif)
+		enemyCount += dif
 
 func make_spawner():
 	var mainCandi = null
@@ -33,5 +42,12 @@ func make_spawner():
 	else:
 		spawner_at(candidates[rng.randi_range(0,len(candidates)-1)].position)
 
+func enemydeath(type):
+	match type:
+		0:#regular
+			enemyCount -= 1
+			$Player.addParts(Game.enemyPartCount)
+
 func _on_spawn_timer_timeout():
-	make_spawner()
+	if enemyCount < enemyMax:
+		make_spawner()

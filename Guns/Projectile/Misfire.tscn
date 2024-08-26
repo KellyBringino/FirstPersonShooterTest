@@ -47,6 +47,7 @@ curve = SubResource("Curve_ip2k6")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6dlyq"]
 particle_flag_align_y = true
+direction = Vector3(0, 1, 0)
 initial_velocity_min = 5.0
 initial_velocity_max = 7.0
 scale_min = 0.5
