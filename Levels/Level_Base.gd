@@ -9,6 +9,7 @@ var rng = RandomNumberGenerator.new()
 var enemyMax : int = 15;
 var enemyCount : int = 0;
 var enemiesAtOnce : int = 3
+var spawnRound : int = 0
 
 func _ready():
 	make_spawner()
@@ -24,6 +25,7 @@ func spawner_at(point):
 	else:
 		s.startup(dif)
 		enemyCount += dif
+	spawnRound += 1
 
 func make_spawner():
 	var mainCandi = null
@@ -46,7 +48,7 @@ func enemydeath(type):
 	match type:
 		0:#regular
 			enemyCount -= 1
-			$Player.addParts(Game.enemyPartCount)
+			$Player.addParts(Game.enemyStats.partCount)
 
 func _on_spawn_timer_timeout():
 	if enemyCount < enemyMax:

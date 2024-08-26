@@ -341,6 +341,7 @@ func equipHeavy():
 
 func addParts(amount):
 	parts += amount
+	Game.score += amount
 
 func setSens(x,y):
 	horizontalsens = x

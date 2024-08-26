@@ -30,6 +30,7 @@ enum state {CHASING, HIDING, SHOOTING}
 var currentState : state = state.CHASING
 var maxHealth = 2000.0
 var health : float = 2000.0
+var attackdamage : float = 200.0
 var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var lastKnowLoc : Vector3
 var vision : Array = []
@@ -40,8 +41,6 @@ var dying : bool = false
 var player
 
 func _ready():
-	maxHealth = Game.enemyHealth
-	health = maxHealth
 	$Sprite3D.texture = $Sprite3D/SubViewport.get_texture()
 	$Sprite3D/SubViewport/TextureProgressBar.max_value = maxHealth
 	$Sprite3D/SubViewport/TextureProgressBar.value = health
@@ -50,6 +49,11 @@ func _ready():
 	$ModelController/doll/Armature/Skeleton3D/RightArmIK.start()
 	$ModelController/doll/Armature/Skeleton3D/LeftLegIK.start()
 	$ModelController/doll/Armature/Skeleton3D/RightLegIK.start()
+
+func startup(h,d):
+	maxHealth = h
+	health = h
+	attackdamage = d
 
 func _physics_process(delta):
 	# Add the gravity.

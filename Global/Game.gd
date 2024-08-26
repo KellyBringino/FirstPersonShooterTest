@@ -11,9 +11,13 @@ const rocketlauncherInstance = preload("res://Guns/rocketlauncher.tscn")
 
 const rocketInstance = preload("res://Guns/Projectile/rocket.tscn")
 
-const enemyHealth = 2000.0
+const enemyStats = \
+{\
+	health = 2000.0,\
+	damage = 200.0,\
+	partCount = 20\
+}
 const playerHealth = 2000.0
-const enemyPartCount = 20
 
 #primary stats
 const rifle = \
@@ -22,7 +26,10 @@ const rifle = \
 	damage = 300.0, \
 	crit = 1.3, \
 	magsize = 40, \
-	flinch = 0.2\
+	flinch = 0.2,\
+	ammoCost = 1,\
+	upgradeCost = 600,\
+	magUpgradeCost = 400\
 }
 const sniper = \
 {\
@@ -30,7 +37,10 @@ const sniper = \
 	damage = 1000.0, \
 	crit = 2.0, \
 	magsize = 3, \
-	flinch = 1.0\
+	flinch = 1.0,\
+	ammoCost = 20,\
+	upgradeCost = 600,\
+	magUpgradeCost = 800\
 }
 #secondary stats
 const pistol = \
@@ -39,7 +49,9 @@ const pistol = \
 	damage = 300.0, \
 	crit = 1.5, \
 	magsize = 10, \
-	flinch = 0.2\
+	flinch = 0.2,\
+	upgradeCost = 400,\
+	magUpgradeCost = 400\
 }
 const revolver = \
 {\
@@ -47,7 +59,9 @@ const revolver = \
 	damage = 500.0, \
 	crit = 1.5, \
 	magsize = 6, \
-	flinch = 0.8\
+	flinch = 0.8,\
+	upgradeCost = 400,\
+	magUpgradeCost = 600\
 }
 #heavy stats
 const rocketlauncher = \
@@ -55,14 +69,16 @@ const rocketlauncher = \
 	name = "rocketlauncher", \
 	damage = 300.0, \
 	crit = 1.0, magsize = 1, \
-	flinch = 0.0, \
+	flinch = 0.0,\
+	ammoCost = 40,\
+	upgradeCost = 1000,\
 	proj = rocketInstance\
 }
-
 
 var paused : bool = false
 var horizontalSensitivity = 0.8
 var verticalSensitivity = 0.8
+var score : int = 0
 var weapons = [GunType.RIFLE,GunType.REVOLVER,GunType.ROCKETLAUNCHER]
 
 func _input(event):

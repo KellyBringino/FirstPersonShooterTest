@@ -19,6 +19,7 @@ func spawn():
 		mob.position = position + \
 			Vector3(rng.randf_range(-2,2),0,rng.randf_range(-2,2))
 		get_node("/root/World/Enemies").add_child(mob)
+		mob.startup(Game.enemyStats.health,Game.enemyStats.damage)
 		amount -= 1
 		await get_tree().create_timer(1.0).timeout
 	queue_free()
