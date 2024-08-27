@@ -183,12 +183,12 @@ func _physics_process(delta):
 	
 	curMoveState = movestate.STANDING
 	if !Game.pauseCheck():
-		holdADS()
-		holdFireHeldGun()
 		move(delta)
+		holdADS()
+		pointGun()
+		holdFireHeldGun()
 		updateCamera(delta)
-	pointGun()
-	
+	Camera3D
 	if not is_on_floor():
 		curMoveState = movestate.JUMPING
 		velocity.y -= gravity * delta
@@ -252,9 +252,41 @@ func holdADS():
 		curgun.global_transform.origin = \
 			aimDownSightsRef.global_transform.origin
 		curgun.position += Vector3(0.0, curgun.get_child(0).adsOffset,0.0)
+		$CameraController/Camera3D.fov = curgun.get_child(0).adsZoom
+
+func pointGun():
+	var curgun = null
+	if holdingHeavy:
+		curgun = heavy 
+	else:
+		if holdingPrimary:
+			curgun = primary
+		else:
+			curgun = secondary
+	if $CameraController/Camera3D/lookRay.is_colliding() && !sprinting:
+		var lookpoint = $CameraController/Camera3D/lookRay.get_collision_point()
 		
+		curgun.look_at(lookpoint, Vector3(0,1,0))
+	elif sprinting:
+		print("running")
+		curgun.rotation = Vector3.UP
+	else:
+		var lookpoint = $CameraController/Camera3D/lookRay/DistanceRef\
+			.global_position
+		$CameraController/GunController.look_at(lookpoint, Vector3(0,1,0))
+		
+	
+	curgun.shootRay.force_raycast_update()
+	if curgun.shootRay.is_colliding():
+		get_node("/root/World/GUI").pointgun\
+			(curgun.shootRay.get_collision_point())
+	else:
+		var faraway = curgun.get_node("BarrelEnd/ShootRay/DistanceRef")\
+			.global_position
+		get_node("/root/World/GUI").pointgun(faraway) 
+		#get_node("/root/World/GUI").dontpointgun()
+
 func releaseADS():
-	pass
 	var curgun
 	if holdingHeavy:
 		curgun = heavyContainer 
@@ -264,6 +296,7 @@ func releaseADS():
 		else:
 			curgun = secondaryContainer
 	curgun.position = Vector3(0.0,0.0,0.0)
+	$CameraController/Camera3D.fov = 75.0
 
 func reloadHeldGun():
 	heldGun.reload()
@@ -288,6 +321,7 @@ func move(_delta):
 	sprinting = Input.is_action_pressed("sprint") && \
 		Input.is_action_pressed("forward")
 	if sprinting:
+		releaseADS()
 		$CameraController/Camera3D/AnimationPlayer.play("SHeadBob")
 		curMoveState = movestate.SPRINTING
 		velocity.x = sprintDir.x * SPEED
@@ -313,40 +347,15 @@ func jump():
 	curMoveState = movestate.JUMPING
 	velocity.y = JUMP_VELOCITY
 
-func pointGun():
-	if $CameraController/Camera3D/lookRay.is_colliding() && !sprinting:
-		var lookpoint = $CameraController/Camera3D/lookRay.get_collision_point()
-		$CameraController/GunController.look_at(lookpoint, Vector3(0,1,0))
-	elif sprinting:
-		$CameraController/GunController.rotation = Vector3.UP
-	else:
-		var lookpoint = $CameraController/Camera3D/lookRay/DistanceRef\
-			.global_position
-		$CameraController/GunController.look_at(lookpoint, Vector3(0,1,0))
-		
-	var curgun = null
-	if holdingHeavy:
-		curgun = heavy 
-	else:
-		if holdingPrimary:
-			curgun = primary
-		else:
-			curgun = secondary
-	curgun.shootRay.force_raycast_update()
-	if curgun.shootRay.is_colliding():
-		get_node("/root/World/GUI").pointgun\
-			(curgun.shootRay.get_collision_point())
-	else:
-		var faraway = curgun.get_node("BarrelEnd/ShootRay/DistanceRef")\
-			.global_position
-		get_node("/root/World/GUI").pointgun(faraway) 
-		#get_node("/root/World/GUI").dontpointgun()
-
 func updateCamera(delta):
 	#find mouse movement
-	mouseRot.x += (tiltInput * delta * 0.5 * verticalsens) + flinchadd
+	if ADS:
+		mouseRot.x += (tiltInput * delta * 0.1 * verticalsens) + (flinchadd / 5)
+		mouseRot.y += rotInput * delta * 0.075 * horizontalsens
+	else:
+		mouseRot.x += (tiltInput * delta * 0.5 * verticalsens) + flinchadd
+		mouseRot.y += rotInput * delta * 0.4 * horizontalsens
 	mouseRot.x = clamp(mouseRot.x, TILT_LOWER_LIMIT, TILT_UPPER_LIMIT)
-	mouseRot.y += rotInput * delta * 0.4 * horizontalsens
 	#move camera up and down
 	CameraController.transform.basis = Basis.from_euler(mouseRot)
 	CameraController.rotation.y = 0.0
