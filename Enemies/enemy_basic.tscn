@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://bb1i806nt4qjq"]
 
 [ext_resource type="Script" path="res://Enemies/enemy_basic.gd" id="1_75185"]
-[ext_resource type="PackedScene" uid="uid://btblrptk4sci8" path="res://Models/Mobs/enemydoll.tscn" id="1_f66bl"]
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Sprites/bar back.svg" id="2_5kol5"]
+[ext_resource type="PackedScene" uid="uid://ccg64ecng5bkp" path="res://Models/Mobs/enemydollAnim.tscn" id="2_guvfu"]
 [ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Sprites/health.svg" id="3_04mkt"]
 [ext_resource type="PackedScene" uid="uid://t4fxq0m12mut" path="res://Models/Collider Shapes/cone.tscn" id="4_qtwdq"]
 [ext_resource type="PackedScene" uid="uid://xr8qex6bgmn5" path="res://Guns/pistol.tscn" id="5_1q31j"]
@@ -50,7 +50,8 @@ shape = SubResource("CapsuleShape3D_2p6i3")
 [node name="ModelController" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="doll" parent="ModelController" instance=ExtResource("1_f66bl")]
+[node name="doll" parent="ModelController" instance=ExtResource("2_guvfu")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2.14703, 0)
@@ -66,10 +67,6 @@ offset_bottom = 40.0
 value = 100.0
 texture_under = ExtResource("2_5kol5")
 texture_progress = ExtResource("3_04mkt")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-avoidance_enabled = true
-radius = 0.7
 
 [node name="LookRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89151, 0)
@@ -99,6 +96,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11331, -0.315432, -0.479749
 [node name="Weapon" type="Node3D" parent="ViewControl/vision/GunController"]
 
 [node name="Gun" parent="ViewControl/vision/GunController/Weapon" instance=ExtResource("5_1q31j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.115, 0)
 
 [node name="TimerController" type="Node3D" parent="."]
 
@@ -111,7 +109,6 @@ autostart = true
 
 [node name="WalkCycleTimer" type="Timer" parent="TimerController"]
 wait_time = 0.1
-autostart = true
 
 [node name="StepTargetController" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -159,6 +156,9 @@ transform = Transform3D(-0.0449434, 0.254887, -0.965926, 0.167731, -0.951251, -0
 
 [node name="LeftRaiseTarget" type="Node3D" parent="StepTargetController/LeftStandRayCast"]
 transform = Transform3D(1, 0, 6.00553e-16, 0, 1, 0, 0, 0, 1, -2.98023e-08, -8.92758e-09, -0.33386)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
 
 [connection signal="body_entered" from="ViewControl/vision" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="ViewControl/vision" to="." method="_on_vision_body_exited"]

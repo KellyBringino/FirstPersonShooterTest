@@ -188,7 +188,6 @@ func _physics_process(delta):
 		pointGun()
 		holdFireHeldGun()
 		updateCamera(delta)
-	Camera3D
 	if not is_on_floor():
 		curMoveState = movestate.JUMPING
 		velocity.y -= gravity * delta

@@ -28,9 +28,13 @@ func fire():
 			bullet.startup(dist)
 			#print(object.collision_layer)
 			if object.collision_layer == 16:
-				object = object.get_node("../../../../../../")
-				if object.editor_description.contains("Enemy"):
-					object.hit(shootRay.get_collision_point(),damage,0)
+				while !object.editor_description.contains("Enemy"):
+					if object == null:
+						break
+					object = object.get_node("../")
+				if object != null:
+					if object.editor_description.contains("Enemy"):
+						object.hit(shootRay.get_collision_point(),damage,0)
 			elif object.collision_layer == 32:
 				object = object.get_node("../../../../../../")
 				if object.editor_description.contains("Enemy"):

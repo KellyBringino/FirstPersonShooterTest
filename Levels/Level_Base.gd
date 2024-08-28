@@ -8,7 +8,7 @@ const spawnDis = 25.0
 var rng = RandomNumberGenerator.new()
 var enemyMax : int = 15;
 var enemyCount : int = 0;
-var enemiesAtOnce : int = 15
+var enemiesAtOnce : int = 5
 var spawnRound : int = 0
 
 func _ready():

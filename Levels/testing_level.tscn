@@ -125,7 +125,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.63109, 0, 4.71053)
 [node name="WorldComponents" type="Node3D" parent="."]
 
 [node name="SpawnTimer" type="Timer" parent="WorldComponents"]
-wait_time = 10.0
+wait_time = 5.0
 autostart = true
 
 [connection signal="timeout" from="WorldComponents/SpawnTimer" to="." method="_on_spawn_timer_timeout"]

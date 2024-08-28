@@ -3,15 +3,7 @@ extends CharacterBody3D
 
 @onready var nav_agent : NavigationAgent3D = $NavigationAgent3D
 @onready var skl : Skeleton3D = $ModelController/doll/Armature/Skeleton3D
-@onready var headBone = skl.find_bone("head")
-@onready var leftSprint = $StepTargetController/LeftSprintRayCast/LeftStepTarget
-@onready var leftSprintRaise = $StepTargetController/LeftSprintRayCast/LeftRaiseTarget
-@onready var rightSprint = $StepTargetController/RightSprintRayCast/RightStepTarget
-@onready var rightSprintRaise = $StepTargetController/RightSprintRayCast/RightRaiseTarget
-@onready var leftStand = $StepTargetController/LeftStandRayCast/LeftStepTarget
-@onready var leftStandRaise = $StepTargetController/LeftStandRayCast/LeftRaiseTarget
-@onready var rightStand = $StepTargetController/RightStandRayCast/RightStepTarget
-@onready var rightStandRaise = $StepTargetController/RightStandRayCast/RightRaiseTarget
+@onready var anim : AnimationPlayer = $ModelController/doll/AnimationPlayer
 @onready var lookTimer = $TimerController/LookCheck
 @onready var pathTimer = $TimerController/PathfindTimer
 
@@ -36,7 +28,6 @@ var lastKnowLoc : Vector3
 var vision : Array = []
 var see : Array = []
 var suspicious : bool = false
-var leftStepNext : bool = false
 var dying : bool = false
 var player
 
@@ -45,10 +36,7 @@ func _ready():
 	$Sprite3D/SubViewport/TextureProgressBar.max_value = maxHealth
 	$Sprite3D/SubViewport/TextureProgressBar.value = health
 	player = $"../../Player"
-	$ModelController/doll/Armature/Skeleton3D/LeftArmIK.start()
-	$ModelController/doll/Armature/Skeleton3D/RightArmIK.start()
-	$ModelController/doll/Armature/Skeleton3D/LeftLegIK.start()
-	$ModelController/doll/Armature/Skeleton3D/RightLegIK.start()
+	playAnim("Shoot_Idle",true,false)
 
 func startup(h,d):
 	maxHealth = h
@@ -61,16 +49,10 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 	
 	#place hands on the gun
-	$ModelController/doll/WeaponTarget.global_transform.origin \
-	= $ViewControl/vision/GunController/Weapon/Gun/Grip.global_transform.origin
-	
-	
-	#set the head to point where the enemy is looking
-	var headrot = Quaternion(Vector3.UP,$ViewControl.rotation.y)
-	skl.set_bone_pose_rotation(headBone,headrot)
+	$ViewControl/vision/GunController.global_transform.origin \
+	= $ModelController/doll/HandAttachment.global_transform.origin
 	
 	handleStates(delta)
-	
 	
 	#look at player
 	look_at(lastKnowLoc,Vector3.UP)
@@ -86,6 +68,8 @@ func _physics_process(delta):
 	velocity.z = 0
 	if currentState == state.CHASING:
 		move()
+	else:
+		playAnim("Shoot_Idle",true,false)
 	move_and_slide()
 
 func handleStates(_delta):
@@ -108,36 +92,6 @@ func handleStates(_delta):
 			elif see.size() == 0:
 				stateChange(state.CHASING)
 
-func stepL(step, stepraise):
-	var ltarget_pos = step.global_position
-	var lhalf = stepraise.global_position
-	
-	var t = get_tree().create_tween()
-	t.tween_property($ModelController/doll/LeftLegTarget,"global_position",\
-		lhalf, STEP_UP_SPEED)
-	t.set_parallel(false)
-	t.tween_property($ModelController/doll/LeftLegTarget, "global_position",\
-		ltarget_pos, STEP_SPEED)
-	t.tween_property($ModelController/doll/LeftLegTarget, "global_rotation", \
-		step.global_rotation, STEP_SPEED)
-	t.set_parallel(true)
-	t.tween_callback(func(): leftStepNext = false)
-func stepR(step,stepraise):
-	var rtarget_pos = step.global_position
-	var rhalf = stepraise.global_position
-	
-	var t = get_tree().create_tween()
-	t.set_parallel(false)
-	t.tween_property($ModelController/doll/RightLegTarget,"global_position", \
-		rhalf, STEP_UP_SPEED)
-	t.set_parallel(false)
-	t.tween_property($ModelController/doll/RightLegTarget, "global_position", \
-		rtarget_pos, STEP_SPEED)
-	t.tween_property($ModelController/doll/RightLegTarget, "global_rotation", \
-		step.global_rotation, STEP_SPEED)
-	t.set_parallel(true)
-	t.tween_callback(func(): leftStepNext = true)
-
 func alert(point):
 	if currentState == state.CHASING:
 		lastKnowLoc = point
@@ -145,19 +99,18 @@ func alert(point):
 
 func move():
 	if global_transform.origin.distance_to(lastKnowLoc) <= (REACH_DIST/2.0):
-		#print("made it")
 		return
 	var nextNavPoint = nav_agent.get_next_path_position()
 	if currentState == state.CHASING:
 		velocity = ((nextNavPoint - global_transform.origin) \
 		* Vector3(1,0,1)).normalized() * RUN_SPEED
+		playAnim("Run",true,false)
 
 func reached(point):
 	var e = Vector2(global_transform.origin.x,global_transform.origin.z)
 	var p = Vector2(point.x,point.z)
 	var v = e.distance_to(p) <= REACH_DIST
 	if v:
-		#print("made it")
 		pass
 	return v
 func distanceCheck(point):
@@ -168,11 +121,9 @@ func stateChange(nState):
 		state.CHASING:
 			currentState = state.CHASING
 			suspicious = true
-			#print("chasing now, lkl is " + str(lastKnowLoc))
 		state.SHOOTING:
 			currentState = state.SHOOTING
 			suspicious = true
-			#print("shooting now")
 
 func damage(point, amount, source):
 	health -= amount
@@ -191,6 +142,9 @@ func dead(_point, source):
 			1:#explosion
 				$"../../".enemydeath(0)
 				queue_free()
+
+func playAnim(n,_looping,_override):
+	anim.play(n)
 
 func _on_vision_body_entered(body):
 	if body.collision_layer == 8:
@@ -222,19 +176,4 @@ func _on_look_check_timeout():
 
 func _on_pathfind_timer_timeout():
 	nav_agent.set_target_position(lastKnowLoc)
-
-func _on_walk_cycle_timer_timeout():
-	if currentState == state.CHASING:
-		if abs($ModelController/doll/LeftLegTarget.global_position\
-		.distance_to(leftSprint.global_position)) > SPRINT_STEP_DIS && leftStepNext:
-			stepL(leftSprint,leftSprintRaise)
-		if abs($ModelController/doll/RightLegTarget.global_position\
-		.distance_to(rightSprint.global_position)) > SPRINT_STEP_DIS && !leftStepNext:
-			stepR(rightSprint,rightSprintRaise)
-	elif currentState == state.SHOOTING:
-		if abs($ModelController/doll/LeftLegTarget.global_position\
-		.distance_to(leftStand.global_position)) > STAND_STEP_DIS && leftStepNext:
-			stepL(leftStand,leftStandRaise)
-		if abs($ModelController/doll/RightLegTarget.global_position\
-		.distance_to(rightStand.global_position)) > STAND_STEP_DIS && !leftStepNext:
-			stepR(rightStand,rightStandRaise)
+	pass
