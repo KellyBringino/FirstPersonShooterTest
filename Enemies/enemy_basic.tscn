@@ -109,6 +109,10 @@ autostart = true
 [node name="PathfindTimer" type="Timer" parent="TimerController"]
 autostart = true
 
+[node name="WalkCycleTimer" type="Timer" parent="TimerController"]
+wait_time = 0.1
+autostart = true
+
 [node name="StepTargetController" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
@@ -160,3 +164,4 @@ transform = Transform3D(1, 0, 6.00553e-16, 0, 1, 0, 0, 0, 1, -2.98023e-08, -8.92
 [connection signal="body_exited" from="ViewControl/vision" to="." method="_on_vision_body_exited"]
 [connection signal="timeout" from="TimerController/LookCheck" to="." method="_on_look_check_timeout"]
 [connection signal="timeout" from="TimerController/PathfindTimer" to="." method="_on_pathfind_timer_timeout"]
+[connection signal="timeout" from="TimerController/WalkCycleTimer" to="." method="_on_walk_cycle_timer_timeout"]

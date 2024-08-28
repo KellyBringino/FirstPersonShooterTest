@@ -60,43 +60,27 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
+	#place hands on the gun
 	$ModelController/doll/WeaponTarget.global_transform.origin \
 	= $ViewControl/vision/GunController/Weapon/Gun/Grip.global_transform.origin
 	
-	if(see.size() > 0):
-		$ViewControl.look_at(lastKnowLoc)
-		$ViewControl/vision/GunController/Weapon.look_at(lastKnowLoc)
 	
+	#set the head to point where the enemy is looking
 	var headrot = Quaternion(Vector3.UP,$ViewControl.rotation.y)
 	skl.set_bone_pose_rotation(headBone,headrot)
 	
-	if currentState == state.CHASING:
-		if abs($ModelController/doll/LeftLegTarget.global_position\
-		.distance_to(leftSprint.global_position)) > SPRINT_STEP_DIS && leftStepNext:
-			stepL(leftSprint,leftSprintRaise)
-		if abs($ModelController/doll/RightLegTarget.global_position\
-		.distance_to(rightSprint.global_position)) > SPRINT_STEP_DIS && !leftStepNext:
-			stepR(rightSprint,rightSprintRaise)
-	elif currentState == state.SHOOTING:
-		if abs($ModelController/doll/LeftLegTarget.global_position\
-		.distance_to(leftStand.global_position)) > STAND_STEP_DIS && leftStepNext:
-			stepL(leftStand,leftStandRaise)
-		if abs($ModelController/doll/RightLegTarget.global_position\
-		.distance_to(rightStand.global_position)) > STAND_STEP_DIS && !leftStepNext:
-			stepR(rightStand,rightStandRaise)
-	
 	handleStates(delta)
 	
-	if see.size() > 0:
-		look_at(lastKnowLoc,Vector3.UP)
-		rotation.x = 0.0
-		rotation.z = 0.0
-	else:
-		var vel = velocity.normalized()
-		vel = global_transform.origin + vel
-		look_at(lastKnowLoc,Vector3.UP)
-		rotation.x = 0.0
-		rotation.z = 0.0
+	
+	#look at player
+	look_at(lastKnowLoc,Vector3.UP)
+	rotation.x = 0.0
+	rotation.z = 0.0
+	
+	#if the player is in the vision cone, look at them and point the gun at them
+	if(see.size() > 0):
+		$ViewControl.look_at(lastKnowLoc)
+		$ViewControl/vision/GunController/Weapon.look_at(lastKnowLoc)
 	
 	velocity.x = 0
 	velocity.z = 0
@@ -233,6 +217,24 @@ func _on_look_check_timeout():
 		for o in see:
 			lastKnowLoc += o.global_transform.origin
 		lastKnowLoc /= see.size()
+	else:
+		lastKnowLoc = player.global_transform.origin
 
 func _on_pathfind_timer_timeout():
 	nav_agent.set_target_position(lastKnowLoc)
+
+func _on_walk_cycle_timer_timeout():
+	if currentState == state.CHASING:
+		if abs($ModelController/doll/LeftLegTarget.global_position\
+		.distance_to(leftSprint.global_position)) > SPRINT_STEP_DIS && leftStepNext:
+			stepL(leftSprint,leftSprintRaise)
+		if abs($ModelController/doll/RightLegTarget.global_position\
+		.distance_to(rightSprint.global_position)) > SPRINT_STEP_DIS && !leftStepNext:
+			stepR(rightSprint,rightSprintRaise)
+	elif currentState == state.SHOOTING:
+		if abs($ModelController/doll/LeftLegTarget.global_position\
+		.distance_to(leftStand.global_position)) > STAND_STEP_DIS && leftStepNext:
+			stepL(leftStand,leftStandRaise)
+		if abs($ModelController/doll/RightLegTarget.global_position\
+		.distance_to(rightStand.global_position)) > STAND_STEP_DIS && !leftStepNext:
+			stepR(rightStand,rightStandRaise)

@@ -268,14 +268,12 @@ func pointGun():
 		
 		curgun.look_at(lookpoint, Vector3(0,1,0))
 	elif sprinting:
-		print("running")
 		curgun.rotation = Vector3.UP
 	else:
 		var lookpoint = $CameraController/Camera3D/lookRay/DistanceRef\
 			.global_position
 		$CameraController/GunController.look_at(lookpoint, Vector3(0,1,0))
 		
-	
 	curgun.shootRay.force_raycast_update()
 	if curgun.shootRay.is_colliding():
 		get_node("/root/World/GUI").pointgun\

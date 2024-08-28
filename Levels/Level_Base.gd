@@ -6,9 +6,9 @@ const spawnDis = 25.0
 
 @onready var spawns : Array = $Spawns.get_children()
 var rng = RandomNumberGenerator.new()
-var enemyMax : int = 7;
+var enemyMax : int = 15;
 var enemyCount : int = 0;
-var enemiesAtOnce : int = 3
+var enemiesAtOnce : int = 15
 var spawnRound : int = 0
 
 func _ready():

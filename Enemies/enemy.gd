@@ -82,19 +82,25 @@ func _physics_process(delta):
 	
 	match currentState:
 		state.IDLE, state.DISCOVERING, state.LOOKING, state.SHOOTING:
-			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftStand.global_position)) > STAND_STEP_DIS && leftStepNext:
+			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(\
+			leftStand.global_position)) > STAND_STEP_DIS && leftStepNext:
 				stepL(leftStand,leftStandRaise)
-			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightStand.global_position)) > STAND_STEP_DIS && !leftStepNext:
+			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(\
+			rightStand.global_position)) > STAND_STEP_DIS && !leftStepNext:
 				stepR(rightStand,rightStandRaise)
 		state.PATROLLING:
-			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftWalk.global_position)) > WALK_STEP_DIS && leftStepNext:
+			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(\
+			leftWalk.global_position)) > WALK_STEP_DIS && leftStepNext:
 				stepL(leftWalk,leftWalkRaise)
-			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightWalk.global_position)) > WALK_STEP_DIS && !leftStepNext:
+			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(\
+			rightWalk.global_position)) > WALK_STEP_DIS && !leftStepNext:
 				stepR(rightWalk,rightWalkRaise)
 		state.CHASING:
-			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(leftSprint.global_position)) > SPRINT_STEP_DIS && leftStepNext:
+			if abs($ModelController/doll/LeftLegTarget.global_position.distance_to(\
+			leftSprint.global_position)) > SPRINT_STEP_DIS && leftStepNext:
 				stepL(leftSprint,leftSprintRaise)
-			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(rightSprint.global_position)) > SPRINT_STEP_DIS && !leftStepNext:
+			if abs($ModelController/doll/RightLegTarget.global_position.distance_to(\
+			rightSprint.global_position)) > SPRINT_STEP_DIS && !leftStepNext:
 				stepR(rightSprint,rightSprintRaise)
 	
 	handleStates(delta)
@@ -161,10 +167,13 @@ func stepL(step, stepraise):
 	var lhalf = stepraise.global_position
 	
 	var t = get_tree().create_tween()
-	t.tween_property($ModelController/doll/LeftLegTarget,"global_position", lhalf, STEP_UP_SPEED)
+	t.tween_property($ModelController/doll/LeftLegTarget,"global_position"\
+		, lhalf, STEP_UP_SPEED)
 	t.set_parallel(false)
-	t.tween_property($ModelController/doll/LeftLegTarget, "global_position", ltarget_pos, STEP_SPEED)
-	t.tween_property($ModelController/doll/LeftLegTarget, "global_rotation", step.global_rotation, STEP_SPEED)
+	t.tween_property($ModelController/doll/LeftLegTarget, "global_position"\
+		, ltarget_pos, STEP_SPEED)
+	t.tween_property($ModelController/doll/LeftLegTarget, "global_rotation"\
+		, step.global_rotation, STEP_SPEED)
 	t.set_parallel(true)
 	t.tween_callback(func(): leftStepNext = false)
 func stepR(step,stepraise):
@@ -173,10 +182,13 @@ func stepR(step,stepraise):
 	
 	var t = get_tree().create_tween()
 	t.set_parallel(false)
-	t.tween_property($ModelController/doll/RightLegTarget,"global_position", rhalf, STEP_UP_SPEED)
+	t.tween_property($ModelController/doll/RightLegTarget,"global_position"\
+		, rhalf, STEP_UP_SPEED)
 	t.set_parallel(false)
-	t.tween_property($ModelController/doll/RightLegTarget, "global_position", rtarget_pos, STEP_SPEED)
-	t.tween_property($ModelController/doll/RightLegTarget, "global_rotation", step.global_rotation, STEP_SPEED)
+	t.tween_property($ModelController/doll/RightLegTarget, "global_position"\
+		, rtarget_pos, STEP_SPEED)
+	t.tween_property($ModelController/doll/RightLegTarget, "global_rotation"\
+		, step.global_rotation, STEP_SPEED)
 	t.set_parallel(true)
 	t.tween_callback(func(): leftStepNext = true)
 
@@ -203,13 +215,15 @@ func move(point):
 func scanning(delta):
 	if scanLeft:
 		scanDelta += delta
-		$ViewControl.rotation.y = lerp_angle($ViewControl.rotation.y,deg_to_rad(30.0),scanDelta * SCAN_SPEED)
+		$ViewControl.rotation.y = lerp_angle($ViewControl.rotation.y,\
+			deg_to_rad(30.0),scanDelta * SCAN_SPEED)
 		if $ViewControl.rotation.y >= deg_to_rad(29.0) and scanTimer.is_stopped():
 			scanDelta = 0.0
 			scanTimer.start() 
 	else:
 		scanDelta += delta
-		$ViewControl.rotation.y = lerp_angle($ViewControl.rotation.y,deg_to_rad(-30.0),scanDelta * SCAN_SPEED)
+		$ViewControl.rotation.y = lerp_angle($ViewControl.rotation.y,\
+			deg_to_rad(-30.0),scanDelta * SCAN_SPEED)
 		if $ViewControl.rotation.y <= deg_to_rad(-29.0) and scanTimer.is_stopped():
 			scanDelta = 0.0
 			scanTimer.start()
