@@ -54,7 +54,7 @@ var leftStepNext : bool = false
 var player
 
 func _ready():
-	maxHealth = Game.enemyHealth
+	maxHealth = Game.enemyStats.health
 	health = maxHealth
 	$Sprite3D.texture = $Sprite3D/SubViewport.get_texture()
 	$Sprite3D/SubViewport/TextureProgressBar.max_value = maxHealth

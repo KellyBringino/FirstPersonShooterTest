@@ -431,6 +431,10 @@ func setHealth(amount):
 func getHealth():
 	return health
 
+func hit(d,_point):
+	print(health)
+	health -= d
+
 func setGuns(allThree):
 	match allThree[0]:
 		Game.GunType.NONE:

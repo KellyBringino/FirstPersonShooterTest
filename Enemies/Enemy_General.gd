@@ -37,6 +37,7 @@ func _ready():
 	$Sprite3D/SubViewport/TextureProgressBar.value = health
 	player = $"../../Player"
 	playAnim("Shoot_Idle",true,false)
+	$ViewControl/vision/GunController/Weapon/Gun.setup(Game.enemyStats.damage, Game.enemyStats.bullet_speed)
 
 func startup(h,d):
 	maxHealth = h
@@ -176,4 +177,7 @@ func _on_look_check_timeout():
 
 func _on_pathfind_timer_timeout():
 	nav_agent.set_target_position(lastKnowLoc)
-	pass
+
+func _on_shoot_timer_timeout():
+	if currentState == state.SHOOTING:
+		$ViewControl/vision/GunController/Weapon/Gun.shoot()

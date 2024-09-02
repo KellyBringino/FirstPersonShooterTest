@@ -15,6 +15,7 @@ const enemyStats = \
 {\
 	health = 2000.0,\
 	damage = 200.0,\
+	bullet_speed = 4.0,\
 	partCount = 20\
 }
 const playerHealth = 2000.0

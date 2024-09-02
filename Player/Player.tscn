@@ -83,6 +83,7 @@ func _process(_delta):
 "
 
 [node name="Player" type="CharacterBody3D"]
+editor_description = "Player"
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_c8ruj")
