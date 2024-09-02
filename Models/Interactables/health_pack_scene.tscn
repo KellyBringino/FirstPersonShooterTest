@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b82gmedqiuulx"]
+
+[ext_resource type="PackedScene" uid="uid://b60yqu3hxqirq" path="res://Models/Interactables/HealthPack.glb" id="1_kljjs"]
+[ext_resource type="Material" uid="uid://d4m7ct6ipm15q" path="res://Models/Materials/Green.tres" id="2_s8p7l"]
+
+[node name="HealthPack" instance=ExtResource("1_kljjs")]
+
+[node name="Cube_001" parent="." index="0"]
+material_override = ExtResource("2_s8p7l")

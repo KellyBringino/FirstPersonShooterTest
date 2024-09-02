@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf8nij4jmmd13"]
+
+[ext_resource type="PackedScene" uid="uid://ieogptrcosj7" path="res://Models/Interactables/AmmoShelf.glb" id="1_wiu8o"]
+[ext_resource type="Material" uid="uid://gi827es5b12o" path="res://Models/Materials/greenGunMetal.tres" id="2_ui8a1"]
+
+[node name="AmmoShelf" instance=ExtResource("1_wiu8o")]
+
+[node name="Cube_009" parent="." index="1"]
+material_override = ExtResource("2_ui8a1")
+
+[node name="Cube_005" parent="." index="2"]
+material_override = ExtResource("2_ui8a1")
+
+[node name="Cube_013" parent="." index="3"]
+material_override = ExtResource("2_ui8a1")
