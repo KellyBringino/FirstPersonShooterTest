@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var healthbar = $CanvasLayer/InGameGUI/HealthBarContainer/HealthBarController/HealthBar
+@onready var healthbar : TextureProgressBar = $CanvasLayer/InGameGUI/HealthBarContainer/HealthBarController/HealthBar
 @onready var ammobar = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoBar
 @onready var ammocounter = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoCounter
 @onready var partscounter = $CanvasLayer/InGameGUI/InfoBox/InfoContainer/PartsLabel
@@ -18,14 +18,16 @@ var holdingHea : bool = false
 var hsens : float = 6.0
 var vsens : float = 6.0
 
-func _ready():
+func setup():
 	unpause()
-	healthbar.max_value = $"../Player".maxHealth
-	healthbar.value = $"../Player".health
+	healthbar.max_value = int($"../Player".maxHealth)
+	healthbar.set_value_no_signal($"../Player".health)
 	partscounter.text = "Parts: " + str($"../Player".parts)
 
 func _process(_delta):
-	healthbar.value = $"../Player".getHealth()
+	healthbar.set_value_no_signal($"../Player".getHealth())
+	print($"../Player".getHealth())
+	print(healthbar.value)
 	ammobar.max_value = $"../Player".heldGun.MAG_MAX
 	ammobar.value = $"../Player".heldGun.mag
 	ammocounter.text = "ammo:\n" + str($"../Player".heldGun.mag)

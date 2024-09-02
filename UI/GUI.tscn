@@ -121,7 +121,8 @@ offset_left = 102.0
 offset_top = -102.0
 offset_right = 858.0
 grow_vertical = 0
-value = 70.0
+max_value = 2000.0
+value = 500.0
 texture_under = ExtResource("3_mt0so")
 texture_progress = ExtResource("4_0u4fy")
 

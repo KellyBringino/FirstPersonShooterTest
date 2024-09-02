@@ -84,6 +84,7 @@ func _ready():
 	health = maxHealth
 	parts = 0
 	Game.playerReady()
+	get_node("/root/World/GUI").setup()
 	$ModelController/doll/Armature/Skeleton3D/LeftArmIK.start()
 	$ModelController/doll/Armature/Skeleton3D/RightArmIK.start()
 	$ModelController/doll/Armature/Skeleton3D/LeftLegIK.start()
