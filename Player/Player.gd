@@ -239,19 +239,41 @@ func releaseFireHeldGun():
 		heldGun.releaseFire()
 
 func holdADS():
-	if ADS && !sprinting:
-		var curgun
-		if holdingHeavy:
-			curgun = heavyContainer 
+	var curgun
+	if holdingHeavy:
+		curgun = heavy 
+	else:
+		if holdingPrimary:
+			curgun = primary
 		else:
-			if holdingPrimary:
-				curgun = primaryContainer
-			else:
-				curgun = secondaryContainer
+			curgun = secondary
+	if ADS && !sprinting && !(curgun.scope && curgun.reloading):
+		$CameraController/Camera3D.fov = curgun.adsZoom
+		
+		if curgun.scope:
+			get_node("/root/World/GUI").scopein()
+			curgun.hide()
+		curgun = curgun.get_node("../")
 		curgun.global_transform.origin = \
 			aimDownSightsRef.global_transform.origin
 		curgun.position += Vector3(0.0, curgun.get_child(0).adsOffset,0.0)
-		$CameraController/Camera3D.fov = curgun.get_child(0).adsZoom
+
+func releaseADS():
+	var curgun
+	if holdingHeavy:
+		curgun = heavy 
+	else:
+		if holdingPrimary:
+			curgun = primary
+		else:
+			curgun = secondary
+	$CameraController/Camera3D.fov = 75.0
+	
+	if curgun.scope:
+		get_node("/root/World/GUI").unscope()
+		curgun.show()
+	curgun = curgun.get_node("../")
+	curgun.position = Vector3(0.0,0.0,0.0)
 
 func pointGun():
 	var curgun = null
@@ -282,18 +304,6 @@ func pointGun():
 			.global_position
 		get_node("/root/World/GUI").pointgun(faraway) 
 		#get_node("/root/World/GUI").dontpointgun()
-
-func releaseADS():
-	var curgun
-	if holdingHeavy:
-		curgun = heavyContainer 
-	else:
-		if holdingPrimary:
-			curgun = primaryContainer
-		else:
-			curgun = secondaryContainer
-	curgun.position = Vector3(0.0,0.0,0.0)
-	$CameraController/Camera3D.fov = 75.0
 
 func reloadHeldGun():
 	heldGun.reload()

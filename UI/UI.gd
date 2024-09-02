@@ -7,6 +7,8 @@ extends Node2D
 
 @onready var main = $CanvasLayer/PauseMenu/MenuItemsContainer
 @onready var options = $CanvasLayer/PauseMenu/OptionsItemsContainer
+@onready var scope = $CanvasLayer/ScopeContainer
+@onready var GUI = $CanvasLayer/InGameGUI
 @onready var hsensbar = $CanvasLayer/PauseMenu/OptionsItemsContainer/VBoxContainer/OptionsListContainer/ScrollContainer/OptionsVBox/HSensContainer/HBoxContainer/HSliderContainer/HSensSlider
 @onready var vsensbar = $CanvasLayer/PauseMenu/OptionsItemsContainer/VBoxContainer/OptionsListContainer/ScrollContainer/OptionsVBox/VSensContainer/HBoxContainer/VSliderContainer/VSensSlider
 
@@ -23,13 +25,22 @@ func _ready():
 	partscounter.text = "Parts: " + str($"../Player".parts)
 
 func _process(_delta):
-	healthbar.value = $"../Player".health
+	healthbar.value = $"../Player".getHealth()
 	ammobar.max_value = $"../Player".heldGun.MAG_MAX
 	ammobar.value = $"../Player".heldGun.mag
 	ammocounter.text = "ammo:\n" + str($"../Player".heldGun.mag)
 	if $"../Player".heldGun.limited:
 		ammocounter.text += " / " + str($"../Player".heldGun.reserve)
 	partscounter.text = "Parts: " + str($"../Player".parts)
+
+func scopein():
+	if !Game.pauseCheck():
+		GUI.hide()
+		scope.show()
+func unscope():
+	if !Game.pauseCheck():
+		scope.hide()
+		GUI.show()
 
 func pause():
 	$CanvasLayer/PauseMenu.show()
@@ -51,11 +62,11 @@ func pointgun(point):
 	var cam = get_tree().root.get_camera_3d()
 	if !cam.is_position_behind(point):
 		var pos = cam.unproject_position(point)
-		$CanvasLayer/InGameGUI/Hitmark.position = pos
+		$CanvasLayer/HitmarkContainer/Hitmark.position = pos
 	else:
-		$CanvasLayer/InGameGUI/Hitmark.position = $CanvasLayer/InGameGUI/CrosshairCenterContainer.position
+		$CanvasLayer/HitmarkContainer/Hitmark.position = $CanvasLayer/InGameGUI/CrosshairCenterContainer.position
 func dontpointgun():
-	$CanvasLayer/InGameGUI/Hitmark.position = $CanvasLayer/InGameGUI/CrosshairCenterContainer.position
+	$CanvasLayer/HitmarkContainer/Hitmark.position = $CanvasLayer/InGameGUI/CrosshairCenterContainer.position
 
 func setWeapons(w):
 	weapons = w

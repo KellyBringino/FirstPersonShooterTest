@@ -23,6 +23,7 @@ var limited : bool = false
 var chambered : bool = true
 var reloading : bool = false
 var grace : bool = false
+var scope : bool = false
 
 func startup(object):
 	damage = object.damage
@@ -32,6 +33,7 @@ func startup(object):
 	reloadMult = object.reloadMult
 	adsOffset = object.adsOffset / 10.0
 	adsZoom = object.adsZoom
+	scope = object.scope
 	if object.ammoLimited:
 		limited = true
 		reserveMax = object.ammoMax
@@ -64,6 +66,8 @@ func reload():
 	if mag < MAG_MAX && !(limited && reserve==0):
 		reloading = true
 		anim.play("Reload",-1,reloadMult,false)
+		if scope:
+			get_node("/root/World/Player").releaseADS()
 		await anim.animation_finished
 		if limited:
 			if reserve < MAG_MAX:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5gjr4qrdvma7"]
+[gd_scene load_steps=9 format=3 uid="uid://b5gjr4qrdvma7"]
 
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_81un3"]
 [ext_resource type="Texture2D" uid="uid://drchcncoxm6r2" path="res://Sprites/crosshair.svg" id="2_ekvqs"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://crmjikty86roj" path="res://Sprites/circle bar.svg" id="3_wyimq"]
 [ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Sprites/health.svg" id="4_0u4fy"]
 [ext_resource type="Texture2D" uid="uid://cyvgtgfpwye8m" path="res://Sprites/hitmark.svg" id="7_kq6is"]
+[ext_resource type="Texture2D" uid="uid://cukx82xutv6ek" path="res://Sprites/scopesilhouette.svg" id="8_ih7td"]
 
 [node name="GUI" type="Node2D"]
 script = ExtResource("1_81un3")
@@ -124,18 +125,6 @@ value = 70.0
 texture_under = ExtResource("3_mt0so")
 texture_progress = ExtResource("4_0u4fy")
 
-[node name="Hitmark" type="Control" parent="CanvasLayer/InGameGUI"]
-layout_mode = 2
-anchors_preset = 0
-offset_left = 576.0
-offset_top = 324.0
-offset_right = 576.0
-offset_bottom = 324.0
-
-[node name="Hitmark" type="Sprite2D" parent="CanvasLayer/InGameGUI/Hitmark"]
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("7_kq6is")
-
 [node name="InfoBox" type="Control" parent="CanvasLayer/InGameGUI"]
 layout_mode = 1
 anchors_preset = 0
@@ -153,6 +142,59 @@ theme_override_constants/margin_top = 25
 layout_mode = 2
 text = "Parts: "
 vertical_alignment = 2
+
+[node name="ScopeContainer" type="MarginContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ScopeContainer"]
+layout_mode = 2
+
+[node name="LeftBlackStretchContainer" type="MarginContainer" parent="CanvasLayer/ScopeContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = -10
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/ScopeContainer/HBoxContainer/LeftBlackStretchContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ScopeSilhouette" type="TextureRect" parent="CanvasLayer/ScopeContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_ih7td")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="RightBlackStretchContainer" type="MarginContainer" parent="CanvasLayer/ScopeContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = -10
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/ScopeContainer/HBoxContainer/RightBlackStretchContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HitmarkContainer" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Hitmark" type="Control" parent="CanvasLayer/HitmarkContainer"]
+layout_mode = 2
+anchors_preset = 0
+offset_left = 576.0
+offset_top = 324.0
+offset_right = 576.0
+offset_bottom = 324.0
+
+[node name="Hitmark" type="Sprite2D" parent="CanvasLayer/HitmarkContainer/Hitmark"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("7_kq6is")
 
 [node name="PauseMenu" type="MarginContainer" parent="CanvasLayer"]
 visible = false
