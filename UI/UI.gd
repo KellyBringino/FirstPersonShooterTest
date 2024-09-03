@@ -26,8 +26,6 @@ func setup():
 
 func _process(_delta):
 	healthbar.set_value_no_signal($"../Player".getHealth())
-	print($"../Player".getHealth())
-	print(healthbar.value)
 	ammobar.max_value = $"../Player".heldGun.MAG_MAX
 	ammobar.value = $"../Player".heldGun.mag
 	ammocounter.text = "ammo:\n" + str($"../Player".heldGun.mag)

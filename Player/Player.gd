@@ -181,7 +181,6 @@ func _physics_process(delta):
 			$ModelController/doll/RightLegTarget.global_rotation = rightJump\
 				.global_rotation
 	
-	
 	curMoveState = movestate.STANDING
 	if !Game.pauseCheck():
 		move(delta)
