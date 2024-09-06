@@ -1,25 +1,32 @@
 extends Node2D
 
-@onready var healthbar : TextureProgressBar = $CanvasLayer/InGameGUI/HealthBarContainer/HealthBarController/HealthBar
+@onready var GUI = $CanvasLayer/InGameGUI
+@onready var healthbar = $CanvasLayer/InGameGUI/HealthBarContainer/HealthBarController/HealthBar
 @onready var ammobar = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoBar
 @onready var ammocounter = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoCounter
 @onready var partscounter = $CanvasLayer/InGameGUI/InfoBox/InfoContainer/PartsLabel
+@onready var tooltipcontainer = $CanvasLayer/InGameGUI/ToolTipCenterContainer
 
 @onready var main = $CanvasLayer/PauseMenu/MenuItemsContainer
 @onready var options = $CanvasLayer/PauseMenu/OptionsItemsContainer
+@onready var optionsList = \
+options.get_node("VBoxContainer/OptionsListContainer/ScrollContainer/OptionsVBox")
+@onready var hsensbar = \
+optionsList.get_node("HSensContainer/HBoxContainer/HSliderContainer/HSensSlider")
+@onready var vsensbar = \
+optionsList.get_node("VSensContainer/HBoxContainer/VSliderContainer/VSensSlider")
 @onready var scope = $CanvasLayer/ScopeContainer
-@onready var GUI = $CanvasLayer/InGameGUI
-@onready var hsensbar = $CanvasLayer/PauseMenu/OptionsItemsContainer/VBoxContainer/OptionsListContainer/ScrollContainer/OptionsVBox/HSensContainer/HBoxContainer/HSliderContainer/HSensSlider
-@onready var vsensbar = $CanvasLayer/PauseMenu/OptionsItemsContainer/VBoxContainer/OptionsListContainer/ScrollContainer/OptionsVBox/VSensContainer/HBoxContainer/VSliderContainer/VSensSlider
 
 var weapons
 var holdingPri : bool = true
 var holdingHea : bool = false
+var scoped : bool = false
 var hsens : float = 6.0
 var vsens : float = 6.0
 
 func setup():
 	unpause()
+	hideTooltip()
 	healthbar.max_value = int($"../Player".maxHealth)
 	healthbar.set_value_no_signal($"../Player".health)
 	partscounter.text = "Parts: " + str($"../Player".parts)
@@ -35,12 +42,23 @@ func _process(_delta):
 
 func scopein():
 	if !Game.pauseCheck():
+		scoped = true
+		hideTooltip()
 		GUI.hide()
 		scope.show()
 func unscope():
 	if !Game.pauseCheck():
+		scoped = false
 		scope.hide()
 		GUI.show()
+
+func showTooltip(s):
+	if !scoped:
+		tooltipcontainer.show()
+		tooltipcontainer.get_node("ToolTipContainer/ToolTipLabel").text = s
+func hideTooltip():
+	if !scoped:
+		tooltipcontainer.hide()
 
 func pause():
 	$CanvasLayer/PauseMenu.show()
@@ -64,9 +82,11 @@ func pointgun(point):
 		var pos = cam.unproject_position(point)
 		$CanvasLayer/HitmarkContainer/Hitmark.position = pos
 	else:
-		$CanvasLayer/HitmarkContainer/Hitmark.position = $CanvasLayer/InGameGUI/CrosshairCenterContainer.position
+		$CanvasLayer/HitmarkContainer/Hitmark.position = \
+			$CanvasLayer/InGameGUI/CrosshairCenterContainer.position
 func dontpointgun():
-	$CanvasLayer/HitmarkContainer/Hitmark.position = $CanvasLayer/InGameGUI/CrosshairCenterContainer.position
+	$CanvasLayer/HitmarkContainer/Hitmark.position = \
+		$CanvasLayer/InGameGUI/CrosshairCenterContainer.position
 
 func setWeapons(w):
 	weapons = w
