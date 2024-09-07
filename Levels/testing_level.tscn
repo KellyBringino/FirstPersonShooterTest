@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://mp7msrg85bwo"]
+[gd_scene load_steps=13 format=3 uid="uid://mp7msrg85bwo"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_8n7cw"]
 [ext_resource type="Script" path="res://Levels/testing_level.gd" id="1_e1co7"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://xrpu33s0xidh" path="res://Models/Levels/stairsscene.tscn" id="5_y6sba"]
 [ext_resource type="PackedScene" uid="uid://bb1i806nt4qjq" path="res://Enemies/enemy_basic.tscn" id="6_hmxr6"]
 [ext_resource type="PackedScene" uid="uid://bcpt7q4kjxehn" path="res://Destructables/box_breakable.tscn" id="6_na5i8"]
+[ext_resource type="PackedScene" uid="uid://cf300nryotnq0" path="res://Interactables/ammoshelf.tscn" id="8_bgqhd"]
 [ext_resource type="PackedScene" uid="uid://hww1jlp5kjip" path="res://Interactables/healthpack.tscn" id="8_ibxq8"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_xvuhc"]
@@ -130,6 +131,9 @@ wait_time = 5.0
 autostart = true
 
 [node name="Interactables" type="Node3D" parent="."]
+
+[node name="Ammo Shelf" parent="Interactables" instance=ExtResource("8_bgqhd")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9.75, 0, 0)
 
 [node name="Healthpack" parent="Interactables" instance=ExtResource("8_ibxq8")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.25, 0, 0)

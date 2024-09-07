@@ -103,23 +103,7 @@ func _physics_process(delta):
 	var headrot = Quaternion(Vector3.FORWARD,-$CameraController.rotation.x)
 	skl.set_bone_pose_rotation(headBone,headrot)
 	
-	if interactNear.size() > 0:
-		var closest = closestInteract().getType()
-		match closest:
-			0:
-				if health < maxHealth:
-					tooltip(INTERACT_PROMPS[closest] + " (" + str(maxHealth - health) + " needed)")
-				else:
-					endtooltip()
-			1:
-				tooltip(INTERACT_PROMPS[closest])
-			2:
-				tooltip(INTERACT_PROMPS[closest])
-			_:
-				endtooltip()
-	else:
-		endtooltip()
-	
+	handleInteractionTooltips()
 	handleState()
 	
 	curMoveState = movestate.STANDING
@@ -132,8 +116,36 @@ func _physics_process(delta):
 	if not is_on_floor():
 		curMoveState = movestate.JUMPING
 		velocity.y -= gravity * delta
-	
 	move_and_slide()
+
+func handleInteractionTooltips():
+	if interactNear.size() > 0:
+		var closest = closestInteract().getType()
+		match closest:
+			0:
+				if health < maxHealth:
+					tooltip(INTERACT_PROMPS[closest] + \
+						" (" + str(maxHealth - health) + " needed)")
+				else:
+					endtooltip()
+			1:
+				if holdingPrimary:
+					if primary.getReserveDiff() > 0:
+						tooltip(INTERACT_PROMPS[closest] + \
+							" (" + str(primary.getReserveDiff()) + " needed)")
+				else:
+					endtooltip()
+			2:
+				if holdingHeavy:
+					if heavy.getReserveDiff() > 0:
+						tooltip(INTERACT_PROMPS[closest] + \
+							" (" + str(heavy.getReserveDiff()) + " needed)")
+				else:
+					endtooltip()
+			_:
+				endtooltip()
+	else:
+		endtooltip()
 
 func closestInteract():
 	var dist = 10

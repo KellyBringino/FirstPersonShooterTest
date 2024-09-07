@@ -82,6 +82,9 @@ func reload():
 		if grace:
 			fire()
 
+func getReserveDiff():
+	return reserveMax - reserve
+
 func _on_shot_timer_timeout():
 	chambered = true
 	if grace:
