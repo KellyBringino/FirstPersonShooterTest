@@ -134,6 +134,7 @@ ads={
 3d_physics/layer_6="EnemyHeadHitbox"
 3d_physics/layer_7="Projectile"
 3d_physics/layer_8="Destructibles"
+3d_physics/layer_9="Interactable"
 
 [physics]
 

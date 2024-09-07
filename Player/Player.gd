@@ -5,6 +5,12 @@ const SPRINT_MULT = 2.0
 const JUMP_VELOCITY = 7
 const TILT_LOWER_LIMIT := deg_to_rad(-90.0)
 const TILT_UPPER_LIMIT := deg_to_rad(90.0)
+const INTERACT_PROMPS = \
+[\
+	"Hold E to refill health", \
+	"Hold E to refill Primary Ammo",\
+	"Hold E to refill Heavy Ammo"\
+]
 
 const SPRINT_STEP_DIS = 1.2
 const WALK_STEP_DIS = 0.7
@@ -33,6 +39,7 @@ var crouching : bool = false
 var leftStepNext : bool = false
 var jumpGrace : bool = false
 var curMoveState : movestate = movestate.STANDING
+var interactNear : Array = []
 var heldGun
 var primary
 var secondary
@@ -91,6 +98,53 @@ func _ready():
 	$ModelController/doll/Armature/Skeleton3D/RightLegIK.start()
 
 func _physics_process(delta):
+	handleGrip()
+	
+	var headrot = Quaternion(Vector3.FORWARD,-$CameraController.rotation.x)
+	skl.set_bone_pose_rotation(headBone,headrot)
+	
+	if interactNear.size() > 0:
+		var closest = closestInteract().getType()
+		match closest:
+			0:
+				if health < maxHealth:
+					tooltip(INTERACT_PROMPS[closest] + " (" + str(maxHealth - health) + " needed)")
+				else:
+					endtooltip()
+			1:
+				tooltip(INTERACT_PROMPS[closest])
+			2:
+				tooltip(INTERACT_PROMPS[closest])
+			_:
+				endtooltip()
+	else:
+		endtooltip()
+	
+	handleState()
+	
+	curMoveState = movestate.STANDING
+	if !Game.pauseCheck():
+		move(delta)
+		holdADS()
+		pointGun()
+		holdFireHeldGun()
+		updateCamera(delta)
+	if not is_on_floor():
+		curMoveState = movestate.JUMPING
+		velocity.y -= gravity * delta
+	
+	move_and_slide()
+
+func closestInteract():
+	var dist = 10
+	var close = null
+	for a in interactNear:
+		var far = a.global_position.distance_to(global_position)
+		if far < dist:
+			close = a
+	return close
+
+func handleGrip():
 	var handle = $ModelController/doll/WeaponTarget.global_transform.origin
 	var offhand = $ModelController/doll/OffhandTarget.global_transform.origin
 	if holdingHeavy:
@@ -111,10 +165,8 @@ func _physics_process(delta):
 				.global_transform.origin
 	$ModelController/doll/WeaponTarget.global_transform.origin = handle
 	$ModelController/doll/OffhandTarget.global_transform.origin = offhand
-	
-	var headrot = Quaternion(Vector3.FORWARD,-$CameraController.rotation.x)
-	skl.set_bone_pose_rotation(headBone,headrot)
-	
+
+func handleState():
 	match curMoveState:
 		movestate.STANDING:
 			if abs($ModelController/doll/LeftLegTarget.global_position\
@@ -180,19 +232,6 @@ func _physics_process(delta):
 				.global_position
 			$ModelController/doll/RightLegTarget.global_rotation = rightJump\
 				.global_rotation
-	
-	curMoveState = movestate.STANDING
-	if !Game.pauseCheck():
-		move(delta)
-		holdADS()
-		pointGun()
-		holdFireHeldGun()
-		updateCamera(delta)
-	if not is_on_floor():
-		curMoveState = movestate.JUMPING
-		velocity.y -= gravity * delta
-	
-	move_and_slide()
 
 func recoil(amount):
 	var t = get_tree().create_tween()
@@ -304,6 +343,11 @@ func pointGun():
 			.global_position
 		get_node("/root/World/GUI").pointgun(faraway) 
 		#get_node("/root/World/GUI").dontpointgun()
+
+func tooltip(s):
+	get_node("/root/World/GUI").showTooltip(s)
+func endtooltip():
+	get_node("/root/World/GUI").hideTooltip()
 
 func reloadHeldGun():
 	heldGun.reload()
@@ -497,6 +541,13 @@ func _unhandled_input(event):
 		rotInput = -event.relative.x
 		tiltInput = -event.relative.y
 
-
 func _on_jump_grace_timer_timeout():
 	jumpGrace = false
+
+func _on_interactable_detection_area_entered(area):
+	interactNear.append(area)
+func _on_interactable_detection_area_exited(area):
+	for index in interactNear.size():
+		if interactNear[index] == area:
+			interactNear.remove_at(index)
+			break
