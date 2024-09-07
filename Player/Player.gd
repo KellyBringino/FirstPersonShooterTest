@@ -41,9 +41,9 @@ var jumpGrace : bool = false
 var curMoveState : movestate = movestate.STANDING
 var interactNear : Array = []
 var heldGun
-var primary
-var secondary
-var heavy
+var primary : Gun
+var secondary : Gun
+var heavy : Gun
 
 var mouseRot : Vector3
 var rotInput : float
@@ -87,7 +87,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var aimDownSightsRef = $CameraController/AimDownSightsRef
 
 func _ready():
-	maxHealth = Game.playerHealth
+	maxHealth = Game.playerStats.health
 	health = maxHealth
 	parts = 0
 	Game.playerReady()
@@ -431,6 +431,33 @@ func updateCamera(delta):
 	rotInput = 0.0
 	tiltInput = 0.0
 
+func interact():
+	if interactNear.size() > 0:
+		var closest = closestInteract().getType()
+		match closest:
+			0:#health kit
+				if health < maxHealth:
+					var due = ceil((maxHealth - health) * Game.playerStats.healthCost)
+					if parts >= due:
+						health = maxHealth
+						parts -= due
+					else:
+						pass
+			1:#primary weapon refill
+				if holdingPrimary:
+					if primary.getReserveDiff() > 0:
+						var due = ceil(primary.getReserveDiff() * primary.ammoCost)
+						if parts >= due:
+							primary.fillReserve()
+							parts -= due
+			2:#heavy weapon refill
+				if holdingHeavy:
+					if heavy.getReserveDiff() > 0:
+						var due = ceil(heavy.getReserveDiff() * heavy.ammoCost)
+						if parts >= due:
+							heavy.fillReserve()
+							parts -= due
+
 func swapWeapons():
 	if holdingHeavy:
 		if holdingPrimary:
@@ -527,6 +554,9 @@ func _input(event):
 			swapWeapons()
 		if event.is_action_released("weapon_swap"):
 			$SwapButtonTimer.stop()
+		
+		if event.is_action_pressed("interact"):
+			interact()
 		
 		if event.is_action_pressed("fire"):
 			singleFireHeldGun()

@@ -18,7 +18,11 @@ const enemyStats = \
 	bullet_speed = 4.0,\
 	partCount = 20\
 }
-const playerHealth = 2000.0
+const playerStats = \
+{\
+	health = 2000.0,\
+	healthCost = 0.1\
+}
 
 #primary stats
 const rifle = \
@@ -34,7 +38,7 @@ const rifle = \
 	adsOffset = -0.5,\
 	adsZoom = 50.0,\
 	scope = false,\
-	ammoCost = 1,\
+	ammoCost = 1.0,\
 	upgradeCost = 600,\
 	magUpgradeCost = 400\
 }
@@ -51,7 +55,7 @@ const sniper = \
 	adsOffset = 0.0,\
 	adsZoom = 20.0,\
 	scope = true,\
-	ammoCost = 20,\
+	ammoCost = 20.0,\
 	upgradeCost = 600,\
 	magUpgradeCost = 800\
 }
@@ -100,7 +104,7 @@ const rocketlauncher = \
 	adsOffset = 0.0,\
 	adsZoom = 50.0,\
 	scope = true,\
-	ammoCost = 40,\
+	ammoCost = 40.0,\
 	upgradeCost = 1000,\
 	proj = rocketInstance\
 }

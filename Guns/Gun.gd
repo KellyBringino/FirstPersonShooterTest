@@ -3,11 +3,14 @@ extends Node3D
 
 const pitchModMax = 0.5
 
-@onready var bSound : AudioStreamPlayer3D = get_node("BarrelEnd/AudioStreamPlayer3D")
+@onready var bSound : AudioStreamPlayer3D = \
+	get_node("BarrelEnd/AudioStreamPlayer3D")
 @onready var anim : AnimationPlayer = get_node("model/AnimationPlayer")
 @onready var ske : Skeleton3D = get_node("model/Armature/Skeleton3D")
-@onready var gripBoneAtt : BoneAttachment3D = $model/Armature/Skeleton3D/GripAttachment
-@onready var OffBoneAtt : BoneAttachment3D = $model/Armature/Skeleton3D/OffhandAttachment
+@onready var gripBoneAtt : BoneAttachment3D = \
+	$model/Armature/Skeleton3D/GripAttachment
+@onready var OffBoneAtt : BoneAttachment3D = \
+	$model/Armature/Skeleton3D/OffhandAttachment
 @onready var shootRay : RayCast3D = $BarrelEnd/ShootRay
 
 var damage : float
@@ -17,6 +20,7 @@ var MAG_MAX : int
 var reserve : int
 var reserveMax : int
 var reloadMult : float
+var ammoCost : float
 var adsOffset : float
 var adsZoom : float
 var limited : bool = false
@@ -38,6 +42,7 @@ func startup(object):
 		limited = true
 		reserveMax = object.ammoMax
 		reserve = object.ammoMax
+		ammoCost = object.ammoCost
 
 func _process(_delta):
 	$Grip.global_transform.origin = gripBoneAtt.global_transform.origin
@@ -46,7 +51,8 @@ func _process(_delta):
 func fire():
 	var enemies = get_node("/root/World/Enemies").get_children()
 	for e in enemies:
-		if global_transform.origin.distance_to(e.global_transform.origin) < 50.0:
+		if global_transform.origin.\
+		distance_to(e.global_transform.origin) < 50.0:
 			e.alert(global_transform.origin)
 	anim.stop()
 	anim.play("Shoot")
@@ -84,6 +90,8 @@ func reload():
 
 func getReserveDiff():
 	return reserveMax - reserve
+func fillReserve():
+	reserve = reserveMax
 
 func _on_shot_timer_timeout():
 	chambered = true
