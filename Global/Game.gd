@@ -16,6 +16,7 @@ const enemyStats = \
 	health = 2000.0,\
 	damage = 200.0,\
 	bullet_speed = 4.0,\
+	levelHealth = 80,\
 	partCount = 20\
 }
 const playerStats = \
@@ -29,7 +30,7 @@ const rifle = \
 {\
 	name = "rifle", \
 	ammoLimited = true,\
-	damage = 350.0, \
+	damage = 770.0, \
 	crit = 1.3, \
 	magsize = 40, \
 	ammoMax = 240,\
@@ -40,13 +41,14 @@ const rifle = \
 	scope = false,\
 	ammoCost = 1.0,\
 	upgradeCost = 600,\
+	damageUpgrade = 500,\
 	magUpgradeCost = 400\
 }
 const sniper = \
 {\
 	name = "sniper", \
 	ammoLimited = true,\
-	damage = 1000.0, \
+	damage = 2500.0, \
 	crit = 2.0, \
 	magsize = 3, \
 	ammoMax = 18,\
@@ -57,6 +59,7 @@ const sniper = \
 	scope = true,\
 	ammoCost = 20.0,\
 	upgradeCost = 600,\
+	damageUpgrade = 500,\
 	magUpgradeCost = 800\
 }
 #secondary stats
@@ -64,7 +67,7 @@ const pistol = \
 {\
 	name = "pistol", \
 	ammoLimited = false,\
-	damage = 300.0, \
+	damage = 445.0, \
 	crit = 1.5, \
 	magsize = 10, \
 	reloadMult = 1.0,\
@@ -73,6 +76,7 @@ const pistol = \
 	adsZoom = 60.0,\
 	scope = false,\
 	upgradeCost = 400,\
+	damageUpgrade = 255,\
 	magUpgradeCost = 400\
 }
 const revolver = \
@@ -88,6 +92,7 @@ const revolver = \
 	adsZoom = 50.0,\
 	scope = false,\
 	upgradeCost = 400,\
+	damageUpgrade = 370,\
 	magUpgradeCost = 600\
 }
 #heavy stats
@@ -95,7 +100,7 @@ const rocketlauncher = \
 {\
 	name = "rocketlauncher", \
 	ammoLimited = true,\
-	damage = 300.0, \
+	damage = 400.0, \
 	crit = 1.0, \
 	magsize = 1, \
 	ammoMax = 4,\
@@ -106,6 +111,7 @@ const rocketlauncher = \
 	scope = true,\
 	ammoCost = 40.0,\
 	upgradeCost = 1000,\
+	damageUpgrade = 320,\
 	proj = rocketInstance\
 }
 

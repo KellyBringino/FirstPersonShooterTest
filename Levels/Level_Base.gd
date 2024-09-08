@@ -9,6 +9,8 @@ var rng = RandomNumberGenerator.new()
 var enemyMax : int = 15;
 var enemyCount : int = 0;
 var enemiesAtOnce : int = 5
+var roundMax : int = 5
+var curRound : int = 0
 var spawnRound : int = 0
 
 func _ready():
@@ -20,12 +22,15 @@ func spawner_at(point):
 	add_child(s)
 	var dif = enemyMax - enemyCount
 	if (dif) > enemiesAtOnce:
-		s.startup(enemiesAtOnce)
+		s.startup(enemiesAtOnce,spawnRound)
 		enemyCount += enemiesAtOnce
+		curRound += enemiesAtOnce
 	else:
-		s.startup(dif)
+		s.startup(dif,spawnRound)
 		enemyCount += dif
-	spawnRound += 1
+		curRound += dif
+	if curRound >= roundMax:
+		spawnRound += 1
 
 func make_spawner():
 	var mainCandi = null

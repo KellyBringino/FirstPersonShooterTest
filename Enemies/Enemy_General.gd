@@ -39,10 +39,11 @@ func _ready():
 	playAnim("Shoot_Idle",true,false)
 	$ViewControl/vision/GunController/Weapon/Gun.setup(Game.enemyStats.damage, Game.enemyStats.bullet_speed)
 
-func startup(h,d):
+func startup(h,d,l):
 	maxHealth = h
 	health = h
 	attackdamage = d
+	$Sprite3D/SubViewport/LevelLabel.text = "Lvl " + str(l)
 
 func _physics_process(delta):
 	# Add the gravity.

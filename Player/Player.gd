@@ -472,20 +472,20 @@ func swapWeapons():
 
 func equipPrimary():
 	if primary != null:
-		releaseADS()
 		holdingPrimary = true
 		holdingHeavy = false
 		heldGun = primary
+		releaseADS()
 		$CameraController/GunController/Weapon2.hide()
 		$CameraController/GunController/Weapon3.hide()
 		$CameraController/GunController/Weapon1.show()
 		Game.equip(holdingHeavy,holdingPrimary)
 func equipSecondary():
 	if secondary != null:
-		releaseADS()
 		holdingPrimary = false
 		holdingHeavy = false
 		heldGun = secondary
+		releaseADS()
 		$CameraController/GunController/Weapon1.hide()
 		$CameraController/GunController/Weapon3.hide()
 		$CameraController/GunController/Weapon2.show()
