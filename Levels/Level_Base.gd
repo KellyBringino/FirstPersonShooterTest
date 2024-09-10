@@ -54,6 +54,7 @@ func enemydeath(type):
 		0:#regular
 			enemyCount -= 1
 			$Player.addParts(Game.enemyStats.partCount)
+	Game.killEnemy(type)
 
 func _on_spawn_timer_timeout():
 	if enemyCount < enemyMax:

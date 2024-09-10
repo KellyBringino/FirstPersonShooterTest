@@ -1,13 +1,28 @@
 extends Node2D
 
 @onready var GUI = $CanvasLayer/InGameGUI
+@onready var pauseMenu = $CanvasLayer/PauseMenu
+@onready var hitmark = $CanvasLayer/HitmarkContainer/Hitmark
+@onready var scope = $CanvasLayer/ScopeContainer
+@onready var gameOverMenu = $CanvasLayer/GameOverMenu
+
 @onready var healthbar = $CanvasLayer/InGameGUI/HealthBarContainer/HealthBarController/HealthBar
 @onready var ammobar = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoBar
 @onready var ammocounter = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoCounter
 @onready var partscounter = $CanvasLayer/InGameGUI/InfoBox/InfoContainer/PartsLabel
 @onready var tooltipcontainer = $CanvasLayer/InGameGUI/ToolTipCenterContainer
+@onready var selectionWheel = $CanvasLayer/InGameGUI/AmmoContainer/selection_wheel
 
-@onready var main = $CanvasLayer/PauseMenu/MenuItemsContainer
+@onready var labelList = \
+gameOverMenu.get_node("MenuItemsContainer/VBoxContainer/LabelsContainer/VBoxContainer")
+@onready var scoreLabel = \
+labelList.get_node("ScoreLabelContainer/ScoreLabel")
+@onready var highScoreLabel = \
+labelList.get_node("HighScoreLabelContainer/HighScoreLabel")
+@onready var killsLabel = \
+labelList.get_node("KillsLabelContainer/KillsLabel")
+
+@onready var pausemain = $CanvasLayer/PauseMenu/MenuItemsContainer
 @onready var options = $CanvasLayer/PauseMenu/OptionsItemsContainer
 @onready var optionsList = \
 options.get_node("VBoxContainer/OptionsListContainer/ScrollContainer/OptionsVBox")
@@ -15,78 +30,96 @@ options.get_node("VBoxContainer/OptionsListContainer/ScrollContainer/OptionsVBox
 optionsList.get_node("HSensContainer/HBoxContainer/HSliderContainer/HSensSlider")
 @onready var vsensbar = \
 optionsList.get_node("VSensContainer/HBoxContainer/VSliderContainer/VSensSlider")
-@onready var scope = $CanvasLayer/ScopeContainer
 
+var player
 var weapons
 var holdingPri : bool = true
 var holdingHea : bool = false
 var scoped : bool = false
+var gameover : bool = false
 var hsens : float = 6.0
 var vsens : float = 6.0
 
 func setup():
 	unpause()
 	hideTooltip()
-	healthbar.max_value = int($"../Player".maxHealth)
-	healthbar.set_value_no_signal($"../Player".health)
-	partscounter.text = "Parts: " + str($"../Player".parts)
+	gameOverMenu.hide()
+	GUI.show()
+	hitmark.show()
+	player = $"../Player"
+	healthbar.max_value = int(player.maxHealth)
+	healthbar.set_value_no_signal(player.health)
+	partscounter.text = "Parts: " + str(player.parts)
 
 func _process(_delta):
-	healthbar.set_value_no_signal($"../Player".getHealth())
-	ammobar.max_value = $"../Player".heldGun.MAG_MAX
-	ammobar.value = $"../Player".heldGun.mag
-	ammocounter.text = "ammo:\n" + str($"../Player".heldGun.mag)
-	if $"../Player".heldGun.limited:
-		ammocounter.text += " / " + str($"../Player".heldGun.reserve)
-	partscounter.text = "Parts: " + str($"../Player".parts)
+	if !gameover:
+		ammobar.max_value = player.heldGun.MAG_MAX
+		ammobar.value = player.heldGun.mag
+		ammocounter.text = "ammo:\n" + str(player.heldGun.mag)
+		if player.heldGun.limited:
+			ammocounter.text += " / " + str(player.heldGun.reserve)
+		partscounter.text = "Parts: " + str(player.parts)
+
+func setHealth(n):
+	healthbar.set_value_no_signal(n)
 
 func scopein():
-	if !Game.pauseCheck():
+	if !Game.pauseCheck() and !gameover:
 		scoped = true
 		hideTooltip()
 		GUI.hide()
 		scope.show()
 func unscope():
-	if !Game.pauseCheck():
+	if !Game.pauseCheck() and !gameover:
 		scoped = false
 		scope.hide()
 		GUI.show()
 
 func showTooltip(s):
-	if !scoped:
+	if !scoped and !gameover:
 		tooltipcontainer.show()
 		tooltipcontainer.get_node("ToolTipContainer/ToolTipLabel").text = s
 func hideTooltip():
-	if !scoped:
+	if !scoped and !gameover:
 		tooltipcontainer.hide()
 
 func pause():
-	$CanvasLayer/PauseMenu.show()
-	switchTo(0)
+	if !gameover:
+		pauseMenu.show()
+		pauseSwitchTo(0)
 func unpause():
-	$CanvasLayer/PauseMenu.hide()
-func switchTo(page):
+	if !gameover:
+		pauseMenu.hide()
+func pauseSwitchTo(page):
 	match page:
 		0:
 			options.hide()
-			main.show()
+			pausemain.show()
 		1:
-			main.hide()
+			pausemain.hide()
 			options.show()
 			hsensbar.value = int((Game.horizontalSensitivity - 0.2) * 10)
 			vsensbar.value = int((Game.verticalSensitivity - 0.2) * 10)
+
+func gameOver():
+	gameover = true
+	GUI.hide()
+	hitmark.hide()
+	unpause()
+	gameOverMenu.show()
+	scoreLabel.text = "Score: " + str(Game.getScore())
+	highScoreLabel.text = "High Score: " + str(Game.getHighScore())
+	killsLabel.text = "Kills: " + str(Game.getKills())
 
 func pointgun(point):
 	var cam = get_tree().root.get_camera_3d()
 	if !cam.is_position_behind(point):
 		var pos = cam.unproject_position(point)
-		$CanvasLayer/HitmarkContainer/Hitmark.position = pos
+		hitmark.position = pos
 	else:
-		$CanvasLayer/HitmarkContainer/Hitmark.position = \
-			$CanvasLayer/InGameGUI/CrosshairCenterContainer.position
+		hitmark.position = $CanvasLayer/InGameGUI/CrosshairCenterContainer.position
 func dontpointgun():
-	$CanvasLayer/HitmarkContainer/Hitmark.position = \
-		$CanvasLayer/InGameGUI/CrosshairCenterContainer.position
+	hitmark.position = $CanvasLayer/InGameGUI/CrosshairCenterContainer.position
 
 func setWeapons(w):
 	weapons = w
@@ -103,12 +136,12 @@ func setWeapons(w):
 		sec = 2
 	if weapons[2] == Game.GunType.ROCKETLAUNCHER:
 		hea = 1
-	$CanvasLayer/InGameGUI/AmmoContainer/selection_wheel.setWeapons(pri,sec,hea)
+	selectionWheel.setWeapons(pri,sec,hea)
 
 func equip(hea,pri):
 	holdingHea = hea
 	holdingPri = pri
-	$CanvasLayer/InGameGUI/AmmoContainer/selection_wheel.equip(hea,pri)
+	selectionWheel.equip(hea,pri)
 
 func _on_resume_button_pressed():
 	Game.resume()
@@ -117,11 +150,11 @@ func _on_main_menu_button_pressed():
 func _on_level_select_button_pressed():
 	Utils.levelSelect()
 func _on_options_button_pressed():
-	switchTo(1)
+	pauseSwitchTo(1)
 
 func _on_options_back_button_pressed():
 	_on_options_save_button_pressed()
-	switchTo(0)
+	pauseSwitchTo(0)
 func _on_options_save_button_pressed():
 	Game.horizontalSensitivity = 0.2 + (hsens/10)
 	Game.verticalSensitivity = 0.2 + (vsens/10)

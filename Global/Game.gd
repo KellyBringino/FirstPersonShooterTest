@@ -118,7 +118,9 @@ const rocketlauncher = \
 var paused : bool = false
 var horizontalSensitivity = 0.8
 var verticalSensitivity = 0.8
+var highScore : int = 0
 var score : int = 0
+var kills : int = 0
 var weapons = [GunType.RIFLE,GunType.REVOLVER,GunType.ROCKETLAUNCHER]
 
 func _input(event):
@@ -141,6 +143,8 @@ func resume():
 	StartLevel()
 
 func StartLevel():
+	score = 0
+	kills = 0
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func StartUI():
@@ -199,6 +203,31 @@ func choose(pri,sec,hea):
 			weapons[2] = GunType.NONE
 		1:
 			weapons[2] = GunType.ROCKETLAUNCHER
+
+func increaseScore(n):
+	score += n
+func getScore():
+	return score
+
+func setHighScore(n):
+	highScore = n
+func getHighScore():
+	return highScore
+
+func killEnemy(t):
+	match t:
+		0:#regular
+			increaseScore(enemyStats.partCount)
+			kills += 1
+func getKills():
+	return kills
+
+func GameOver():
+	if score > highScore:
+		highScore = score
+	$"../World/GUI".gameOver()
+	if !paused:
+		pause()
 
 func equip(hea,pri):
 	$"../World/GUI".equip(hea,pri)

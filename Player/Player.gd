@@ -38,6 +38,7 @@ var leadTrigger : bool = false
 var crouching : bool = false
 var leftStepNext : bool = false
 var jumpGrace : bool = false
+var gameover : bool = false
 var curMoveState : movestate = movestate.STANDING
 var interactNear : Array = []
 var heldGun
@@ -51,8 +52,6 @@ var tiltInput : float
 var flinchadd : float = 0.0
 var horizontalsens : float = 1.0
 var verticalsens : float = 1.0
-
-#var DEV_pos : Vector3
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -98,25 +97,26 @@ func _ready():
 	$ModelController/doll/Armature/Skeleton3D/RightLegIK.start()
 
 func _physics_process(delta):
-	handleGrip()
-	
-	var headrot = Quaternion(Vector3.FORWARD,-$CameraController.rotation.x)
-	skl.set_bone_pose_rotation(headBone,headrot)
-	
-	handleInteractionTooltips()
-	handleState()
-	
-	curMoveState = movestate.STANDING
-	if !Game.pauseCheck():
-		move(delta)
-		holdADS()
-		pointGun()
-		holdFireHeldGun()
-		updateCamera(delta)
-	if not is_on_floor():
-		curMoveState = movestate.JUMPING
-		velocity.y -= gravity * delta
-	move_and_slide()
+	if !gameover:
+		handleGrip()
+		
+		var headrot = Quaternion(Vector3.FORWARD,-$CameraController.rotation.x)
+		skl.set_bone_pose_rotation(headBone,headrot)
+		
+		handleInteractionTooltips()
+		handleState()
+		
+		curMoveState = movestate.STANDING
+		if !Game.pauseCheck():
+			move(delta)
+			holdADS()
+			pointGun()
+			holdFireHeldGun()
+			updateCamera(delta)
+		if not is_on_floor():
+			curMoveState = movestate.JUMPING
+			velocity.y -= gravity * delta
+		move_and_slide()
 
 func handleInteractionTooltips():
 	if interactNear.size() > 0:
@@ -515,8 +515,11 @@ func getHealth():
 	return health
 
 func hit(d,_point):
-	print(health)
 	health -= d
+	get_node("/root/World/GUI").setHealth(health)
+	if health <= 0:
+		gameover = true
+		Game.GameOver()
 
 func setGuns(allThree):
 	match allThree[0]:

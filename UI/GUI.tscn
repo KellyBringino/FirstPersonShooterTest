@@ -15,6 +15,7 @@ script = ExtResource("1_81un3")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="InGameGUI" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -421,6 +422,124 @@ max_value = 12.0
 value = 6.0
 tick_count = 13
 
+[node name="GameOverMenu" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/GameOverMenu"]
+layout_mode = 2
+color = Color(0.376471, 0.376471, 0.376471, 0.627451)
+
+[node name="MenuItemsContainer" type="MarginContainer" parent="CanvasLayer/GameOverMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverMenu/MenuItemsContainer"]
+layout_mode = 2
+
+[node name="LabelsContainer" type="MarginContainer" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/LabelsContainer"]
+layout_mode = 2
+
+[node name="GameOverLabelContainer" type="MarginContainer" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/LabelsContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="GameOverLabel" type="Label" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/LabelsContainer/VBoxContainer/GameOverLabelContainer"]
+layout_mode = 2
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="ScoreLabelContainer" type="MarginContainer" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/LabelsContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/LabelsContainer/VBoxContainer/ScoreLabelContainer"]
+layout_mode = 2
+text = "Score: "
+horizontal_alignment = 1
+
+[node name="HighScoreLabelContainer" type="MarginContainer" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/LabelsContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="HighScoreLabel" type="Label" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/LabelsContainer/VBoxContainer/HighScoreLabelContainer"]
+layout_mode = 2
+text = "High Score: "
+horizontal_alignment = 1
+
+[node name="KillsLabelContainer" type="MarginContainer" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/LabelsContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="KillsLabel" type="Label" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/LabelsContainer/VBoxContainer/KillsLabelContainer"]
+layout_mode = 2
+text = "Kills: "
+horizontal_alignment = 1
+
+[node name="ResumeButtonContainer" type="MarginContainer" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 10
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/ResumeButtonContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="TryAgainButtonContainer" type="MarginContainer" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 10
+
+[node name="TryAgainButton" type="Button" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/TryAgainButtonContainer"]
+layout_mode = 2
+text = "Try Again"
+
+[node name="LevelSelectButtonContainer" type="MarginContainer" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 10
+
+[node name="LevelSelectButton" type="Button" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/LevelSelectButtonContainer"]
+layout_mode = 2
+text = "Level Select"
+
+[node name="MainMenuButtonContainer" type="MarginContainer" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 10
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/MainMenuButtonContainer"]
+layout_mode = 2
+text = "Main Menu"
+
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MenuItemsContainer/VBoxContainer/ResumeButtonContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MenuItemsContainer/VBoxContainer/OptionsButtonContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MenuItemsContainer/VBoxContainer/LevelSelectButtonContainer2/LevelSelectButton" to="." method="_on_level_select_button_pressed"]
@@ -429,3 +548,6 @@ tick_count = 13
 [connection signal="pressed" from="CanvasLayer/PauseMenu/OptionsItemsContainer/VBoxContainer/HeadingContainer/HBoxContainer/SaveButtonContainer/OptionsSaveButton" to="." method="_on_options_save_button_pressed"]
 [connection signal="drag_ended" from="CanvasLayer/PauseMenu/OptionsItemsContainer/VBoxContainer/OptionsListContainer/ScrollContainer/OptionsVBox/HSensContainer/HBoxContainer/HSliderContainer/HSensSlider" to="." method="_on_h_sens_slider_drag_ended"]
 [connection signal="drag_ended" from="CanvasLayer/PauseMenu/OptionsItemsContainer/VBoxContainer/OptionsListContainer/ScrollContainer/OptionsVBox/VSensContainer/HBoxContainer/VSliderContainer/VSensSlider" to="." method="_on_v_sens_slider_drag_ended"]
+[connection signal="pressed" from="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/ResumeButtonContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/LevelSelectButtonContainer/LevelSelectButton" to="." method="_on_level_select_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOverMenu/MenuItemsContainer/VBoxContainer/MainMenuButtonContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
