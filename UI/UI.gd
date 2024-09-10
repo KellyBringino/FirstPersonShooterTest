@@ -156,8 +156,7 @@ func _on_options_back_button_pressed():
 	_on_options_save_button_pressed()
 	pauseSwitchTo(0)
 func _on_options_save_button_pressed():
-	Game.horizontalSensitivity = 0.2 + (hsens/10)
-	Game.verticalSensitivity = 0.2 + (vsens/10)
+	Game.setSensitivity(0.2 + (hsens/10),0.2 + (vsens/10))
 
 func _on_h_sens_slider_drag_ended(_value_changed):
 	hsens = hsensbar.value

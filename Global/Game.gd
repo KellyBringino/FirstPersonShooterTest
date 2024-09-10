@@ -123,6 +123,10 @@ var score : int = 0
 var kills : int = 0
 var weapons = [GunType.RIFLE,GunType.REVOLVER,GunType.ROCKETLAUNCHER]
 
+func _ready():
+	if FileAccess.file_exists(Utils.SAVE_PATH):
+		Utils.loadGame()
+
 func _input(event):
 	if event.is_action_pressed("pause"):
 		pause()
@@ -204,6 +208,11 @@ func choose(pri,sec,hea):
 		1:
 			weapons[2] = GunType.ROCKETLAUNCHER
 
+func setSensitivity(h,v):
+	horizontalSensitivity = h
+	verticalSensitivity = v
+	Utils.saveGame()
+
 func increaseScore(n):
 	score += n
 func getScore():
@@ -228,6 +237,7 @@ func GameOver():
 	$"../World/GUI".gameOver()
 	if !paused:
 		pause()
+	Utils.saveGame()
 
 func equip(hea,pri):
 	$"../World/GUI".equip(hea,pri)

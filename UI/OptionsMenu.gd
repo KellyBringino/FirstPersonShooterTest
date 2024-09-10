@@ -11,15 +11,14 @@ func _ready():
 	.value = int((Game.verticalSensitivity - 0.2) * 10)
 
 func _on_back_button_pressed():
+	Game.setSensitivity(0.2 + (Hsensitivity/10),0.2 + (Vsensitivity/10))
 	Utils.switchToMainMenu()
 
 func _on_save_button_pressed():
-	Game.horizontalSensitivity = 0.2 + (Hsensitivity/10)
-	Game.verticalSensitivity = 0.2 + (Vsensitivity/10)
+	Game.setSensitivity(0.2 + (Hsensitivity/10),0.2 + (Vsensitivity/10))
 
 func _on_h_sens_slider_drag_ended(value_changed):
 	Hsensitivity = $CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox/HSensContainer/HBoxContainer/HSliderContainer/HSensSlider.value
-
 
 func _on_v_sens_slider_drag_ended(value_changed):
 	Vsensitivity = $CanvasLayer/OptionsContainer/VBoxContainer/OptionsMenuContainer/VBoxContainer/ListContainer/ScrollContainer/OptionsVBox/VSensContainer/HBoxContainer/VSliderContainer/VSensSlider.value
