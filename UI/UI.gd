@@ -37,6 +37,8 @@ var holdingPri : bool = true
 var holdingHea : bool = false
 var scoped : bool = false
 var gameover : bool = false
+var textFlash : bool = false
+var flashCycles : int = 0
 var hsens : float = 6.0
 var vsens : float = 6.0
 
@@ -82,14 +84,18 @@ func showTooltip(s):
 func hideTooltip():
 	if !scoped and !gameover:
 		tooltipcontainer.hide()
+func rejectToolTip():
+	textFlash = true
+	flashCycles = 5
+	tooltipcontainer.get_node("ToolTipContainer/ToolTipLabel").set("theme_override_colors/font_color", Color.RED)
+	$FlashTimer.start() 
 
 func pause():
 	if !gameover:
 		pauseMenu.show()
 		pauseSwitchTo(0)
 func unpause():
-	if !gameover:
-		pauseMenu.hide()
+	pauseMenu.hide()
 func pauseSwitchTo(page):
 	match page:
 		0:
@@ -152,6 +158,10 @@ func _on_level_select_button_pressed():
 func _on_options_button_pressed():
 	pauseSwitchTo(1)
 
+func _on_try_again_button_pressed():
+	unpause()
+	Utils.retryLevel()
+
 func _on_options_back_button_pressed():
 	_on_options_save_button_pressed()
 	pauseSwitchTo(0)
@@ -162,3 +172,16 @@ func _on_h_sens_slider_drag_ended(_value_changed):
 	hsens = hsensbar.value
 func _on_v_sens_slider_drag_ended(_value_changed):
 	vsens = vsensbar.value
+
+
+func _on_flash_timer_timeout():
+	if textFlash:
+		tooltipcontainer.get_node("ToolTipContainer/ToolTipLabel").set("theme_override_colors/font_color", Color.WHITE)
+	else:
+		tooltipcontainer.get_node("ToolTipContainer/ToolTipLabel").set("theme_override_colors/font_color", Color.RED)
+	textFlash = !textFlash
+	flashCycles -= 1
+	if flashCycles != 0:
+		$FlashTimer.start()
+
+

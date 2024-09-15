@@ -7,6 +7,8 @@ const levels = [
 	"res://Levels/rooms.tscn"
 ]
 
+var currentLevel = 0
+
 func saveGame():
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	var data: Dictionary = {
@@ -32,22 +34,34 @@ func quitGame():
 
 func returnToMainMenu():
 	Game.resume()
+	currentLevel = 0
 	get_tree().change_scene_to_file("res://UI/MainMenu.tscn")
 	Game.StartUI()
 func switchToMainMenu():
+	currentLevel = 0
 	get_tree().change_scene_to_file("res://UI/MainMenu.tscn")
 
 func levelSelect():
 	Game.resume()
+	currentLevel = 1
 	get_tree().change_scene_to_file("res://UI/LevelSelect.tscn")
 	Game.StartUI()
 func switchToLevelSelect():
+	currentLevel = 1
 	get_tree().change_scene_to_file("res://UI/LevelSelect.tscn")
 
 func optionsMenu():
+	currentLevel = 2
 	get_tree().change_scene_to_file("res://UI/OptionsMenu.tscn")
 
-func loadLevel(number):
+func loadLevel(number : int):
+	currentLevel = 2 + number
 	get_tree().change_scene_to_file(levels[number])
 	Game.StartLevel()
+	loadGame()
+
+func retryLevel():
+	get_tree().change_scene_to_file(levels[currentLevel - 2])
+	Game.StartLevel()
+	Game.resume()
 	loadGame()

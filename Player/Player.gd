@@ -442,7 +442,7 @@ func interact():
 						health = maxHealth
 						parts -= due
 					else:
-						pass
+						get_node("/root/World/GUI").rejectToolTip()
 			1:#primary weapon refill
 				if holdingPrimary:
 					if primary.getReserveDiff() > 0:
@@ -450,6 +450,8 @@ func interact():
 						if parts >= due:
 							primary.fillReserve()
 							parts -= due
+						else:
+							get_node("/root/World/GUI").rejectToolTip()
 			2:#heavy weapon refill
 				if holdingHeavy:
 					if heavy.getReserveDiff() > 0:
@@ -457,6 +459,8 @@ func interact():
 						if parts >= due:
 							heavy.fillReserve()
 							parts -= due
+						else:
+							get_node("/root/World/GUI").rejectToolTip()
 
 func swapWeapons():
 	if holdingHeavy:
