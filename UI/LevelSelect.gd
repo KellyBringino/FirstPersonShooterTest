@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var cardsTitle = $CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/CardsTitleContainer/HBoxContainer/CardsTitleContainer/CardsTitle
 @onready var weaponsCard = $CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/CardsContainer/WeaponCardsContainer
 @onready var mapsCard = $CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/CardsContainer/MapCardsContainer
 @onready var mapLabel = $CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/CardsContainer/MapCardsContainer/VBoxContainer/MapCardContainer/VBoxContainer/LowerCardContainer/HBoxContainer/MapLabel/MapLabel
@@ -42,10 +43,12 @@ func _on_start_button_pressed():
 
 func moveCardTo(page):
 	match page:
-		0:
+		0:#maps (start here)
+			cardsTitle.text = "Maps"
 			weaponsCard.hide()
 			mapsCard.show()
-		1:
+		1:#weapons
+			cardsTitle.text = "Weapons"
 			mapsCard.hide()
 			weaponsCard.show()
 func moveCard(amount):
