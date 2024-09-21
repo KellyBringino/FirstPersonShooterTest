@@ -8,7 +8,7 @@ extends Node2D
 
 @onready var healthbar = $CanvasLayer/InGameGUI/HealthBarContainer/HealthBarController/HealthBar
 @onready var ammobar = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoBar
-@onready var ammocounter = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoCounter
+@onready var ammocounter = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoBar/VBoxContainer/AmmoCounter
 @onready var partscounter = $CanvasLayer/InGameGUI/InfoBox/InfoContainer/PartsLabel
 @onready var tooltipcontainer = $CanvasLayer/InGameGUI/ToolTipCenterContainer
 @onready var selectionWheel = $CanvasLayer/InGameGUI/AmmoContainer/selection_wheel
@@ -57,7 +57,14 @@ func _process(_delta):
 	if !gameover:
 		ammobar.max_value = player.heldGun.MAG_MAX
 		ammobar.value = player.heldGun.mag
-		ammocounter.text = "ammo:\n" + str(player.heldGun.mag)
+		ammocounter.text = str(player.heldGun.mag)
+		match player.heldGun.gunType:
+			0:#secondary
+				ammocounter.set("theme_override_colors/font_color", Color.WHITE)
+			1:#primary
+				ammocounter.set("theme_override_colors/font_color", Color.GREEN)
+			2:#heavy
+				ammocounter.set("theme_override_colors/font_color", Color.PURPLE)
 		if player.heldGun.limited:
 			ammocounter.text += " / " + str(player.heldGun.reserve)
 		partscounter.text = "Parts: " + str(player.parts)

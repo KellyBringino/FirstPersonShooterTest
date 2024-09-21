@@ -30,6 +30,7 @@ const rifle = \
 {\
 	name = "rifle", \
 	ammoLimited = true,\
+	gunType = 1,\
 	damage = 770.0, \
 	crit = 1.3, \
 	magsize = 40, \
@@ -48,6 +49,7 @@ const sniper = \
 {\
 	name = "sniper", \
 	ammoLimited = true,\
+	gunType = 1,\
 	damage = 2500.0, \
 	crit = 2.0, \
 	magsize = 3, \
@@ -67,6 +69,7 @@ const pistol = \
 {\
 	name = "pistol", \
 	ammoLimited = false,\
+	gunType = 0,\
 	damage = 445.0, \
 	crit = 1.5, \
 	magsize = 10, \
@@ -83,6 +86,7 @@ const revolver = \
 {\
 	name = "revolver", \
 	ammoLimited = false,\
+	gunType = 0,\
 	damage = 550.0, \
 	crit = 1.7, \
 	magsize = 6, \
@@ -100,6 +104,7 @@ const rocketlauncher = \
 {\
 	name = "rocketlauncher", \
 	ammoLimited = true,\
+	gunType = 2,\
 	damage = 400.0, \
 	crit = 1.0, \
 	magsize = 1, \

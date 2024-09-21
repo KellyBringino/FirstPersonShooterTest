@@ -133,6 +133,8 @@ func handleInteractionTooltips():
 					if primary.getReserveDiff() > 0:
 						var a = ceil(primary.getReserveDiff() * primary.ammoCost)
 						tooltip(INTERACT_PROMPS[closest]," (" + str(a) + " needed)",parts>=a)
+					else:
+						endtooltip()
 				else:
 					endtooltip()
 			2:
@@ -140,8 +142,8 @@ func handleInteractionTooltips():
 					if heavy.getReserveDiff() > 0:
 						var a = ceil(heavy.getReserveDiff() * heavy.ammoCost)
 						tooltip(INTERACT_PROMPS[closest]," (" + str(a) + " needed)",parts>=a)
-				else:
-					endtooltip()
+					else:
+						endtooltip()
 			_:
 				endtooltip()
 	else:

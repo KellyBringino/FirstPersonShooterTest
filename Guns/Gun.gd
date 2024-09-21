@@ -19,6 +19,7 @@ var mag : int
 var MAG_MAX : int
 var reserve : int
 var reserveMax : int
+var gunType : int
 var reloadMult : float
 var ammoCost : float
 var adsOffset : float
@@ -30,6 +31,7 @@ var grace : bool = false
 var scope : bool = false
 
 func startup(object):
+	gunType = object.gunType
 	damage = object.damage
 	critMult = object.crit
 	mag = object.magsize

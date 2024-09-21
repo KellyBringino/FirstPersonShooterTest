@@ -112,21 +112,31 @@ tint_progress = Color(0.380392, 0.380392, 0.380392, 1)
 radial_initial_angle = 245.0
 radial_fill_degrees = 145.0
 
-[node name="AmmoCounter" type="Label" parent="CanvasLayer/InGameGUI/AmmoContainer/AmmoController"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -256.0
-offset_top = -246.0
-offset_right = -122.0
-offset_bottom = -133.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AmmoTitleLabel" type="Label" parent="CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoBar/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "ammo:
-60 / 240"
+text = "Ammo:"
+
+[node name="AmmoCounter" type="Label" parent="CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoBar/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 40
+text = "60 / 240"
 horizontal_alignment = 1
 vertical_alignment = 1
 
