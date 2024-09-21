@@ -77,17 +77,27 @@ func unscope():
 		scope.hide()
 		GUI.show()
 
-func showTooltip(s):
+func showTooltip(s,n,a):
 	if !scoped and !gameover:
 		tooltipcontainer.show()
-		tooltipcontainer.get_node("ToolTipContainer/ToolTipLabel").text = s
+		tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipLabel").text = s
+		tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").text = n
+		if a:
+			tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").set("theme_override_colors/font_color", Color.WHITE)
+		else:
+			tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").set("theme_override_colors/font_color", Color.RED)
 func hideTooltip():
 	if !scoped and !gameover:
 		tooltipcontainer.hide()
+func correctToolTip(a):
+	if a:
+		tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").set("theme_override_colors/font_color", Color.WHITE)
+	else:
+		tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").set("theme_override_colors/font_color", Color.RED)
 func rejectToolTip():
 	textFlash = true
 	flashCycles = 5
-	tooltipcontainer.get_node("ToolTipContainer/ToolTipLabel").set("theme_override_colors/font_color", Color.RED)
+	tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipLabel").set("theme_override_colors/font_color", Color.RED)
 	$FlashTimer.start() 
 
 func pause():
@@ -176,9 +186,9 @@ func _on_v_sens_slider_drag_ended(_value_changed):
 
 func _on_flash_timer_timeout():
 	if textFlash:
-		tooltipcontainer.get_node("ToolTipContainer/ToolTipLabel").set("theme_override_colors/font_color", Color.WHITE)
+		tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipLabel").set("theme_override_colors/font_color", Color.WHITE)
 	else:
-		tooltipcontainer.get_node("ToolTipContainer/ToolTipLabel").set("theme_override_colors/font_color", Color.RED)
+		tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipLabel").set("theme_override_colors/font_color", Color.RED)
 	textFlash = !textFlash
 	flashCycles -= 1
 	if flashCycles != 0:

@@ -15,7 +15,6 @@ script = ExtResource("1_81un3")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="InGameGUI" type="Control" parent="CanvasLayer"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,10 +41,17 @@ grow_vertical = 2
 layout_mode = 2
 theme_override_constants/margin_top = 100
 
-[node name="ToolTipLabel" type="Label" parent="CanvasLayer/InGameGUI/ToolTipCenterContainer/ToolTipContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/InGameGUI/ToolTipCenterContainer/ToolTipContainer"]
+layout_mode = 2
+
+[node name="ToolTipLabel" type="Label" parent="CanvasLayer/InGameGUI/ToolTipCenterContainer/ToolTipContainer/HBoxContainer"]
 layout_mode = 2
 text = "Press E to"
 horizontal_alignment = 1
+
+[node name="ToolTipNumberLabel" type="Label" parent="CanvasLayer/InGameGUI/ToolTipCenterContainer/ToolTipContainer/HBoxContainer"]
+layout_mode = 2
+text = "(20 needed)"
 
 [node name="CrosshairCenterContainer" type="CenterContainer" parent="CanvasLayer/InGameGUI"]
 layout_mode = 1
@@ -423,6 +429,7 @@ value = 6.0
 tick_count = 13
 
 [node name="GameOverMenu" type="MarginContainer" parent="CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

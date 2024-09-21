@@ -124,22 +124,22 @@ func handleInteractionTooltips():
 		match closest:
 			0:
 				if health < maxHealth:
-					tooltip(INTERACT_PROMPS[closest] + \
-						" (" + str(maxHealth - health) + " needed)")
+					var h = ceil((maxHealth - health) * Game.playerStats.healthCost)
+					tooltip(INTERACT_PROMPS[closest]," (" + str(h) + " needed)",parts>=h)
 				else:
 					endtooltip()
 			1:
 				if holdingPrimary:
 					if primary.getReserveDiff() > 0:
-						tooltip(INTERACT_PROMPS[closest] + \
-							" (" + str(primary.getReserveDiff()) + " needed)")
+						var a = ceil(primary.getReserveDiff() * primary.ammoCost)
+						tooltip(INTERACT_PROMPS[closest]," (" + str(a) + " needed)",parts>=a)
 				else:
 					endtooltip()
 			2:
 				if holdingHeavy:
 					if heavy.getReserveDiff() > 0:
-						tooltip(INTERACT_PROMPS[closest] + \
-							" (" + str(heavy.getReserveDiff()) + " needed)")
+						var a = ceil(heavy.getReserveDiff() * heavy.ammoCost)
+						tooltip(INTERACT_PROMPS[closest]," (" + str(a) + " needed)",parts>=a)
 				else:
 					endtooltip()
 			_:
@@ -356,8 +356,8 @@ func pointGun():
 		get_node("/root/World/GUI").pointgun(faraway) 
 		#get_node("/root/World/GUI").dontpointgun()
 
-func tooltip(s):
-	get_node("/root/World/GUI").showTooltip(s)
+func tooltip(s,n,a):
+	get_node("/root/World/GUI").showTooltip(s,n,a)
 func endtooltip():
 	get_node("/root/World/GUI").hideTooltip()
 
@@ -439,8 +439,9 @@ func interact():
 				if health < maxHealth:
 					var due = ceil((maxHealth - health) * Game.playerStats.healthCost)
 					if parts >= due:
-						health = maxHealth
+						heal()
 						parts -= due
+						endtooltip()
 					else:
 						get_node("/root/World/GUI").rejectToolTip()
 			1:#primary weapon refill
@@ -450,6 +451,7 @@ func interact():
 						if parts >= due:
 							primary.fillReserve()
 							parts -= due
+							endtooltip()
 						else:
 							get_node("/root/World/GUI").rejectToolTip()
 			2:#heavy weapon refill
@@ -517,6 +519,10 @@ func setHealth(amount):
 	health = amount
 func getHealth():
 	return health
+
+func heal():
+	health = maxHealth
+	get_node("/root/World/GUI").setHealth(health)
 
 func hit(d,_point):
 	health -= d
