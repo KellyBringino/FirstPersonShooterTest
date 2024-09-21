@@ -5,11 +5,11 @@ const SPRINT_MULT = 2.0
 const JUMP_VELOCITY = 7
 const TILT_LOWER_LIMIT := deg_to_rad(-90.0)
 const TILT_UPPER_LIMIT := deg_to_rad(90.0)
-const INTERACT_PROMPS = \
-[\
-	"Hold E to refill health", \
-	"Hold E to refill Primary Ammo",\
-	"Hold E to refill Heavy Ammo"\
+const INTERACT_PROMPS = [
+	"Hold E to refill Health", 
+	"Hold E to refill Primary Ammo",
+	"Hold E to refill Heavy Ammo",
+	"Hold E to Upgrade "
 ]
 
 const SPRINT_STEP_DIS = 1.2
@@ -144,6 +144,18 @@ func handleInteractionTooltips():
 						tooltip(INTERACT_PROMPS[closest]," (" + str(a) + " needed)",parts>=a)
 					else:
 						endtooltip()
+			3:
+				var a
+				if holdingHeavy:
+					a = ceil(heavy.upgradeCost)
+					tooltip(INTERACT_PROMPS[closest] + "Heavy weapon"," (" + str(a) + " needed)",parts>=a)
+				else:
+					if holdingPrimary:
+						a = ceil(primary.upgradeCost)
+						tooltip(INTERACT_PROMPS[closest] + "Primary weapon"," (" + str(a) + " needed)",parts>=a)
+					else:
+						a = ceil(secondary.upgradeCost)
+						tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
 			_:
 				endtooltip()
 	else:
@@ -462,6 +474,30 @@ func interact():
 						var due = ceil(heavy.getReserveDiff() * heavy.ammoCost)
 						if parts >= due:
 							heavy.fillReserve()
+							parts -= due
+						else:
+							get_node("/root/World/GUI").rejectToolTip()
+			3:#damage upgrade bench
+				var due
+				if holdingHeavy:
+					due = ceil(heavy.upgradeCost)
+					if parts >= due:
+						heavy.upgradeDamage()
+						parts -= due
+					else:
+						get_node("/root/World/GUI").rejectToolTip()
+				else:
+					if holdingPrimary:
+						due = ceil(primary.upgradeCost)
+						if parts >= due:
+							primary.upgradeDamage()
+							parts -= due
+						else:
+							get_node("/root/World/GUI").rejectToolTip()
+					else: 
+						due = ceil(secondary.upgradeCost)
+						if parts >= due:
+							secondary.upgradeDamage()
 							parts -= due
 						else:
 							get_node("/root/World/GUI").rejectToolTip()

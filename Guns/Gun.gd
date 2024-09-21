@@ -13,6 +13,8 @@ const pitchModMax = 0.5
 	$model/Armature/Skeleton3D/OffhandAttachment
 @onready var shootRay : RayCast3D = $BarrelEnd/ShootRay
 
+var level : int = 0
+
 var damage : float
 var critMult : float
 var mag : int
@@ -22,6 +24,8 @@ var reserveMax : int
 var gunType : int
 var reloadMult : float
 var ammoCost : float
+var upgradeCost : float
+var damageUpgrade : float
 var adsOffset : float
 var adsZoom : float
 var limited : bool = false
@@ -36,6 +40,8 @@ func startup(object):
 	critMult = object.crit
 	mag = object.magsize
 	MAG_MAX = object.magsize
+	upgradeCost = object.upgradeCost
+	damageUpgrade = object.damageUpgrade
 	reloadMult = object.reloadMult
 	adsOffset = object.adsOffset / 10.0
 	adsZoom = object.adsZoom
@@ -94,6 +100,10 @@ func getReserveDiff():
 	return reserveMax - reserve
 func fillReserve():
 	reserve = reserveMax
+
+func upgradeDamage():
+	damage += damageUpgrade
+	level += 1
 
 func _on_shot_timer_timeout():
 	chambered = true
