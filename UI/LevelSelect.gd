@@ -13,17 +13,25 @@ extends Node2D
 @onready var heaIcon = $CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/CardsContainer/WeaponCardsContainer/HeavyCard/VBoxContainer/HeavyCardContainer/VBoxContainer/HeavyCard/GunIconContainer/HeavyGunIcon
 
 const mapMax = 2
-const priMax = 3
+const priMax = 4
 const secMax = 2
 const heaMax = 2
 const mapLabels = ["test", "Rooms"]
-const priLabels = ["None", "Rifle", "Sniper"]
+const priLabels = ["None", "Rifle", "Sniper", "Shotgun"]
 const secLabels = ["Pistol", "Revolver"]
 const heaLabels = ["None", "Rocket Launcher"]
 var mapIcons = []
-var priIcons = [load("res://Sprites/null.svg"),load("res://Sprites/rifle_icon.png"),load("res://Sprites/sniper_icon.png")]
-var secIcons = [load("res://Sprites/pistol_icon.png"),load("res://Sprites/revolver_icon.png")]
-var heaIcons = [load("res://Sprites/null.svg"),load("res://Sprites/rocketlauncher_icon.png")]
+var priIcons = [
+	load("res://Sprites/null.svg"),
+	load("res://Sprites/rifle_icon.png"),
+	load("res://Sprites/sniper_icon.png"),
+	load("res://Sprites/shotgun_icon.png")]
+var secIcons = [
+	load("res://Sprites/pistol_icon.png"),
+	load("res://Sprites/revolver_icon.png")]
+var heaIcons = [
+	load("res://Sprites/null.svg"),
+	load("res://Sprites/rocketlauncher_icon.png")]
 
 var cardSelection = 0;
 var pri = 1

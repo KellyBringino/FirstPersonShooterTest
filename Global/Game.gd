@@ -1,15 +1,6 @@
 extends Node
 
-enum GunType {NONE, RIFLE, SNIPER, PISTOL, REVOLVER, ROCKETLAUNCHER}
-
-
-const pistolInstance = preload("res://Guns/pistol.tscn")
-const rifleInstance = preload("res://Guns/rifle.tscn")
-const sniperInstance = preload("res://Guns/sniper.tscn")
-const revolverInstance = preload("res://Guns/revolver.tscn")
-const rocketlauncherInstance = preload("res://Guns/rocketlauncher.tscn")
-
-const rocketInstance = preload("res://Guns/Projectile/rocket.tscn")
+enum GunType {NONE, RIFLE, SNIPER, SHOTGUN, PISTOL, REVOLVER, ROCKETLAUNCHER}
 
 const enemyStats = \
 {\
@@ -26,98 +17,118 @@ const playerStats = \
 }
 
 #primary stats
-const rifle = \
-{\
-	name = "rifle", \
-	ammoLimited = true,\
-	gunType = 1,\
-	damage = 770.0, \
-	crit = 1.3, \
-	magsize = 40, \
-	ammoMax = 240,\
-	reloadMult = 1.0,\
-	flinch = 0.2,\
-	adsOffset = -0.5,\
-	adsZoom = 50.0,\
-	scope = false,\
-	ammoCost = 1.0,\
-	upgradeCost = 600,\
-	damageUpgrade = 500,\
-	magUpgradeCost = 400\
+const rifle = {
+	name = "rifle", 
+	ammoLimited = true,
+	gunType = 1,
+	damage = 770.0, 
+	crit = 1.3, 
+	magsize = 40, 
+	ammoMax = 240,
+	reloadMult = 1.0,
+	flinch = 0.2,
+	adsOffset = -0.5,
+	adsZoom = 50.0,
+	scope = false,
+	ammoCost = 1.0,
+	upgradeCost = 600,
+	damageUpgrade = 500,
+	magUpgradeCost = 400,
+	instance = preload("res://Guns/rifle.tscn")
 }
-const sniper = \
-{\
-	name = "sniper", \
-	ammoLimited = true,\
-	gunType = 1,\
-	damage = 2500.0, \
-	crit = 2.0, \
-	magsize = 3, \
-	ammoMax = 18,\
-	reloadMult = 1.0,\
-	flinch = 1.0,\
-	adsOffset = 0.0,\
-	adsZoom = 20.0,\
-	scope = true,\
-	ammoCost = 20.0,\
-	upgradeCost = 600,\
-	damageUpgrade = 500,\
-	magUpgradeCost = 800\
+const sniper = {
+	name = "sniper", 
+	ammoLimited = true,
+	gunType = 1,
+	damage = 2500.0, 
+	crit = 2.0, 
+	magsize = 3, 
+	ammoMax = 18,
+	reloadMult = 1.0,
+	flinch = 1.0,
+	adsOffset = 0.0,
+	adsZoom = 20.0,
+	scope = true,
+	ammoCost = 20.0,
+	upgradeCost = 600,
+	damageUpgrade = 500,
+	magUpgradeCost = 800,
+	instance = preload("res://Guns/sniper.tscn")
+}
+const shotgun = {
+	name = "shotgun", 
+	ammoLimited = true,
+	gunType = 1,
+	damage = 300.0, 
+	crit = 1.3, 
+	magsize = 5, 
+	ammoMax = 50,
+	pellets = 8,
+	reloadMult = 1.0,
+	flinch = 1.0,
+	adsOffset = 0.0,
+	adsZoom = 60.0,
+	scope = false,
+	ammoCost = 20.0,
+	upgradeCost = 600,
+	damageUpgrade = 255,
+	magUpgradeCost = 800,
+	instance = preload("res://Guns/shotgun.tscn")
 }
 #secondary stats
-const pistol = \
-{\
-	name = "pistol", \
-	ammoLimited = false,\
-	gunType = 0,\
-	damage = 445.0, \
-	crit = 1.5, \
-	magsize = 10, \
-	reloadMult = 1.0,\
-	flinch = 0.2,\
-	adsOffset = 0.0,\
-	adsZoom = 60.0,\
-	scope = false,\
-	upgradeCost = 400,\
-	damageUpgrade = 255,\
-	magUpgradeCost = 400\
+const pistol = {
+	name = "pistol", 
+	ammoLimited = false,
+	gunType = 0,
+	damage = 445.0, 
+	crit = 1.5, 
+	magsize = 10, 
+	reloadMult = 1.0,
+	flinch = 0.2,
+	adsOffset = 0.0,
+	adsZoom = 60.0,
+	scope = false,
+	upgradeCost = 400,
+	damageUpgrade = 255,
+	magUpgradeCost = 400,
+	instance = preload("res://Guns/pistol.tscn")
 }
-const revolver = \
-{\
-	name = "revolver", \
-	ammoLimited = false,\
-	gunType = 0,\
-	damage = 550.0, \
-	crit = 1.7, \
-	magsize = 6, \
-	reloadMult = 1.3,\
-	flinch = 0.8,\
-	adsOffset = 0.0,\
-	adsZoom = 50.0,\
-	scope = false,\
-	upgradeCost = 400,\
-	damageUpgrade = 370,\
-	magUpgradeCost = 600\
+const revolver = {
+	name = "revolver", 
+	ammoLimited = false,
+	gunType = 0,
+	damage = 550.0, 
+	crit = 1.7, 
+	magsize = 6, 
+	reloadMult = 1.3,
+	flinch = 0.8,
+	adsOffset = 0.0,
+	adsZoom = 50.0,
+	scope = false,
+	upgradeCost = 400,
+	damageUpgrade = 370,
+	magUpgradeCost = 600,
+	instance = preload("res://Guns/revolver.tscn")
 }
 #heavy stats
-const rocketlauncher = \
-{\
-	name = "rocketlauncher", \
-	ammoLimited = true,\
-	gunType = 2,\
-	damage = 400.0, \
-	crit = 1.0, \
-	magsize = 1, \
-	ammoMax = 4,\
-	reloadMult = 1.0,\
-	flinch = 0.0,\
-	adsOffset = 0.0,\
-	adsZoom = 50.0,\
-	scope = true,\
-	ammoCost = 40.0,\
-	upgradeCost = 1000,\
-	damageUpgrade = 320,\
-	proj = rocketInstance\
+const rocketlauncher = {
+	name = "rocketlauncher", 
+	ammoLimited = true,
+	gunType = 2,
+	damage = 400.0, 
+	crit = 1.0, 
+	magsize = 1, 
+	ammoMax = 4,
+	reloadMult = 1.0,
+	flinch = 0.0,
+	adsOffset = 0.0,
+	adsZoom = 50.0,
+	scope = true,
+	ammoCost = 40.0,
+	upgradeCost = 1000,
+	damageUpgrade = 320,
+	proj = preload("res://Guns/Projectile/rocket.tscn"),
+	instance = preload("res://Guns/rocketlauncher.tscn")
 }
 
 var paused : bool = false
@@ -165,25 +176,29 @@ func playerReady():
 	player.setHealth(2000.0)
 	
 	if weapons[0] == GunType.RIFLE:
-		var riflegun = rifleInstance.instantiate()
+		var riflegun = rifle.instance.instantiate()
 		$"../World/Player/CameraController/GunController/Weapon1"\
 			.add_child(riflegun)
 	elif weapons[0] == GunType.SNIPER:
-		var snipergun = sniperInstance.instantiate()
+		var snipergun = sniper.instance.instantiate()
 		$"../World/Player/CameraController/GunController/Weapon1"\
 			.add_child(snipergun)
+	elif weapons[0] == GunType.SHOTGUN:
+		var shotgungun = shotgun.instance.instantiate()
+		$"../World/Player/CameraController/GunController/Weapon1"\
+			.add_child(shotgungun)
 	
 	if weapons[1] == GunType.PISTOL:
-		var pistolgun = pistolInstance.instantiate()
+		var pistolgun = pistol.instance.instantiate()
 		$"../World/Player/CameraController/GunController/Weapon2"\
 			.add_child(pistolgun)
 	elif weapons[1] == GunType.REVOLVER:
-		var revolvergun = revolverInstance.instantiate()
+		var revolvergun = revolver.instance.instantiate()
 		$"../World/Player/CameraController/GunController/Weapon2"\
 			.add_child(revolvergun)
 	
 	if weapons[2] == GunType.ROCKETLAUNCHER:
-		var rocketgun = rocketlauncherInstance.instantiate()
+		var rocketgun = rocketlauncher.instance.instantiate()
 		$"../World/Player/CameraController/GunController/Weapon3"\
 			.add_child(rocketgun)
 	
@@ -198,6 +213,8 @@ func choose(pri,sec,hea):
 			weapons[0] = GunType.RIFLE
 		2:
 			weapons[0] = GunType.SNIPER
+		3:
+			weapons[0] = GunType.SHOTGUN
 	
 	match sec:
 		0:

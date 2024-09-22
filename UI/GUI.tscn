@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b5gjr4qrdvma7"]
+[gd_scene load_steps=17 format=3 uid="uid://b5gjr4qrdvma7"]
 
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_81un3"]
 [ext_resource type="Texture2D" uid="uid://drchcncoxm6r2" path="res://Sprites/crosshair.svg" id="2_ekvqs"]
@@ -6,8 +6,28 @@
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Sprites/bar back.svg" id="3_mt0so"]
 [ext_resource type="Texture2D" uid="uid://crmjikty86roj" path="res://Sprites/circle bar.svg" id="3_wyimq"]
 [ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Sprites/health.svg" id="4_0u4fy"]
+[ext_resource type="Texture2D" uid="uid://bt4116u3kliy3" path="res://Sprites/null.svg" id="4_dvvja"]
+[ext_resource type="Texture2D" uid="uid://c3p0w407rsla6" path="res://Sprites/rifle_icon.png" id="5_bi2n4"]
+[ext_resource type="Texture2D" uid="uid://dfn0k6x8ocd8o" path="res://Sprites/sniper_icon.png" id="6_o34eo"]
 [ext_resource type="Texture2D" uid="uid://cyvgtgfpwye8m" path="res://Sprites/hitmark.svg" id="7_kq6is"]
+[ext_resource type="Texture2D" uid="uid://1caw0w1gbavd" path="res://Sprites/shotgun_icon.png" id="7_thkrn"]
 [ext_resource type="Texture2D" uid="uid://cukx82xutv6ek" path="res://Sprites/scopesilhouette.svg" id="8_ih7td"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j83ai"]
+atlas = ExtResource("4_dvvja")
+region = Rect2(0, 0, 4080, 4080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l473q"]
+atlas = ExtResource("5_bi2n4")
+region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pxkrx"]
+atlas = ExtResource("6_o34eo")
+region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kuab"]
+atlas = ExtResource("7_thkrn")
+region = Rect2(0, 0, 1080, 1080)
 
 [node name="GUI" type="Node2D"]
 script = ExtResource("1_81un3")
@@ -92,6 +112,7 @@ offset_left = -74.0
 offset_top = -74.0
 offset_right = -34.0
 offset_bottom = -34.0
+priText = Array[AtlasTexture]([SubResource("AtlasTexture_j83ai"), SubResource("AtlasTexture_l473q"), SubResource("AtlasTexture_pxkrx"), SubResource("AtlasTexture_4kuab")])
 
 [node name="AmmoController" type="Node2D" parent="CanvasLayer/InGameGUI/AmmoContainer"]
 position = Vector2(40, 40)

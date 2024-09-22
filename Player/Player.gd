@@ -577,6 +577,8 @@ func setGuns(allThree):
 			primary = $CameraController/GunController/Weapon1/Gun
 		Game.GunType.SNIPER:
 			primary = $CameraController/GunController/Weapon1/Gun
+		Game.GunType.SHOTGUN:
+			primary = $CameraController/GunController/Weapon1/Gun
 	match allThree[1]:
 		Game.GunType.NONE:
 			secondary = null

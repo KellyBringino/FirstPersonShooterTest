@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://bsjyb8wyeokxq"]
+[gd_scene load_steps=21 format=3 uid="uid://bsjyb8wyeokxq"]
 
 [ext_resource type="Texture2D" uid="uid://bt4116u3kliy3" path="res://Sprites/null.svg" id="1_hf77t"]
 [ext_resource type="Texture2D" uid="uid://c3p0w407rsla6" path="res://Sprites/rifle_icon.png" id="1_p67ue"]
 [ext_resource type="Texture2D" uid="uid://bl2230jvnhsyv" path="res://Sprites/pistol_icon.png" id="2_nmv5i"]
 [ext_resource type="Texture2D" uid="uid://dfn0k6x8ocd8o" path="res://Sprites/sniper_icon.png" id="3_y4anq"]
+[ext_resource type="Texture2D" uid="uid://1caw0w1gbavd" path="res://Sprites/shotgun_icon.png" id="4_ni7vc"]
 [ext_resource type="Texture2D" uid="uid://47pewado1wmh" path="res://Sprites/revolver_icon.png" id="5_dui0h"]
 [ext_resource type="Texture2D" uid="uid://cv2i8ak446n8u" path="res://Sprites/rocketlauncher_icon.png" id="6_hiiy6"]
 
@@ -89,6 +90,10 @@ region = Rect2(0, 0, 1080, 1080)
 atlas = ExtResource("3_y4anq")
 region = Rect2(0, 0, 1080, 1080)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_34hws"]
+atlas = ExtResource("4_ni7vc")
+region = Rect2(0, 0, 1080, 1080)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_4230t"]
 atlas = ExtResource("1_hf77t")
 region = Rect2(0, 0, 4080, 4080)
@@ -137,7 +142,7 @@ grow_vertical = 2
 script = SubResource("GDScript_sip4t")
 bkr_color = Color(0.180392, 0.180392, 0.180392, 0.392157)
 outer_radius = 200
-priText = Array[AtlasTexture]([SubResource("AtlasTexture_j83ai"), SubResource("AtlasTexture_l473q"), SubResource("AtlasTexture_pxkrx")])
+priText = Array[AtlasTexture]([SubResource("AtlasTexture_j83ai"), SubResource("AtlasTexture_l473q"), SubResource("AtlasTexture_pxkrx"), SubResource("AtlasTexture_34hws")])
 secText = Array[AtlasTexture]([SubResource("AtlasTexture_4230t"), SubResource("AtlasTexture_p3uby"), SubResource("AtlasTexture_qwi5x")])
 heaText = Array[AtlasTexture]([SubResource("AtlasTexture_8hvy6"), SubResource("AtlasTexture_3waqv")])
 currentText = Array[AtlasTexture]([SubResource("AtlasTexture_nf731"), SubResource("AtlasTexture_f1n3k"), SubResource("AtlasTexture_tvqba")])

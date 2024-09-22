@@ -86,7 +86,6 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="WeaponCardsContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/CardsContainer"]
-visible = false
 layout_mode = 2
 
 [node name="PrimaryCard" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/CardsContainer/WeaponCardsContainer"]
@@ -324,6 +323,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="MapCardsContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/CardsContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10

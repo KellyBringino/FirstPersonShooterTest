@@ -153,6 +153,8 @@ func setWeapons(w):
 		pri = 1
 	elif weapons[0] == Game.GunType.SNIPER:
 		pri = 2
+	elif weapons[0] == Game.GunType.SHOTGUN:
+		pri = 3
 	if weapons[1] == Game.GunType.PISTOL:
 		sec = 1
 	elif weapons[1] == Game.GunType.REVOLVER:
