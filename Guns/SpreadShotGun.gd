@@ -2,6 +2,7 @@ class_name SpreadShotGun
 extends Gun
 
 const misfireInst = preload("res://Guns/Projectile/Misfire.tscn")
+const hitmark = preload("res://Guns/Projectile/pointMark.tscn")
 const bulletInst = preload("res://Guns/Projectile/bullet_particle.tscn")
 
 @onready var barrelEnd : Node3D = $BarrelEnd
@@ -21,10 +22,18 @@ func fire():
 		super.fire()
 		mag -= 1
 		for i in pellets:
+			splinterRay.rotation = Vector3.ZERO
+			var rotref = -(shootRay.get_global_transform().basis.z)
+			splinterRay.rotation_degrees.x = (i % 10)
+			splinterRay.global_rotate(
+				rotref,
+				((i%floor(pellets/10))*(PI/2) + ((rng.randf() - 0.5) * 2))
+			)
+			splinterRay.force_raycast_update()
 			var object = splinterRay.get_collider()
 			if (object != null):
 				var colPoint = splinterRay.get_collision_point()
-				print(colPoint)
+				#print(colPoint)
 				var bullet = bulletInst.instantiate()
 				get_tree().root.add_child(bullet)
 				bullet.global_transform.origin = splinterRay.global_transform.origin
@@ -48,7 +57,7 @@ func fire():
 				elif object.collision_layer == 128:
 					object.hit(colPoint,damage,0)
 				elif object.collision_layer == 1:
-					var misfire = misfireInst.instantiate()
+					var misfire = hitmark.instantiate()
 					get_tree().root.add_child(misfire)
 					misfire.global_transform.origin = colPoint
 			else:
