@@ -10,11 +10,13 @@ const bulletInst = preload("res://Guns/Projectile/bullet_particle.tscn")
 
 var flinch : float = 1.0
 var pellets : int = 8
+var rings : int = 3
 var rng = RandomNumberGenerator.new()
 
 func startup(object):
 	flinch = object.flinch/20.0
 	pellets = object.pellets
+	rings = object.rings
 	super.startup(object)
 
 func fire():
@@ -24,13 +26,15 @@ func fire():
 		for i in pellets:
 			splinterRay.rotation = Vector3.ZERO
 			var rotref = -(shootRay.get_global_transform().basis.z)
-			splinterRay.rotation_degrees.x = (i % 10)
+			splinterRay.rotation_degrees.x = (i / floor(pellets/4))*4
+			var angle = (i % (floor(pellets/rings))) * ((2*PI)/(floor(pellets/rings)))
 			splinterRay.global_rotate(
 				rotref,
-				((i%floor(pellets/10))*(PI/2) + ((rng.randf() - 0.5) * 2))
+				(angle + (((rng.randf() - 0.5) * rings)) * PI / floor(pellets/rings))
 			)
 			splinterRay.force_raycast_update()
 			var object = splinterRay.get_collider()
+			print(splinterRay.get_collision_point())
 			if (object != null):
 				var colPoint = splinterRay.get_collision_point()
 				#print(colPoint)

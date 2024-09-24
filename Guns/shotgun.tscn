@@ -1,21 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccilr0jlvib4l"]
+[gd_scene load_steps=4 format=3 uid="uid://ccilr0jlvib4l"]
 
 [ext_resource type="Script" path="res://Guns/shotgun.gd" id="1_e8ncg"]
 [ext_resource type="PackedScene" uid="uid://chlk36c55mcyv" path="res://Models/Guns/shotgunscene.tscn" id="2_e8uap"]
 [ext_resource type="AudioStream" uid="uid://mmb585c2n40m" path="res://Sound/Gunshots/PistolSound.wav" id="3_lwjj4"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_27jnw"]
-top_radius = 0.01
-bottom_radius = 0.01
-height = 10.0
-
 [node name="Gun" type="Node3D"]
 script = ExtResource("1_e8ncg")
 
 [node name="model" parent="." instance=ExtResource("2_e8uap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.126946)
 
 [node name="BarrelEnd" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.716773)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.589827)
 
 [node name="ShootRay" type="RayCast3D" parent="BarrelEnd"]
 target_position = Vector3(0, 0, -50)
@@ -26,11 +22,6 @@ collide_with_areas = true
 target_position = Vector3(0, 0, -50)
 collision_mask = 177
 collide_with_areas = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="BarrelEnd/ShootRay/SplinterRay"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -5)
-visible = false
-mesh = SubResource("CylinderMesh_27jnw")
 
 [node name="DistanceRef" type="Node3D" parent="BarrelEnd/ShootRay"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
