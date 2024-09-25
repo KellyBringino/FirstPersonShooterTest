@@ -481,7 +481,7 @@ func interact():
 				var due
 				if holdingHeavy:
 					due = ceil(heavy.upgradeCost)
-					if parts >= due:
+					if parts >= due and heavy.checkDamageLevel():
 						heavy.upgradeDamage()
 						parts -= due
 					else:
@@ -489,14 +489,14 @@ func interact():
 				else:
 					if holdingPrimary:
 						due = ceil(primary.upgradeCost)
-						if parts >= due:
+						if parts >= due and primary.checkDamageLevel():
 							primary.upgradeDamage()
 							parts -= due
 						else:
 							get_node("/root/World/GUI").rejectToolTip()
 					else: 
 						due = ceil(secondary.upgradeCost)
-						if parts >= due:
+						if parts >= due and secondary.checkDamageLevel():
 							secondary.upgradeDamage()
 							parts -= due
 						else:

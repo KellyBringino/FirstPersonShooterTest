@@ -34,10 +34,8 @@ func fire():
 			)
 			splinterRay.force_raycast_update()
 			var object = splinterRay.get_collider()
-			print(splinterRay.get_collision_point())
 			if (object != null):
 				var colPoint = splinterRay.get_collision_point()
-				#print(colPoint)
 				var bullet = bulletInst.instantiate()
 				get_tree().root.add_child(bullet)
 				bullet.global_transform.origin = splinterRay.global_transform.origin
