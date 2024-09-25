@@ -26,54 +26,97 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Menu Container/Menu Options Container"]
+[node name="Control" type="Control" parent="CanvasLayer/Menu Container/Menu Options Container"]
 layout_mode = 2
 
-[node name="Title Container" type="MarginContainer" parent="CanvasLayer/Menu Container/Menu Options Container/VBox"]
-layout_mode = 2
-size_flags_vertical = 3
+[node name="Title Container" type="MarginContainer" parent="CanvasLayer/Menu Container/Menu Options Container/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -526.0
+offset_right = 526.0
+offset_bottom = 123.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_bottom = 50
 
-[node name="Title Label" type="Label" parent="CanvasLayer/Menu Container/Menu Options Container/VBox/Title Container"]
+[node name="Title Label" type="Label" parent="CanvasLayer/Menu Container/Menu Options Container/Control/Title Container"]
 layout_mode = 2
 text = "Cube Shoot"
 horizontal_alignment = 1
 
-[node name="Start Button Container" type="MarginContainer" parent="CanvasLayer/Menu Container/Menu Options Container/VBox"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu Container/Menu Options Container/Control"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -526.0
+offset_top = -400.0
+offset_right = 526.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Start Button Container" type="Control" parent="CanvasLayer/Menu Container/Menu Options Container/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 200
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 200
-theme_override_constants/margin_bottom = 25
 
-[node name="Start Button" type="Button" parent="CanvasLayer/Menu Container/Menu Options Container/VBox/Start Button Container"]
-layout_mode = 2
+[node name="Start Button" type="Button" parent="CanvasLayer/Menu Container/Menu Options Container/Control/VBoxContainer/Start Button Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -325.0
+offset_top = -40.0
+offset_right = 325.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Start"
 
-[node name="Options Button Container" type="MarginContainer" parent="CanvasLayer/Menu Container/Menu Options Container/VBox"]
+[node name="Options Button Container" type="Control" parent="CanvasLayer/Menu Container/Menu Options Container/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 200
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 200
-theme_override_constants/margin_bottom = 25
 
-[node name="Options Button" type="Button" parent="CanvasLayer/Menu Container/Menu Options Container/VBox/Options Button Container"]
-layout_mode = 2
+[node name="Options Button" type="Button" parent="CanvasLayer/Menu Container/Menu Options Container/Control/VBoxContainer/Options Button Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -325.0
+offset_top = -40.0
+offset_right = 325.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Options"
 
-[node name="Quit Button Container" type="MarginContainer" parent="CanvasLayer/Menu Container/Menu Options Container/VBox"]
+[node name="Quit Button Container" type="Control" parent="CanvasLayer/Menu Container/Menu Options Container/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 200
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 200
-theme_override_constants/margin_bottom = 25
 
-[node name="Quit Button" type="Button" parent="CanvasLayer/Menu Container/Menu Options Container/VBox/Quit Button Container"]
-layout_mode = 2
+[node name="Quit Button" type="Button" parent="CanvasLayer/Menu Container/Menu Options Container/Control/VBoxContainer/Quit Button Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -325.0
+offset_top = -40.0
+offset_right = 325.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Quit"
 
-[connection signal="pressed" from="CanvasLayer/Menu Container/Menu Options Container/VBox/Start Button Container/Start Button" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Menu Container/Menu Options Container/VBox/Options Button Container/Options Button" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Menu Container/Menu Options Container/VBox/Quit Button Container/Quit Button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu Container/Menu Options Container/Control/VBoxContainer/Start Button Container/Start Button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu Container/Menu Options Container/Control/VBoxContainer/Options Button Container/Options Button" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu Container/Menu Options Container/Control/VBoxContainer/Quit Button Container/Quit Button" to="." method="_on_quit_button_pressed"]
