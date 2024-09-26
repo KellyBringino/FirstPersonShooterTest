@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdosdyxpdbvan"
-path="res://.godot/imported/damage1.svg-ad14383348193f5c2675fe34ec2362ed.ctex"
+path="res://.godot/imported/damage1.svg-12e8c990a7c6df26c6d7447747855aad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/damage1.svg"
-dest_files=["res://.godot/imported/damage1.svg-ad14383348193f5c2675fe34ec2362ed.ctex"]
+source_file="res://Sprites/Gun Property Icons/Damage Property/damage1.svg"
+dest_files=["res://.godot/imported/damage1.svg-12e8c990a7c6df26c6d7447747855aad.ctex"]
 
 [params]
 

@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://dub2f54202j2y"]
 
+[ext_resource type="Texture2D" uid="uid://cp715m6uw8q6h" path="res://Sprites/Gun Property Icons/Damage Property/damage0.svg" id="1_igmvg"]
 [ext_resource type="Texture2D" uid="uid://bt4116u3kliy3" path="res://Sprites/null.svg" id="1_peomd"]
-[ext_resource type="Texture2D" uid="uid://cp715m6uw8q6h" path="res://Sprites/damage0.svg" id="1_yb683"]
-[ext_resource type="Texture2D" uid="uid://cdosdyxpdbvan" path="res://Sprites/damage1.svg" id="2_7gyi2"]
-[ext_resource type="Texture2D" uid="uid://dmttx4v32fxi3" path="res://Sprites/damage2.svg" id="3_yp85j"]
+[ext_resource type="Texture2D" uid="uid://cdosdyxpdbvan" path="res://Sprites/Gun Property Icons/Damage Property/damage1.svg" id="2_lqnpk"]
+[ext_resource type="Texture2D" uid="uid://dmttx4v32fxi3" path="res://Sprites/Gun Property Icons/Damage Property/damage2.svg" id="3_igy47"]
 [ext_resource type="Texture2D" uid="uid://bl2230jvnhsyv" path="res://Sprites/pistol_icon.png" id="5_usph8"]
 
 [sub_resource type="GDScript" id="GDScript_sip4t"]
@@ -51,27 +51,27 @@ func setStats(dam,mag,elem):
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kg8pu"]
-atlas = ExtResource("1_yb683")
+atlas = ExtResource("1_igmvg")
 region = Rect2(0, 0, 1080, 1080)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nkaso"]
-atlas = ExtResource("2_7gyi2")
+atlas = ExtResource("2_lqnpk")
 region = Rect2(0, 0, 1080, 1080)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0lh0j"]
-atlas = ExtResource("3_yp85j")
+atlas = ExtResource("3_igy47")
 region = Rect2(0, 0, 1080, 1080)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1gbeg"]
-atlas = ExtResource("1_yb683")
+atlas = ExtResource("1_igmvg")
 region = Rect2(0, 0, 1080, 1080)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5yaki"]
-atlas = ExtResource("1_yb683")
+atlas = ExtResource("1_igmvg")
 region = Rect2(0, 0, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nf731"]
-atlas = ExtResource("1_yb683")
+atlas = ExtResource("1_igmvg")
 region = Rect2(0, 0, 1080, 1080)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1n3k"]
