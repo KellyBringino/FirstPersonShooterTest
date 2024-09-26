@@ -12,6 +12,7 @@ extends Node2D
 @onready var partscounter = $CanvasLayer/InGameGUI/InfoBox/InfoContainer/PartsLabel
 @onready var tooltipcontainer = $CanvasLayer/InGameGUI/ToolTipCenterContainer
 @onready var selectionWheel = $CanvasLayer/InGameGUI/AmmoContainer/selection_wheel
+@onready var iconWheel = $CanvasLayer/InGameGUI/AmmoContainer/selection_wheel
 
 @onready var labelList = \
 gameOverMenu.get_node("MenuItemsContainer/VBoxContainer/LabelsContainer/VBoxContainer")
@@ -162,11 +163,13 @@ func setWeapons(w):
 	if weapons[2] == Game.GunType.ROCKETLAUNCHER:
 		hea = 1
 	selectionWheel.setWeapons(pri,sec,hea)
+	iconWheel.setStats(0,0,0)
 
 func equip(hea,pri):
 	holdingHea = hea
 	holdingPri = pri
 	selectionWheel.equip(hea,pri)
+	iconWheel.setStats(0,0,0)
 
 func _on_resume_button_pressed():
 	Game.resume()
