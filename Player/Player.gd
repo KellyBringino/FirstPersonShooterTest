@@ -122,13 +122,13 @@ func handleInteractionTooltips():
 	if interactNear.size() > 0:
 		var closest = closestInteract().getType()
 		match closest:
-			0:
+			0:#healthpack
 				if health < maxHealth:
 					var h = ceil((maxHealth - health) * Game.playerStats.healthCost)
 					tooltip(INTERACT_PROMPS[closest]," (" + str(h) + " needed)",parts>=h)
 				else:
 					endtooltip()
-			1:
+			1:#primary ammo
 				if holdingPrimary:
 					if primary.getReserveDiff() > 0:
 						var a = ceil(primary.getReserveDiff() * primary.ammoCost)
@@ -137,24 +137,24 @@ func handleInteractionTooltips():
 						endtooltip()
 				else:
 					endtooltip()
-			2:
+			2:#heavy ammo
 				if holdingHeavy:
 					if heavy.getReserveDiff() > 0:
 						var a = ceil(heavy.getReserveDiff() * heavy.ammoCost)
 						tooltip(INTERACT_PROMPS[closest]," (" + str(a) + " needed)",parts>=a)
 					else:
 						endtooltip()
-			3:
+			3:#damage bench
 				var a
 				if holdingHeavy:
-					a = ceil(heavy.upgradeCost)
+					a = ceil(heavy.damageUpgradeCost)
 					tooltip(INTERACT_PROMPS[closest] + "Heavy weapon"," (" + str(a) + " needed)",parts>=a)
 				else:
 					if holdingPrimary:
-						a = ceil(primary.upgradeCost)
+						a = ceil(primary.damageUpgradeCost)
 						tooltip(INTERACT_PROMPS[closest] + "Primary weapon"," (" + str(a) + " needed)",parts>=a)
 					else:
-						a = ceil(secondary.upgradeCost)
+						a = ceil(secondary.damageUpgradeCost)
 						tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
 			_:
 				endtooltip()
@@ -480,25 +480,46 @@ func interact():
 			3:#damage upgrade bench
 				var due
 				if holdingHeavy:
-					due = ceil(heavy.upgradeCost)
+					due = ceil(heavy.damageUpgradeCost)
 					if parts >= due and heavy.checkDamageLevel():
 						heavy.upgradeDamage()
 						parts -= due
+						var elem = 0
+						if heavy.fireWeapon:
+							elem = 1
+						elif heavy.iceWeapon:
+							elem = 2
+						get_node("/root/World/GUI").statUpdate(
+							heavy.damageLevel,heavy.magLevel,elem)
 					else:
 						get_node("/root/World/GUI").rejectToolTip()
 				else:
 					if holdingPrimary:
-						due = ceil(primary.upgradeCost)
+						due = ceil(primary.damageUpgradeCost)
 						if parts >= due and primary.checkDamageLevel():
 							primary.upgradeDamage()
 							parts -= due
+							var elem = 0
+							if primary.fireWeapon:
+								elem = 1
+							elif primary.iceWeapon:
+								elem = 2
+							get_node("/root/World/GUI").statUpdate(
+								primary.damageLevel,primary.magLevel,elem)
 						else:
 							get_node("/root/World/GUI").rejectToolTip()
 					else: 
-						due = ceil(secondary.upgradeCost)
+						due = ceil(secondary.damageUpgradeCost)
 						if parts >= due and secondary.checkDamageLevel():
 							secondary.upgradeDamage()
 							parts -= due
+							var elem = 0
+							if secondary.fireWeapon:
+								elem = 1
+							elif secondary.iceWeapon:
+								elem = 2
+							get_node("/root/World/GUI").statUpdate(
+								secondary.damageLevel,secondary.magLevel,elem)
 						else:
 							get_node("/root/World/GUI").rejectToolTip()
 
@@ -523,7 +544,13 @@ func equipPrimary():
 		$CameraController/GunController/Weapon2.hide()
 		$CameraController/GunController/Weapon3.hide()
 		$CameraController/GunController/Weapon1.show()
-		Game.equip(holdingHeavy,holdingPrimary)
+		var elem = 0
+		if primary.fireWeapon:
+			elem = 1
+		elif primary.iceWeapon:
+			elem = 2
+		Game.equip(holdingHeavy,holdingPrimary,\
+			primary.damageLevel,primary.magLevel,elem)
 func equipSecondary():
 	if secondary != null:
 		holdingPrimary = false
@@ -533,7 +560,13 @@ func equipSecondary():
 		$CameraController/GunController/Weapon1.hide()
 		$CameraController/GunController/Weapon3.hide()
 		$CameraController/GunController/Weapon2.show()
-		Game.equip(holdingHeavy,holdingPrimary)
+		var elem = 0
+		if secondary.fireWeapon:
+			elem = 1
+		elif secondary.iceWeapon:
+			elem = 2
+		Game.equip(holdingHeavy,holdingPrimary,\
+			secondary.damageLevel,secondary.magLevel,elem)
 func equipHeavy():
 	if heavy != null:
 		releaseADS()
@@ -542,7 +575,13 @@ func equipHeavy():
 		$CameraController/GunController/Weapon1.hide()
 		$CameraController/GunController/Weapon2.hide()
 		$CameraController/GunController/Weapon3.show()
-		Game.equip(holdingHeavy,holdingPrimary)
+		var elem = 0
+		if heavy.fireWeapon:
+			elem = 1
+		elif heavy.iceWeapon:
+			elem = 2
+		Game.equip(holdingHeavy,holdingPrimary,\
+			heavy.damageLevel,heavy.magLevel,elem)
 
 func addParts(amount):
 	parts += amount

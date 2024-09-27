@@ -113,7 +113,7 @@ func upgradeDamage():
 		damage += damageUpgrade
 		damageLevel += 1
 func checkDamageLevel():
-	return damageLevel <= 5
+	return damageLevel < 5
 
 func upgradeMag():
 	if checkMagLevel():
@@ -121,7 +121,7 @@ func upgradeMag():
 		mag += magUpgrade
 		magLevel += 1
 func checkMagLevel():
-	return magLevel <= 3
+	return magLevel < 3
 
 func _on_shot_timer_timeout():
 	chambered = true

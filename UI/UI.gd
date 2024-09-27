@@ -12,7 +12,7 @@ extends Node2D
 @onready var partscounter = $CanvasLayer/InGameGUI/InfoBox/InfoContainer/PartsLabel
 @onready var tooltipcontainer = $CanvasLayer/InGameGUI/ToolTipCenterContainer
 @onready var selectionWheel = $CanvasLayer/InGameGUI/AmmoContainer/selection_wheel
-@onready var iconWheel = $CanvasLayer/InGameGUI/AmmoContainer/selection_wheel
+@onready var iconWheel = $CanvasLayer/InGameGUI/AmmoContainer/icon_wheel
 
 @onready var labelList = \
 gameOverMenu.get_node("MenuItemsContainer/VBoxContainer/LabelsContainer/VBoxContainer")
@@ -165,11 +165,13 @@ func setWeapons(w):
 	selectionWheel.setWeapons(pri,sec,hea)
 	iconWheel.setStats(0,0,0)
 
-func equip(hea,pri):
+func equip(hea,pri,dam,mag,elem):
 	holdingHea = hea
 	holdingPri = pri
 	selectionWheel.equip(hea,pri)
-	iconWheel.setStats(0,0,0)
+	iconWheel.setStats(dam,mag,elem)
+func statUpdate(dam,mag,elem):
+	iconWheel.setStats(dam,mag,elem)
 
 func _on_resume_button_pressed():
 	Game.resume()

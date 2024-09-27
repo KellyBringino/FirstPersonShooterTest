@@ -92,7 +92,7 @@ const pistol = {
 	adsOffset = 0.0,
 	adsZoom = 60.0,
 	scope = false,
-	upgradeCost = 400,
+	upgradeCost = 1,
 	damageUpgrade = 255,
 	magUpgradeCost = 400,
 	magUpgrade = 3,
@@ -269,8 +269,8 @@ func GameOver():
 		pause()
 	Utils.saveGame()
 
-func equip(hea,pri):
-	$"../World/GUI".equip(hea,pri)
+func equip(hea,pri,dam,mag,elem):
+	$"../World/GUI".equip(hea,pri,dam,mag,elem)
 
 func pauseCheck():
 	return paused

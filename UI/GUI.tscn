@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b5gjr4qrdvma7"]
+[gd_scene load_steps=30 format=3 uid="uid://b5gjr4qrdvma7"]
 
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_81un3"]
 [ext_resource type="Texture2D" uid="uid://drchcncoxm6r2" path="res://Sprites/crosshair.svg" id="2_ekvqs"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://1caw0w1gbavd" path="res://Sprites/shotgun_icon.png" id="7_thkrn"]
 [ext_resource type="Texture2D" uid="uid://bo008qxmgnifx" path="res://Sprites/Gun Property Icons/Damage Property/damage4.svg" id="8_7f2fy"]
 [ext_resource type="Texture2D" uid="uid://cukx82xutv6ek" path="res://Sprites/scopesilhouette.svg" id="8_ih7td"]
+[ext_resource type="Texture2D" uid="uid://mroqnpb85a5f" path="res://Sprites/Gun Property Icons/Damage Property/damage5.svg" id="9_x36rp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kg8pu"]
 atlas = ExtResource("4_ylfgd")
@@ -37,6 +38,10 @@ region = Rect2(0, 0, 1080, 1080)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_855ph"]
 atlas = ExtResource("8_7f2fy")
+region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45xwd"]
+atlas = ExtResource("9_x36rp")
 region = Rect2(0, 0, 1080, 1080)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j83ai"]
@@ -138,7 +143,7 @@ offset_left = -74.0
 offset_top = -74.0
 offset_right = -34.0
 offset_bottom = -34.0
-damText = Array[AtlasTexture]([SubResource("AtlasTexture_kg8pu"), SubResource("AtlasTexture_nkaso"), SubResource("AtlasTexture_0lh0j"), SubResource("AtlasTexture_fy7rv"), SubResource("AtlasTexture_855ph"), null])
+damText = Array[AtlasTexture]([SubResource("AtlasTexture_kg8pu"), SubResource("AtlasTexture_nkaso"), SubResource("AtlasTexture_0lh0j"), SubResource("AtlasTexture_fy7rv"), SubResource("AtlasTexture_855ph"), SubResource("AtlasTexture_45xwd")])
 
 [node name="selection_wheel" parent="CanvasLayer/InGameGUI/AmmoContainer" instance=ExtResource("3_7ldfk")]
 layout_mode = 1
