@@ -121,7 +121,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Crosshair" type="Sprite2D" parent="CanvasLayer/InGameGUI/CrosshairCenterContainer"]
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_ekvqs")
 
 [node name="AmmoContainer" type="Control" parent="CanvasLayer/InGameGUI"]
