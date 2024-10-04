@@ -13,6 +13,7 @@ extends Node2D
 @onready var tooltipcontainer = $CanvasLayer/InGameGUI/ToolTipCenterContainer
 @onready var selectionWheel = $CanvasLayer/InGameGUI/AmmoContainer/selection_wheel
 @onready var iconWheel = $CanvasLayer/InGameGUI/AmmoContainer/icon_wheel
+@onready var crosshairWheel = $CanvasLayer/InGameGUI/CrosshairCenterContainer/crosshair_wheel
 
 @onready var labelList = \
 gameOverMenu.get_node("MenuItemsContainer/VBoxContainer/LabelsContainer/VBoxContainer")
@@ -53,6 +54,7 @@ func setup():
 	healthbar.max_value = int(player.maxHealth)
 	healthbar.set_value_no_signal(player.health)
 	partscounter.text = "Parts: " + str(player.parts)
+	crosshairWheel.setDamage(0)
 
 func _process(_delta):
 	if !gameover:
@@ -170,8 +172,10 @@ func equip(hea,pri,dam,mag,elem):
 	holdingPri = pri
 	selectionWheel.equip(hea,pri)
 	iconWheel.setStats(dam,mag,elem)
+	crosshairWheel.setDamage(dam)
 func statUpdate(dam,mag,elem):
 	iconWheel.setStats(dam,mag,elem)
+	crosshairWheel.setDamage(dam)
 
 func _on_resume_button_pressed():
 	Game.resume()

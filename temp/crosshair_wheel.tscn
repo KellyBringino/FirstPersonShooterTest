@@ -35,18 +35,13 @@ func _draw():
 		
 		draw_set_transform(draw_pos, rot , SPRITE_SIZE/picture_scale)
 		draw_texture(ticsText[style].atlas,Vector2.ZERO)
-		#print(str(i) + \" \" + str(rotCorrect))
-		
-		#draw_set_transform(draw_pos, 0, SPRITE_SIZE/picture_scale)
-		#draw_texture(ticsText[style].atlas,Vector2.ZERO)
-		
-		#draw_texture_rect_region(
-			#ticsText[style].atlas,
-			#Rect2(Vector2(0,0), SPRITE_SIZE/picture_scale),
-			#ticsText[style].region
-		#)
 func _process(_delta):
 	queue_redraw()
+
+func setDamage(num):
+	tics = num + 3
+func getDamage():
+	return tics - 3
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xwj2v"]

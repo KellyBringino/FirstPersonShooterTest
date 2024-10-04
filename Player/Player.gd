@@ -84,6 +84,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var secondaryContainer = $CameraController/GunController/Weapon2
 @onready var heavyContainer = $CameraController/GunController/Weapon3
 @onready var aimDownSightsRef = $CameraController/AimDownSightsRef
+@onready var workbenchSound = $SoundController/WorkbenchSound
+@onready var rejectSound = $SoundController/RejectSound
 
 func _ready():
 	maxHealth = Game.playerStats.health
@@ -147,15 +149,24 @@ func handleInteractionTooltips():
 			3:#damage bench
 				var a
 				if holdingHeavy:
-					a = ceil(heavy.damageUpgradeCost)
-					tooltip(INTERACT_PROMPS[closest] + "Heavy weapon"," (" + str(a) + " needed)",parts>=a)
+					if !heavy.checkDamageLevel():
+						tooltip("Weapon is Max Level","",false)
+					else:
+						a = ceil(heavy.damageUpgradeCost)
+						tooltip(INTERACT_PROMPS[closest] + "Heavy weapon"," (" + str(a) + " needed)",parts>=a)
 				else:
 					if holdingPrimary:
-						a = ceil(primary.damageUpgradeCost)
-						tooltip(INTERACT_PROMPS[closest] + "Primary weapon"," (" + str(a) + " needed)",parts>=a)
+						if !primary.checkDamageLevel():
+							tooltip("Weapon is Max Level","",false)
+						else:
+							a = ceil(primary.damageUpgradeCost)
+							tooltip(INTERACT_PROMPS[closest] + "Primary weapon"," (" + str(a) + " needed)",parts>=a)
 					else:
-						a = ceil(secondary.damageUpgradeCost)
-						tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
+						if !secondary.checkDamageLevel():
+							tooltip("Weapon is Max Level","",false)
+						else:
+							a = ceil(secondary.damageUpgradeCost)
+							tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
 			_:
 				endtooltip()
 	else:
@@ -458,6 +469,7 @@ func interact():
 						endtooltip()
 					else:
 						get_node("/root/World/GUI").rejectToolTip()
+						rejectSound.play()
 			1:#primary weapon refill
 				if holdingPrimary:
 					if primary.getReserveDiff() > 0:
@@ -468,6 +480,7 @@ func interact():
 							endtooltip()
 						else:
 							get_node("/root/World/GUI").rejectToolTip()
+							rejectSound.play()
 			2:#heavy weapon refill
 				if holdingHeavy:
 					if heavy.getReserveDiff() > 0:
@@ -477,6 +490,7 @@ func interact():
 							parts -= due
 						else:
 							get_node("/root/World/GUI").rejectToolTip()
+							rejectSound.play()
 			3:#damage upgrade bench
 				var due
 				if holdingHeavy:
@@ -491,8 +505,10 @@ func interact():
 							elem = 2
 						get_node("/root/World/GUI").statUpdate(
 							heavy.damageLevel,heavy.magLevel,elem)
+						workbenchSound.play()
 					else:
 						get_node("/root/World/GUI").rejectToolTip()
+						rejectSound.play()
 				else:
 					if holdingPrimary:
 						due = ceil(primary.damageUpgradeCost)
@@ -506,8 +522,10 @@ func interact():
 								elem = 2
 							get_node("/root/World/GUI").statUpdate(
 								primary.damageLevel,primary.magLevel,elem)
+							workbenchSound.play()
 						else:
 							get_node("/root/World/GUI").rejectToolTip()
+							rejectSound.play()
 					else: 
 						due = ceil(secondary.damageUpgradeCost)
 						if parts >= due and secondary.checkDamageLevel():
@@ -520,8 +538,10 @@ func interact():
 								elem = 2
 							get_node("/root/World/GUI").statUpdate(
 								secondary.damageLevel,secondary.magLevel,elem)
+							workbenchSound.play()
 						else:
 							get_node("/root/World/GUI").rejectToolTip()
+							rejectSound.play()
 
 func swapWeapons():
 	if holdingHeavy:

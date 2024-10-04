@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dq3sqbqaxx6kc"]
+[gd_scene load_steps=13 format=3 uid="uid://dq3sqbqaxx6kc"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_c8ruj"]
 [ext_resource type="PackedScene" uid="uid://q5w6ovnnrknu" path="res://Models/Mobs/playerdoll.tscn" id="2_3l5dt"]
+[ext_resource type="AudioStream" uid="uid://bkdw5kgh56bor" path="res://Sound/Environment/workbench.wav" id="3_44nwo"]
+[ext_resource type="AudioStream" uid="uid://sir8bmti7e7e" path="res://Sound/Environment/reject.wav" id="4_7w862"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gp11y"]
 
@@ -260,6 +262,15 @@ one_shot = true
 
 [node name="JumpGraceTimer" type="Timer" parent="."]
 wait_time = 0.25
+
+[node name="SoundController" type="Node3D" parent="."]
+
+[node name="WorkbenchSound" type="AudioStreamPlayer" parent="SoundController"]
+stream = ExtResource("3_44nwo")
+volume_db = -10.0
+
+[node name="RejectSound" type="AudioStreamPlayer" parent="SoundController"]
+stream = ExtResource("4_7w862")
 
 [connection signal="area_entered" from="InteractableDetection" to="." method="_on_interactable_detection_area_entered"]
 [connection signal="area_exited" from="InteractableDetection" to="." method="_on_interactable_detection_area_exited"]
