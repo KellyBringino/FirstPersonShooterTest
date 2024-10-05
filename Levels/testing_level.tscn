@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://mp7msrg85bwo"]
+[gd_scene load_steps=16 format=3 uid="uid://mp7msrg85bwo"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_8n7cw"]
 [ext_resource type="Script" path="res://Levels/testing_level.gd" id="1_e1co7"]
@@ -8,8 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://bb1i806nt4qjq" path="res://Enemies/enemy_basic.tscn" id="6_hmxr6"]
 [ext_resource type="PackedScene" uid="uid://bcpt7q4kjxehn" path="res://Destructables/box_breakable.tscn" id="6_na5i8"]
 [ext_resource type="PackedScene" uid="uid://cf300nryotnq0" path="res://Interactables/ammoshelf.tscn" id="8_bgqhd"]
-[ext_resource type="PackedScene" uid="uid://dd2w077s3y1ll" path="res://Interactables/bench.tscn" id="8_gjdmw"]
+[ext_resource type="PackedScene" uid="uid://dd2w077s3y1ll" path="res://Interactables/damage_bench.tscn" id="8_gjdmw"]
 [ext_resource type="PackedScene" uid="uid://hww1jlp5kjip" path="res://Interactables/healthpack.tscn" id="8_ibxq8"]
+[ext_resource type="PackedScene" uid="uid://gyh0fk81tnoo" path="res://Interactables/mag_bench.tscn" id="8_om8uv"]
 [ext_resource type="PackedScene" uid="uid://w2ge7ctr4s8t" path="res://Interactables/ammocrate.tscn" id="10_xdfx3"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_xvuhc"]
@@ -133,6 +134,9 @@ wait_time = 5.0
 autostart = true
 
 [node name="Interactables" type="Node3D" parent="."]
+
+[node name="Mag Bench" parent="Interactables" instance=ExtResource("8_om8uv")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 30.0659, 0, -7.46052)
 
 [node name="Bench" parent="Interactables" instance=ExtResource("8_gjdmw")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10, 0, -6.77507)

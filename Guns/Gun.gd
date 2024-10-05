@@ -31,6 +31,8 @@ var damageUpgradeCost : float
 var damageUpgrade : float
 var magUpgradeCost : float
 var magUpgrade : float
+var elementalUpgradeCost : float
+var fastFiring : bool
 var adsOffset : float
 var adsZoom : float
 var limited : bool = false
@@ -49,6 +51,8 @@ func startup(object):
 	damageUpgrade = object.damageUpgrade
 	magUpgradeCost = object.magUpgradeCost
 	magUpgrade = object.magUpgrade
+	elementalUpgradeCost = object.elementalUpgradeCost
+	fastFiring = object.fastFiring
 	reloadMult = object.reloadMult
 	adsOffset = object.adsOffset / 10.0
 	adsZoom = object.adsZoom
@@ -119,9 +123,22 @@ func upgradeMag():
 	if checkMagLevel():
 		MAG_MAX += magUpgrade
 		mag += magUpgrade
+		reserveMax += magUpgrade * 2
+		reserve += magUpgrade * 2
 		magLevel += 1
 func checkMagLevel():
 	return magLevel < 3
+
+func upgradeFire():
+	fireWeapon = true
+func upgradeIce():
+	iceWeapon = true
+func checkElement():
+	if fireWeapon:
+		return 1
+	if iceWeapon:
+		return 2
+	return 0
 
 func _on_shot_timer_timeout():
 	chambered = true

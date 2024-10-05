@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mroqnpb85a5f"
-path.s3tc="res://.godot/imported/damage5.svg-9004ed03496cb77aa138b75abd1d5b0e.s3tc.ctex"
+uid="uid://bq3r0fn6qwbht"
+path.s3tc="res://.godot/imported/mag_table.svg-0ac8bd333abc5f882465c6713a2da8a2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Sprites/Gun Property Icons/Damage Property/damage5.svg"
-dest_files=["res://.godot/imported/damage5.svg-9004ed03496cb77aa138b75abd1d5b0e.s3tc.ctex"]
+source_file="res://Sprites/Gun Property Icons/Magazine Property/mag_table.svg"
+dest_files=["res://.godot/imported/mag_table.svg-0ac8bd333abc5f882465c6713a2da8a2.s3tc.ctex"]
 
 [params]
 

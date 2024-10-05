@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8vge7q0v1mk6"]
+[gd_scene load_steps=6 format=3 uid="uid://c8vge7q0v1mk6"]
 
 [ext_resource type="Texture2D" uid="uid://jyqtgicdp1th" path="res://Sprites/CrossTick.svg" id="1_0xgj6"]
+[ext_resource type="Texture2D" uid="uid://64oe63qgpvk4" path="res://Sprites/Gun Property Icons/Elemental Property/Fire.svg" id="2_f27b1"]
 
 [sub_resource type="GDScript" id="GDScript_sip4t"]
 script/source = "@tool
@@ -14,10 +15,10 @@ const SPRITE_SIZE = Vector2(2268,2268)
 @export var end_angle:int=360
 @export var picture_scale:float=10.0
 @export var tics:int=3
+@export var style:int=0
 
 @export var ticsText : Array[AtlasTexture]
 
-var style:int = 0
 
 func _draw():
 	var offset = SPRITE_SIZE/(-2.0 * picture_scale)
@@ -30,8 +31,6 @@ func _draw():
 		
 		var draw_pos = radius_mid * Vector2.from_angle(mid_rad) + offset
 		var rot = -(((i * 2) * PI)/tics + (PI/2))
-		var rotCorrect = Vector2(-Vector2.from_angle(-rot).y,-Vector2.from_angle(-rot).x) * (SPRITE_SIZE.x )
-		var ratCorrect = Vector2(Vector2.from_angle(rot).x - 1,Vector2.from_angle(-rot).y - 1) * (SPRITE_SIZE.x)
 		
 		draw_set_transform(draw_pos, rot , SPRITE_SIZE/picture_scale)
 		draw_texture(ticsText[style].atlas,Vector2.ZERO)
@@ -47,6 +46,10 @@ func getDamage():
 [sub_resource type="AtlasTexture" id="AtlasTexture_xwj2v"]
 atlas = ExtResource("1_0xgj6")
 region = Rect2(0, 0, 2268, 2268)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0mvq"]
+atlas = ExtResource("2_f27b1")
+region = Rect2(0, 0, 1080, 1080)
 
 [node name="crosshair_wheel" type="Container"]
 anchors_preset = 8
@@ -65,4 +68,4 @@ outer_radius = 10
 inner_radius = 0
 start_angle = 30
 picture_scale = 100000.0
-ticsText = Array[AtlasTexture]([SubResource("AtlasTexture_xwj2v")])
+ticsText = Array[AtlasTexture]([SubResource("AtlasTexture_xwj2v"), SubResource("AtlasTexture_o0mvq")])

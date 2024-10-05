@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dd2w077s3y1ll"]
+[gd_scene load_steps=5 format=3 uid="uid://gyh0fk81tnoo"]
 
-[ext_resource type="Script" path="res://Interactables/InteractableDataPass.gd" id="1_h180q"]
-[ext_resource type="PackedScene" uid="uid://biqqup8vicl47" path="res://Models/Interactables/bench_scene.tscn" id="2_5y5k6"]
+[ext_resource type="Script" path="res://Interactables/InteractableDataPass.gd" id="1_7i5mo"]
+[ext_resource type="PackedScene" uid="uid://bxnw0el01cj6u" path="res://Models/Interactables/bench_scene_mag.tscn" id="2_wjrb6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hb7q7"]
 size = Vector3(2, 1, 1)
@@ -9,17 +9,17 @@ size = Vector3(2, 1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_5i5vr"]
 size = Vector3(2, 1, 1)
 
-[node name="Bench" type="Area3D"]
+[node name="Mag Bench" type="Area3D"]
 collision_layer = 256
 collision_mask = 256
-script = ExtResource("1_h180q")
-type = 3
+script = ExtResource("1_7i5mo")
+type = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
 shape = SubResource("BoxShape3D_hb7q7")
 
-[node name="Bench" parent="." instance=ExtResource("2_5y5k6")]
+[node name="Bench" parent="." instance=ExtResource("2_wjrb6")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.5)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
