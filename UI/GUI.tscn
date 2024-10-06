@@ -1,11 +1,10 @@
-[gd_scene load_steps=37 format=3 uid="uid://b5gjr4qrdvma7"]
+[gd_scene load_steps=34 format=3 uid="uid://b5gjr4qrdvma7"]
 
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_81un3"]
 [ext_resource type="Texture2D" uid="uid://drchcncoxm6r2" path="res://Sprites/crosshair.svg" id="2_ekvqs"]
 [ext_resource type="PackedScene" uid="uid://c8vge7q0v1mk6" path="res://temp/crosshair_wheel.tscn" id="2_ia3kd"]
 [ext_resource type="PackedScene" uid="uid://bsjyb8wyeokxq" path="res://temp/selection_wheel.tscn" id="3_7ldfk"]
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Sprites/bar back.svg" id="3_mt0so"]
-[ext_resource type="Texture2D" uid="uid://jyqtgicdp1th" path="res://Sprites/CrossTick.svg" id="3_qs5ys"]
 [ext_resource type="PackedScene" uid="uid://dub2f54202j2y" path="res://temp/icon_wheel.tscn" id="3_tcnvg"]
 [ext_resource type="Texture2D" uid="uid://crmjikty86roj" path="res://Sprites/circle bar.svg" id="3_wyimq"]
 [ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Sprites/health.svg" id="4_0u4fy"]
@@ -22,14 +21,6 @@
 [ext_resource type="Texture2D" uid="uid://cukx82xutv6ek" path="res://Sprites/scopesilhouette.svg" id="8_ih7td"]
 [ext_resource type="Texture2D" uid="uid://mroqnpb85a5f" path="res://Sprites/Gun Property Icons/Damage Property/damage5.svg" id="9_x36rp"]
 [ext_resource type="Texture2D" uid="uid://64oe63qgpvk4" path="res://Sprites/Gun Property Icons/Elemental Property/Fire.svg" id="11_wn0dm"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xwj2v"]
-atlas = ExtResource("3_qs5ys")
-region = Rect2(0, 0, 2268, 2268)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g1r68"]
-atlas = ExtResource("11_wn0dm")
-region = Rect2(0, 0, 1080, 1080)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kg8pu"]
 atlas = ExtResource("4_ylfgd")
@@ -141,8 +132,6 @@ size_flags_vertical = 3
 
 [node name="crosshair_wheel" parent="CanvasLayer/InGameGUI/CrosshairCenterContainer" instance=ExtResource("2_ia3kd")]
 layout_mode = 2
-picture_scale = 300000.0
-ticsText = Array[AtlasTexture]([SubResource("AtlasTexture_xwj2v"), SubResource("AtlasTexture_g1r68")])
 
 [node name="Crosshair" type="Sprite2D" parent="CanvasLayer/InGameGUI/CrosshairCenterContainer"]
 visible = false

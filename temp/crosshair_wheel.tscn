@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c8vge7q0v1mk6"]
 
 [ext_resource type="Texture2D" uid="uid://jyqtgicdp1th" path="res://Sprites/CrossTick.svg" id="1_0xgj6"]
-[ext_resource type="Texture2D" uid="uid://64oe63qgpvk4" path="res://Sprites/Gun Property Icons/Elemental Property/Fire.svg" id="2_f27b1"]
+[ext_resource type="Texture2D" uid="uid://c46x4byjn270y" path="res://Sprites/Gun Property Icons/Elemental Property/FireCrosshair.svg" id="2_3kvnp"]
 
 [sub_resource type="GDScript" id="GDScript_sip4t"]
 script/source = "@tool
@@ -48,8 +48,8 @@ atlas = ExtResource("1_0xgj6")
 region = Rect2(0, 0, 2268, 2268)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o0mvq"]
-atlas = ExtResource("2_f27b1")
-region = Rect2(0, 0, 1080, 1080)
+atlas = ExtResource("2_3kvnp")
+region = Rect2(0, 0, 2268, 2268)
 
 [node name="crosshair_wheel" type="Container"]
 anchors_preset = 8
@@ -67,5 +67,5 @@ script = SubResource("GDScript_sip4t")
 outer_radius = 10
 inner_radius = 0
 start_angle = 30
-picture_scale = 100000.0
+picture_scale = 300000.0
 ticsText = Array[AtlasTexture]([SubResource("AtlasTexture_xwj2v"), SubResource("AtlasTexture_o0mvq")])
