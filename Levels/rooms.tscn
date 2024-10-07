@@ -89,6 +89,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.1749, -0.000198841, -0.99
 [node name="Enemy_Basic2" parent="Enemies" instance=ExtResource("4_fbumk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.1749, -0.000198841, 1.00344)
 
+[node name="Enemy_Basic3" parent="Enemies" instance=ExtResource("4_fbumk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.1634, -0.000199318, -2.53887)
+
+[node name="Enemy_Basic4" parent="Enemies" instance=ExtResource("4_fbumk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.2592, -0.000200272, -3.74798)
+
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="Interactables" type="Node3D" parent="."]

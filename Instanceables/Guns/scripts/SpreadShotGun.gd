@@ -1,8 +1,7 @@
 class_name SpreadShotGun
 extends Gun
 
-const misfireInst = preload("res://Instanceables/Guns/Projectile/Misfire.tscn")
-const hitmark = preload("res://Instanceables/Guns/Projectile/pointMark.tscn")
+#const hitmark = preload("res://Instanceables/Guns/Projectile/pointMark.tscn")
 const bulletInst = preload("res://Instanceables/Guns/Projectile/bullet_particle.tscn")
 
 @onready var barrelEnd : Node3D = $BarrelEnd
@@ -44,24 +43,7 @@ func fire():
 					(colPoint)
 				bullet.startup(dist)
 				#print(object.collision_layer)
-				if object.collision_layer == 16:
-					while !object.editor_description.contains("Enemy"):
-						if object == null:
-							break
-						object = object.get_node("../")
-					if object != null:
-						if object.editor_description.contains("Enemy"):
-							object.hit(colPoint,damage,0)
-				elif object.collision_layer == 32:
-					object = object.get_node("../../../../../../")
-					if object.editor_description.contains("Enemy"):
-						object.hit(colPoint,damage * critMult,0)
-				elif object.collision_layer == 128:
-					object.hit(colPoint,damage,0)
-				elif object.collision_layer == 1:
-					var misfire = hitmark.instantiate()
-					get_tree().root.add_child(misfire)
-					misfire.global_transform.origin = colPoint
+				strike(object)
 			else:
 				var bullet = bulletInst.instantiate()
 				get_tree().root.add_child(bullet)

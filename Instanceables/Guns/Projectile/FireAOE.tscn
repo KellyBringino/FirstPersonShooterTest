@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://5b77maqmduyy"]
+
+[ext_resource type="AudioStream" uid="uid://dvglqnaoap546" path="res://Assets/Sound/Gunshots/Explosion.wav" id="1_nmoug"]
+
+[sub_resource type="GDScript" id="GDScript_n3dvi"]
+script/source = "extends Node3D
+
+@onready var debris : GPUParticles3D = $Debris
+@onready var fire : GPUParticles3D = $Fire
+@onready var sound : AudioStreamPlayer3D = $Sound
+
+func setup(range):
+	fire.process_material.initial_velocity_min = range
+	fire.process_material.initial_velocity_max = range
+	fire.emitting = true
+	await get_tree().create_timer(2.0).timeout
+	queue_free()
+"
+
+[sub_resource type="Gradient" id="Gradient_jo1yi"]
+colors = PackedColorArray(1, 0.72549, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_so4qt"]
+gradient = SubResource("Gradient_jo1yi")
+
+[sub_resource type="Curve" id="Curve_srfqm"]
+max_value = 2.0
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(1, 0.901099), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0u84t"]
+curve = SubResource("Curve_srfqm")
+
+[sub_resource type="Curve" id="Curve_pwjww"]
+_data = [Vector2(0, 0.142857), 0.0, 0.0, 0, 0, Vector2(0.345238, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_87dry"]
+curve = SubResource("Curve_pwjww")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eihj8"]
+direction = Vector3(0, 0, 0)
+spread = 180.0
+flatness = 1.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.6
+scale_max = 0.6
+scale_curve = SubResource("CurveTexture_87dry")
+color = Color(1, 0.72549, 0, 1)
+color_ramp = SubResource("GradientTexture1D_so4qt")
+emission_curve = SubResource("CurveTexture_0u84t")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6axtg"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_fhpvq"]
+material = SubResource("StandardMaterial3D_6axtg")
+size = Vector3(0.6, 0.6, 0.6)
+
+[node name="FireAOE" type="Node3D"]
+script = SubResource("GDScript_n3dvi")
+
+[node name="Fire" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 15
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_eihj8")
+draw_pass_1 = SubResource("BoxMesh_fhpvq")
+
+[node name="Sound" type="AudioStreamPlayer3D" parent="."]
+visible = false
+stream = ExtResource("1_nmoug")

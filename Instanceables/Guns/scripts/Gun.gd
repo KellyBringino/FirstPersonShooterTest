@@ -2,6 +2,8 @@ class_name Gun
 extends Node3D
 
 const pitchModMax = 0.5
+const fireRing = preload("res://Instanceables/Guns/Projectile/FireAOE.tscn")
+const misfireInst = preload("res://Instanceables/Guns/Projectile/Misfire.tscn")
 
 @onready var bSound : AudioStreamPlayer3D = \
 	get_node("BarrelEnd/AudioStreamPlayer3D")
@@ -12,6 +14,7 @@ const pitchModMax = 0.5
 @onready var OffBoneAtt : BoneAttachment3D = \
 	$model/Armature/Skeleton3D/OffhandAttachment
 @onready var shootRay : RayCast3D = $BarrelEnd/ShootRay
+@onready var aoeTrigger : Area3D = $AOETrigger
 
 var damageLevel : int = 0
 var magLevel : int = 0
@@ -30,7 +33,7 @@ var ammoCost : float
 var damageUpgradeCost : float
 var damageUpgrade : float
 var magUpgradeCost : float
-var magUpgrade : float
+var magUpgrade : int
 var elementalUpgradeCost : float
 var fastFiring : bool
 var adsOffset : float
@@ -156,3 +159,48 @@ func _on_aoe_trigger_body_exited(body):
 		if inRange[index] == body:
 			inRange.remove_at(index)
 			break
+
+func strike(object):
+	var dam = damage
+	var point = shootRay.get_collision_point()
+	if object.collision_layer == 16 or object.collision_layer == 32:
+		while !object.editor_description.contains("Enemy"):
+			if object == null:
+				break
+			object = object.get_node("../")
+		if object != null:
+			if object.editor_description.contains("Enemy"):
+				if object.collision_layer == 32:
+					dam *= critMult
+				object.hit(point,dam,0)
+	elif object.collision_layer == 128:
+		object.hit(point,dam,0)
+	
+	if object.collision_layer == 1:
+		var misfire = misfireInst.instantiate()
+		get_tree().root.add_child(misfire)
+		misfire.global_transform.origin = shootRay.get_collision_point()
+	else:
+		if fireWeapon and fastFiring:
+			object.burn(5)
+		elif fireWeapon:
+			var misfire = fireRing.instantiate()
+			get_tree().root.add_child(misfire)
+			misfire.global_transform.origin = shootRay.get_collision_point()
+			misfire.setup(aoeTrigger.get_child(0).shape.radius)
+			aoeTrigger.global_position = point
+			aoeTrigger.force_update_transform()
+			var hits = []
+			for o in inRange:
+				while !o.editor_description.contains("Enemy"):
+						if o == null:
+							break
+						o = o.get_node("../")
+				if o != null and !hits.has(o):
+					hits.append(o)
+			for o in hits:
+				o.hit(point,dam,1)
+		elif iceWeapon and fastFiring:
+			pass
+		elif iceWeapon:
+			pass

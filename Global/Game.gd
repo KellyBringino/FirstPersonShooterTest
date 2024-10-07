@@ -77,11 +77,11 @@ const shotgun = {
 	adsZoom = 60.0,
 	scope = false,
 	ammoCost = 20.0,
-	upgradeCost = 600,
 	damageUpgrade = 520,
-	magUpgradeCost = 800,
 	magUpgrade = 2,
-	elementalUpgradeCost = 1000,
+	upgradeCost = 600,
+	magUpgradeCost = 800,
+	elementalUpgradeCost = 1,#1000
 	fastFiring = true,
 	instance = preload("res://Instanceables/Guns/shotgun.tscn")
 }
@@ -103,7 +103,7 @@ const pistol = {
 	upgradeCost = 1,
 	magUpgradeCost = 1,
 	elementalUpgradeCost = 1,
-	fastFiring = true,
+	fastFiring = false,
 	instance = preload("res://Instanceables/Guns/pistol.tscn")
 }
 const revolver = {

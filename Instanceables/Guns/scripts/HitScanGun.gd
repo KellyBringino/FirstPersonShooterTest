@@ -1,11 +1,9 @@
 class_name HitScanGun
 extends Gun
 
-const misfireInst = preload("res://Instanceables/Guns/Projectile/Misfire.tscn")
 const bulletInst = preload("res://Instanceables/Guns/Projectile/bullet_particle.tscn")
 
 @onready var barrelEnd : Node3D = $BarrelEnd
-@onready var aoeTrigger : Area3D = $AOETrigger
 
 var flinch : float = 1.0
 var rng = RandomNumberGenerator.new()
@@ -29,28 +27,7 @@ func fire():
 				(shootRay.get_collision_point())
 			bullet.startup(dist)
 			#print(object.collision_layer)
-			if object.collision_layer == 16:
-				while !object.editor_description.contains("Enemy"):
-					if object == null:
-						break
-					object = object.get_node("../")
-				if object != null:
-					if object.editor_description.contains("Enemy"):
-						strike(object,false)
-			elif object.collision_layer == 32:
-				while !object.editor_description.contains("Enemy"):
-					if object == null:
-						break
-					object = object.get_node("../")
-				if object != null:
-					if object.editor_description.contains("Enemy"):
-						strike(object,true)
-			elif object.collision_layer == 128:
-				strike(object,false)
-			elif object.collision_layer == 1:
-				var misfire = misfireInst.instantiate()
-				get_tree().root.add_child(misfire)
-				misfire.global_transform.origin = shootRay.get_collision_point()
+			strike(object)
 		else:
 			var bullet = bulletInst.instantiate()
 			get_tree().root.add_child(bullet)
@@ -73,28 +50,4 @@ func fire():
 		grace = true
 		$GraceTimer.start()
 
-func strike(obj,crit):
-	var dam = damage
-	var point = shootRay.get_collision_point()
-	if crit:
-		dam *= critMult
-	obj.hit(point,dam,0)
-	if fireWeapon and fastFiring:
-		obj.burn(5)
-	elif fireWeapon:
-		aoeTrigger.global_position = point
-		aoeTrigger.force_update_transform()
-		var hits = []
-		for o in inRange:
-			while !o.editor_description.contains("Enemy"):
-					if o == null:
-						break
-					o = o.get_node("../")
-			if o != null and !hits.has(o):
-				hits.append(o)
-		for o in hits:
-			o.hit(point,dam,1)
-	elif iceWeapon and fastFiring:
-		pass
-	elif iceWeapon:
-		pass
+
