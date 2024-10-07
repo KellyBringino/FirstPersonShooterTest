@@ -20,18 +20,20 @@ const mapLabels = ["test", "Rooms"]
 const priLabels = ["None", "Rifle", "Sniper", "Shotgun"]
 const secLabels = ["Pistol", "Revolver"]
 const heaLabels = ["None", "Rocket Launcher"]
-var mapIcons = []
+var mapIcons = [
+	load("res://Assets/Sprites/UI/null.svg"),
+	load("res://Assets/Sprites/Gun Icons/rifle_icon.png")]
 var priIcons = [
-	load("res://Sprites/null.svg"),
-	load("res://Sprites/rifle_icon.png"),
-	load("res://Sprites/sniper_icon.png"),
-	load("res://Sprites/shotgun_icon.png")]
+	load("res://Assets/Sprites/UI/null.svg"),
+	load("res://Assets/Sprites/Gun Icons/rifle_icon.png"),
+	load("res://Assets/Sprites/Gun Icons/sniper_icon.png"),
+	load("res://Assets/Sprites/Gun Icons/shotgun_icon.png")]
 var secIcons = [
-	load("res://Sprites/pistol_icon.png"),
-	load("res://Sprites/revolver_icon.png")]
+	load("res://Assets/Sprites/Gun Icons/pistol_icon.png"),
+	load("res://Assets/Sprites/Gun Icons/revolver_icon.png")]
 var heaIcons = [
-	load("res://Sprites/null.svg"),
-	load("res://Sprites/rocketlauncher_icon.png")]
+	load("res://Assets/Sprites/UI/null.svg"),
+	load("res://Assets/Sprites/Gun Icons/rocketlauncher_icon.png")]
 
 var cardSelection = 0;
 var pri = 1
@@ -78,7 +80,7 @@ func moveHea(amount):
 
 func setMap():
 	mapLabel.text = mapLabels[map]
-	#mapIcon.texture = mapIcons[map]
+	mapIcon.texture = mapIcons[map]
 func moveMap(amount):
 	map = (map + amount) % mapMax
 	setMap()

@@ -40,6 +40,7 @@ var chambered : bool = true
 var reloading : bool = false
 var grace : bool = false
 var scope : bool = false
+var inRange = []
 
 func startup(object):
 	gunType = object.gunType
@@ -147,3 +148,11 @@ func _on_shot_timer_timeout():
 
 func _on_grace_timer_timeout():
 	grace = false
+
+func _on_aoe_trigger_body_entered(body):
+	inRange.append(body)
+func _on_aoe_trigger_body_exited(body):
+	for index in inRange.size():
+		if inRange[index] == body:
+			inRange.remove_at(index)
+			break

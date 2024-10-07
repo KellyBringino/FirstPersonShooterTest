@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bb1i806nt4qjq"]
+[gd_scene load_steps=11 format=3 uid="uid://bb1i806nt4qjq"]
 
 [ext_resource type="Script" path="res://Instanceables/Enemies/enemy_basic.gd" id="1_75185"]
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Assets/Sprites/UI/bar back.svg" id="2_5kol5"]
 [ext_resource type="PackedScene" uid="uid://ccg64ecng5bkp" path="res://Assets/Models/Mobs/enemydollAnim.tscn" id="2_guvfu"]
 [ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Assets/Sprites/UI/health.svg" id="3_04mkt"]
 [ext_resource type="PackedScene" uid="uid://t4fxq0m12mut" path="res://Assets/Models/Collider Shapes/cone.tscn" id="4_qtwdq"]
+[ext_resource type="Texture2D" uid="uid://64oe63qgpvk4" path="res://Assets/Sprites/Gun Property Icons/Elemental Property/Fire.svg" id="5_7wv2b"]
 [ext_resource type="PackedScene" uid="uid://dmfisp3uskoet" path="res://Instanceables/Guns/EnemyPistol.tscn" id="6_uv3cp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2p6i3"]
@@ -32,37 +33,73 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 2.14703, 0)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 2.19422, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_x4x6m")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D"]
 transparent_bg = true
-size = Vector2i(760, 255)
+size = Vector2i(760, 383)
 
 [node name="LevelLabel" type="Label" parent="Sprite3D/SubViewport"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -19.5
-offset_right = 19.5
-offset_bottom = 23.0
+offset_right = 756.0
+offset_bottom = 165.0
 grow_horizontal = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 120
 text = "Lvl 1"
 horizontal_alignment = 1
 vertical_alignment = 2
 
+[node name="BackTextureProgressBar" type="TextureProgressBar" parent="Sprite3D/SubViewport"]
+offset_top = 169.0
+offset_right = 756.0
+offset_bottom = 271.0
+grow_vertical = 0
+value = 70.0
+texture_under = ExtResource("2_5kol5")
+texture_progress = ExtResource("3_04mkt")
+tint_progress = Color(1, 0, 0, 1)
+
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Sprite3D/SubViewport"]
+offset_top = 169.0
+offset_right = 756.0
+offset_bottom = 271.0
+grow_vertical = 0
+value = 56.0
+texture_progress = ExtResource("3_04mkt")
+
+[node name="IconContainer" type="HBoxContainer" parent="Sprite3D/SubViewport"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -102.0
+offset_top = -100.0
 offset_right = 756.0
 grow_vertical = 0
-value = 100.0
-texture_under = ExtResource("2_5kol5")
-texture_progress = ExtResource("3_04mkt")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FireIcon1" type="TextureRect" parent="Sprite3D/SubViewport/IconContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("5_7wv2b")
+expand_mode = 3
+
+[node name="FireIcon2" type="TextureRect" parent="Sprite3D/SubViewport/IconContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("5_7wv2b")
+expand_mode = 3
+
+[node name="FireIcon3" type="TextureRect" parent="Sprite3D/SubViewport/IconContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("5_7wv2b")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Sprite3D/SubViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="LookRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89151, 0)
@@ -108,6 +145,13 @@ wait_time = 0.1
 [node name="ShootTimer" type="Timer" parent="TimerController"]
 autostart = true
 
+[node name="FireTimer" type="Timer" parent="TimerController"]
+wait_time = 5.0
+one_shot = true
+
+[node name="TickTimer" type="Timer" parent="TimerController"]
+autostart = true
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 
@@ -117,3 +161,5 @@ avoidance_enabled = true
 [connection signal="timeout" from="TimerController/PathfindTimer" to="." method="_on_pathfind_timer_timeout"]
 [connection signal="timeout" from="TimerController/WalkCycleTimer" to="." method="_on_walk_cycle_timer_timeout"]
 [connection signal="timeout" from="TimerController/ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="TimerController/FireTimer" to="." method="_on_fire_timer_timeout"]
+[connection signal="timeout" from="TimerController/TickTimer" to="." method="_on_tick_timer_timeout"]

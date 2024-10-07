@@ -151,7 +151,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.25, 
 [node name="ammocrate" parent="Interactables" instance=ExtResource("10_xdfx3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.78596, 0, -10)
 
-[node name="Fire Bench" parent="." instance=ExtResource("13_t2nrp")]
+[node name="Fire Bench" parent="Interactables" instance=ExtResource("13_t2nrp")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 40.0702, 0, -1.71009)
 
 [connection signal="timeout" from="WorldComponents/SpawnTimer" to="." method="_on_spawn_timer_timeout"]

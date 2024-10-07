@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cm28wnjxm83ll"]
+[gd_scene load_steps=9 format=3 uid="uid://cm28wnjxm83ll"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_t15kf"]
+[ext_resource type="Script" path="res://Levels/rooms.gd" id="1_y0464"]
 [ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Instanceables/Player/Player.tscn" id="2_74qte"]
 [ext_resource type="PackedScene" uid="uid://dqlc6fb5v8aft" path="res://Assets/Models/Levels/roomsscene.tscn" id="2_nknt2"]
+[ext_resource type="PackedScene" uid="uid://bb1i806nt4qjq" path="res://Instanceables/Enemies/enemy_basic.tscn" id="4_fbumk"]
+[ext_resource type="PackedScene" uid="uid://cc5i0c47hk2vc" path="res://Instanceables/Interactables/fire_bench.tscn" id="6_8wxyr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_npjpi"]
 size = Vector3(40, 1, 40)
@@ -11,6 +14,7 @@ size = Vector3(40, 1, 40)
 size = Vector3(0.1, 4, 4)
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_y0464")
 
 [node name="GUI" parent="." instance=ExtResource("1_t15kf")]
 
@@ -71,10 +75,23 @@ shape = SubResource("BoxShape3D_npjpi")
 [node name="Player" parent="." instance=ExtResource("2_74qte")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 5)
 
-[node name="Enemies" type="Node3D" parent="."]
-
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 shape = SubResource("BoxShape3D_3agr1")
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Enemy_Basic" parent="Enemies" instance=ExtResource("4_fbumk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.1749, -0.000198841, -0.996564)
+
+[node name="Enemy_Basic2" parent="Enemies" instance=ExtResource("4_fbumk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.1749, -0.000198841, 1.00344)
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="Interactables" type="Node3D" parent="."]
+
+[node name="Fire Bench" parent="Interactables" instance=ExtResource("6_8wxyr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.8914, -0.000202179, 10.8915)

@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://coplcaocg45fh"]
+[gd_scene load_steps=5 format=3 uid="uid://coplcaocg45fh"]
 
-[ext_resource type="Script" path="res://Instanceables/Guns/rocketlauncher.gd" id="1_n5w4w"]
+[ext_resource type="Script" path="res://Instanceables/Guns/scripts/rocketlauncher.gd" id="1_3tl4e"]
 [ext_resource type="PackedScene" uid="uid://c3qvm7o8lnv1d" path="res://Assets/Models/Guns/rocketlauncherscene.tscn" id="2_bjcj1"]
 [ext_resource type="AudioStream" uid="uid://cvw4hu24mah3q" path="res://Assets/Sound/Gunshots/RocketLauncherSound.wav" id="3_hocv3"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_ua14v"]
+
 [node name="Gun" type="Node3D"]
-script = ExtResource("1_n5w4w")
+script = ExtResource("1_3tl4e")
 
 [node name="model" parent="." instance=ExtResource("2_bjcj1")]
 
@@ -36,6 +38,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101253, 0)
 
 [node name="OffhandGrip" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101253, -0.205263)
+
+[node name="AOETrigger" type="Area3D" parent="."]
+collision_layer = 64
+collision_mask = 48
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AOETrigger"]
+shape = SubResource("SphereShape3D_ua14v")
 
 [connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]
 [connection signal="timeout" from="GraceTimer" to="." method="_on_grace_timer_timeout"]

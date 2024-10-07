@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://4ls3lt2ptfh0"]
+[gd_scene load_steps=5 format=3 uid="uid://4ls3lt2ptfh0"]
 
-[ext_resource type="Script" path="res://Instanceables/Guns/rifle.gd" id="1_xgiiu"]
+[ext_resource type="Script" path="res://Instanceables/Guns/scripts/rifle.gd" id="1_ul5bo"]
 [ext_resource type="PackedScene" uid="uid://bbawoyb4stvdb" path="res://Assets/Models/Guns/riflescene.tscn" id="2_rjcwj"]
 [ext_resource type="AudioStream" uid="uid://d1y1nd6em8wt8" path="res://Assets/Sound/Gunshots/RifleShot.wav" id="2_yivoo"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_1k431"]
+
 [node name="Gun" type="Node3D"]
-script = ExtResource("1_xgiiu")
+script = ExtResource("1_ul5bo")
 
 [node name="model" parent="." instance=ExtResource("2_rjcwj")]
 
@@ -37,6 +39,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.148568, 0)
 
 [node name="OffhandGrip" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0603707, -0.268515)
+
+[node name="AOETrigger" type="Area3D" parent="."]
+collision_layer = 64
+collision_mask = 48
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AOETrigger"]
+shape = SubResource("SphereShape3D_1k431")
 
 [connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]
 [connection signal="timeout" from="GraceTimer" to="." method="_on_grace_timer_timeout"]

@@ -4,8 +4,11 @@ extends CharacterBody3D
 @onready var nav_agent : NavigationAgent3D = $NavigationAgent3D
 @onready var skl : Skeleton3D = $ModelController/doll/Armature/Skeleton3D
 @onready var anim : AnimationPlayer = $ModelController/doll/AnimationPlayer
+@onready var healthbar : TextureProgressBar = $Sprite3D/SubViewport/TextureProgressBar
+@onready var iconContainer = $Sprite3D/SubViewport/IconContainer
 @onready var lookTimer = $TimerController/LookCheck
 @onready var pathTimer = $TimerController/PathfindTimer
+@onready var fireTimer : Timer = $TimerController/FireTimer
 
 const RUN_SPEED = 4.0
 const JUMP_VELOCITY = 4.5
@@ -16,6 +19,8 @@ const STEP_UP_SPEED = 0.1
 const STEP_SPEED = 0.03
 const WALK_STEP_DIS = 0.7
 const STAND_STEP_DIS = 0.1
+const HEALTH_BAR_TEXT = preload("res://Assets/Sprites/UI/health.svg")
+const HEALTH_BAR_FIRE_TEXT = preload("res://Assets/Sprites/UI/health_fire.svg")
 
 enum state {CHASING, HIDING, SHOOTING}
 
@@ -28,13 +33,14 @@ var lastKnowLoc : Vector3
 var vision : Array = []
 var see : Array = []
 var suspicious : bool = false
+var fire = 0
 var dying : bool = false
 var player
 
 func _ready():
 	$Sprite3D.texture = $Sprite3D/SubViewport.get_texture()
-	$Sprite3D/SubViewport/TextureProgressBar.max_value = maxHealth
-	$Sprite3D/SubViewport/TextureProgressBar.value = health
+	healthbar.max_value = maxHealth
+	healthbar.value = health
 	player = $"../../Player"
 	playAnim("Shoot_Idle",true,false)
 	$ViewControl/vision/GunController/Weapon/Gun.setup(Game.enemyStats.damage, Game.enemyStats.bullet_speed)
@@ -129,11 +135,30 @@ func stateChange(nState):
 
 func damage(point, amount, source):
 	health -= amount
-	$Sprite3D/SubViewport/TextureProgressBar.value = health
+	healthbar.value = health
 	if health <= 0:
 		dead(point,source)
 func hit(point, d, source):
 	damage(point,d,source)
+func burn(t):
+	healthbar.texture_progress = HEALTH_BAR_FIRE_TEXT
+	match fire:
+		0,1:
+			iconContainer.get_child(0).show()
+			iconContainer.get_child(1).hide()
+			iconContainer.get_child(2).hide()
+		2:
+			iconContainer.get_child(0).show()
+			iconContainer.get_child(1).show()
+			iconContainer.get_child(2).hide()
+		3:
+			iconContainer.get_child(0).show()
+			iconContainer.get_child(1).show()
+			iconContainer.get_child(2).show()
+	if fire < 3:
+		fire += 1
+	fireTimer.wait_time = t
+	fireTimer.start()                                    
 func dead(_point, source):
 	if !dying:
 		dying = true
@@ -142,6 +167,9 @@ func dead(_point, source):
 				$"../../".enemydeath(0)
 				queue_free()
 			1:#explosion
+				$"../../".enemydeath(0)
+				queue_free()
+			2:#fire
 				$"../../".enemydeath(0)
 				queue_free()
 
@@ -182,3 +210,29 @@ func _on_pathfind_timer_timeout():
 func _on_shoot_timer_timeout():
 	if currentState == state.SHOOTING:
 		$ViewControl/vision/GunController/Weapon/Gun.shoot()
+
+func _on_tick_timer_timeout():
+	if fire > 0:
+		healthbar.texture_progress = HEALTH_BAR_FIRE_TEXT
+		damage(global_position,(maxHealth * fire)/(45.0),2)
+	else:
+		healthbar.texture_progress = HEALTH_BAR_TEXT
+
+func _on_fire_timer_timeout():
+	if fire > 0:
+		fire -= 1
+		match fire:
+			0:
+				iconContainer.get_child(0).hide()
+				iconContainer.get_child(1).hide()
+				iconContainer.get_child(2).hide()
+			1:
+				iconContainer.get_child(0).show()
+				iconContainer.get_child(1).hide()
+				iconContainer.get_child(2).hide()
+				fireTimer.start()
+			2:
+				iconContainer.get_child(0).show()
+				iconContainer.get_child(1).show()
+				iconContainer.get_child(2).hide()
+				fireTimer.start()
