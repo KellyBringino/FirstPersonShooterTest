@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3qvm7o8lnv1d"]
+
+[ext_resource type="PackedScene" uid="uid://bwrio1df6lefu" path="res://Assets/Models/Guns/rocketlauncher.glb" id="1_vvpc3"]
+[ext_resource type="Material" uid="uid://gi827es5b12o" path="res://Assets/Models/Materials/greenGunMetal.tres" id="2_e6fkb"]
+[ext_resource type="Material" uid="uid://c6v6m61tsjjla" path="res://Assets/Models/Materials/blackGunMetal.tres" id="3_gvx0d"]
+
+[node name="model" instance=ExtResource("1_vvpc3")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/1/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/rotation = Quaternion(0.707107, 0, 0, 0.707107)
+
+[node name="Rocket" parent="Armature/Skeleton3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08167e-17, 0.193527, 0.298012)
+
+[node name="Rocket" parent="Armature/Skeleton3D/Rocket" index="0"]
+material_override = ExtResource("2_e6fkb")
+
+[node name="Chassis" parent="Armature/Skeleton3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.65661e-10, 0.075, 0)
+
+[node name="Chassis" parent="Armature/Skeleton3D/Chassis" index="0"]
+material_override = ExtResource("3_gvx0d")
+
+[node name="Handle" parent="Armature/Skeleton3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.65661e-10, 0.075, -0.204235)
+
+[node name="Handle" parent="Armature/Skeleton3D/Handle" index="0"]
+material_override = ExtResource("3_gvx0d")
+
+[node name="Sight" parent="Armature/Skeleton3D" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00109514, 0.284958, 0.077688)
+
+[node name="Sight" parent="Armature/Skeleton3D/Sight" index="0"]
+material_override = ExtResource("3_gvx0d")
+
+[node name="Tube" parent="Armature/Skeleton3D" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.193439, 0)
+
+[node name="Tube" parent="Armature/Skeleton3D/Tube" index="0"]
+material_override = ExtResource("2_e6fkb")
+
+[node name="GripAttachment" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="5"]
+bone_name = "RootBone"
+bone_idx = 0
+
+[node name="OffhandAttachment" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="6"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 8.00355e-11, 0.193527, 0.421131)
+bone_name = "RocketBone"
+bone_idx = 1

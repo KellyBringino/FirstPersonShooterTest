@@ -1,0 +1,148 @@
+[gd_scene load_steps=21 format=3 uid="uid://bsjyb8wyeokxq"]
+
+[ext_resource type="Texture2D" uid="uid://bt4116u3kliy3" path="res://Assets/Sprites/UI/null.svg" id="1_hf77t"]
+[ext_resource type="Texture2D" uid="uid://c3p0w407rsla6" path="res://Assets/Sprites/Gun Icons/rifle_icon.png" id="1_p67ue"]
+[ext_resource type="Texture2D" uid="uid://bl2230jvnhsyv" path="res://Assets/Sprites/Gun Icons/pistol_icon.png" id="2_nmv5i"]
+[ext_resource type="Texture2D" uid="uid://dfn0k6x8ocd8o" path="res://Assets/Sprites/Gun Icons/sniper_icon.png" id="3_y4anq"]
+[ext_resource type="Texture2D" uid="uid://1caw0w1gbavd" path="res://Assets/Sprites/Gun Icons/shotgun_icon.png" id="4_ni7vc"]
+[ext_resource type="Texture2D" uid="uid://47pewado1wmh" path="res://Assets/Sprites/Gun Icons/revolver_icon.png" id="5_dui0h"]
+[ext_resource type="Texture2D" uid="uid://cv2i8ak446n8u" path="res://Assets/Sprites/Gun Icons/rocketlauncher_icon.png" id="6_hiiy6"]
+
+[sub_resource type="GDScript" id="GDScript_sip4t"]
+script/source = "@tool
+extends Control
+
+const SPRITE_SIZE = Vector2(1080,1080)
+
+@export var bkr_color:Color
+@export var outer_radius:int=256
+@export var inner_radius:int=64
+@export var start_angle:float=60.0
+@export var end_angle:float=145.0
+@export var picture_scale:float=10.0
+
+@export var priText : Array[AtlasTexture]
+@export var secText : Array[AtlasTexture]
+@export var heaText : Array[AtlasTexture]
+@export var currentText : Array[AtlasTexture]
+
+var currentWeapons:Array[int] = [0,0,0]
+
+func _draw():
+	var offset = SPRITE_SIZE/(-2.0 * picture_scale)
+	draw_circle(Vector2.ZERO,outer_radius,bkr_color)
+	
+	for i in range(1,4):
+		var start_rads = (((TAU * (end_angle/360.0)) * (i-1)) / 3) + (TAU * (start_angle/360.0))
+		var end_rads = (((TAU * (end_angle/360.0)) * i) / 3) + (TAU * (start_angle/360.0))
+		var mid_rad = (start_rads + end_rads)/2.0 * -1
+		var radius_mid = (inner_radius + outer_radius) / 2.0
+		
+		var draw_pos = radius_mid * Vector2.from_angle(mid_rad) + offset
+		if i == 1:
+			draw_circle(draw_pos - offset,SPRITE_SIZE.x/(2*picture_scale),bkr_color)
+		draw_texture_rect_region(
+			currentText[i-1].atlas,
+			Rect2(draw_pos, SPRITE_SIZE/picture_scale),
+			currentText[i-1].region
+		)
+func _process(_delta):
+	queue_redraw()
+
+func setWeapons(pri,sec,hea):
+	currentText[0] = priText[pri]
+	currentText[1] = secText[sec]
+	currentText[2] = heaText[hea]
+	currentWeapons = [pri,sec,hea]
+
+func equip(hea,pri):
+	if hea:
+		if pri:
+			equipHelp([2,0,1])
+		else:
+			equipHelp([2,1,0])
+	else:
+		if pri:
+			equipHelp([0,1,2])
+		else:
+			equipHelp([1,0,2])
+
+func equipHelp(help):
+	for i in range(0,3):
+		match help[i]:
+			0:
+				currentText[i] = priText[currentWeapons[0]]
+			1:
+				currentText[i] = secText[currentWeapons[1]]
+			2:
+				currentText[i] = heaText[currentWeapons[2]]
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j83ai"]
+atlas = ExtResource("1_hf77t")
+region = Rect2(0, 0, 4080, 4080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l473q"]
+atlas = ExtResource("1_p67ue")
+region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pxkrx"]
+atlas = ExtResource("3_y4anq")
+region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34hws"]
+atlas = ExtResource("4_ni7vc")
+region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4230t"]
+atlas = ExtResource("1_hf77t")
+region = Rect2(0, 0, 4080, 4080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3uby"]
+atlas = ExtResource("2_nmv5i")
+region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwi5x"]
+atlas = ExtResource("5_dui0h")
+region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hvy6"]
+atlas = ExtResource("1_hf77t")
+region = Rect2(0, 0, 4080, 4080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3waqv"]
+atlas = ExtResource("6_hiiy6")
+region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nf731"]
+atlas = ExtResource("1_p67ue")
+region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1n3k"]
+atlas = ExtResource("2_nmv5i")
+region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvqba"]
+atlas = ExtResource("1_hf77t")
+region = Rect2(0, 0, 4080, 4080)
+
+[node name="selection_wheel" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_sip4t")
+bkr_color = Color(0.180392, 0.180392, 0.180392, 0.392157)
+outer_radius = 200
+priText = Array[AtlasTexture]([SubResource("AtlasTexture_j83ai"), SubResource("AtlasTexture_l473q"), SubResource("AtlasTexture_pxkrx"), SubResource("AtlasTexture_34hws")])
+secText = Array[AtlasTexture]([SubResource("AtlasTexture_4230t"), SubResource("AtlasTexture_p3uby"), SubResource("AtlasTexture_qwi5x")])
+heaText = Array[AtlasTexture]([SubResource("AtlasTexture_8hvy6"), SubResource("AtlasTexture_3waqv")])
+currentText = Array[AtlasTexture]([SubResource("AtlasTexture_nf731"), SubResource("AtlasTexture_f1n3k"), SubResource("AtlasTexture_tvqba")])

@@ -173,9 +173,11 @@ func equip(hea,pri,dam,mag,elem):
 	selectionWheel.equip(hea,pri)
 	iconWheel.setStats(dam,mag,elem)
 	crosshairWheel.setDamage(dam)
+	crosshairWheel.setElem(elem)
 func statUpdate(dam,mag,elem):
 	iconWheel.setStats(dam,mag,elem)
 	crosshairWheel.setDamage(dam)
+	crosshairWheel.setElem(elem)
 
 func _on_resume_button_pressed():
 	Game.resume()

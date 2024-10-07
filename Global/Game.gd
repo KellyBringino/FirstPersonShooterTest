@@ -37,7 +37,7 @@ const rifle = {
 	magUpgrade = 80,
 	elementalUpgradeCost = 1000,
 	fastFiring = true,
-	instance = preload("res://Guns/rifle.tscn")
+	instance = preload("res://Instanceables/Guns/rifle.tscn")
 }
 const sniper = {
 	name = "sniper", 
@@ -59,7 +59,7 @@ const sniper = {
 	magUpgrade = 2,
 	elementalUpgradeCost = 1000,
 	fastFiring = false,
-	instance = preload("res://Guns/sniper.tscn")
+	instance = preload("res://Instanceables/Guns/sniper.tscn")
 }
 const shotgun = {
 	name = "shotgun", 
@@ -83,7 +83,7 @@ const shotgun = {
 	magUpgrade = 2,
 	elementalUpgradeCost = 1000,
 	fastFiring = true,
-	instance = preload("res://Guns/shotgun.tscn")
+	instance = preload("res://Instanceables/Guns/shotgun.tscn")
 }
 #secondary stats
 const pistol = {
@@ -98,13 +98,13 @@ const pistol = {
 	adsOffset = 0.0,
 	adsZoom = 60.0,
 	scope = false,
-	upgradeCost = 1,
 	damageUpgrade = 255,
-	magUpgradeCost = 400,
 	magUpgrade = 3,
-	elementalUpgradeCost = 1000,
+	upgradeCost = 1,
+	magUpgradeCost = 1,
+	elementalUpgradeCost = 1,
 	fastFiring = true,
-	instance = preload("res://Guns/pistol.tscn")
+	instance = preload("res://Instanceables/Guns/pistol.tscn")
 }
 const revolver = {
 	name = "revolver", 
@@ -124,7 +124,7 @@ const revolver = {
 	magUpgrade = 2,
 	elementalUpgradeCost = 1000,
 	fastFiring = false,
-	instance = preload("res://Guns/revolver.tscn")
+	instance = preload("res://Instanceables/Guns/revolver.tscn")
 }
 #heavy stats
 const rocketlauncher = {
@@ -147,8 +147,8 @@ const rocketlauncher = {
 	magUpgrade = 1,
 	elementalUpgradeCost = 1000,
 	fastFiring = false,
-	proj = preload("res://Guns/Projectile/rocket.tscn"),
-	instance = preload("res://Guns/rocketlauncher.tscn")
+	proj = preload("res://Instanceables/Guns/Projectile/rocket.tscn"),
+	instance = preload("res://Instanceables/Guns/rocketlauncher.tscn")
 }
 
 var paused : bool = false

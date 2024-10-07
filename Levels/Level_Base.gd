@@ -1,7 +1,7 @@
 class_name Level_Base
 extends Node
 
-const spawnerinstance = preload("res://Enemies/spawner.tscn")
+const spawnerinstance = preload("res://Instanceables/Enemies/spawner.tscn")
 const spawnDis = 25.0
 
 @onready var spawns : Array = $Spawns.get_children()

@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://coplcaocg45fh"]
+
+[ext_resource type="Script" path="res://Instanceables/Guns/rocketlauncher.gd" id="1_n5w4w"]
+[ext_resource type="PackedScene" uid="uid://c3qvm7o8lnv1d" path="res://Assets/Models/Guns/rocketlauncherscene.tscn" id="2_bjcj1"]
+[ext_resource type="AudioStream" uid="uid://cvw4hu24mah3q" path="res://Assets/Sound/Gunshots/RocketLauncherSound.wav" id="3_hocv3"]
+
+[node name="Gun" type="Node3D"]
+script = ExtResource("1_n5w4w")
+
+[node name="model" parent="." instance=ExtResource("2_bjcj1")]
+
+[node name="BarrelEnd" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.429893)
+
+[node name="ShootRay" type="RayCast3D" parent="BarrelEnd"]
+target_position = Vector3(0, 0, -50)
+collision_mask = 177
+collide_with_areas = true
+
+[node name="DistanceRef" type="Node3D" parent="BarrelEnd/ShootRay"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="BarrelEnd"]
+stream = ExtResource("3_hocv3")
+
+[node name="ShotTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="GraceTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Grip" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101253, 0)
+
+[node name="OffhandGrip" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101253, -0.205263)
+
+[connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]
+[connection signal="timeout" from="GraceTimer" to="." method="_on_grace_timer_timeout"]

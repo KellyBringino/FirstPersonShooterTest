@@ -1,0 +1,90 @@
+[gd_scene load_steps=14 format=3 uid="uid://bqyojjyrf3sg2"]
+
+[ext_resource type="Script" path="res://Instanceables/Guns/Projectile/Misfire.gd" id="1_8c8va"]
+
+[sub_resource type="Curve" id="Curve_tbxf2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.119318, 0.769231), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_mkkec"]
+curve = SubResource("Curve_tbxf2")
+
+[sub_resource type="Curve" id="Curve_6e38y"]
+_data = [Vector2(0, 0.142857), 0.0, 0.0, 0, 0, Vector2(0.345238, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_1g6hc"]
+curve = SubResource("Curve_6e38y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dgc5p"]
+emission_shape_scale = Vector3(0.1, 0.1, 0.1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+gravity = Vector3(0, 5, 0)
+scale_min = 0.8
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_1g6hc")
+color = Color(0.266667, 0.266667, 0.266667, 1)
+alpha_curve = SubResource("CurveTexture_mkkec")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n0vcv"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_mclt3"]
+material = SubResource("StandardMaterial3D_n0vcv")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="Curve" id="Curve_ip2k6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.369048, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_r6vrs"]
+curve = SubResource("Curve_ip2k6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6dlyq"]
+particle_flag_align_y = true
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 7.0
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_r6vrs")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fp7ye"]
+albedo_color = Color(0.929412, 0.478431, 0, 1)
+emission_enabled = true
+emission = Color(0.592157, 0.298039, 0.00392157, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vdumj"]
+material = SubResource("StandardMaterial3D_fp7ye")
+top_radius = 0.01
+bottom_radius = 0.0
+height = 0.2
+
+[node name="Misfire" type="Node3D"]
+script = ExtResource("1_8c8va")
+
+[node name="Smoke" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 6
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_dgc5p")
+draw_pass_1 = SubResource("BoxMesh_mclt3")
+
+[node name="Debris" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 5
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_6dlyq")
+draw_pass_1 = SubResource("CylinderMesh_vdumj")

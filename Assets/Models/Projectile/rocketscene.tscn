@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://5pyo40xpgn66"]
+
+[ext_resource type="PackedScene" uid="uid://dpld104qccwmp" path="res://Assets/Models/Projectile/rocket.glb" id="1_hmv85"]
+[ext_resource type="Material" uid="uid://gi827es5b12o" path="res://Assets/Models/Materials/greenGunMetal.tres" id="2_18ilc"]
+
+[node name="rocket" instance=ExtResource("1_hmv85")]
+
+[node name="Rocket" parent="." index="1"]
+material_override = ExtResource("2_18ilc")

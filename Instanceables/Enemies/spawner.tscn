@@ -1,0 +1,73 @@
+[gd_scene load_steps=12 format=3 uid="uid://dbsybglsvsypq"]
+
+[ext_resource type="Script" path="res://Instanceables/Enemies/spawner.gd" id="1_637pe"]
+[ext_resource type="PackedScene" uid="uid://bb1i806nt4qjq" path="res://Instanceables/Enemies/enemy_basic.tscn" id="2_w3mnx"]
+[ext_resource type="AudioStream" uid="uid://drbnu241psipw" path="res://Assets/Sound/Environment/portal.wav" id="3_asmyp"]
+
+[sub_resource type="Curve" id="Curve_0h5g3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_u4qkl"]
+curve = SubResource("Curve_0h5g3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i1dj4"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_u4qkl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_meype"]
+albedo_color = Color(0.427451, 0.00392157, 0.827451, 0.462745)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ojfvn"]
+material = SubResource("StandardMaterial3D_meype")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_50fp8"]
+spread = 180.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0etug"]
+transparency = 1
+albedo_color = Color(0.537255, 0.00392157, 0.827451, 0.462745)
+
+[sub_resource type="SphereMesh" id="SphereMesh_3b5yo"]
+material = SubResource("StandardMaterial3D_0etug")
+radius = 0.05
+height = 0.1
+
+[node name="Spawner" type="Node3D"]
+script = ExtResource("1_637pe")
+mob_scene = ExtResource("2_w3mnx")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[node name="splat" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+emitting = false
+amount = 20
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_i1dj4")
+draw_pass_1 = SubResource("SphereMesh_ojfvn")
+
+[node name="bubble" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+amount = 20
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_50fp8")
+draw_pass_1 = SubResource("SphereMesh_3b5yo")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+stream = ExtResource("3_asmyp")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

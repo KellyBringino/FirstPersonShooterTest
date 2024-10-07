@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://cxy1m8yvdslnd"]
 
 [ext_resource type="Script" path="res://UI/LevelSelect.gd" id="1_kl2xt"]
-[ext_resource type="Texture2D" uid="uid://c3p0w407rsla6" path="res://Sprites/rifle_icon.png" id="2_2lacs"]
-[ext_resource type="Texture2D" uid="uid://drmxvy61s5l3m" path="res://Sprites/arrow.svg" id="2_2obha"]
-[ext_resource type="Texture2D" uid="uid://bl2230jvnhsyv" path="res://Sprites/pistol_icon.png" id="4_2o20a"]
-[ext_resource type="Texture2D" uid="uid://cv2i8ak446n8u" path="res://Sprites/rocketlauncher_icon.png" id="5_fpi1g"]
+[ext_resource type="Texture2D" uid="uid://c3p0w407rsla6" path="res://Assets/Sprites/Gun Icons/rifle_icon.png" id="2_2lacs"]
+[ext_resource type="Texture2D" uid="uid://drmxvy61s5l3m" path="res://Assets/Sprites/UI/arrow.svg" id="2_2obha"]
+[ext_resource type="Texture2D" uid="uid://bl2230jvnhsyv" path="res://Assets/Sprites/Gun Icons/pistol_icon.png" id="4_2o20a"]
+[ext_resource type="Texture2D" uid="uid://cv2i8ak446n8u" path="res://Assets/Sprites/Gun Icons/rocketlauncher_icon.png" id="5_fpi1g"]
 
 [node name="Level Select" type="Node2D"]
 script = ExtResource("1_kl2xt")

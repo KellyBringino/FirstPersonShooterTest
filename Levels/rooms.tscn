@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://cm28wnjxm83ll"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_t15kf"]
-[ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Player/Player.tscn" id="2_74qte"]
-[ext_resource type="PackedScene" uid="uid://dqlc6fb5v8aft" path="res://Models/Levels/roomsscene.tscn" id="2_nknt2"]
+[ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Instanceables/Player/Player.tscn" id="2_74qte"]
+[ext_resource type="PackedScene" uid="uid://dqlc6fb5v8aft" path="res://Assets/Models/Levels/roomsscene.tscn" id="2_nknt2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_npjpi"]
 size = Vector3(40, 1, 40)
