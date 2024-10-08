@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c8vge7q0v1mk6"]
 
 [ext_resource type="Texture2D" uid="uid://jyqtgicdp1th" path="res://Assets/Sprites/Crosshairs/CrossTick.svg" id="1_3axuy"]
-[ext_resource type="Texture2D" uid="uid://c46x4byjn270y" path="res://Assets/Sprites/Gun Property Icons/Elemental Property/FireCrosshair.svg" id="2_sk1x0"]
+[ext_resource type="Texture2D" uid="uid://c46x4byjn270y" path="res://Assets/Sprites/Crosshairs/FireCrosshair.svg" id="2_sk1x0"]
 
 [sub_resource type="GDScript" id="GDScript_sip4t"]
 script/source = "@tool

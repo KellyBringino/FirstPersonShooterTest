@@ -1,14 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://w2ge7ctr4s8t"]
+[gd_scene load_steps=6 format=3 uid="uid://w2ge7ctr4s8t"]
 
-[ext_resource type="Script" path="res://Instanceables/Interactables/InteractableDataPass.gd" id="1_0jo5k"]
+[ext_resource type="Script" path="res://Instanceables/Interactables/InteractableBase.gd" id="1_jhnnj"]
 [ext_resource type="PackedScene" uid="uid://dielpwq5kvoh5" path="res://Assets/Models/Interactables/ammo_crate_scene.tscn" id="2_01fd5"]
+[ext_resource type="AudioStream" uid="uid://bkdw5kgh56bor" path="res://Assets/Sound/Environment/workbench.wav" id="3_osjvh"]
+[ext_resource type="AudioStream" uid="uid://sir8bmti7e7e" path="res://Assets/Sound/Environment/reject.wav" id="4_wavna"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rxomn"]
 
 [node name="ammocrate" type="Area3D"]
 collision_layer = 256
 collision_mask = 256
-script = ExtResource("1_0jo5k")
+script = ExtResource("1_jhnnj")
 type = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -17,3 +19,10 @@ shape = SubResource("BoxShape3D_rxomn")
 
 [node name="AmmoCrate" parent="." instance=ExtResource("2_01fd5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
+
+[node name="WorkbenchSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_osjvh")
+volume_db = -10.0
+
+[node name="RejectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_wavna")

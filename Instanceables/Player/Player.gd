@@ -128,11 +128,12 @@ func handleInteractionTooltips():
 		var closest = closestInteract().getType()
 		match closest:
 			0:#healthpack
-				if health < maxHealth:
-					var h = ceil((maxHealth - health) * Game.playerStats.healthCost)
-					tooltip(INTERACT_PROMPS[closest]," (" + str(h) + " needed)",parts>=h)
-				else:
-					endtooltip()
+				closestInteract().accessToolTip()
+				#if health < maxHealth:
+					#var h = ceil((maxHealth - health) * Game.playerStats.healthCost)
+					#tooltip(INTERACT_PROMPS[closest]," (" + str(h) + " needed)",parts>=h)
+				#else:
+					#endtooltip()
 			1:#primary ammo
 				if holdingPrimary:
 					if primary.getReserveDiff() > 0:
@@ -150,26 +151,27 @@ func handleInteractionTooltips():
 					else:
 						endtooltip()
 			3:#damage bench
-				var a
-				if holdingHeavy:
-					if !heavy.checkDamageLevel():
-						tooltip("Weapon is Max Level","",false)
-					else:
-						a = ceil(heavy.damageUpgradeCost)
-						tooltip(INTERACT_PROMPS[closest] + "Heavy weapon"," (" + str(a) + " needed)",parts>=a)
-				else:
-					if holdingPrimary:
-						if !primary.checkDamageLevel():
-							tooltip("Weapon is Max Level","",false)
-						else:
-							a = ceil(primary.damageUpgradeCost)
-							tooltip(INTERACT_PROMPS[closest] + "Primary weapon"," (" + str(a) + " needed)",parts>=a)
-					else:
-						if !secondary.checkDamageLevel():
-							tooltip("Weapon is Max Level","",false)
-						else:
-							a = ceil(secondary.damageUpgradeCost)
-							tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
+				closestInteract().accessToolTip()
+				#var a
+				#if holdingHeavy:
+					#if !heavy.checkDamageLevel():
+						#tooltip("Weapon is Max Level","",false)
+					#else:
+						#a = ceil(heavy.damageUpgradeCost)
+						#tooltip(INTERACT_PROMPS[closest] + "Heavy weapon"," (" + str(a) + " needed)",parts>=a)
+				#else:
+					#if holdingPrimary:
+						#if !primary.checkDamageLevel():
+							#tooltip("Weapon is Max Level","",false)
+						#else:
+							#a = ceil(primary.damageUpgradeCost)
+							#tooltip(INTERACT_PROMPS[closest] + "Primary weapon"," (" + str(a) + " needed)",parts>=a)
+					#else:
+						#if !secondary.checkDamageLevel():
+							#tooltip("Weapon is Max Level","",false)
+						#else:
+							#a = ceil(secondary.damageUpgradeCost)
+							#tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
 			4:#magazine bench
 				var a
 				if holdingHeavy:
@@ -253,14 +255,15 @@ func interact():
 		var  due = 0
 		match closest:
 			0:#health kit
-				if health < maxHealth:
-					due = ceil((maxHealth - health) * Game.playerStats.healthCost)
-					if parts >= due:
-						heal()
-						parts -= due
-						endtooltip()
-					else:
-						rejectHelper()
+				closestInteract().activate()
+				#if health < maxHealth:
+					#due = ceil((maxHealth - health) * Game.playerStats.healthCost)
+					#if parts >= due:
+						#heal()
+						#parts -= due
+						#endtooltip()
+					#else:
+						#rejectHelper()
 			1:#primary weapon refill
 				if holdingPrimary:
 					if primary.getReserveDiff() > 0:
@@ -397,6 +400,9 @@ func interact():
 							workbenchSound.play()
 						else:
 							rejectHelper()
+
+func pay(amount):
+	parts -= amount
 
 func weaponStatHelper(w):
 	var elem = 0

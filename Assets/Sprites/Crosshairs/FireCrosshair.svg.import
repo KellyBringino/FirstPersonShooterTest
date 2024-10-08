@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c46x4byjn270y"
-path="res://.godot/imported/FireCrosshair.svg-1867d515273026980f56f369fef44cec.ctex"
+path="res://.godot/imported/FireCrosshair.svg-2e92829faf75f6f846ee34739b68c961.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Gun Property Icons/Elemental Property/FireCrosshair.svg"
-dest_files=["res://.godot/imported/FireCrosshair.svg-1867d515273026980f56f369fef44cec.ctex"]
+source_file="res://Assets/Sprites/Crosshairs/FireCrosshair.svg"
+dest_files=["res://.godot/imported/FireCrosshair.svg-2e92829faf75f6f846ee34739b68c961.ctex"]
 
 [params]
 

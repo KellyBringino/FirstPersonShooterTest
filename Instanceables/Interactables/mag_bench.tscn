@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://gyh0fk81tnoo"]
+[gd_scene load_steps=7 format=3 uid="uid://gyh0fk81tnoo"]
 
-[ext_resource type="Script" path="res://Instanceables/Interactables/InteractableDataPass.gd" id="1_7i5mo"]
+[ext_resource type="Script" path="res://Instanceables/Interactables/InteractableBase.gd" id="1_omdc7"]
 [ext_resource type="PackedScene" uid="uid://bxnw0el01cj6u" path="res://Assets/Models/Interactables/bench_scene_mag.tscn" id="2_wjrb6"]
+[ext_resource type="AudioStream" uid="uid://bkdw5kgh56bor" path="res://Assets/Sound/Environment/workbench.wav" id="3_yqsup"]
+[ext_resource type="AudioStream" uid="uid://sir8bmti7e7e" path="res://Assets/Sound/Environment/reject.wav" id="4_6qfyo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hb7q7"]
 size = Vector3(2, 1, 1)
@@ -12,7 +14,7 @@ size = Vector3(2, 1, 1)
 [node name="Mag Bench" type="Area3D"]
 collision_layer = 256
 collision_mask = 256
-script = ExtResource("1_7i5mo")
+script = ExtResource("1_omdc7")
 type = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -27,3 +29,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_5i5vr")
+
+[node name="WorkbenchSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_yqsup")
+volume_db = -10.0
+
+[node name="RejectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_6qfyo")
