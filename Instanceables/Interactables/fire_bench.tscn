@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cc5i0c47hk2vc"]
 
-[ext_resource type="Script" path="res://Instanceables/Interactables/InteractableBase.gd" id="1_dobdu"]
+[ext_resource type="Script" path="res://Instanceables/Interactables/FireBench.gd" id="1_umwvs"]
 [ext_resource type="PackedScene" uid="uid://bnqam8y7f0101" path="res://Assets/Models/Interactables/bench_scene_fire.tscn" id="2_047rh"]
 [ext_resource type="AudioStream" uid="uid://bkdw5kgh56bor" path="res://Assets/Sound/Environment/workbench.wav" id="3_ldarq"]
 [ext_resource type="AudioStream" uid="uid://sir8bmti7e7e" path="res://Assets/Sound/Environment/reject.wav" id="4_qd1ch"]
@@ -14,8 +14,7 @@ size = Vector3(2, 1, 1)
 [node name="Fire Bench" type="Area3D"]
 collision_layer = 256
 collision_mask = 256
-script = ExtResource("1_dobdu")
-type = 5
+script = ExtResource("1_umwvs")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)

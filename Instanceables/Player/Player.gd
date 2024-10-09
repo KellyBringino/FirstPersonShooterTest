@@ -135,21 +135,23 @@ func handleInteractionTooltips():
 				#else:
 					#endtooltip()
 			1:#primary ammo
-				if holdingPrimary:
-					if primary.getReserveDiff() > 0:
-						var a = ceil(primary.getReserveDiff() * primary.ammoCost)
-						tooltip(INTERACT_PROMPS[closest]," (" + str(a) + " needed)",parts>=a)
-					else:
-						endtooltip()
-				else:
-					endtooltip()
+				closestInteract().accessToolTip()
+				#if holdingPrimary:
+					#if primary.getReserveDiff() > 0:
+						#var a = ceil(primary.getReserveDiff() * primary.ammoCost)
+						#tooltip(INTERACT_PROMPS[closest]," (" + str(a) + " needed)",parts>=a)
+					#else:
+						#endtooltip()
+				#else:
+					#endtooltip()
 			2:#heavy ammo
-				if holdingHeavy:
-					if heavy.getReserveDiff() > 0:
-						var a = ceil(heavy.getReserveDiff() * heavy.ammoCost)
-						tooltip(INTERACT_PROMPS[closest]," (" + str(a) + " needed)",parts>=a)
-					else:
-						endtooltip()
+				closestInteract().accessToolTip()
+				#if holdingHeavy:
+					#if heavy.getReserveDiff() > 0:
+						#var a = ceil(heavy.getReserveDiff() * heavy.ammoCost)
+						#tooltip(INTERACT_PROMPS[closest]," (" + str(a) + " needed)",parts>=a)
+					#else:
+						#endtooltip()
 			3:#damage bench
 				closestInteract().accessToolTip()
 				#var a
@@ -173,47 +175,49 @@ func handleInteractionTooltips():
 							#a = ceil(secondary.damageUpgradeCost)
 							#tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
 			4:#magazine bench
-				var a
-				if holdingHeavy:
-					if !heavy.checkMagLevel():
-						tooltip("Weapon is Max Level","",false)
-					else:
-						a = ceil(heavy.magUpgradeCost)
-						tooltip(INTERACT_PROMPS[closest] + "Heavy weapon"," (" + str(a) + " needed)",parts>=a)
-				else:
-					if holdingPrimary:
-						if !primary.checkMagLevel():
-							tooltip("Weapon is Max Level","",false)
-						else:
-							a = ceil(primary.magUpgradeCost)
-							tooltip(INTERACT_PROMPS[closest] + "Primary weapon"," (" + str(a) + " needed)",parts>=a)
-					else:
-						if !secondary.checkMagLevel():
-							tooltip("Weapon is Max Level","",false)
-						else:
-							a = ceil(secondary.magUpgradeCost)
-							tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
+				closestInteract().accessToolTip()
+				#var a
+				#if holdingHeavy:
+					#if !heavy.checkMagLevel():
+						#tooltip("Weapon is Max Level","",false)
+					#else:
+						#a = ceil(heavy.magUpgradeCost)
+						#tooltip(INTERACT_PROMPS[closest] + "Heavy weapon"," (" + str(a) + " needed)",parts>=a)
+				#else:
+					#if holdingPrimary:
+						#if !primary.checkMagLevel():
+							#tooltip("Weapon is Max Level","",false)
+						#else:
+							#a = ceil(primary.magUpgradeCost)
+							#tooltip(INTERACT_PROMPS[closest] + "Primary weapon"," (" + str(a) + " needed)",parts>=a)
+					#else:
+						#if !secondary.checkMagLevel():
+							#tooltip("Weapon is Max Level","",false)
+						#else:
+							#a = ceil(secondary.magUpgradeCost)
+							#tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
 			5:#fire bench
-				var a
-				if holdingHeavy:
-					if (heavy.checkElement() != 0):
-						tooltip("Weapon is Already Consumed","",false)
-					else:
-						a = ceil(heavy.elementalUpgradeCost)
-						tooltip(INTERACT_PROMPS[closest] + "Heavy weapon"," (" + str(a) + " needed)",parts>=a)
-				else:
-					if holdingPrimary:
-						if (primary.checkElement() != 0):
-							tooltip("Weapon is Already Consumed","",false)
-						else:
-							a = ceil(primary.elementalUpgradeCost)
-							tooltip(INTERACT_PROMPS[closest] + "Primary weapon"," (" + str(a) + " needed)",parts>=a)
-					else:
-						if (secondary.checkElement() != 0):
-							tooltip("Weapon is Already Consumed","",false)
-						else:
-							a = ceil(secondary.elementalUpgradeCost)
-							tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
+				closestInteract().accessToolTip()
+				#var a
+				#if holdingHeavy:
+					#if (heavy.checkElement() != 0):
+						#tooltip("Weapon is Already Consumed","",false)
+					#else:
+						#a = ceil(heavy.elementalUpgradeCost)
+						#tooltip(INTERACT_PROMPS[closest] + "Heavy weapon"," (" + str(a) + " needed)",parts>=a)
+				#else:
+					#if holdingPrimary:
+						#if (primary.checkElement() != 0):
+							#tooltip("Weapon is Already Consumed","",false)
+						#else:
+							#a = ceil(primary.elementalUpgradeCost)
+							#tooltip(INTERACT_PROMPS[closest] + "Primary weapon"," (" + str(a) + " needed)",parts>=a)
+					#else:
+						#if (secondary.checkElement() != 0):
+							#tooltip("Weapon is Already Consumed","",false)
+						#else:
+							#a = ceil(secondary.elementalUpgradeCost)
+							#tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
 			6:
 				var a
 				if holdingHeavy:
@@ -251,155 +255,7 @@ func closestInteract():
 
 func interact():
 	if interactNear.size() > 0:
-		var closest = closestInteract().getType()
-		var  due = 0
-		match closest:
-			0:#health kit
-				closestInteract().activate()
-				#if health < maxHealth:
-					#due = ceil((maxHealth - health) * Game.playerStats.healthCost)
-					#if parts >= due:
-						#heal()
-						#parts -= due
-						#endtooltip()
-					#else:
-						#rejectHelper()
-			1:#primary weapon refill
-				if holdingPrimary:
-					if primary.getReserveDiff() > 0:
-						due = ceil(primary.getReserveDiff() * primary.ammoCost)
-						if parts >= due:
-							primary.fillReserve()
-							parts -= due
-							endtooltip()
-						else:
-							rejectHelper()
-			2:#heavy weapon refill
-				if holdingHeavy:
-					if heavy.getReserveDiff() > 0:
-						due = ceil(heavy.getReserveDiff() * heavy.ammoCost)
-						if parts >= due:
-							heavy.fillReserve()
-							parts -= due
-						else:
-							rejectHelper()
-			3:#damage upgrade bench
-				if holdingHeavy:
-					due = ceil(heavy.damageUpgradeCost)
-					if parts >= due and heavy.checkDamageLevel():
-						heavy.upgradeDamage()
-						parts -= due
-						var elem = 0
-						weaponStatHelper(heavy)
-						workbenchSound.play()
-					else:
-						rejectHelper()
-				else:
-					if holdingPrimary:
-						due = ceil(primary.damageUpgradeCost)
-						if parts >= due and primary.checkDamageLevel():
-							primary.upgradeDamage()
-							parts -= due
-							weaponStatHelper(primary)
-							workbenchSound.play()
-						else:
-							rejectHelper()
-					else: 
-						due = ceil(secondary.damageUpgradeCost)
-						if parts >= due and secondary.checkDamageLevel():
-							secondary.upgradeDamage()
-							parts -= due
-							weaponStatHelper(secondary)
-							workbenchSound.play()
-						else:
-							rejectHelper()
-			4:#magazine upgrade bench
-				if holdingHeavy:
-					due = ceil(heavy.magUpgradeCost)
-					if parts >= due and heavy.checkMagLevel():
-						heavy.upgradeMag()
-						parts -= due
-						weaponStatHelper(heavy)
-						workbenchSound.play()
-					else:
-						rejectHelper()
-				else:
-					if holdingPrimary:
-						due = ceil(primary.magUpgradeCost)
-						if parts >= due and primary.checkMagLevel():
-							primary.upgradeMag()
-							parts -= due
-							weaponStatHelper(primary)
-							workbenchSound.play()
-						else:
-							rejectHelper()
-					else: 
-						due = ceil(secondary.magUpgradeCost)
-						if parts >= due and secondary.checkMagLevel():
-							secondary.upgradeMag()
-							parts -= due
-							weaponStatHelper(secondary)
-							workbenchSound.play()
-						else:
-							rejectHelper()
-			5:#fire upgrade
-				if holdingHeavy:
-					due = ceil(heavy.elementalUpgradeCost)
-					if parts >= due and heavy.checkElement() == 0:
-						heavy.upgradeFire()
-						parts -= due
-						weaponStatHelper(heavy)
-						workbenchSound.play()
-					else:
-						rejectHelper()
-				else:
-					if holdingPrimary:
-						due = ceil(primary.elementalUpgradeCost)
-						if parts >= due and primary.checkElement() == 0:
-							primary.upgradeFire()
-							parts -= due
-							weaponStatHelper(primary)
-							workbenchSound.play()
-						else:
-							rejectHelper()
-					else: 
-						due = ceil(secondary.elementalUpgradeCost)
-						if parts >= due and secondary.checkElement() == 0:
-							secondary.upgradeFire()
-							parts -= due
-							weaponStatHelper(secondary)
-							workbenchSound.play()
-						else:
-							rejectHelper()
-			6:#ice bench
-				if holdingHeavy:
-					due = ceil(heavy.elementalUpgradeCost)
-					if parts >= due and heavy.checkElement() == 0:
-						heavy.upgradeIce()
-						parts -= due
-						weaponStatHelper(heavy)
-						workbenchSound.play()
-					else:
-						rejectHelper()
-				else:
-					if holdingPrimary:
-						due = ceil(primary.elementalUpgradeCost)
-						if parts >= due and primary.checkElement() == 0:
-							primary.upgradeIce()
-							parts -= due
-							weaponStatHelper(primary)
-							workbenchSound.play()
-						else:
-							rejectHelper()
-					else: 
-						due = ceil(secondary.elementalUpgradeCost)
-						if parts >= due and secondary.checkElement() == 0:
-							secondary.upgradeIce()
-							parts -= due
-							weaponStatHelper(secondary)
-							workbenchSound.play()
-						else:
-							rejectHelper()
+		closestInteract().activate()
 
 func pay(amount):
 	parts -= amount
