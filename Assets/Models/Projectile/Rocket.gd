@@ -1,13 +1,18 @@
 extends RigidBody3D
 
 const explosionInstance = preload("res://Instanceables/Guns/Projectile/Explosion.tscn")
+const fireRing = preload("res://Instanceables/Guns/Projectile/FireAOE.tscn")
 
 var objects : Array = []
 var damage : float
 var isExploding : bool = false
+var fireWeapon : bool = false
+var iceWeapon : bool = false
 
-func setup(d):
+func setup(d,fire,ice):
 	damage = d
+	fireWeapon = fire
+	iceWeapon = ice
 
 func _on_explosion_area_body_entered(body):
 	$RayCast3D.look_at(body.global_transform.origin, Vector3.UP)
@@ -33,15 +38,22 @@ func _on_detonator_shape_body_entered(_body):
 	if !isExploding:
 		isExploding = true
 		process_mode = Node.PROCESS_MODE_DISABLED
-		for index in objects.size():
-			var cur = objects[index]
-			while !destructableCheck(cur):
-				if cur == null:
-					break
-				cur = cur.get_parent()
-			if destructableCheck(cur):
-				cur.hit(position,damage,1)
+		for cur in objects:
+			strike(cur)
 		var expl = explosionInstance.instantiate()
 		get_tree().root.add_child(expl)
 		expl.global_position = global_position
 		queue_free()
+
+func strike(object):
+	while !destructableCheck(object):
+		if object == null:
+			break
+		object = object.get_parent()
+	if destructableCheck(object):
+		object.hit(position,damage,1)
+		
+		if fireWeapon:
+			object.burn(5)
+		elif iceWeapon:
+			pass

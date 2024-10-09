@@ -87,8 +87,6 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var secondaryContainer = $CameraController/GunController/Weapon2
 @onready var heavyContainer = $CameraController/GunController/Weapon3
 @onready var aimDownSightsRef = $CameraController/AimDownSightsRef
-@onready var workbenchSound = $SoundController/WorkbenchSound
-@onready var rejectSound = $SoundController/RejectSound
 
 func _ready():
 	maxHealth = Game.playerStats.health
@@ -123,127 +121,6 @@ func _physics_process(delta):
 			velocity.y -= gravity * delta
 		move_and_slide()
 
-func handleInteractionTooltips():
-	if interactNear.size() > 0:
-		var closest = closestInteract().getType()
-		match closest:
-			0:#healthpack
-				closestInteract().accessToolTip()
-				#if health < maxHealth:
-					#var h = ceil((maxHealth - health) * Game.playerStats.healthCost)
-					#tooltip(INTERACT_PROMPS[closest]," (" + str(h) + " needed)",parts>=h)
-				#else:
-					#endtooltip()
-			1:#primary ammo
-				closestInteract().accessToolTip()
-				#if holdingPrimary:
-					#if primary.getReserveDiff() > 0:
-						#var a = ceil(primary.getReserveDiff() * primary.ammoCost)
-						#tooltip(INTERACT_PROMPS[closest]," (" + str(a) + " needed)",parts>=a)
-					#else:
-						#endtooltip()
-				#else:
-					#endtooltip()
-			2:#heavy ammo
-				closestInteract().accessToolTip()
-				#if holdingHeavy:
-					#if heavy.getReserveDiff() > 0:
-						#var a = ceil(heavy.getReserveDiff() * heavy.ammoCost)
-						#tooltip(INTERACT_PROMPS[closest]," (" + str(a) + " needed)",parts>=a)
-					#else:
-						#endtooltip()
-			3:#damage bench
-				closestInteract().accessToolTip()
-				#var a
-				#if holdingHeavy:
-					#if !heavy.checkDamageLevel():
-						#tooltip("Weapon is Max Level","",false)
-					#else:
-						#a = ceil(heavy.damageUpgradeCost)
-						#tooltip(INTERACT_PROMPS[closest] + "Heavy weapon"," (" + str(a) + " needed)",parts>=a)
-				#else:
-					#if holdingPrimary:
-						#if !primary.checkDamageLevel():
-							#tooltip("Weapon is Max Level","",false)
-						#else:
-							#a = ceil(primary.damageUpgradeCost)
-							#tooltip(INTERACT_PROMPS[closest] + "Primary weapon"," (" + str(a) + " needed)",parts>=a)
-					#else:
-						#if !secondary.checkDamageLevel():
-							#tooltip("Weapon is Max Level","",false)
-						#else:
-							#a = ceil(secondary.damageUpgradeCost)
-							#tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
-			4:#magazine bench
-				closestInteract().accessToolTip()
-				#var a
-				#if holdingHeavy:
-					#if !heavy.checkMagLevel():
-						#tooltip("Weapon is Max Level","",false)
-					#else:
-						#a = ceil(heavy.magUpgradeCost)
-						#tooltip(INTERACT_PROMPS[closest] + "Heavy weapon"," (" + str(a) + " needed)",parts>=a)
-				#else:
-					#if holdingPrimary:
-						#if !primary.checkMagLevel():
-							#tooltip("Weapon is Max Level","",false)
-						#else:
-							#a = ceil(primary.magUpgradeCost)
-							#tooltip(INTERACT_PROMPS[closest] + "Primary weapon"," (" + str(a) + " needed)",parts>=a)
-					#else:
-						#if !secondary.checkMagLevel():
-							#tooltip("Weapon is Max Level","",false)
-						#else:
-							#a = ceil(secondary.magUpgradeCost)
-							#tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
-			5:#fire bench
-				closestInteract().accessToolTip()
-				#var a
-				#if holdingHeavy:
-					#if (heavy.checkElement() != 0):
-						#tooltip("Weapon is Already Consumed","",false)
-					#else:
-						#a = ceil(heavy.elementalUpgradeCost)
-						#tooltip(INTERACT_PROMPS[closest] + "Heavy weapon"," (" + str(a) + " needed)",parts>=a)
-				#else:
-					#if holdingPrimary:
-						#if (primary.checkElement() != 0):
-							#tooltip("Weapon is Already Consumed","",false)
-						#else:
-							#a = ceil(primary.elementalUpgradeCost)
-							#tooltip(INTERACT_PROMPS[closest] + "Primary weapon"," (" + str(a) + " needed)",parts>=a)
-					#else:
-						#if (secondary.checkElement() != 0):
-							#tooltip("Weapon is Already Consumed","",false)
-						#else:
-							#a = ceil(secondary.elementalUpgradeCost)
-							#tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
-			6:
-				var a
-				if holdingHeavy:
-					if (heavy.checkElement() != 0):
-						tooltip("Weapon is Already Consumed","",false)
-					else:
-						a = ceil(heavy.elementalUpgradeCost)
-						tooltip(INTERACT_PROMPS[closest] + "Heavy weapon"," (" + str(a) + " needed)",parts>=a)
-				else:
-					if holdingPrimary:
-						if (primary.checkElement() != 0):
-							tooltip("Weapon is Already Consumed","",false)
-						else:
-							a = ceil(primary.elementalUpgradeCost)
-							tooltip(INTERACT_PROMPS[closest] + "Primary weapon"," (" + str(a) + " needed)",parts>=a)
-					else:
-						if (secondary.checkElement() != 0):
-							tooltip("Weapon is Already Consumed","",false)
-						else:
-							a = ceil(secondary.elementalUpgradeCost)
-							tooltip(INTERACT_PROMPS[closest] + "Secondary weapon"," (" + str(a) + " needed)",parts>=a)
-			_:
-				endtooltip()
-	else:
-		endtooltip()
-
 func closestInteract():
 	var dist = 10
 	var close = null
@@ -253,25 +130,18 @@ func closestInteract():
 			close = a
 	return close
 
+func handleInteractionTooltips():
+	if interactNear.size() > 0:
+		closestInteract().accessToolTip()
+	else:
+		endtooltip()
+
 func interact():
 	if interactNear.size() > 0:
 		closestInteract().activate()
 
 func pay(amount):
 	parts -= amount
-
-func weaponStatHelper(w):
-	var elem = 0
-	if w.fireWeapon:
-		elem = 1
-	elif w.iceWeapon:
-		elem = 2
-	get_node("/root/World/GUI").statUpdate(
-		w.damageLevel,w.magLevel,elem)
-
-func rejectHelper():
-	get_node("/root/World/GUI").rejectToolTip()
-	rejectSound.play()
 
 func handleGrip():
 	var handle = $ModelController/doll/WeaponTarget.global_transform.origin

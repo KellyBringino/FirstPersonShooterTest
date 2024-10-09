@@ -142,8 +142,10 @@ func hit(point, d, source):
 	damage(point,d,source)
 func burn(t):
 	healthbar.texture_progress = HEALTH_BAR_FIRE_TEXT
+	if fire < 3:
+		fire += 1
 	match fire:
-		0,1:
+		1:
 			iconContainer.get_child(0).show()
 			iconContainer.get_child(1).hide()
 			iconContainer.get_child(2).hide()
@@ -155,10 +157,9 @@ func burn(t):
 			iconContainer.get_child(0).show()
 			iconContainer.get_child(1).show()
 			iconContainer.get_child(2).show()
-	if fire < 3:
-		fire += 1
 	fireTimer.wait_time = t
-	fireTimer.start()                                    
+	fireTimer.start()
+
 func dead(_point, source):
 	if !dying:
 		dying = true
@@ -214,7 +215,7 @@ func _on_shoot_timer_timeout():
 func _on_tick_timer_timeout():
 	if fire > 0:
 		healthbar.texture_progress = HEALTH_BAR_FIRE_TEXT
-		damage(global_position,(maxHealth * fire)/(45.0),2)
+		damage(global_position,(maxHealth * fire)/(30.0),2)
 	else:
 		healthbar.texture_progress = HEALTH_BAR_TEXT
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cf300nryotnq0"]
 
-[ext_resource type="Script" path="res://Instanceables/Interactables/AmmoShelf.gd" id="1_1d1b0"]
+[ext_resource type="Script" path="res://Instanceables/Interactables/scripts/AmmoShelf.gd" id="1_1d1b0"]
 [ext_resource type="PackedScene" uid="uid://bf8nij4jmmd13" path="res://Assets/Models/Interactables/ammo_shelf_scene.tscn" id="1_5ry5c"]
 [ext_resource type="AudioStream" uid="uid://bkdw5kgh56bor" path="res://Assets/Sound/Environment/workbench.wav" id="3_i3jb8"]
 [ext_resource type="AudioStream" uid="uid://sir8bmti7e7e" path="res://Assets/Sound/Environment/reject.wav" id="4_8oa7q"]

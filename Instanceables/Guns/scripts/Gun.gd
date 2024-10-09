@@ -35,7 +35,7 @@ var damageUpgrade : float
 var magUpgradeCost : float
 var magUpgrade : int
 var elementalUpgradeCost : float
-var fastFiring : bool
+var spreadingWeapon : bool
 var adsOffset : float
 var adsZoom : float
 var limited : bool = false
@@ -56,7 +56,7 @@ func startup(object):
 	magUpgradeCost = object.magUpgradeCost
 	magUpgrade = object.magUpgrade
 	elementalUpgradeCost = object.elementalUpgradeCost
-	fastFiring = object.fastFiring
+	spreadingWeapon = object.spreadingWeapon
 	reloadMult = object.reloadMult
 	adsOffset = object.adsOffset / 10.0
 	adsZoom = object.adsZoom
@@ -161,7 +161,6 @@ func _on_aoe_trigger_body_exited(body):
 			break
 
 func strike(object):
-	var dam = damage
 	var point = shootRay.get_collision_point()
 	if object.collision_layer == 16 or object.collision_layer == 32:
 		while !object.editor_description.contains("Enemy"):
@@ -171,17 +170,17 @@ func strike(object):
 		if object != null:
 			if object.editor_description.contains("Enemy"):
 				if object.collision_layer == 32:
-					dam *= critMult
-				object.hit(point,dam,0)
+					damage *= critMult
+				object.hit(point,damage,0)
 	elif object.collision_layer == 128:
-		object.hit(point,dam,0)
+		object.hit(point,damage,0)
 	
 	if object.collision_layer == 1:
 		var misfire = misfireInst.instantiate()
 		get_tree().root.add_child(misfire)
 		misfire.global_transform.origin = shootRay.get_collision_point()
 	else:
-		if fireWeapon and fastFiring:
+		if fireWeapon and spreadingWeapon:
 			object.burn(5)
 		elif fireWeapon:
 			var misfire = fireRing.instantiate()
@@ -199,8 +198,8 @@ func strike(object):
 				if o != null and !hits.has(o):
 					hits.append(o)
 			for o in hits:
-				o.hit(point,dam,1)
-		elif iceWeapon and fastFiring:
+				o.hit(point,damage,1)
+		elif iceWeapon and spreadingWeapon:
 			pass
 		elif iceWeapon:
 			pass

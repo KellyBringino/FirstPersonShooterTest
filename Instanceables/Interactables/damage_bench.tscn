@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dd2w077s3y1ll"]
 
-[ext_resource type="Script" path="res://Instanceables/Interactables/DamageBench.gd" id="1_20pdr"]
+[ext_resource type="Script" path="res://Instanceables/Interactables/scripts/DamageBench.gd" id="1_20pdr"]
 [ext_resource type="PackedScene" uid="uid://qg0lc8oom4p2" path="res://Assets/Models/Interactables/bench_scene_dam.tscn" id="2_qh726"]
 [ext_resource type="AudioStream" uid="uid://bkdw5kgh56bor" path="res://Assets/Sound/Environment/workbench.wav" id="3_lloio"]
 [ext_resource type="AudioStream" uid="uid://sir8bmti7e7e" path="res://Assets/Sound/Environment/reject.wav" id="4_dkfog"]
