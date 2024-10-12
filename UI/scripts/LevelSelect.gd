@@ -15,11 +15,11 @@ extends Node2D
 const mapMax = 2
 const priMax = 4
 const secMax = 3
-const heaMax = 2
+const heaMax = 3
 const mapLabels = ["test", "Rooms"]
 const priLabels = ["None", "Rifle", "Sniper", "Shotgun"]
 const secLabels = ["Pistol", "Revolver", "SMG"]
-const heaLabels = ["None", "Rocket Launcher"]
+const heaLabels = ["None", "Rocket Launcher", "Grenade Launcher"]
 var mapIcons = [
 	load("res://Assets/Sprites/UI/null.svg"),
 	load("res://Assets/Sprites/Gun Icons/rifle_icon.png")]
@@ -34,7 +34,8 @@ var secIcons = [
 	load("res://Assets/Sprites/Gun Icons/smg_icon.png")]
 var heaIcons = [
 	load("res://Assets/Sprites/UI/null.svg"),
-	load("res://Assets/Sprites/Gun Icons/rocketlauncher_icon.png")]
+	load("res://Assets/Sprites/Gun Icons/rocketlauncher_icon.png"),
+	load("res://Assets/Sprites/Gun Icons/grenadelauncher_icon.png")]
 
 var cardSelection = 0;
 var pri = 1

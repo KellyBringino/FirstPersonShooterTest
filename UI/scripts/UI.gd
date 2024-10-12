@@ -152,20 +152,9 @@ func setWeapons(w):
 	var pri = 0
 	var sec = 0
 	var hea = 0
-	if weapons[0] == Game.GunType.RIFLE:
-		pri = 1
-	elif weapons[0] == Game.GunType.SNIPER:
-		pri = 2
-	elif weapons[0] == Game.GunType.SHOTGUN:
-		pri = 3
-	if weapons[1] == Game.GunType.PISTOL:
-		sec = 0
-	elif weapons[1] == Game.GunType.REVOLVER:
-		sec = 1
-	elif weapons[1] == Game.GunType.SMG:
-		sec = 2
-	if weapons[2] == Game.GunType.ROCKETLAUNCHER:
-		hea = 1
+	pri = Game.decipherWeaponNumber(weapons[0])
+	sec = Game.decipherWeaponNumber(weapons[1])
+	hea = Game.decipherWeaponNumber(weapons[2])
 	selectionWheel.setWeapons(pri,sec,hea)
 	iconWheel.setStats(0,0,0)
 

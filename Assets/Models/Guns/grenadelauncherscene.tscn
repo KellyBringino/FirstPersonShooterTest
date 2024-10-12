@@ -1,0 +1,102 @@
+[gd_scene load_steps=4 format=3 uid="uid://pwcblkiio143"]
+
+[ext_resource type="PackedScene" uid="uid://dfmfogfd2numu" path="res://Assets/Models/Guns/grenadelauncher.glb" id="1_fhmeb"]
+[ext_resource type="Material" uid="uid://disufmym10kpb" path="res://Assets/Models/Materials/Brass.tres" id="2_s2uwc"]
+[ext_resource type="Material" uid="uid://c6v6m61tsjjla" path="res://Assets/Models/Materials/blackGunMetal.tres" id="3_1qfyu"]
+
+[node name="model" instance=ExtResource("1_fhmeb")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/1/rotation = Quaternion(-0.467924, -5.39466e-25, 2.20382e-17, 0.883769)
+bones/4/rotation = Quaternion(2.04019e-09, 0.866025, -8.51195e-09, 0.500001)
+bones/6/rotation = Quaternion(2.074e-08, 0.5, -4.91438e-09, 0.866025)
+bones/8/rotation = Quaternion(3.8459e-08, -1.62921e-07, -4.69152e-16, 1)
+bones/10/rotation = Quaternion(2.074e-08, -0.5, 4.91438e-09, 0.866025)
+bones/12/rotation = Quaternion(-2.04013e-09, 0.866026, -8.51196e-09, -0.5)
+bones/15/scale = Vector3(0.967305, 0.648294, 0.967305)
+bones/16/rotation = Quaternion(0.675846, 0.675846, 0.207922, -0.207922)
+bones/16/scale = Vector3(1, 1, 1)
+bones/17/rotation = Quaternion(-0.00121151, -8.97574e-18, 8.05149e-17, 0.999999)
+bones/18/rotation = Quaternion(-0.00121151, -8.97574e-18, 8.05149e-17, 0.999999)
+
+[node name="Shell1" parent="Armature/Skeleton3D" index="0"]
+transform = Transform3D(0.138877, -3.30549e-08, -0.240542, -0.240542, -1.00866e-07, -0.138877, -7.16869e-09, 2.74413, -8.00215e-09, -0.0519861, 0.0233817, -0.296837)
+
+[node name="Shell1" parent="Armature/Skeleton3D/Shell1" index="0"]
+material_override = ExtResource("2_s2uwc")
+
+[node name="Shell2" parent="Armature/Skeleton3D" index="1"]
+transform = Transform3D(-0.138877, -8.02714e-08, -0.240542, -0.240542, 1.90842e-08, 0.138877, -2.38957e-09, 2.74413, -8.00215e-09, -0.0519861, 0.0834101, -0.296837)
+
+[node name="Shell2" parent="Armature/Skeleton3D/Shell2" index="0"]
+material_override = ExtResource("2_s2uwc")
+
+[node name="Shell3" parent="Armature/Skeleton3D" index="2"]
+transform = Transform3D(-0.277754, 3.18134e-14, 9.05037e-08, 9.05037e-08, 7.90591e-08, 0.277754, 6.12631e-16, 2.74413, -8.00215e-09, 1.49012e-08, 0.113424, -0.296837)
+
+[node name="Shell3" parent="Armature/Skeleton3D/Shell3" index="0"]
+material_override = ExtResource("2_s2uwc")
+
+[node name="Shell4" parent="Armature/Skeleton3D" index="3"]
+transform = Transform3D(-0.138877, 8.02714e-08, 0.240542, 0.240542, 1.90841e-08, 0.138877, 2.38957e-09, 2.74413, -8.00215e-09, 0.0519861, 0.08341, -0.296837)
+
+[node name="Shell4" parent="Armature/Skeleton3D/Shell4" index="0"]
+material_override = ExtResource("2_s2uwc")
+
+[node name="Shell5" parent="Armature/Skeleton3D" index="4"]
+transform = Transform3D(0.138877, 3.30546e-08, 0.240542, 0.240542, -1.00866e-07, -0.138877, 7.16871e-09, 2.74413, -8.00215e-09, 0.0519861, 0.0233817, -0.296837)
+
+[node name="Shell5" parent="Armature/Skeleton3D/Shell5" index="0"]
+material_override = ExtResource("2_s2uwc")
+
+[node name="Shell6" parent="Armature/Skeleton3D" index="5"]
+transform = Transform3D(0.277754, -1.5783e-13, -3.13451e-07, -3.13451e-07, -1.60841e-07, -0.277754, -2.39706e-15, 2.74413, -1.62799e-08, -2.6077e-08, -0.00663252, -0.296837)
+
+[node name="Shell6" parent="Armature/Skeleton3D/Shell6" index="0"]
+material_override = ExtResource("2_s2uwc")
+
+[node name="Rotor" parent="Armature/Skeleton3D" index="6"]
+transform = Transform3D(-0.483652, -1.89639e-08, -0.837711, -0.837711, 4.50859e-09, 0.483652, -8.3219e-09, 0.648294, -2.78683e-08, 4.3059e-18, 0.0533959, -0.306318)
+
+[node name="Rotor" parent="Armature/Skeleton3D/Rotor" index="0"]
+material_override = ExtResource("3_1qfyu")
+
+[node name="Barrel" parent="Armature/Skeleton3D" index="7"]
+transform = Transform3D(0.833333, -3.05012e-16, -3.86766e-17, 1.02131e-16, 2.06427, 0.564096, -3.0739e-17, -1.41024, 0.825709, 2.45211e-25, -1.04698e-09, -1.54054e-09)
+
+[node name="Barrel" parent="Armature/Skeleton3D/Barrel" index="0"]
+material_override = ExtResource("3_1qfyu")
+
+[node name="Body" parent="Armature/Skeleton3D" index="8"]
+transform = Transform3D(0.833333, -3.05012e-16, -3.86766e-17, 1.02131e-16, 2.06427, 0.564096, -3.0739e-17, -1.41024, 0.825709, 2.45211e-25, -1.04698e-09, -1.54054e-09)
+
+[node name="Body" parent="Armature/Skeleton3D/Body" index="0"]
+material_override = ExtResource("3_1qfyu")
+
+[node name="Foregrip" parent="Armature/Skeleton3D" index="9"]
+transform = Transform3D(0.666667, 0, 0, 8.27181e-25, 1, 0, 8.27181e-25, 0, 1, 5.69344e-10, 0.0595241, -0.495604)
+
+[node name="Foregrip" parent="Armature/Skeleton3D/Foregrip" index="0"]
+material_override = ExtResource("3_1qfyu")
+
+[node name="Sight" parent="Armature/Skeleton3D" index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3059e-18, 0.196052, -0.226564)
+
+[node name="Sight" parent="Armature/Skeleton3D/Sight" index="0"]
+material_override = ExtResource("3_1qfyu")
+
+[node name="Plane" parent="Armature/Skeleton3D" index="11"]
+visible = false
+
+[node name="GripAttachment" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="12"]
+transform = Transform3D(1, 3.89534e-17, -2.06245e-17, -2.06245e-17, 0.827073, 0.562094, 3.89534e-17, -0.562094, 0.827073, 0, 0, 0)
+bone_name = "Main_bone"
+bone_idx = 0
+
+[node name="OffhandAttachment" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="13"]
+transform = Transform3D(-1.19209e-07, 1, 1.19209e-07, 1, -3.1588e-08, 2.98023e-08, 2.98023e-08, 1.65602e-07, -1, 1.28057e-09, -0.0183543, -0.495604)
+bone_name = "Offhand_bone"
+bone_idx = 16
+
+[node name="AnimationPlayer" parent="." index="2"]
+autoplay = "Idle"

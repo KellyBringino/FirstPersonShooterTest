@@ -1,6 +1,11 @@
 extends Node
 
-enum GunType {NONE, RIFLE, SNIPER, SHOTGUN, PISTOL, REVOLVER, SMG, ROCKETLAUNCHER}
+enum GunType {
+	NONE, 
+	RIFLE, SNIPER, SHOTGUN, 
+	PISTOL, REVOLVER, SMG, 
+	ROCKETLAUNCHER, GRENADELAUNCHER
+}
 
 const enemyStats = \
 {\
@@ -91,6 +96,17 @@ const rocketlauncher = {
 	proj = preload("res://Instanceables/Guns/Projectile/rocket.tscn"),
 	instance = preload("res://Instanceables/Guns/rocketlauncher.tscn")
 }
+const grenadelauncher = {
+	name = "Grenade Launcher", ammoLimited = true, gunType = 2,
+	damage = 100.0, crit = 1.0, 
+	magsize = 6, ammoMax = 18, reloadMult = 1.0,
+	flinch = 0.5, adsOffset = 0.0,
+	adsZoom = 50.0, scope = true,
+	ammoCost = 40.0, upgradeCost = 1000, magUpgradeCost = 2000, elementalUpgradeCost = 1000,
+	damageUpgrade = 75, magUpgrade = 1, spreadingWeapon = true,
+	proj = preload("res://Instanceables/Guns/Projectile/rocket.tscn"),
+	instance = preload("res://Instanceables/Guns/grenadelauncher.tscn")
+}
 
 var paused : bool = false
 var horizontalSensitivity = 0.8
@@ -166,9 +182,34 @@ func playerReady():
 		var rocketgun = rocketlauncher.instance.instantiate()
 		$"../World/Player/CameraController/GunController/Weapon3"\
 			.add_child(rocketgun)
+	elif weapons[2] == GunType.GRENADELAUNCHER:
+		var grenadegun = grenadelauncher.instance.instantiate()
+		$"../World/Player/CameraController/GunController/Weapon3"\
+			.add_child(grenadegun)
 	
 	player.setGuns(weapons)
 	$"../World/GUI".setWeapons(weapons)
+
+func decipherWeaponNumber(weapon):
+	match weapon:
+		GunType.NONE:
+			return 0
+		GunType.RIFLE:
+			return 1
+		GunType.SNIPER:
+			return 2
+		GunType.SHOTGUN:
+			return 3
+		GunType.PISTOL:
+			return 0
+		GunType.REVOLVER:
+			return 1
+		GunType.SMG:
+			return 2
+		GunType.ROCKETLAUNCHER:
+			return 1
+		GunType.GRENADELAUNCHER:
+			return 2
 
 func choose(pri,sec,hea):
 	match pri:
@@ -194,6 +235,8 @@ func choose(pri,sec,hea):
 			weapons[2] = GunType.NONE
 		1:
 			weapons[2] = GunType.ROCKETLAUNCHER
+		2:
+			weapons[2] = GunType.GRENADELAUNCHER
 
 func setSensitivity(h,v):
 	horizontalSensitivity = h

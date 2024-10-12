@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bsjyb8wyeokxq"]
+[gd_scene load_steps=24 format=3 uid="uid://bsjyb8wyeokxq"]
 
 [ext_resource type="Texture2D" uid="uid://bt4116u3kliy3" path="res://Assets/Sprites/UI/null.svg" id="1_hf77t"]
 [ext_resource type="Texture2D" uid="uid://c3p0w407rsla6" path="res://Assets/Sprites/Gun Icons/rifle_icon.png" id="1_p67ue"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://47pewado1wmh" path="res://Assets/Sprites/Gun Icons/revolver_icon.png" id="5_dui0h"]
 [ext_resource type="Texture2D" uid="uid://cv2i8ak446n8u" path="res://Assets/Sprites/Gun Icons/rocketlauncher_icon.png" id="6_hiiy6"]
 [ext_resource type="Texture2D" uid="uid://cwshsbw4dy130" path="res://Assets/Sprites/Gun Icons/smg_icon.png" id="7_q683s"]
+[ext_resource type="Texture2D" uid="uid://djqp10nsy2gtf" path="res://Assets/Sprites/Gun Icons/grenadelauncher_icon.png" id="9_vqmgd"]
 
 [sub_resource type="GDScript" id="GDScript_sip4t"]
 script/source = "@tool
@@ -115,6 +116,10 @@ region = Rect2(0, 0, 4080, 4080)
 atlas = ExtResource("6_hiiy6")
 region = Rect2(0, 0, 1080, 1080)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3pcl"]
+atlas = ExtResource("9_vqmgd")
+region = Rect2(0, 0, 1080, 1080)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_nf731"]
 atlas = ExtResource("1_p67ue")
 region = Rect2(0, 0, 1080, 1080)
@@ -145,5 +150,5 @@ bkr_color = Color(0.180392, 0.180392, 0.180392, 0.392157)
 outer_radius = 200
 priText = Array[AtlasTexture]([SubResource("AtlasTexture_j83ai"), SubResource("AtlasTexture_l473q"), SubResource("AtlasTexture_pxkrx"), SubResource("AtlasTexture_34hws")])
 secText = Array[AtlasTexture]([SubResource("AtlasTexture_p3uby"), SubResource("AtlasTexture_qwi5x"), SubResource("AtlasTexture_e8bd2")])
-heaText = Array[AtlasTexture]([SubResource("AtlasTexture_8hvy6"), SubResource("AtlasTexture_3waqv")])
+heaText = Array[AtlasTexture]([SubResource("AtlasTexture_8hvy6"), SubResource("AtlasTexture_3waqv"), SubResource("AtlasTexture_h3pcl")])
 currentText = Array[AtlasTexture]([SubResource("AtlasTexture_nf731"), SubResource("AtlasTexture_f1n3k"), SubResource("AtlasTexture_tvqba")])
