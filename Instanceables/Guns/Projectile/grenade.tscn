@@ -1,30 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbrbc7b0a1trb"]
+[gd_scene load_steps=6 format=3 uid="uid://cwmbulpf5xe8g"]
 
-[ext_resource type="Script" path="res://Assets/Models/Projectile/Rocket.gd" id="1_uom8j"]
-[ext_resource type="PackedScene" uid="uid://5pyo40xpgn66" path="res://Assets/Models/Projectile/rocketscene.tscn" id="2_wnqxj"]
+[ext_resource type="Script" path="res://Assets/Models/Projectile/Rocket.gd" id="1_o5jiv"]
+[ext_resource type="PackedScene" uid="uid://5pyo40xpgn66" path="res://Assets/Models/Projectile/rocketscene.tscn" id="2_v68rh"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yanxc"]
 radius = 0.03
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3ol2q"]
-radius = 3.0
+radius = 2.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8f0d1"]
 radius = 0.03
 height = 0.3
 
-[node name="Rocket" type="RigidBody3D"]
+[node name="Grenade" type="RigidBody3D"]
 disable_mode = 1
 collision_layer = 64
 collision_mask = 241
-gravity_scale = 0.0
-script = ExtResource("1_uom8j")
+gravity_scale = 0.25
+script = ExtResource("1_o5jiv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("SphereShape3D_yanxc")
 
-[node name="model" parent="." instance=ExtResource("2_wnqxj")]
+[node name="model" parent="." instance=ExtResource("2_v68rh")]
 
 [node name="ExplosionArea" type="Area3D" parent="."]
 collision_layer = 64

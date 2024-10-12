@@ -87,12 +87,12 @@ const smg = {
 #heavy stats
 const rocketlauncher = {
 	name = "Rocket Launcher", ammoLimited = true, gunType = 2,
-	damage = 400.0, crit = 1.0, 
+	damage = 150.0, crit = 1.0, 
 	magsize = 1, ammoMax = 4, reloadMult = 1.0,
 	flinch = 0.0, adsOffset = 0.0,
 	adsZoom = 50.0, scope = true,
 	ammoCost = 40.0, upgradeCost = 1000, magUpgradeCost = 5000, elementalUpgradeCost = 1000,
-	damageUpgrade = 320, magUpgrade = 1, spreadingWeapon = true,
+	damageUpgrade = 100, magUpgrade = 1, spreadingWeapon = true,
 	proj = preload("res://Instanceables/Guns/Projectile/rocket.tscn"),
 	instance = preload("res://Instanceables/Guns/rocketlauncher.tscn")
 }
@@ -103,8 +103,8 @@ const grenadelauncher = {
 	flinch = 0.5, adsOffset = 0.0,
 	adsZoom = 50.0, scope = true,
 	ammoCost = 40.0, upgradeCost = 1000, magUpgradeCost = 2000, elementalUpgradeCost = 1000,
-	damageUpgrade = 75, magUpgrade = 1, spreadingWeapon = true,
-	proj = preload("res://Instanceables/Guns/Projectile/rocket.tscn"),
+	damageUpgrade = 70, magUpgrade = 1, spreadingWeapon = true,
+	proj = preload("res://Instanceables/Guns/Projectile/grenade.tscn"),
 	instance = preload("res://Instanceables/Guns/grenadelauncher.tscn")
 }
 

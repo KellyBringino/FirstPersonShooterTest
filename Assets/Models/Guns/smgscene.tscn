@@ -9,7 +9,6 @@
 bones/5/rotation = Quaternion(-0.5, -0.5, -0.5, 0.5)
 bones/5/scale = Vector3(1, 1, 1)
 bones/12/rotation = Quaternion(0, 0, -0.707107, 0.707107)
-bones/12/scale = Vector3(0.625, 0.75, 0.625)
 
 [node name="Mag" parent="Armature/Skeleton3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.00629188)
@@ -60,7 +59,7 @@ transform = Transform3D(0.00731283, 0, 0, 0, 0.0025, 0, 0, 0, 0.00585026, 0, 0.1
 material_override = ExtResource("2_6dbdv")
 
 [node name="Cylinder" parent="Armature/Skeleton3D" index="8"]
-transform = Transform3D(2.23517e-07, 0.75, 0, -0.625, 2.68221e-07, 0, 0, 0, 0.625, 1.5728e-18, 0.113426, -0.175944)
+transform = Transform3D(0, 0.75, 0, -0.625, 0, 0, 0, 0, 0.625, 1.5728e-18, 0.113426, -0.175944)
 
 [node name="Cylinder" parent="Armature/Skeleton3D/Cylinder" index="0"]
 material_override = ExtResource("2_6dbdv")
@@ -97,7 +96,7 @@ bone_name = "Main_bone"
 bone_idx = 0
 
 [node name="OffhandAttachment" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="15"]
-transform = Transform3D(5.96046e-08, 1, -2.98023e-08, 1.49012e-07, 5.96046e-08, 1, 1, -2.98023e-08, -1.19209e-07, 0, 0.05, -0.136242)
+transform = Transform3D(0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0.05, -0.136242)
 bone_name = "Offhand_bone"
 bone_idx = 5
 

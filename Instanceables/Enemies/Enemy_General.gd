@@ -9,16 +9,13 @@ extends CharacterBody3D
 @onready var lookTimer = $TimerController/LookCheck
 @onready var pathTimer = $TimerController/PathfindTimer
 @onready var fireTimer : Timer = $TimerController/FireTimer
+@onready var chillTimer : Timer = $TimerController/ChillTimer
 
 const RUN_SPEED = 4.0
-const JUMP_VELOCITY = 4.5
 const REACH_DIST = 0.5
 const SHOOT_DIST = 10.0
-const SPRINT_STEP_DIS = 1.2
-const STEP_UP_SPEED = 0.1
-const STEP_SPEED = 0.03
-const WALK_STEP_DIS = 0.7
-const STAND_STEP_DIS = 0.1
+const FIRE_2_CHANCE = 0.5
+const FIRE_3_CHANCE = 1.0/3.0
 const HEALTH_BAR_TEXT = preload("res://Assets/Sprites/UI/health.svg")
 const HEALTH_BAR_FIRE_TEXT = preload("res://Assets/Sprites/UI/health_fire.svg")
 
@@ -34,6 +31,7 @@ var vision : Array = []
 var see : Array = []
 var suspicious : bool = false
 var fire = 0
+var cold = 0
 var dying : bool = false
 var player
 
@@ -136,29 +134,62 @@ func stateChange(nState):
 func damage(point, amount, source):
 	health -= amount
 	healthbar.value = health
+	healthbar.max_value = maxHealth
 	if health <= 0:
 		dead(point,source)
 func hit(point, d, source):
 	damage(point,d,source)
 func burn(t):
 	healthbar.texture_progress = HEALTH_BAR_FIRE_TEXT
-	if fire < 3:
-		fire += 1
 	match fire:
-		1:
+		0:
+			fire += 1
 			iconContainer.get_child(0).show()
 			iconContainer.get_child(1).hide()
 			iconContainer.get_child(2).hide()
+		1:
+			if randf() < FIRE_2_CHANCE:
+				fire += 1
+				iconContainer.get_child(0).show()
+				iconContainer.get_child(1).show()
+				iconContainer.get_child(2).hide()
 		2:
-			iconContainer.get_child(0).show()
-			iconContainer.get_child(1).show()
-			iconContainer.get_child(2).hide()
+			if randf() < FIRE_3_CHANCE:
+				fire += 1
+				iconContainer.get_child(0).show()
+				iconContainer.get_child(1).show()
+				iconContainer.get_child(2).show()
 		3:
 			iconContainer.get_child(0).show()
 			iconContainer.get_child(1).show()
 			iconContainer.get_child(2).show()
 	fireTimer.wait_time = t
 	fireTimer.start()
+func chill(t):
+	healthbar.tint_progress = Color.AQUA
+	match cold:
+		0:
+			cold += 1
+			#iconContainer.get_child(0).show()
+			#iconContainer.get_child(1).hide()
+			#iconContainer.get_child(2).hide()
+		1:
+			if randf() < FIRE_2_CHANCE:
+				cold += 1
+				#iconContainer.get_child(0).show()
+				#iconContainer.get_child(1).show()
+				#iconContainer.get_child(2).hide()
+		2:
+			if randf() < FIRE_3_CHANCE:
+				cold += 1
+				#iconContainer.get_child(0).show()
+				#iconContainer.get_child(1).show()
+				#iconContainer.get_child(2).show()
+		3:
+			#iconContainer.get_child(0).show()
+			#iconContainer.get_child(1).show()
+			#iconContainer.get_child(2).show()
+			pass
 
 func dead(_point, source):
 	if !dying:
@@ -218,6 +249,28 @@ func _on_tick_timer_timeout():
 		damage(global_position,(maxHealth * fire)/(30.0),2)
 	else:
 		healthbar.texture_progress = HEALTH_BAR_TEXT
+
+func _on_chill_timer_timeout():
+	if cold > 0:
+		cold -= 1
+		match cold:
+			0:
+				healthbar.tint_progress = Color.WHITE
+				#iconContainer.get_child(0).hide()
+				#iconContainer.get_child(1).hide()
+				#iconContainer.get_child(2).hide()
+			1:
+				healthbar.tint_progress = Color.AQUA
+				#iconContainer.get_child(0).show()
+				#iconContainer.get_child(1).hide()
+				#iconContainer.get_child(2).hide()
+				chillTimer.start()
+			2:
+				healthbar.tint_progress = Color.AQUA
+				#iconContainer.get_child(0).show()
+				#iconContainer.get_child(1).show()
+				#iconContainer.get_child(2).hide()
+				chillTimer.start()
 
 func _on_fire_timer_timeout():
 	if fire > 0:

@@ -14,13 +14,17 @@ func setup(d,fire,ice):
 	fireWeapon = fire
 	iceWeapon = ice
 
+func _process(delta):
+	$model.look_at(global_position + linear_velocity)
+
 func _on_explosion_area_body_entered(body):
-	$RayCast3D.look_at(body.global_transform.origin, Vector3.UP)
-	$RayCast3D.force_raycast_update()
-	if $RayCast3D.is_colliding():
-				var collider = $RayCast3D.get_collider()
-				if collider == body:
-					objects.append(body)
+	objects.append(body)
+	#$RayCast3D.look_at(body.global_transform.origin, Vector3.UP)
+	#$RayCast3D.force_raycast_update()
+	#if $RayCast3D.is_colliding():
+				#var collider = $RayCast3D.get_collider()
+				#if collider == body:
+					#objects.append(body)
 
 func _on_explosion_area_body_exited(body):
 	for index in objects.size():
@@ -56,4 +60,4 @@ func strike(object):
 		if fireWeapon:
 			object.burn(5)
 		elif iceWeapon:
-			pass
+			object.chill(5)
