@@ -141,7 +141,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 30.065
 
 [node name="Bench" parent="Interactables" instance=ExtResource("8_gjdmw")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10, 0, -6.77507)
-type = 0
 
 [node name="Ammo Shelf" parent="Interactables" instance=ExtResource("8_bgqhd")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9.75, 0, 0)

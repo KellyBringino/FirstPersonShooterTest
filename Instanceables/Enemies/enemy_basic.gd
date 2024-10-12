@@ -1,12 +1,1 @@
 extends Enemy_General
-
-
-
-
-
-
-
-
-
-
-

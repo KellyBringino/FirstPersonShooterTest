@@ -40,7 +40,7 @@ var holdingHea : bool = false
 var scoped : bool = false
 var gameover : bool = false
 var textFlash : bool = false
-var flashCycles : int = 0
+var rejectFlashCycles : int = 0
 var hsens : float = 6.0
 var vsens : float = 6.0
 
@@ -106,7 +106,7 @@ func correctToolTip(a):
 		tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").set("theme_override_colors/font_color", Color.RED)
 func rejectToolTip():
 	textFlash = true
-	flashCycles = 5
+	rejectFlashCycles = 5
 	tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipLabel").set("theme_override_colors/font_color", Color.RED)
 	$FlashTimer.start() 
 
@@ -159,8 +159,10 @@ func setWeapons(w):
 	elif weapons[0] == Game.GunType.SHOTGUN:
 		pri = 3
 	if weapons[1] == Game.GunType.PISTOL:
-		sec = 1
+		sec = 0
 	elif weapons[1] == Game.GunType.REVOLVER:
+		sec = 1
+	elif weapons[1] == Game.GunType.SMG:
 		sec = 2
 	if weapons[2] == Game.GunType.ROCKETLAUNCHER:
 		hea = 1
@@ -210,8 +212,8 @@ func _on_flash_timer_timeout():
 	else:
 		tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipLabel").set("theme_override_colors/font_color", Color.RED)
 	textFlash = !textFlash
-	flashCycles -= 1
-	if flashCycles != 0:
+	rejectFlashCycles -= 1
+	if rejectFlashCycles != 0:
 		$FlashTimer.start()
 
 

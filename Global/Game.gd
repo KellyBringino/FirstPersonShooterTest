@@ -1,6 +1,6 @@
 extends Node
 
-enum GunType {NONE, RIFLE, SNIPER, SHOTGUN, PISTOL, REVOLVER, ROCKETLAUNCHER}
+enum GunType {NONE, RIFLE, SNIPER, SHOTGUN, PISTOL, REVOLVER, SMG, ROCKETLAUNCHER}
 
 const enemyStats = \
 {\
@@ -18,135 +18,76 @@ const playerStats = \
 
 #primary stats
 const rifle = {
-	name = "rifle", 
-	ammoLimited = true,
-	gunType = 1,
-	damage = 770.0, 
-	crit = 1.3, 
-	magsize = 40, 
-	ammoMax = 240,
-	reloadMult = 1.0,
-	flinch = 0.2,
-	adsOffset = -0.5,
-	adsZoom = 50.0,
-	scope = false,
-	ammoCost = 1.0,
-	upgradeCost = 600,
-	damageUpgrade = 500,
-	magUpgradeCost = 400,
-	magUpgrade = 80,
-	elementalUpgradeCost = 1000,
-	spreadingWeapon = true,
+	name = "Rifle", ammoLimited = true, gunType = 1,
+	damage = 770.0, crit = 1.3, 
+	magsize = 40, ammoMax = 240, reloadMult = 1.0,
+	flinch = 0.2, adsOffset = -0.5,
+	adsZoom = 50.0, scope = false,
+	ammoCost = 1.0, upgradeCost = 600, magUpgradeCost = 400, elementalUpgradeCost = 1000,
+	damageUpgrade = 500, magUpgrade = 80, spreadingWeapon = true,
 	instance = preload("res://Instanceables/Guns/rifle.tscn")
 }
 const sniper = {
-	name = "sniper", 
-	ammoLimited = true,
-	gunType = 1,
-	damage = 2500.0, 
-	crit = 2.0, 
-	magsize = 3, 
-	ammoMax = 18,
-	reloadMult = 1.0,
-	flinch = 1.0,
-	adsOffset = 0.0,
-	adsZoom = 20.0,
-	scope = true,
-	ammoCost = 20.0,
-	upgradeCost = 600,
-	damageUpgrade = 500,
-	magUpgradeCost = 800,
-	magUpgrade = 2,
-	elementalUpgradeCost = 1000,
-	spreadingWeapon = false,
+	name = "Sniper Rifle", ammoLimited = true, gunType = 1,
+	damage = 2500.0, crit = 2.0, 
+	magsize = 3, ammoMax = 18, reloadMult = 1.0,
+	flinch = 1.0, adsOffset = 0.0,
+	adsZoom = 20.0, scope = true,
+	ammoCost = 20.0, upgradeCost = 600, magUpgradeCost = 800, elementalUpgradeCost = 1000,
+	damageUpgrade = 500, magUpgrade = 2, spreadingWeapon = false,
 	instance = preload("res://Instanceables/Guns/sniper.tscn")
 }
 const shotgun = {
-	name = "shotgun", 
-	ammoLimited = true,
-	gunType = 1,
-	damage = 700.0, 
-	crit = 1.3, 
-	magsize = 5, 
-	ammoMax = 50,
-	pellets = 60,
-	rings = 10,
-	reloadMult = 1.0,
-	flinch = 1.0,
-	adsOffset = 0.0,
-	adsZoom = 60.0,
-	scope = false,
-	ammoCost = 20.0,
-	damageUpgrade = 520,
-	magUpgrade = 2,
-	upgradeCost = 600,
-	magUpgradeCost = 800,
-	elementalUpgradeCost = 1000,
-	spreadingWeapon = true,
+	name = "Shotgun", ammoLimited = true, gunType = 1,
+	damage = 700.0, crit = 1.3, 
+	magsize = 5, ammoMax = 50, reloadMult = 1.0,
+	pellets = 60, rings = 10,
+	flinch = 1.0, adsOffset = 0.0,
+	adsZoom = 60.0, scope = false,
+	ammoCost = 20.0, upgradeCost = 600, magUpgradeCost = 800, elementalUpgradeCost = 1000,
+	damageUpgrade = 520, magUpgrade = 2, spreadingWeapon = true,
 	instance = preload("res://Instanceables/Guns/shotgun.tscn")
 }
 #secondary stats
 const pistol = {
-	name = "pistol", 
-	ammoLimited = false,
-	gunType = 0,
-	damage = 445.0, 
-	crit = 1.5, 
-	magsize = 10, 
-	reloadMult = 1.0,
-	flinch = 0.2,
-	adsOffset = 0.0,
-	adsZoom = 60.0,
-	scope = false,
-	damageUpgrade = 255,
-	magUpgrade = 3,
-	upgradeCost = 1,
-	magUpgradeCost = 1,
-	elementalUpgradeCost = 1,
-	spreadingWeapon = false,
+	name = "Pistol", ammoLimited = false, gunType = 0,
+	damage = 445.0, crit = 1.5, 
+	magsize = 10, reloadMult = 1.0,
+	flinch = 0.2, adsOffset = 0.0,
+	adsZoom = 60.0, scope = false,
+	ammoCost = 0, upgradeCost = 1, magUpgradeCost = 1, elementalUpgradeCost = 1,
+	damageUpgrade = 255, magUpgrade = 3, spreadingWeapon = false,
 	instance = preload("res://Instanceables/Guns/pistol.tscn")
 }
 const revolver = {
-	name = "revolver", 
-	ammoLimited = false,
-	gunType = 0,
-	damage = 550.0, 
-	crit = 1.7, 
-	magsize = 6, 
-	reloadMult = 1.3,
-	flinch = 0.8,
-	adsOffset = 0.0,
-	adsZoom = 50.0,
-	scope = false,
-	upgradeCost = 400,
-	damageUpgrade = 370,
-	magUpgradeCost = 600,
-	magUpgrade = 2,
-	elementalUpgradeCost = 1000,
-	spreadingWeapon = false,
+	name = "Revolver", ammoLimited = false, gunType = 0,
+	damage = 550.0, crit = 1.7, 
+	magsize = 6, reloadMult = 1.3,
+	flinch = 0.8, adsOffset = 0.0,
+	adsZoom = 50.0, scope = false,
+	ammoCost = 0, upgradeCost = 400, magUpgradeCost = 600, elementalUpgradeCost = 1000,
+	damageUpgrade = 370, magUpgrade = 2, spreadingWeapon = false,
 	instance = preload("res://Instanceables/Guns/revolver.tscn")
+}
+const smg = {
+	name = "SMG", ammoLimited = false, gunType = 0,
+	damage = 200.0, crit = 1.3, 
+	magsize = 20, reloadMult = 1.0,
+	flinch = 0.4, adsOffset = 0.0,
+	adsZoom = 60.0, scope = false,
+	ammoCost = 0, upgradeCost = 1, magUpgradeCost = 1, elementalUpgradeCost = 1,
+	damageUpgrade = 150, magUpgrade = 5, spreadingWeapon = true,
+	instance = preload("res://Instanceables/Guns/smg.tscn")
 }
 #heavy stats
 const rocketlauncher = {
-	name = "rocketlauncher", 
-	ammoLimited = true,
-	gunType = 2,
-	damage = 400.0, 
-	crit = 1.0, 
-	magsize = 1, 
-	ammoMax = 4,
-	reloadMult = 1.0,
-	flinch = 0.0,
-	adsOffset = 0.0,
-	adsZoom = 50.0,
-	scope = true,
-	ammoCost = 40.0,
-	upgradeCost = 1000,
-	damageUpgrade = 320,
-	magUpgradeCost = 5000,
-	magUpgrade = 1,
-	elementalUpgradeCost = 1000,
-	spreadingWeapon = true,
+	name = "Rocket Launcher", ammoLimited = true, gunType = 2,
+	damage = 400.0, crit = 1.0, 
+	magsize = 1, ammoMax = 4, reloadMult = 1.0,
+	flinch = 0.0, adsOffset = 0.0,
+	adsZoom = 50.0, scope = true,
+	ammoCost = 40.0, upgradeCost = 1000, magUpgradeCost = 5000, elementalUpgradeCost = 1000,
+	damageUpgrade = 320, magUpgrade = 1, spreadingWeapon = true,
 	proj = preload("res://Instanceables/Guns/Projectile/rocket.tscn"),
 	instance = preload("res://Instanceables/Guns/rocketlauncher.tscn")
 }
@@ -216,6 +157,10 @@ func playerReady():
 		var revolvergun = revolver.instance.instantiate()
 		$"../World/Player/CameraController/GunController/Weapon2"\
 			.add_child(revolvergun)
+	elif weapons[1] == GunType.SMG:
+		var smggun = smg.instance.instantiate()
+		$"../World/Player/CameraController/GunController/Weapon2"\
+			.add_child(smggun)
 	
 	if weapons[2] == GunType.ROCKETLAUNCHER:
 		var rocketgun = rocketlauncher.instance.instantiate()
@@ -238,11 +183,11 @@ func choose(pri,sec,hea):
 	
 	match sec:
 		0:
-			weapons[1] = GunType.NONE
-		1:
 			weapons[1] = GunType.PISTOL
-		2:
+		1:
 			weapons[1] = GunType.REVOLVER
+		2:
+			weapons[1] = GunType.SMG
 	
 	match hea:
 		0:

@@ -5,15 +5,6 @@ const SPRINT_MULT = 2.0
 const JUMP_VELOCITY = 7
 const TILT_LOWER_LIMIT := deg_to_rad(-90.0)
 const TILT_UPPER_LIMIT := deg_to_rad(90.0)
-const INTERACT_PROMPS = [
-	"Hold E to refill Health", 
-	"Hold E to refill Primary Ammo",
-	"Hold E to refill Heavy Ammo",
-	"Hold E to Upgrade Damage on ",
-	"Hold E to Upgrade Magazine on ",
-	"Hold E to Burn Your ",
-	"Hold E to Freeze Your "
-]
 
 const SPRINT_STEP_DIS = 1.2
 const WALK_STEP_DIS = 0.7
@@ -504,26 +495,16 @@ func hit(d,_point):
 		Game.GameOver()
 
 func setGuns(allThree):
+	secondary = $CameraController/GunController/Weapon2/Gun
 	match allThree[0]:
 		Game.GunType.NONE:
 			primary = null
-		Game.GunType.RIFLE:
+		_:
 			primary = $CameraController/GunController/Weapon1/Gun
-		Game.GunType.SNIPER:
-			primary = $CameraController/GunController/Weapon1/Gun
-		Game.GunType.SHOTGUN:
-			primary = $CameraController/GunController/Weapon1/Gun
-	match allThree[1]:
-		Game.GunType.NONE:
-			secondary = null
-		Game.GunType.PISTOL:
-			secondary = $CameraController/GunController/Weapon2/Gun
-		Game.GunType.REVOLVER:
-			secondary = $CameraController/GunController/Weapon2/Gun
 	match allThree[2]:
 		Game.GunType.NONE:
 			heavy = null
-		Game.GunType.ROCKETLAUNCHER:
+		_:
 			heavy = $CameraController/GunController/Weapon3/Gun
 	
 	if allThree[0] == Game.GunType.NONE:

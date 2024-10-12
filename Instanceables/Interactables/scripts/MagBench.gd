@@ -3,7 +3,6 @@ extends BenchBase
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	type = 4
 	phrase = "Hold E to Upgrade Magazine on "
 	maxPhrase = "Weapon is Max Level"
 

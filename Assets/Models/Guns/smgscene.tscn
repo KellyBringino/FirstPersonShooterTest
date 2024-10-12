@@ -1,0 +1,105 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmv8ybe5a0v74"]
+
+[ext_resource type="PackedScene" uid="uid://c1mogx53rrkj5" path="res://Assets/Models/Guns/smg.glb" id="1_kfttb"]
+[ext_resource type="Material" uid="uid://c6v6m61tsjjla" path="res://Assets/Models/Materials/blackGunMetal.tres" id="2_6dbdv"]
+
+[node name="model" instance=ExtResource("1_kfttb")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/5/rotation = Quaternion(-0.5, -0.5, -0.5, 0.5)
+bones/5/scale = Vector3(1, 1, 1)
+bones/12/rotation = Quaternion(0, 0, -0.707107, 0.707107)
+bones/12/scale = Vector3(0.625, 0.75, 0.625)
+
+[node name="Mag" parent="Armature/Skeleton3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.00629188)
+
+[node name="Mag" parent="Armature/Skeleton3D/Mag" index="0"]
+material_override = ExtResource("2_6dbdv")
+
+[node name="Cylinder_004" parent="Armature/Skeleton3D" index="1"]
+transform = Transform3D(0.447345, 0, 0, 0, 1, 0, 0, 0, 0.447345, 0, 0.105452, -0.102896)
+
+[node name="Cylinder_004" parent="Armature/Skeleton3D/Cylinder_004" index="0"]
+material_override = ExtResource("2_6dbdv")
+
+[node name="Barrel" parent="Armature/Skeleton3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.23869e-10, 0.0785672, -0.191609)
+
+[node name="Barrel" parent="Armature/Skeleton3D/Barrel" index="0"]
+material_override = ExtResource("2_6dbdv")
+
+[node name="BarrelVent" parent="Armature/Skeleton3D" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.23869e-10, 0.0785672, -0.191609)
+
+[node name="BarrelVent" parent="Armature/Skeleton3D/BarrelVent" index="0"]
+material_override = ExtResource("2_6dbdv")
+
+[node name="Body" parent="Armature/Skeleton3D" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+
+[node name="Body" parent="Armature/Skeleton3D/Body" index="0"]
+material_override = ExtResource("2_6dbdv")
+
+[node name="Butt" parent="Armature/Skeleton3D" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.135234)
+
+[node name="Butt" parent="Armature/Skeleton3D/Butt" index="0"]
+material_override = ExtResource("2_6dbdv")
+
+[node name="Cube_001" parent="Armature/Skeleton3D" index="6"]
+transform = Transform3D(0.0125, 0, 0, 0, 0.0025, 0, 0, 0, 0.01, 0, 0.112278, 0.114367)
+
+[node name="Cube_001" parent="Armature/Skeleton3D/Cube_001" index="0"]
+material_override = ExtResource("2_6dbdv")
+
+[node name="Cube_002" parent="Armature/Skeleton3D" index="7"]
+transform = Transform3D(0.00731283, 0, 0, 0, 0.0025, 0, 0, 0, 0.00585026, 0, 0.112278, -0.175944)
+
+[node name="Cube_002" parent="Armature/Skeleton3D/Cube_002" index="0"]
+material_override = ExtResource("2_6dbdv")
+
+[node name="Cylinder" parent="Armature/Skeleton3D" index="8"]
+transform = Transform3D(2.23517e-07, 0.75, 0, -0.625, 2.68221e-07, 0, 0, 0, 0.625, 1.5728e-18, 0.113426, -0.175944)
+
+[node name="Cylinder" parent="Armature/Skeleton3D/Cylinder" index="0"]
+material_override = ExtResource("2_6dbdv")
+
+[node name="Cylinder_001" parent="Armature/Skeleton3D" index="9"]
+transform = Transform3D(0.375, 0, 0, 0, 0.375, 0, 0, 0, 0.05, 0, 0.123718, 0.114367)
+
+[node name="Cylinder_001" parent="Armature/Skeleton3D/Cylinder_001" index="0"]
+material_override = ExtResource("2_6dbdv")
+
+[node name="Cylinder_003" parent="Armature/Skeleton3D" index="10"]
+transform = Transform3D(0.05, 0, 0, 0, 1, 0, 0, 0, 0.05, 0, 0.117278, -0.175944)
+
+[node name="Cylinder_003" parent="Armature/Skeleton3D/Cylinder_003" index="0"]
+material_override = ExtResource("2_6dbdv")
+
+[node name="Grip" parent="Armature/Skeleton3D" index="11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+
+[node name="Grip" parent="Armature/Skeleton3D/Grip" index="0"]
+material_override = ExtResource("2_6dbdv")
+
+[node name="Sights_Rear" parent="Armature/Skeleton3D" index="12"]
+transform = Transform3D(0.75, 0, 0, 0, 0.925, 0, 0, 0, 0.925, 0, 0.112278, 0.114367)
+
+[node name="Sights_Rear" parent="Armature/Skeleton3D/Sights_Rear" index="0"]
+material_override = ExtResource("2_6dbdv")
+
+[node name="Plane" parent="Armature/Skeleton3D" index="13"]
+visible = false
+
+[node name="GripAttachment" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="14"]
+bone_name = "Main_bone"
+bone_idx = 0
+
+[node name="OffhandAttachment" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="15"]
+transform = Transform3D(5.96046e-08, 1, -2.98023e-08, 1.49012e-07, 5.96046e-08, 1, 1, -2.98023e-08, -1.19209e-07, 0, 0.05, -0.136242)
+bone_name = "Offhand_bone"
+bone_idx = 5
+
+[node name="AnimationPlayer" parent="." index="2"]
+autoplay = "Idle"

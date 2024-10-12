@@ -2,7 +2,6 @@ extends BenchBase
 
 
 func _ready():
-	type = 3
 	phrase = "Hold E to Upgrade Damage on "
 	maxPhrase = "Weapon is Max Level"
 

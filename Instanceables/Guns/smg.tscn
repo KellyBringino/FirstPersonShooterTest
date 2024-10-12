@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://cn420yhbp45e7"]
+
+[ext_resource type="Script" path="res://Instanceables/Guns/scripts/smg.gd" id="1_hyr26"]
+[ext_resource type="PackedScene" uid="uid://cmv8ybe5a0v74" path="res://Assets/Models/Guns/smgscene.tscn" id="2_3hau5"]
+[ext_resource type="AudioStream" uid="uid://bgb4vpn7rwn7k" path="res://Assets/Sound/Gunshots/SMGSound.wav" id="3_7fu6j"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xwuhw"]
+radius = 1.0
+
+[node name="Gun" type="Node3D"]
+script = ExtResource("1_hyr26")
+
+[node name="model" parent="." instance=ExtResource("2_3hau5")]
+
+[node name="BarrelEnd" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.279945)
+
+[node name="ShootRay" type="RayCast3D" parent="BarrelEnd"]
+target_position = Vector3(0, 0, -50)
+collision_mask = 177
+collide_with_areas = true
+
+[node name="DistanceRef" type="Node3D" parent="BarrelEnd/ShootRay"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="BarrelEnd"]
+stream = ExtResource("3_7fu6j")
+volume_db = -30.0
+max_db = 0.0
+
+[node name="Grip" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101253, 0)
+
+[node name="OffhandGrip" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101253, 0)
+
+[node name="ShotTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="GraceTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="AOETrigger" type="Area3D" parent="."]
+collision_layer = 64
+collision_mask = 48
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AOETrigger"]
+shape = SubResource("SphereShape3D_xwuhw")
+
+[connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]
+[connection signal="timeout" from="GraceTimer" to="." method="_on_grace_timer_timeout"]
+[connection signal="body_entered" from="AOETrigger" to="." method="_on_aoe_trigger_body_entered"]
+[connection signal="body_exited" from="AOETrigger" to="." method="_on_aoe_trigger_body_exited"]

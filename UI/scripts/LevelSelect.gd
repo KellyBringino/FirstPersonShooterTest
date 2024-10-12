@@ -14,11 +14,11 @@ extends Node2D
 
 const mapMax = 2
 const priMax = 4
-const secMax = 2
+const secMax = 3
 const heaMax = 2
 const mapLabels = ["test", "Rooms"]
 const priLabels = ["None", "Rifle", "Sniper", "Shotgun"]
-const secLabels = ["Pistol", "Revolver"]
+const secLabels = ["Pistol", "Revolver", "SMG"]
 const heaLabels = ["None", "Rocket Launcher"]
 var mapIcons = [
 	load("res://Assets/Sprites/UI/null.svg"),
@@ -30,7 +30,8 @@ var priIcons = [
 	load("res://Assets/Sprites/Gun Icons/shotgun_icon.png")]
 var secIcons = [
 	load("res://Assets/Sprites/Gun Icons/pistol_icon.png"),
-	load("res://Assets/Sprites/Gun Icons/revolver_icon.png")]
+	load("res://Assets/Sprites/Gun Icons/revolver_icon.png"),
+	load("res://Assets/Sprites/Gun Icons/smg_icon.png")]
 var heaIcons = [
 	load("res://Assets/Sprites/UI/null.svg"),
 	load("res://Assets/Sprites/Gun Icons/rocketlauncher_icon.png")]
@@ -48,7 +49,7 @@ func _ready():
 func _on_back_button_pressed():
 	Utils.switchToMainMenu()
 func _on_start_button_pressed():
-	Game.choose(pri,sec+1,hea)
+	Game.choose(pri,sec,hea)
 	Utils.loadLevel(map)
 
 func moveCardTo(page):

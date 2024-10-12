@@ -5,12 +5,8 @@ extends Area3D
 @onready var workbenchSound = $WorkbenchSound
 @onready var rejectSound = $RejectSound
 
-@export var type : int
 var phrase = "This has no function yet"
 var maxPhrase = ""
-
-func getType():#0 for health, 1 for primary ammo, 2 for heavy ammo, 3 for bench
-	return type
 
 func accessToolTip():
 	var number = " (0 needed)"
