@@ -210,6 +210,8 @@ func decipherWeaponNumber(weapon):
 			return 1
 		GunType.GRENADELAUNCHER:
 			return 2
+		_:
+			return 0
 
 func choose(pri,sec,hea):
 	match pri:

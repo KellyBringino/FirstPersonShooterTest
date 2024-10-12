@@ -149,12 +149,9 @@ func dontpointgun():
 
 func setWeapons(w):
 	weapons = w
-	var pri = 0
-	var sec = 0
-	var hea = 0
-	pri = Game.decipherWeaponNumber(weapons[0])
-	sec = Game.decipherWeaponNumber(weapons[1])
-	hea = Game.decipherWeaponNumber(weapons[2])
+	var pri = Game.decipherWeaponNumber(weapons[0])
+	var sec = Game.decipherWeaponNumber(weapons[1])
+	var hea = Game.decipherWeaponNumber(weapons[2])
 	selectionWheel.setWeapons(pri,sec,hea)
 	iconWheel.setStats(0,0,0)
 
