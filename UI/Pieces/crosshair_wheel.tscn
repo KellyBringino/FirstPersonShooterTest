@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8vge7q0v1mk6"]
+[gd_scene load_steps=8 format=3 uid="uid://c8vge7q0v1mk6"]
 
 [ext_resource type="Texture2D" uid="uid://jyqtgicdp1th" path="res://Assets/Sprites/Crosshairs/CrossTick.svg" id="1_3axuy"]
 [ext_resource type="Texture2D" uid="uid://c46x4byjn270y" path="res://Assets/Sprites/Crosshairs/FireCrosshair.svg" id="2_sk1x0"]
+[ext_resource type="Texture2D" uid="uid://ealu3oq8r4eo" path="res://Assets/Sprites/Crosshairs/IceCrosshair.svg" id="3_8ap2v"]
 
 [sub_resource type="GDScript" id="GDScript_sip4t"]
 script/source = "@tool
@@ -56,6 +57,10 @@ region = Rect2(0, 0, 2268, 2268)
 atlas = ExtResource("2_sk1x0")
 region = Rect2(0, 0, 2268, 2268)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1b7k"]
+atlas = ExtResource("3_8ap2v")
+region = Rect2(0, 0, 1080, 1080)
+
 [node name="crosshair_wheel" type="Container"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -73,4 +78,4 @@ outer_radius = 10
 inner_radius = 0
 start_angle = 30
 picture_scale = 300000.0
-ticsText = Array[AtlasTexture]([SubResource("AtlasTexture_xwj2v"), SubResource("AtlasTexture_o0mvq")])
+ticsText = Array[AtlasTexture]([SubResource("AtlasTexture_xwj2v"), SubResource("AtlasTexture_o0mvq"), SubResource("AtlasTexture_g1b7k")])

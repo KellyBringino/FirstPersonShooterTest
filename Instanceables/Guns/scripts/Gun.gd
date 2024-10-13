@@ -200,6 +200,6 @@ func strike(object):
 			for o in hits:
 				o.hit(point,damage,1)
 		elif iceWeapon and spreadingWeapon:
-			pass
+			object.chill(10)
 		elif iceWeapon:
-			pass
+			object.freeze(15)

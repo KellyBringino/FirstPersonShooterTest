@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://hnn4b7yok2fh"]
+
+[ext_resource type="Script" path="res://Instanceables/Interactables/scripts/IceBench.gd" id="1_oqjtj"]
+[ext_resource type="PackedScene" uid="uid://cx033wwu8eb36" path="res://Assets/Models/Interactables/bench_scene_ice.tscn" id="2_csitm"]
+[ext_resource type="AudioStream" uid="uid://bkdw5kgh56bor" path="res://Assets/Sound/Environment/workbench.wav" id="3_lv73m"]
+[ext_resource type="AudioStream" uid="uid://sir8bmti7e7e" path="res://Assets/Sound/Environment/reject.wav" id="4_wqe7g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hb7q7"]
+size = Vector3(2, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5i5vr"]
+size = Vector3(2, 1, 1)
+
+[node name="Ice Bench" type="Area3D"]
+collision_layer = 256
+collision_mask = 256
+script = ExtResource("1_oqjtj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
+shape = SubResource("BoxShape3D_hb7q7")
+
+[node name="Bench" parent="." instance=ExtResource("2_csitm")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.5)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_5i5vr")
+
+[node name="WorkbenchSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_lv73m")
+volume_db = -10.0
+
+[node name="RejectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_wqe7g")

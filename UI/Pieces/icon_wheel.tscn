@@ -1,13 +1,18 @@
-[gd_scene load_steps=21 format=3 uid="uid://dub2f54202j2y"]
+[gd_scene load_steps=31 format=3 uid="uid://dub2f54202j2y"]
 
 [ext_resource type="Texture2D" uid="uid://cp715m6uw8q6h" path="res://Assets/Sprites/Gun Property Icons/Damage Property/damage0.svg" id="1_igmvg"]
 [ext_resource type="Texture2D" uid="uid://bt4116u3kliy3" path="res://Assets/Sprites/UI/null.svg" id="1_peomd"]
 [ext_resource type="Texture2D" uid="uid://cdosdyxpdbvan" path="res://Assets/Sprites/Gun Property Icons/Damage Property/damage1.svg" id="2_lqnpk"]
 [ext_resource type="Texture2D" uid="uid://dmttx4v32fxi3" path="res://Assets/Sprites/Gun Property Icons/Damage Property/damage2.svg" id="3_igy47"]
 [ext_resource type="Texture2D" uid="uid://sgl00grfwvn6" path="res://Assets/Sprites/Gun Property Icons/Magazine Property/mag0.svg" id="4_6yp0w"]
+[ext_resource type="Texture2D" uid="uid://dv8drlqyol6j" path="res://Assets/Sprites/Gun Property Icons/Damage Property/damage3.svg" id="4_r8ku2"]
 [ext_resource type="Texture2D" uid="uid://dw0c37pgbo67o" path="res://Assets/Sprites/Gun Property Icons/Magazine Property/mag1.svg" id="5_tlyn8"]
+[ext_resource type="Texture2D" uid="uid://bo008qxmgnifx" path="res://Assets/Sprites/Gun Property Icons/Damage Property/damage4.svg" id="5_yvx3l"]
 [ext_resource type="Texture2D" uid="uid://ddys2p4vxhb1q" path="res://Assets/Sprites/Gun Property Icons/Magazine Property/mag2.svg" id="6_an6ya"]
+[ext_resource type="Texture2D" uid="uid://mroqnpb85a5f" path="res://Assets/Sprites/Gun Property Icons/Damage Property/damage5.svg" id="6_hkesl"]
 [ext_resource type="Texture2D" uid="uid://dj01srtuboavu" path="res://Assets/Sprites/Gun Property Icons/Magazine Property/mag3.svg" id="7_t6p1u"]
+[ext_resource type="Texture2D" uid="uid://64oe63qgpvk4" path="res://Assets/Sprites/Gun Property Icons/Elemental Property/Fire.svg" id="8_pl70d"]
+[ext_resource type="Texture2D" uid="uid://bggsmnwygrmlc" path="res://Assets/Sprites/Gun Property Icons/Elemental Property/Ice.svg" id="9_8j88d"]
 
 [sub_resource type="GDScript" id="GDScript_sip4t"]
 script/source = "@tool
@@ -62,6 +67,18 @@ region = Rect2(0, 0, 1080, 1080)
 atlas = ExtResource("3_igy47")
 region = Rect2(0, 0, 1080, 1080)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wu1d"]
+atlas = ExtResource("4_r8ku2")
+region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbwuh"]
+atlas = ExtResource("5_yvx3l")
+region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vw2j5"]
+atlas = ExtResource("6_hkesl")
+region = Rect2(0, 0, 1080, 1080)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_1gbeg"]
 atlas = ExtResource("4_6yp0w")
 region = Rect2(0, 0, 1080, 1080)
@@ -81,6 +98,14 @@ region = Rect2(0, 0, 1080, 1080)
 [sub_resource type="AtlasTexture" id="AtlasTexture_5yaki"]
 atlas = ExtResource("1_igmvg")
 region = Rect2(0, 0, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0rwi"]
+atlas = ExtResource("8_pl70d")
+region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrkp2"]
+atlas = ExtResource("9_8j88d")
+region = Rect2(0, 0, 1080, 1080)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nf731"]
 atlas = ExtResource("1_igmvg")
@@ -113,7 +138,7 @@ inner_radius = 225
 start_angle = 70.0
 end_angle = 35.0
 picture_scale = 20.0
-damText = Array[AtlasTexture]([SubResource("AtlasTexture_kg8pu"), SubResource("AtlasTexture_nkaso"), SubResource("AtlasTexture_0lh0j"), null, null, null])
+damText = Array[AtlasTexture]([SubResource("AtlasTexture_kg8pu"), SubResource("AtlasTexture_nkaso"), SubResource("AtlasTexture_0lh0j"), SubResource("AtlasTexture_6wu1d"), SubResource("AtlasTexture_pbwuh"), SubResource("AtlasTexture_vw2j5")])
 magText = Array[AtlasTexture]([SubResource("AtlasTexture_1gbeg"), SubResource("AtlasTexture_awjxd"), SubResource("AtlasTexture_dfk02"), SubResource("AtlasTexture_g1mu2")])
-elemText = Array[AtlasTexture]([SubResource("AtlasTexture_5yaki")])
+elemText = Array[AtlasTexture]([SubResource("AtlasTexture_5yaki"), SubResource("AtlasTexture_y0rwi"), SubResource("AtlasTexture_qrkp2")])
 currentText = Array[AtlasTexture]([SubResource("AtlasTexture_nf731"), SubResource("AtlasTexture_f1n3k"), SubResource("AtlasTexture_tvqba")])

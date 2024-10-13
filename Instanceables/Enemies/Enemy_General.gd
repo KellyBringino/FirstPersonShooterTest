@@ -5,17 +5,21 @@ extends CharacterBody3D
 @onready var skl : Skeleton3D = $ModelController/doll/Armature/Skeleton3D
 @onready var anim : AnimationPlayer = $ModelController/doll/AnimationPlayer
 @onready var healthbar : TextureProgressBar = $Sprite3D/SubViewport/TextureProgressBar
-@onready var iconContainer = $Sprite3D/SubViewport/IconContainer
+@onready var fireIconContainer = $Sprite3D/SubViewport/IconContainerFire
+@onready var iceIconContainer = $Sprite3D/SubViewport/IconContainerIce
 @onready var lookTimer = $TimerController/LookCheck
 @onready var pathTimer = $TimerController/PathfindTimer
 @onready var fireTimer : Timer = $TimerController/FireTimer
 @onready var chillTimer : Timer = $TimerController/ChillTimer
+@onready var freezeTimer : Timer = $TimerController/FreezeTimer
 
 const RUN_SPEED = 4.0
 const REACH_DIST = 0.5
 const SHOOT_DIST = 10.0
-const FIRE_2_CHANCE = 0.5
-const FIRE_3_CHANCE = 1.0/3.0
+const STATUS_2_CHANCE = 0.5
+const STATUS_3_CHANCE = 1.0/3.0
+const COLD_SPEED = 0.20
+const COLD_DAMAGE_MULT = 0.05
 const HEALTH_BAR_TEXT = preload("res://Assets/Sprites/UI/health.svg")
 const HEALTH_BAR_FIRE_TEXT = preload("res://Assets/Sprites/UI/health_fire.svg")
 
@@ -32,6 +36,8 @@ var see : Array = []
 var suspicious : bool = false
 var fire = 0
 var cold = 0
+var frozen = false
+var shatterRange : Array = []
 var dying : bool = false
 var player
 
@@ -58,17 +64,18 @@ func _physics_process(delta):
 	$ViewControl/vision/GunController.global_transform.origin \
 	= $ModelController/doll/HandAttachment.global_transform.origin
 	
-	handleStates(delta)
+	if !dying and !frozen:
+		handleStates(delta)
 	
-	#look at player
-	look_at(lastKnowLoc,Vector3.UP)
-	rotation.x = 0.0
-	rotation.z = 0.0
+		#look at player
+		look_at(lastKnowLoc,Vector3.UP)
+		rotation.x = 0.0
+		rotation.z = 0.0
 	
-	#if the player is in the vision cone, look at them and point the gun at them
-	if(see.size() > 0):
-		$ViewControl.look_at(lastKnowLoc)
-		$ViewControl/vision/GunController/Weapon.look_at(lastKnowLoc)
+		#if the player is in the vision cone, look at them and point the gun at them
+		if(see.size() > 0):
+			$ViewControl.look_at(lastKnowLoc)
+			$ViewControl/vision/GunController/Weapon.look_at(lastKnowLoc)
 	
 	velocity.x = 0
 	velocity.z = 0
@@ -107,9 +114,9 @@ func move():
 	if global_transform.origin.distance_to(lastKnowLoc) <= (REACH_DIST/2.0):
 		return
 	var nextNavPoint = nav_agent.get_next_path_position()
-	if currentState == state.CHASING:
+	if currentState == state.CHASING and !frozen:
 		velocity = ((nextNavPoint - global_transform.origin) \
-		* Vector3(1,0,1)).normalized() * RUN_SPEED
+		* Vector3(1,0,1)).normalized() * RUN_SPEED * (1 - (COLD_SPEED * cold))
 		playAnim("Run",true,false)
 
 func reached(point):
@@ -132,64 +139,95 @@ func stateChange(nState):
 			suspicious = true
 
 func damage(point, amount, source):
-	health -= amount
+	if source != 2:
+		health -= amount * (1 +  (cold * COLD_DAMAGE_MULT))
+	else:
+		health -= amount
 	healthbar.value = health
 	healthbar.max_value = maxHealth
 	if health <= 0:
 		dead(point,source)
 func hit(point, d, source):
+	if frozen:
+		for part in shatterRange:
+			if part != self:
+				part.hit(part.global_position,d,3)
+		frozen = false
 	damage(point,d,source)
 func burn(t):
 	healthbar.texture_progress = HEALTH_BAR_FIRE_TEXT
 	match fire:
 		0:
 			fire += 1
-			iconContainer.get_child(0).show()
-			iconContainer.get_child(1).hide()
-			iconContainer.get_child(2).hide()
+			fireIconContainer.get_child(0).show()
+			fireIconContainer.get_child(1).hide()
+			fireIconContainer.get_child(2).hide()
 		1:
-			if randf() < FIRE_2_CHANCE:
+			if randf() < STATUS_2_CHANCE:
 				fire += 1
-				iconContainer.get_child(0).show()
-				iconContainer.get_child(1).show()
-				iconContainer.get_child(2).hide()
+				fireIconContainer.get_child(0).show()
+				fireIconContainer.get_child(1).show()
+				fireIconContainer.get_child(2).hide()
 		2:
-			if randf() < FIRE_3_CHANCE:
+			if randf() < STATUS_3_CHANCE:
 				fire += 1
-				iconContainer.get_child(0).show()
-				iconContainer.get_child(1).show()
-				iconContainer.get_child(2).show()
+				fireIconContainer.get_child(0).show()
+				fireIconContainer.get_child(1).show()
+				fireIconContainer.get_child(2).show()
 		3:
-			iconContainer.get_child(0).show()
-			iconContainer.get_child(1).show()
-			iconContainer.get_child(2).show()
+			fireIconContainer.get_child(0).show()
+			fireIconContainer.get_child(1).show()
+			fireIconContainer.get_child(2).show()
 	fireTimer.wait_time = t
 	fireTimer.start()
 func chill(t):
-	healthbar.tint_progress = Color.AQUA
+	healthbar.tint_over = Color(1.0,1.0,1.0,1.0)
 	match cold:
 		0:
 			cold += 1
-			#iconContainer.get_child(0).show()
-			#iconContainer.get_child(1).hide()
-			#iconContainer.get_child(2).hide()
+			iceIconContainer.get_child(0).show()
+			iceIconContainer.get_child(1).hide()
+			iceIconContainer.get_child(2).hide()
 		1:
-			if randf() < FIRE_2_CHANCE:
+			if randf() < STATUS_2_CHANCE:
 				cold += 1
-				#iconContainer.get_child(0).show()
-				#iconContainer.get_child(1).show()
-				#iconContainer.get_child(2).hide()
+				iceIconContainer.get_child(0).show()
+				iceIconContainer.get_child(1).show()
+				iceIconContainer.get_child(2).hide()
 		2:
-			if randf() < FIRE_3_CHANCE:
+			if randf() < STATUS_3_CHANCE:
 				cold += 1
-				#iconContainer.get_child(0).show()
-				#iconContainer.get_child(1).show()
-				#iconContainer.get_child(2).show()
+				iceIconContainer.get_child(0).show()
+				iceIconContainer.get_child(1).show()
+				iceIconContainer.get_child(2).show()
 		3:
-			#iconContainer.get_child(0).show()
-			#iconContainer.get_child(1).show()
-			#iconContainer.get_child(2).show()
+			iceIconContainer.get_child(0).show()
+			iceIconContainer.get_child(1).show()
+			iceIconContainer.get_child(2).show()
 			pass
+	if !frozen:
+		anim.speed_scale = (1 - (COLD_SPEED * cold))
+	chillTimer.wait_time = t
+	chillTimer.start()
+func freeze(t):
+	frozen = true
+	anim.speed_scale = 0
+	freezeTimer.wait_time = t
+	freezeTimer.start()
+func strike(object,point,damage):
+	if object.collision_layer == 16 or object.collision_layer == 32:
+		while !object.editor_description.contains("Enemy"):
+			if object == null:
+				break
+			if object == self:
+				object == null
+				break
+			object = object.get_node("../")
+		if object != null:
+			if object.editor_description.contains("Enemy"):
+				object.hit(point,damage,0)
+	elif object.collision_layer == 128:
+		object.hit(point,damage,0)
 
 func dead(_point, source):
 	if !dying:
@@ -216,6 +254,14 @@ func _on_vision_body_exited(body):
 	for index in vision.size():
 		if vision[index] == body:
 			vision.remove_at(index)
+			break
+
+func _on_shatter_area_body_entered(body):
+	shatterRange.append(body)
+func _on_shatter_area_body_exited(body):
+	for index in shatterRange.size():
+		if shatterRange[index] == body:
+			shatterRange.remove_at(index)
 			break
 
 func _on_look_check_timeout():
@@ -255,38 +301,44 @@ func _on_chill_timer_timeout():
 		cold -= 1
 		match cold:
 			0:
-				healthbar.tint_progress = Color.WHITE
-				#iconContainer.get_child(0).hide()
-				#iconContainer.get_child(1).hide()
-				#iconContainer.get_child(2).hide()
+				healthbar.tint_over = Color(1.0,1.0,1.0,0.0)
+				iceIconContainer.get_child(0).hide()
+				iceIconContainer.get_child(1).hide()
+				iceIconContainer.get_child(2).hide()
 			1:
-				healthbar.tint_progress = Color.AQUA
-				#iconContainer.get_child(0).show()
-				#iconContainer.get_child(1).hide()
-				#iconContainer.get_child(2).hide()
+				healthbar.tint_over = Color(1.0,1.0,1.0,1.0)
+				iceIconContainer.get_child(0).show()
+				iceIconContainer.get_child(1).hide()
+				iceIconContainer.get_child(2).hide()
 				chillTimer.start()
 			2:
-				healthbar.tint_progress = Color.AQUA
-				#iconContainer.get_child(0).show()
-				#iconContainer.get_child(1).show()
-				#iconContainer.get_child(2).hide()
+				healthbar.tint_over = Color(1.0,1.0,1.0,1.0)
+				iceIconContainer.get_child(0).show()
+				iceIconContainer.get_child(1).show()
+				iceIconContainer.get_child(2).hide()
 				chillTimer.start()
+	anim.speed_scale = (1 - (COLD_SPEED * cold))
 
 func _on_fire_timer_timeout():
 	if fire > 0:
 		fire -= 1
 		match fire:
 			0:
-				iconContainer.get_child(0).hide()
-				iconContainer.get_child(1).hide()
-				iconContainer.get_child(2).hide()
+				fireIconContainer.get_child(0).hide()
+				fireIconContainer.get_child(1).hide()
+				fireIconContainer.get_child(2).hide()
 			1:
-				iconContainer.get_child(0).show()
-				iconContainer.get_child(1).hide()
-				iconContainer.get_child(2).hide()
+				fireIconContainer.get_child(0).show()
+				fireIconContainer.get_child(1).hide()
+				fireIconContainer.get_child(2).hide()
 				fireTimer.start()
 			2:
-				iconContainer.get_child(0).show()
-				iconContainer.get_child(1).show()
-				iconContainer.get_child(2).hide()
+				fireIconContainer.get_child(0).show()
+				fireIconContainer.get_child(1).show()
+				fireIconContainer.get_child(2).hide()
 				fireTimer.start()
+
+
+func _on_freeze_timer_timeout():
+	frozen = false
+	anim.speed_scale = (1 - (COLD_SPEED * cold))

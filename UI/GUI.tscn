@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b5gjr4qrdvma7"]
+[gd_scene load_steps=19 format=3 uid="uid://b5gjr4qrdvma7"]
 
 [ext_resource type="Script" path="res://UI/scripts/UI.gd" id="1_81un3"]
 [ext_resource type="Texture2D" uid="uid://drchcncoxm6r2" path="res://Assets/Sprites/Crosshairs/crosshair.svg" id="2_ekvqs"]
@@ -9,50 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://crmjikty86roj" path="res://Assets/Sprites/UI/circle bar.svg" id="3_wyimq"]
 [ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Assets/Sprites/UI/health.svg" id="4_0u4fy"]
 [ext_resource type="Texture2D" uid="uid://bt4116u3kliy3" path="res://Assets/Sprites/UI/null.svg" id="4_dvvja"]
-[ext_resource type="Texture2D" uid="uid://cp715m6uw8q6h" path="res://Assets/Sprites/Gun Property Icons/Damage Property/damage0.svg" id="4_ylfgd"]
-[ext_resource type="Texture2D" uid="uid://cdosdyxpdbvan" path="res://Assets/Sprites/Gun Property Icons/Damage Property/damage1.svg" id="5_0thpb"]
 [ext_resource type="Texture2D" uid="uid://c3p0w407rsla6" path="res://Assets/Sprites/Gun Icons/rifle_icon.png" id="5_bi2n4"]
 [ext_resource type="Texture2D" uid="uid://dfn0k6x8ocd8o" path="res://Assets/Sprites/Gun Icons/sniper_icon.png" id="6_o34eo"]
-[ext_resource type="Texture2D" uid="uid://dmttx4v32fxi3" path="res://Assets/Sprites/Gun Property Icons/Damage Property/damage2.svg" id="6_q6hhh"]
-[ext_resource type="Texture2D" uid="uid://dv8drlqyol6j" path="res://Assets/Sprites/Gun Property Icons/Damage Property/damage3.svg" id="7_dis5j"]
 [ext_resource type="Texture2D" uid="uid://cyvgtgfpwye8m" path="res://Assets/Sprites/Crosshairs/hitmark.svg" id="7_kq6is"]
 [ext_resource type="Texture2D" uid="uid://1caw0w1gbavd" path="res://Assets/Sprites/Gun Icons/shotgun_icon.png" id="7_thkrn"]
-[ext_resource type="Texture2D" uid="uid://bo008qxmgnifx" path="res://Assets/Sprites/Gun Property Icons/Damage Property/damage4.svg" id="8_7f2fy"]
 [ext_resource type="Texture2D" uid="uid://cukx82xutv6ek" path="res://Assets/Sprites/Crosshairs/scopesilhouette.svg" id="8_ih7td"]
-[ext_resource type="Texture2D" uid="uid://mroqnpb85a5f" path="res://Assets/Sprites/Gun Property Icons/Damage Property/damage5.svg" id="9_x36rp"]
-[ext_resource type="Texture2D" uid="uid://64oe63qgpvk4" path="res://Assets/Sprites/Gun Property Icons/Elemental Property/Fire.svg" id="11_wn0dm"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kg8pu"]
-atlas = ExtResource("4_ylfgd")
-region = Rect2(0, 0, 1080, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nkaso"]
-atlas = ExtResource("5_0thpb")
-region = Rect2(0, 0, 1080, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0lh0j"]
-atlas = ExtResource("6_q6hhh")
-region = Rect2(0, 0, 1080, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fy7rv"]
-atlas = ExtResource("7_dis5j")
-region = Rect2(0, 0, 1080, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_855ph"]
-atlas = ExtResource("8_7f2fy")
-region = Rect2(0, 0, 1080, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_45xwd"]
-atlas = ExtResource("9_x36rp")
-region = Rect2(0, 0, 1080, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5yaki"]
-atlas = ExtResource("4_ylfgd")
-region = Rect2(0, 0, 1, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6gave"]
-atlas = ExtResource("11_wn0dm")
-region = Rect2(0, 0, 1080, 1080)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j83ai"]
 atlas = ExtResource("4_dvvja")
@@ -157,8 +118,6 @@ offset_left = -74.0
 offset_top = -74.0
 offset_right = -34.0
 offset_bottom = -34.0
-damText = Array[AtlasTexture]([SubResource("AtlasTexture_kg8pu"), SubResource("AtlasTexture_nkaso"), SubResource("AtlasTexture_0lh0j"), SubResource("AtlasTexture_fy7rv"), SubResource("AtlasTexture_855ph"), SubResource("AtlasTexture_45xwd")])
-elemText = Array[AtlasTexture]([SubResource("AtlasTexture_5yaki"), SubResource("AtlasTexture_6gave")])
 
 [node name="selection_wheel" parent="CanvasLayer/InGameGUI/AmmoContainer" instance=ExtResource("3_7ldfk")]
 layout_mode = 1
