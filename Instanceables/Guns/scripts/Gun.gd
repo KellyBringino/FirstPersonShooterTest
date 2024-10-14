@@ -162,18 +162,15 @@ func _on_aoe_trigger_body_exited(body):
 
 func strike(object):
 	var point = shootRay.get_collision_point()
+	var dam = damage
 	if object.collision_layer == 16 or object.collision_layer == 32:
 		while !object.editor_description.contains("Enemy"):
 			if object == null:
 				break
 			object = object.get_node("../")
 		if object != null:
-			if object.editor_description.contains("Enemy"):
-				if object.collision_layer == 32:
-					damage *= critMult
-				object.hit(point,damage,0)
-	elif object.collision_layer == 128:
-		object.hit(point,damage,0)
+			if object.collision_layer == 32:
+				dam *= critMult
 	
 	if object.collision_layer == 1:
 		var misfire = misfireInst.instantiate()
@@ -198,8 +195,10 @@ func strike(object):
 				if o != null and !hits.has(o):
 					hits.append(o)
 			for o in hits:
-				o.hit(point,damage,1)
+				o.hit(point,dam,1)
 		elif iceWeapon and spreadingWeapon:
 			object.chill(10)
 		elif iceWeapon:
 			object.freeze(15)
+		
+		object.hit(point,dam,0)

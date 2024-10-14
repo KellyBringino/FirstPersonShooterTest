@@ -25,11 +25,11 @@ func fire():
 		for i in pellets:
 			splinterRay.rotation = Vector3.ZERO
 			var rotref = -(shootRay.get_global_transform().basis.z)
-			splinterRay.rotation_degrees.x = (i / floor(pellets/4))*4
-			var angle = (i % (floor(pellets/rings))) * ((2*PI)/(floor(pellets/rings)))
+			splinterRay.rotation_degrees.x = (i / floor(pellets/4.0))*4
+			var angle = (i % (floor(float(pellets)/float(rings)))) * ((2*PI)/(floor(float(pellets)/float(rings))))
 			splinterRay.global_rotate(
 				rotref,
-				(angle + (((rng.randf() - 0.5) * rings)) * PI / floor(pellets/rings))
+				(angle + (((rng.randf() - 0.5) * rings)) * PI / floor(float(pellets)/float(rings)))
 			)
 			splinterRay.force_raycast_update()
 			var object = splinterRay.get_collider()

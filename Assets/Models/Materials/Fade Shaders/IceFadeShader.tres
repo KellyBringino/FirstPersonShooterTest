@@ -168,4 +168,4 @@ shader = SubResource("VisualShader_vhsgc")
 shader_parameter/ColorParameter = Color(1, 0, 0, 1)
 shader_parameter/Strength = 5.0
 shader_parameter/Light_Color = Color(0, 1, 1, 1)
-shader_parameter/Value = 0.43
+shader_parameter/Value = 0.5
