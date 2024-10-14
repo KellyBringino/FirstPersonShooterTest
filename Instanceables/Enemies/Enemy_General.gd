@@ -5,6 +5,7 @@ extends CharacterBody3D
 @onready var skl : Skeleton3D = $ModelController/doll/Armature/Skeleton3D
 @onready var anim : AnimationPlayer = $ModelController/doll/AnimationPlayer
 @onready var healthbar : TextureProgressBar = $Sprite3D/SubViewport/TextureProgressBar
+@onready var backbar : TextureProgressBar = $Sprite3D/SubViewport/BackTextureProgressBar
 @onready var fireIconContainer = $Sprite3D/SubViewport/IconContainerFire
 @onready var iceIconContainer = $Sprite3D/SubViewport/IconContainerIce
 @onready var lookTimer = $TimerController/LookCheck
@@ -44,7 +45,9 @@ var player
 func _ready():
 	$Sprite3D.texture = $Sprite3D/SubViewport.get_texture()
 	healthbar.max_value = maxHealth
+	backbar.max_value = maxHealth
 	healthbar.value = health
+	backbar.value = health
 	player = $"../../Player"
 	playAnim("Shoot_Idle",true,false)
 	$ViewControl/vision/GunController/Weapon/Gun.setup(Game.enemyStats.damage, Game.enemyStats.bullet_speed)
@@ -143,6 +146,9 @@ func damage(point, amount, source):
 		health -= amount * (1 +  (cold * COLD_DAMAGE_MULT))
 	else:
 		health -= amount
+	backbar.max_value = maxHealth
+	var t = get_tree().create_tween()
+	t.tween_property(backbar,"value",health,0.5)
 	healthbar.value = health
 	healthbar.max_value = maxHealth
 	if health <= 0:
