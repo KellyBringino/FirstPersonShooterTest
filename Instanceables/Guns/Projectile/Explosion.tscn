@@ -74,18 +74,18 @@ scale_curve = SubResource("CurveTexture_majw3")
 color = Color(0.266667, 0.266667, 0.266667, 1)
 alpha_curve = SubResource("CurveTexture_fatqg")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6axtg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kqoeg"]
 transparency = 1
 vertex_color_use_as_albedo = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_fhpvq"]
-material = SubResource("StandardMaterial3D_6axtg")
+material = SubResource("StandardMaterial3D_kqoeg")
 size = Vector3(0.6, 0.6, 0.6)
 
 [sub_resource type="Gradient" id="Gradient_frtgo"]
 colors = PackedColorArray(1, 0.72549, 0, 1, 1, 0, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ulmqd"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8m7re"]
 gradient = SubResource("Gradient_frtgo")
 
 [sub_resource type="Curve" id="Curve_shhyu"]
@@ -93,14 +93,14 @@ max_value = 2.0
 _data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(1, 0.901099), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_t2oqm"]
+[sub_resource type="CurveTexture" id="CurveTexture_u6fq8"]
 curve = SubResource("Curve_shhyu")
 
 [sub_resource type="Curve" id="Curve_ij4qn"]
 _data = [Vector2(0, 0.142857), 0.0, 0.0, 0, 0, Vector2(0.345238, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_i3ue4"]
+[sub_resource type="CurveTexture" id="CurveTexture_pwu4p"]
 curve = SubResource("Curve_ij4qn")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x3tsr"]
@@ -113,10 +113,10 @@ initial_velocity_max = 4.0
 gravity = Vector3(0, 5, 0)
 scale_min = 0.8
 scale_max = 1.2
-scale_curve = SubResource("CurveTexture_i3ue4")
+scale_curve = SubResource("CurveTexture_pwu4p")
 color = Color(1, 0.72549, 0, 1)
-color_ramp = SubResource("GradientTexture1D_ulmqd")
-emission_curve = SubResource("CurveTexture_t2oqm")
+color_ramp = SubResource("GradientTexture1D_8m7re")
+emission_curve = SubResource("CurveTexture_u6fq8")
 
 [node name="Explosion" type="Node3D"]
 script = SubResource("GDScript_k6a8m")

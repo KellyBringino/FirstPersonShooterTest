@@ -18,7 +18,7 @@ func activate():
 func rejectHelper():
 	get_node("/root/World/GUI").rejectToolTip()
 	rejectSound.play()
-func tooltip(str,number,accessAllowed):
-	get_node("/root/World/GUI").showTooltip(str,number,accessAllowed)
+func tooltip(stri,number,accessAllowed):
+	get_node("/root/World/GUI").showTooltip(stri,number,accessAllowed)
 func endtooltip():
 	get_node("/root/World/GUI").hideTooltip()

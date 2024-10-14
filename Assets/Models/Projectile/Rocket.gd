@@ -14,7 +14,7 @@ func setup(d,fire,ice):
 	fireWeapon = fire
 	iceWeapon = ice
 
-func _process(delta):
+func _process(_delta):
 	$model.look_at(global_position + linear_velocity)
 
 func _on_explosion_area_body_entered(body):

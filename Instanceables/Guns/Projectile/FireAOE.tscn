@@ -9,9 +9,9 @@ script/source = "extends Node3D
 @onready var fire : GPUParticles3D = $Fire
 @onready var sound : AudioStreamPlayer3D = $Sound
 
-func setup(range):
-	fire.process_material.initial_velocity_min = range
-	fire.process_material.initial_velocity_max = range
+func setup(r):
+	fire.process_material.initial_velocity_min = r
+	fire.process_material.initial_velocity_max = r
 	fire.emitting = true
 	await get_tree().create_timer(2.0).timeout
 	queue_free()

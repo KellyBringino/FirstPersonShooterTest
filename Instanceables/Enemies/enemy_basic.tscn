@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bb1i806nt4qjq"]
+[gd_scene load_steps=31 format=3 uid="uid://bb1i806nt4qjq"]
 
 [ext_resource type="Script" path="res://Instanceables/Enemies/enemy_basic.gd" id="1_75185"]
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Assets/Sprites/UI/bar back.svg" id="2_5kol5"]
@@ -12,6 +12,86 @@
 [ext_resource type="PackedScene" uid="uid://dmfisp3uskoet" path="res://Instanceables/Guns/EnemyPistol.tscn" id="6_uv3cp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2p6i3"]
+
+[sub_resource type="Gradient" id="Gradient_0mlm3"]
+colors = PackedColorArray(1, 0.72549, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6545p"]
+gradient = SubResource("Gradient_0mlm3")
+
+[sub_resource type="Curve" id="Curve_bl5e7"]
+max_value = 2.0
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(1, 0.901099), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_u2y0y"]
+curve = SubResource("Curve_bl5e7")
+
+[sub_resource type="Curve" id="Curve_hrulq"]
+_data = [Vector2(0, 0.142857), 0.0, 0.0, 0, 0, Vector2(0.345238, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ltt8n"]
+curve = SubResource("Curve_hrulq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qccdv"]
+emission_shape = 1
+emission_sphere_radius = 0.25
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 5, 0)
+scale_min = 0.2
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_ltt8n")
+color = Color(1, 0.72549, 0, 1)
+color_ramp = SubResource("GradientTexture1D_6545p")
+emission_curve = SubResource("CurveTexture_u2y0y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6axtg"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_6sb8g"]
+material = SubResource("StandardMaterial3D_6axtg")
+size = Vector3(0.6, 0.6, 0.6)
+
+[sub_resource type="Gradient" id="Gradient_pwrm8"]
+colors = PackedColorArray(3.85046e-07, 0.879371, 0.960094, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_inhyt"]
+gradient = SubResource("Gradient_pwrm8")
+
+[sub_resource type="Curve" id="Curve_akjm3"]
+max_value = 2.0
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(1, 0.901099), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_43q0g"]
+curve = SubResource("Curve_akjm3")
+
+[sub_resource type="Curve" id="Curve_d11nk"]
+_data = [Vector2(0, 0.486792), 0.0, 0.0, 0, 0, Vector2(0.345238, 1), 0.0, 0.0, 0, 0, Vector2(0.995833, 0.577358), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_4i1ds"]
+curve = SubResource("Curve_d11nk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f0yet"]
+emission_shape = 3
+emission_box_extents = Vector3(0.3, 1, 0.3)
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 0.1
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_4i1ds")
+color = Color(0.537255, 0.964706, 1, 1)
+color_ramp = SubResource("GradientTexture1D_inhyt")
+emission_curve = SubResource("CurveTexture_43q0g")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_x4x6m"]
 viewport_path = NodePath("Sprite3D/SubViewport")
@@ -37,6 +117,24 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 
 [node name="doll" parent="ModelController" instance=ExtResource("2_guvfu")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Fire" type="GPUParticles3D" parent="ModelController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+emitting = false
+amount = 15
+lifetime = 0.8
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_qccdv")
+draw_pass_1 = SubResource("BoxMesh_6sb8g")
+
+[node name="Ice" type="GPUParticles3D" parent="ModelController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55856, 0)
+emitting = false
+amount = 20
+lifetime = 0.8
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_f0yet")
+draw_pass_1 = SubResource("BoxMesh_6sb8g")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 2.19422, 0)
@@ -199,6 +297,10 @@ one_shot = true
 [node name="TickTimer" type="Timer" parent="TimerController"]
 autostart = true
 
+[node name="FreezeImmuneTimer" type="Timer" parent="TimerController"]
+wait_time = 0.25
+one_shot = true
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 
@@ -220,5 +322,6 @@ shape = SubResource("SphereShape3D_45hed")
 [connection signal="timeout" from="TimerController/ChillTimer" to="." method="_on_chill_timer_timeout"]
 [connection signal="timeout" from="TimerController/FreezeTimer" to="." method="_on_freeze_timer_timeout"]
 [connection signal="timeout" from="TimerController/TickTimer" to="." method="_on_tick_timer_timeout"]
+[connection signal="timeout" from="TimerController/FreezeImmuneTimer" to="." method="_on_freeze_immune_timer_timeout"]
 [connection signal="body_entered" from="ShatterArea" to="." method="_on_shatter_area_body_entered"]
 [connection signal="body_exited" from="ShatterArea" to="." method="_on_shatter_area_body_exited"]

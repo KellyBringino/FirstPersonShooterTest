@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://c6ahsmlr8vfwy"]
+
+[sub_resource type="GDScript" id="GDScript_n3dvi"]
+script/source = "extends Node3D
+
+@onready var fire : GPUParticles3D = $Ice
+#@onready var sound : AudioStreamPlayer3D = $Sound
+
+func setup(r):
+	fire.process_material.initial_velocity_min = r*2
+	fire.process_material.initial_velocity_max = r*2
+	fire.emitting = true
+	await get_tree().create_timer(2.0).timeout
+	queue_free()
+"
+
+[sub_resource type="Gradient" id="Gradient_164h1"]
+colors = PackedColorArray(0, 1, 1, 1, 0, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rdnry"]
+gradient = SubResource("Gradient_164h1")
+
+[sub_resource type="Curve" id="Curve_puwtc"]
+max_value = 2.0
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(1, 0.901099), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_anb74"]
+curve = SubResource("Curve_puwtc")
+
+[sub_resource type="Curve" id="Curve_y3xyf"]
+_data = [Vector2(0, 0.142857), 0.0, 0.0, 0, 0, Vector2(0.345238, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.486792), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_7daxe"]
+curve = SubResource("Curve_y3xyf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7ge5m"]
+particle_flag_align_y = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+flatness = 0.873
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.6
+scale_max = 0.6
+scale_curve = SubResource("CurveTexture_7daxe")
+color_ramp = SubResource("GradientTexture1D_rdnry")
+emission_curve = SubResource("CurveTexture_anb74")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_feogb"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6vuny"]
+material = SubResource("StandardMaterial3D_feogb")
+top_radius = 0.05
+bottom_radius = 0.2
+height = 1.0
+
+[node name="IceAOE" type="Node3D"]
+script = SubResource("GDScript_n3dvi")
+
+[node name="Ice" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 15
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_7ge5m")
+draw_pass_1 = SubResource("CylinderMesh_6vuny")

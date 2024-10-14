@@ -11,8 +11,11 @@ extends CharacterBody3D
 @onready var lookTimer = $TimerController/LookCheck
 @onready var pathTimer = $TimerController/PathfindTimer
 @onready var fireTimer : Timer = $TimerController/FireTimer
+@onready var fireEffect : GPUParticles3D = $ModelController/Fire
 @onready var chillTimer : Timer = $TimerController/ChillTimer
 @onready var freezeTimer : Timer = $TimerController/FreezeTimer
+@onready var freezeImmuneTimer : Timer = $TimerController/FreezeImmuneTimer
+@onready var iceEffect : GPUParticles3D = $ModelController/Ice
 
 const RUN_SPEED = 4.0
 const REACH_DIST = 0.5
@@ -38,6 +41,7 @@ var suspicious : bool = false
 var fire = 0
 var cold = 0
 var frozen = false
+var freezeImmunity = false
 var shatterRange : Array = []
 var dying : bool = false
 var player
@@ -48,6 +52,8 @@ func _ready():
 	backbar.max_value = maxHealth
 	healthbar.value = health
 	backbar.value = health
+	fireEffect.emitting = false
+	iceEffect.emitting = false
 	player = $"../../Player"
 	playAnim("Shoot_Idle",true,false)
 	$ViewControl/vision/GunController/Weapon/Gun.setup(Game.enemyStats.damage, Game.enemyStats.bullet_speed)
@@ -155,13 +161,11 @@ func damage(point, amount, source):
 		dead(point,source)
 func hit(point, d, source):
 	if frozen:
-		for part in shatterRange:
-			if part != self:
-				part.hit(part.global_position,d,3)
-		frozen = false
+		shatter()
 	damage(point,d,source)
 func burn(t):
 	healthbar.texture_progress = HEALTH_BAR_FIRE_TEXT
+	fireEffect.emitting = true
 	match fire:
 		0:
 			fire += 1
@@ -216,28 +220,40 @@ func chill(t):
 	chillTimer.wait_time = t
 	chillTimer.start()
 func freeze(t):
-	frozen = true
-	anim.speed_scale = 0
-	freezeTimer.wait_time = t
-	freezeTimer.start()
-func strike(object,point,damage):
-	if object.collision_layer == 16 or object.collision_layer == 32:
-		while !object.editor_description.contains("Enemy"):
-			if object == null:
-				break
-			if object == self:
-				object == null
-				break
-			object = object.get_node("../")
-		if object != null:
-			if object.editor_description.contains("Enemy"):
-				object.hit(point,damage,0)
-	elif object.collision_layer == 128:
-		object.hit(point,damage,0)
+	if freezeImmuneTimer.is_stopped():
+		frozen = true
+		iceEffect.emitting = true
+		anim.speed_scale = 0
+		freezeTimer.wait_time = t
+		freezeTimer.start()
+func shatter():
+	var iceEx = Game.iceAOEPreload.instantiate()
+	add_child(iceEx)
+	iceEx.position += Vector3(0,1,0)
+	iceEx.setup($ShatterArea/CollisionShape3D.shape.radius)
+	frozen = false
+	iceEffect.emitting = false
+	for part in shatterRange:
+		if part != self:
+			part.hit(part.global_position,maxHealth/3,3)
+	anim.speed_scale = (1 - (COLD_SPEED * cold))
+	freezeImmuneTimer.start()
 
 func dead(_point, source):
 	if !dying:
 		dying = true
+		var rag = Game.enemyRagdollPreload.instantiate()
+		get_node("/root/World").add_child(rag)
+		rag.global_transform.basis = global_transform.basis
+		rag.global_position = global_position
+		rag.rotation = rotation
+		var skele = $ModelController/doll/Armature/Skeleton3D
+		for bone in 36:
+			rag.skel.set_bone_pose_position(bone,skele.get_bone_pose_position(bone))
+			rag.skel.set_bone_pose_rotation(bone,skele.get_bone_pose_rotation(bone))
+		rag.setup(source)
+		if frozen:
+			shatter()
 		match source:
 			0:#hitscan
 				$"../../".enemydeath(0)
@@ -248,6 +264,10 @@ func dead(_point, source):
 			2:#fire
 				$"../../".enemydeath(0)
 				queue_free()
+			3:#ice
+				$"../../".enemydeath(0)
+				queue_free()
+				
 
 func playAnim(n,_looping,_override):
 	anim.play(n)
@@ -298,9 +318,11 @@ func _on_shoot_timer_timeout():
 func _on_tick_timer_timeout():
 	if fire > 0:
 		healthbar.texture_progress = HEALTH_BAR_FIRE_TEXT
+		fireEffect.emitting = true
 		damage(global_position,(maxHealth * fire)/(30.0),2)
 	else:
 		healthbar.texture_progress = HEALTH_BAR_TEXT
+		fireEffect.emitting = false
 
 func _on_chill_timer_timeout():
 	if cold > 0:
@@ -333,18 +355,26 @@ func _on_fire_timer_timeout():
 				fireIconContainer.get_child(0).hide()
 				fireIconContainer.get_child(1).hide()
 				fireIconContainer.get_child(2).hide()
+				healthbar.texture_progress = HEALTH_BAR_TEXT
+				fireEffect.emitting = false
 			1:
 				fireIconContainer.get_child(0).show()
 				fireIconContainer.get_child(1).hide()
 				fireIconContainer.get_child(2).hide()
+				healthbar.texture_progress = HEALTH_BAR_FIRE_TEXT
+				fireEffect.emitting = true
 				fireTimer.start()
 			2:
 				fireIconContainer.get_child(0).show()
 				fireIconContainer.get_child(1).show()
 				fireIconContainer.get_child(2).hide()
+				healthbar.texture_progress = HEALTH_BAR_FIRE_TEXT
+				fireEffect.emitting = true
 				fireTimer.start()
-
 
 func _on_freeze_timer_timeout():
 	frozen = false
+	iceEffect.emitting = false
 	anim.speed_scale = (1 - (COLD_SPEED * cold))
+func _on_freeze_immune_timer_timeout():
+	pass # Replace with function body.

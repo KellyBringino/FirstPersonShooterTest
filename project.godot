@@ -135,6 +135,7 @@ ads={
 3d_physics/layer_7="Projectile"
 3d_physics/layer_8="Destructibles"
 3d_physics/layer_9="Interactable"
+3d_physics/layer_10="Ragdoll"
 
 [physics]
 

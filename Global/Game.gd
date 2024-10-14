@@ -108,6 +108,15 @@ const grenadelauncher = {
 	instance = preload("res://Instanceables/Guns/grenadelauncher.tscn")
 }
 
+const fireAOEPreload = preload("res://Instanceables/Guns/Projectile/FireAOE.tscn")
+const iceAOEPreload = preload("res://Instanceables/Guns/Projectile/IceAOE.tscn")
+const enemyRagdollPreload = preload("res://Assets/Models/Mobs/enemyragdoll.tscn")
+
+const firemat = preload("res://Assets/Models/Materials/Fade Shaders/FireFadeShader.tres")
+const icemat = preload("res://Assets/Models/Materials/Fade Shaders/IceFadeShader.tres")
+const explmat = preload("res://Assets/Models/Materials/Fade Shaders/ExplodeFadeShader.tres")
+const normalmat = preload("res://Assets/Models/Materials/Fade Shaders/NormalFadeShader.tres")
+
 var paused : bool = false
 var horizontalSensitivity = 0.8
 var verticalSensitivity = 0.8
