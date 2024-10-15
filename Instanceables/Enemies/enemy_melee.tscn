@@ -1,15 +1,15 @@
-[gd_scene load_steps=31 format=3 uid="uid://bb1i806nt4qjq"]
+[gd_scene load_steps=31 format=3 uid="uid://cws761jb04ib5"]
 
-[ext_resource type="Script" path="res://Instanceables/Enemies/enemy_basic.gd" id="1_75185"]
-[ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Assets/Sprites/UI/bar back.svg" id="2_5kol5"]
-[ext_resource type="PackedScene" uid="uid://ccg64ecng5bkp" path="res://Assets/Models/Mobs/enemydollAnim.tscn" id="2_guvfu"]
-[ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Assets/Sprites/UI/health.svg" id="3_04mkt"]
-[ext_resource type="Texture2D" uid="uid://dabiq8jw5082t" path="res://Assets/Sprites/UI/health_damage.svg" id="4_1aju5"]
-[ext_resource type="PackedScene" uid="uid://t4fxq0m12mut" path="res://Assets/Models/Collider Shapes/cone.tscn" id="4_qtwdq"]
-[ext_resource type="Texture2D" uid="uid://64oe63qgpvk4" path="res://Assets/Sprites/Gun Property Icons/Elemental Property/Fire.svg" id="5_7wv2b"]
-[ext_resource type="Texture2D" uid="uid://dooshswk0j1vx" path="res://Assets/Sprites/UI/health_freeze.svg" id="5_p61uy"]
-[ext_resource type="Texture2D" uid="uid://bggsmnwygrmlc" path="res://Assets/Sprites/Gun Property Icons/Elemental Property/Ice.svg" id="6_upg5e"]
-[ext_resource type="PackedScene" uid="uid://dmfisp3uskoet" path="res://Instanceables/Guns/EnemyPistol.tscn" id="6_uv3cp"]
+[ext_resource type="Script" path="res://Instanceables/Enemies/enemy_melee.gd" id="1_ik4gr"]
+[ext_resource type="PackedScene" uid="uid://hoew73apnqtm" path="res://Assets/Models/Mobs/enemydollAnim_melee.tscn" id="2_bnugj"]
+[ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Assets/Sprites/UI/bar back.svg" id="3_whyu2"]
+[ext_resource type="Texture2D" uid="uid://dabiq8jw5082t" path="res://Assets/Sprites/UI/health_damage.svg" id="4_hbx8q"]
+[ext_resource type="Texture2D" uid="uid://dooshswk0j1vx" path="res://Assets/Sprites/UI/health_freeze.svg" id="5_8ggns"]
+[ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Assets/Sprites/UI/health.svg" id="6_ilrjk"]
+[ext_resource type="Texture2D" uid="uid://64oe63qgpvk4" path="res://Assets/Sprites/Gun Property Icons/Elemental Property/Fire.svg" id="7_qr75o"]
+[ext_resource type="Texture2D" uid="uid://bggsmnwygrmlc" path="res://Assets/Sprites/Gun Property Icons/Elemental Property/Ice.svg" id="8_gft46"]
+[ext_resource type="PackedScene" uid="uid://t4fxq0m12mut" path="res://Assets/Models/Collider Shapes/cone.tscn" id="9_0k7ge"]
+[ext_resource type="PackedScene" uid="uid://dmfisp3uskoet" path="res://Instanceables/Guns/EnemyPistol.tscn" id="10_3sgsc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2p6i3"]
 
@@ -106,7 +106,7 @@ radius = 2.5
 editor_description = "Enemy"
 collision_layer = 4
 collision_mask = 7
-script = ExtResource("1_75185")
+script = ExtResource("1_ik4gr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -115,8 +115,8 @@ shape = SubResource("CapsuleShape3D_2p6i3")
 [node name="ModelController" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="doll" parent="ModelController" instance=ExtResource("2_guvfu")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+[node name="doll" parent="ModelController" instance=ExtResource("2_bnugj")]
+transform = Transform3D(-0.9, 0, -1.35896e-07, 0, 0.9, 0, 1.35896e-07, 0, -0.9, 0, 0, 0)
 
 [node name="Fire" type="GPUParticles3D" parent="ModelController"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -137,7 +137,7 @@ process_material = SubResource("ParticleProcessMaterial_f0yet")
 draw_pass_1 = SubResource("BoxMesh_6sb8g")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 2.19422, 0)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 2.52916, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_x4x6m")
 
@@ -161,8 +161,8 @@ offset_right = 756.0
 offset_bottom = 271.0
 grow_vertical = 0
 value = 70.0
-texture_under = ExtResource("2_5kol5")
-texture_progress = ExtResource("4_1aju5")
+texture_under = ExtResource("3_whyu2")
+texture_progress = ExtResource("4_hbx8q")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Sprite3D/SubViewport"]
 offset_top = 169.0
@@ -170,8 +170,8 @@ offset_right = 756.0
 offset_bottom = 271.0
 grow_vertical = 0
 value = 56.0
-texture_over = ExtResource("5_p61uy")
-texture_progress = ExtResource("3_04mkt")
+texture_over = ExtResource("5_8ggns")
+texture_progress = ExtResource("6_ilrjk")
 tint_over = Color(1, 1, 1, 0)
 
 [node name="IconContainerFire" type="HBoxContainer" parent="Sprite3D/SubViewport"]
@@ -188,19 +188,19 @@ size_flags_vertical = 3
 [node name="FireIcon1" type="TextureRect" parent="Sprite3D/SubViewport/IconContainerFire"]
 visible = false
 layout_mode = 2
-texture = ExtResource("5_7wv2b")
+texture = ExtResource("7_qr75o")
 expand_mode = 3
 
 [node name="FireIcon2" type="TextureRect" parent="Sprite3D/SubViewport/IconContainerFire"]
 visible = false
 layout_mode = 2
-texture = ExtResource("5_7wv2b")
+texture = ExtResource("7_qr75o")
 expand_mode = 3
 
 [node name="FireIcon3" type="TextureRect" parent="Sprite3D/SubViewport/IconContainerFire"]
 visible = false
 layout_mode = 2
-texture = ExtResource("5_7wv2b")
+texture = ExtResource("7_qr75o")
 expand_mode = 3
 
 [node name="IconContainerIce" type="HBoxContainer" parent="Sprite3D/SubViewport"]
@@ -220,19 +220,19 @@ size_flags_vertical = 3
 [node name="IceIcon1" type="TextureRect" parent="Sprite3D/SubViewport/IconContainerIce"]
 visible = false
 layout_mode = 2
-texture = ExtResource("6_upg5e")
+texture = ExtResource("8_gft46")
 expand_mode = 3
 
 [node name="IceIcon2" type="TextureRect" parent="Sprite3D/SubViewport/IconContainerIce"]
 visible = false
 layout_mode = 2
-texture = ExtResource("6_upg5e")
+texture = ExtResource("8_gft46")
 expand_mode = 3
 
 [node name="IceIcon3" type="TextureRect" parent="Sprite3D/SubViewport/IconContainerIce"]
 visible = false
 layout_mode = 2
-texture = ExtResource("6_upg5e")
+texture = ExtResource("8_gft46")
 expand_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Sprite3D/SubViewport"]
@@ -240,20 +240,20 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="LookRay" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89151, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67302, 0)
 target_position = Vector3(0, 0, -80)
 collision_mask = 9
 collide_with_areas = true
 
 [node name="ViewControl" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70172, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48323, 0)
 
 [node name="vision" type="Area3D" parent="ViewControl"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.173085, 0)
 collision_layer = 0
 collision_mask = 8
 
-[node name="Cone" parent="ViewControl/vision" instance=ExtResource("4_qtwdq")]
+[node name="Cone" parent="ViewControl/vision" instance=ExtResource("9_0k7ge")]
 transform = Transform3D(10, 0, 0, 0, -8.74228e-07, -10, 0, 20, -4.37114e-07, 0, 0, 0)
 visible = false
 
@@ -266,7 +266,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11331, -0.315432, -0.479749
 
 [node name="Weapon" type="Node3D" parent="ViewControl/vision/WeaponController"]
 
-[node name="Gun" parent="ViewControl/vision/WeaponController/Weapon" instance=ExtResource("6_uv3cp")]
+[node name="Gun" parent="ViewControl/vision/WeaponController/Weapon" instance=ExtResource("10_3sgsc")]
 
 [node name="TimerController" type="Node3D" parent="."]
 

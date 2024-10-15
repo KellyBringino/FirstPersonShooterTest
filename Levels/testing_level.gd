@@ -1,5 +1,5 @@
 extends Level_Base
 
 func _ready():
-	enemyCount += 1
+	enemyCount += 2
 

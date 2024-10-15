@@ -17,9 +17,7 @@ extends CharacterBody3D
 @onready var freezeImmuneTimer : Timer = $TimerController/FreezeImmuneTimer
 @onready var iceEffect : GPUParticles3D = $ModelController/Ice
 
-const RUN_SPEED = 4.0
 const REACH_DIST = 0.5
-const SHOOT_DIST = 10.0
 const STATUS_2_CHANCE = 0.5
 const STATUS_3_CHANCE = 1.0/3.0
 const COLD_SPEED = 0.20
@@ -27,8 +25,10 @@ const COLD_DAMAGE_MULT = 0.05
 const HEALTH_BAR_TEXT = preload("res://Assets/Sprites/UI/health.svg")
 const HEALTH_BAR_FIRE_TEXT = preload("res://Assets/Sprites/UI/health_fire.svg")
 
-enum state {CHASING, HIDING, SHOOTING}
+enum state {CHASING, HIDING, ATTACKING}
 
+var speed = 4.0
+var attackDist = 10.0
 var currentState : state = state.CHASING
 var maxHealth = 2000.0
 var health : float = 2000.0
@@ -55,13 +55,16 @@ func _ready():
 	fireEffect.emitting = false
 	iceEffect.emitting = false
 	player = $"../../Player"
-	playAnim("Shoot_Idle",true,false)
-	$ViewControl/vision/GunController/Weapon/Gun.setup(Game.enemyStats.damage, Game.enemyStats.bullet_speed)
+	playAnim("Attack_Idle",true,false)
 
 func startup(h,d,l):
 	maxHealth = h
 	health = h
 	attackdamage = d
+	healthbar.max_value = maxHealth
+	backbar.max_value = maxHealth
+	healthbar.value = health
+	backbar.value = health
 	$Sprite3D/SubViewport/LevelLabel.text = "Lvl " + str(l)
 
 func _physics_process(delta):
@@ -70,7 +73,7 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 	
 	#place hands on the gun
-	$ViewControl/vision/GunController.global_transform.origin \
+	$ViewControl/vision/WeaponController.global_transform.origin \
 	= $ModelController/doll/HandAttachment.global_transform.origin
 	
 	if !dying and !frozen:
@@ -84,31 +87,33 @@ func _physics_process(delta):
 		#if the player is in the vision cone, look at them and point the gun at them
 		if(see.size() > 0):
 			$ViewControl.look_at(lastKnowLoc)
-			$ViewControl/vision/GunController/Weapon.look_at(lastKnowLoc)
-	
-	velocity.x = 0
-	velocity.z = 0
-	if currentState == state.CHASING:
-		move()
+			$ViewControl/vision/WeaponController/Weapon.look_at(lastKnowLoc)
+	if is_on_floor():
+		velocity.x = 0
+		velocity.z = 0
+		if currentState == state.CHASING:
+			move()
+		elif currentState != state.ATTACKING:
+			playAnim("Attack_Idle",true,false)
 	else:
-		playAnim("Shoot_Idle",true,false)
+		playAnim("Attack_Idle",true,false)
 	move_and_slide()
 
 func handleStates(_delta):
 	match currentState:
 		state.CHASING:
 			if see.size() > 0 and distanceCheck(lastKnowLoc):
-				stateChange(state.SHOOTING)
+				stateChange(state.ATTACKING)
 			elif see.size() == 0 \
 			and distanceCheck(player.global_transform.origin):
 				look_at(player.position,Vector3.UP)
 				rotation.x = 0.0
 				rotation.z = 0.0
 			elif reached(lastKnowLoc):
-				stateChange(state.SHOOTING)
+				stateChange(state.ATTACKING)
 			else:
 				lastKnowLoc = player.global_transform.origin
-		state.SHOOTING:
+		state.ATTACKING:
 			if !distanceCheck(lastKnowLoc):
 				stateChange(state.CHASING)
 			elif see.size() == 0:
@@ -125,7 +130,7 @@ func move():
 	var nextNavPoint = nav_agent.get_next_path_position()
 	if currentState == state.CHASING and !frozen:
 		velocity = ((nextNavPoint - global_transform.origin) \
-		* Vector3(1,0,1)).normalized() * RUN_SPEED * (1 - (COLD_SPEED * cold))
+		* Vector3(1,0,1)).normalized() * speed * (1 - (COLD_SPEED * cold))
 		playAnim("Run",true,false)
 
 func reached(point):
@@ -136,15 +141,15 @@ func reached(point):
 		pass
 	return v
 func distanceCheck(point):
-	return global_transform.origin.distance_to(point) <= SHOOT_DIST
+	return global_transform.origin.distance_to(point) <= attackDist
 
 func stateChange(nState):
 	match nState:
 		state.CHASING:
 			currentState = state.CHASING
 			suspicious = true
-		state.SHOOTING:
-			currentState = state.SHOOTING
+		state.ATTACKING:
+			currentState = state.ATTACKING
 			suspicious = true
 
 func damage(point, amount, source):
@@ -154,6 +159,7 @@ func damage(point, amount, source):
 		health -= amount
 	backbar.max_value = maxHealth
 	var t = get_tree().create_tween()
+	t.bind_node(self)
 	t.tween_property(backbar,"value",health,0.5)
 	healthbar.value = health
 	healthbar.max_value = maxHealth
@@ -216,7 +222,7 @@ func chill(t):
 			iceIconContainer.get_child(2).show()
 			pass
 	if !frozen:
-		anim.speed_scale = (1 - (COLD_SPEED * cold))
+		anim.speed_scale = (1 - (COLD_SPEED * cold)) * (speed/4.0)
 	chillTimer.wait_time = t
 	chillTimer.start()
 func freeze(t):
@@ -236,7 +242,7 @@ func shatter():
 	for part in shatterRange:
 		if part != self:
 			part.hit(part.global_position,maxHealth/3,3)
-	anim.speed_scale = (1 - (COLD_SPEED * cold))
+	anim.speed_scale = (1 - (COLD_SPEED * cold)) * (speed/4.0)
 	freezeImmuneTimer.start()
 
 func dead(_point, source):
@@ -312,8 +318,9 @@ func _on_pathfind_timer_timeout():
 	nav_agent.set_target_position(lastKnowLoc)
 
 func _on_shoot_timer_timeout():
-	if currentState == state.SHOOTING:
-		$ViewControl/vision/GunController/Weapon/Gun.shoot()
+	if currentState == state.ATTACKING:
+		playAnim("Attack",false,true)
+		$ViewControl/vision/WeaponController/Weapon/Gun.shoot()
 
 func _on_tick_timer_timeout():
 	if fire > 0:
@@ -345,7 +352,7 @@ func _on_chill_timer_timeout():
 				iceIconContainer.get_child(1).show()
 				iceIconContainer.get_child(2).hide()
 				chillTimer.start()
-	anim.speed_scale = (1 - (COLD_SPEED * cold))
+	anim.speed_scale = (1 - (COLD_SPEED * cold)) * (speed/4.0)
 
 func _on_fire_timer_timeout():
 	if fire > 0:
@@ -375,6 +382,6 @@ func _on_fire_timer_timeout():
 func _on_freeze_timer_timeout():
 	frozen = false
 	iceEffect.emitting = false
-	anim.speed_scale = (1 - (COLD_SPEED * cold))
+	anim.speed_scale = (1 - (COLD_SPEED * cold)) * (speed/4.0)
 func _on_freeze_immune_timer_timeout():
 	pass # Replace with function body.
