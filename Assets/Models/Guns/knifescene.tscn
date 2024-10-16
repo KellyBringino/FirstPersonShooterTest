@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccdpkewextwpn"]
+
+[ext_resource type="PackedScene" uid="uid://qj7gqjyhesov" path="res://Assets/Models/Guns/knife.glb" id="1_yuxmb"]
+[ext_resource type="Material" uid="uid://cjkecaqjn7u27" path="res://Assets/Models/Materials/Red.tres" id="2_3m6v7"]
+[ext_resource type="Material" uid="uid://c6wmmdgpjbok6" path="res://Assets/Models/Materials/GunMetal.tres" id="3_l75yx"]
+
+[node name="knife" instance=ExtResource("1_yuxmb")]
+
+[node name="Handle" parent="." index="0"]
+material_override = ExtResource("2_3m6v7")
+
+[node name="Crossbar" parent="." index="1"]
+material_override = ExtResource("3_l75yx")
+
+[node name="Blade" parent="." index="2"]
+material_override = ExtResource("3_l75yx")

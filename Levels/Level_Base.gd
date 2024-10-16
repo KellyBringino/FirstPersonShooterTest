@@ -13,7 +13,17 @@ var roundMax : int = 5
 var curRound : int = 0
 var spawnRound : int = 0
 
+var NormMatPreload : Dictionary = {}
+var ExplMatPreload : Dictionary = {}
+var FireMatPreload : Dictionary = {}
+var IceMatPreload : Dictionary = {}
+
 func _ready():
+	for i in enemyMax:
+		NormMatPreload[Game.normalmat.duplicate(true)] = true
+		ExplMatPreload[Game.explmat.duplicate(true)] = true
+		FireMatPreload[Game.firemat.duplicate(true)] = true
+		IceMatPreload[Game.icemat.duplicate(true)] = true
 	make_spawner()
 
 func spawner_at(point):
@@ -48,6 +58,40 @@ func make_spawner():
 		spawner_at(mainCandi.position)
 	else:
 		spawner_at(candidates[rng.randi_range(0,len(candidates)-1)].position)
+
+func getMat(index):
+	var mat
+	match index:
+		0:
+			for m in NormMatPreload:
+				if NormMatPreload[m] == true:
+					NormMatPreload[m] = false
+					return m
+		1:
+			for m in ExplMatPreload:
+				if ExplMatPreload[m] == true:
+					ExplMatPreload[m] = false
+					return m
+		2:
+			for m in FireMatPreload:
+				if FireMatPreload[m] == true:
+					FireMatPreload[m] = false
+					return m
+		3:
+			for m in IceMatPreload:
+				if IceMatPreload[m] == true:
+					IceMatPreload[m] = false
+					return m
+func freeMat(m,index):
+	match index:
+		0:
+			NormMatPreload[m] = true
+		1:
+			ExplMatPreload[m] = true
+		2:
+			FireMatPreload[m] = true
+		3:
+			IceMatPreload[m] = true
 
 func enemydeath(type):
 	match type:

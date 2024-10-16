@@ -280,7 +280,7 @@ autostart = true
 [node name="WalkCycleTimer" type="Timer" parent="TimerController"]
 wait_time = 0.1
 
-[node name="ShootTimer" type="Timer" parent="TimerController"]
+[node name="AttackTimer" type="Timer" parent="TimerController"]
 autostart = true
 
 [node name="FireTimer" type="Timer" parent="TimerController"]
@@ -317,7 +317,7 @@ shape = SubResource("SphereShape3D_45hed")
 [connection signal="timeout" from="TimerController/LookCheck" to="." method="_on_look_check_timeout"]
 [connection signal="timeout" from="TimerController/PathfindTimer" to="." method="_on_pathfind_timer_timeout"]
 [connection signal="timeout" from="TimerController/WalkCycleTimer" to="." method="_on_walk_cycle_timer_timeout"]
-[connection signal="timeout" from="TimerController/ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="TimerController/AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="TimerController/FireTimer" to="." method="_on_fire_timer_timeout"]
 [connection signal="timeout" from="TimerController/ChillTimer" to="." method="_on_chill_timer_timeout"]
 [connection signal="timeout" from="TimerController/FreezeTimer" to="." method="_on_freeze_timer_timeout"]

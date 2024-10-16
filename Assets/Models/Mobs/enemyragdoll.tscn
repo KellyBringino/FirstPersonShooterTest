@@ -24,21 +24,14 @@ var mat
 	$Armature/Skeleton3D/calf_L/foot_L,
 	$Armature/Skeleton3D/thigh_L/thigh_L
 ]
-func setup(num):
-	match num:
-		0:#hitscan
-			mat = Game.normalmat.duplicate(true)
-		1:#explosion
-			mat = Game.explmat.duplicate(true)
-		2:#fire
-			mat = Game.firemat.duplicate(true)
-		3:#ice
-			mat = Game.icemat.duplicate(true)
+func setup(num,level):
+	mat = level.getMat(num)
 	for p in parts:
 		p.material_override = mat
 	var t = get_tree().create_tween()
 	t.tween_method(set_shader_value,0.0,1.0,4.0)
 	await get_tree().create_timer(5).timeout
+	level.freeMat(mat,num)
 	queue_free()
 
 func set_shader_value(value: float):

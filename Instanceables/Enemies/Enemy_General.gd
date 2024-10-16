@@ -10,6 +10,7 @@ extends CharacterBody3D
 @onready var iceIconContainer = $Sprite3D/SubViewport/IconContainerIce
 @onready var lookTimer = $TimerController/LookCheck
 @onready var pathTimer = $TimerController/PathfindTimer
+@onready var attackTimer = $TimerController/AttackTimer
 @onready var fireTimer : Timer = $TimerController/FireTimer
 @onready var fireEffect : GPUParticles3D = $ModelController/Fire
 @onready var chillTimer : Timer = $TimerController/ChillTimer
@@ -29,6 +30,8 @@ enum state {CHASING, HIDING, ATTACKING}
 
 var speed = 4.0
 var attackDist = 10.0
+var attackGrace = false
+var moveDist = 12.0
 var currentState : state = state.CHASING
 var maxHealth = 2000.0
 var health : float = 2000.0
@@ -55,7 +58,7 @@ func _ready():
 	fireEffect.emitting = false
 	iceEffect.emitting = false
 	player = $"../../Player"
-	playAnim("Attack_Idle",true,false)
+	playAnim("Attack_Idle",false)
 
 func startup(h,d,l):
 	maxHealth = h
@@ -72,40 +75,45 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
-	#place hands on the gun
+	#place weapon in hands
 	$ViewControl/vision/WeaponController.global_transform.origin \
 	= $ModelController/doll/HandAttachment.global_transform.origin
 	
 	if !dying and !frozen:
+		nav_agent.set_target_position(lastKnowLoc)
 		handleStates(delta)
 	
 		#look at player
 		look_at(lastKnowLoc,Vector3.UP)
 		rotation.x = 0.0
 		rotation.z = 0.0
-	
+		
 		#if the player is in the vision cone, look at them and point the gun at them
 		if(see.size() > 0):
 			$ViewControl.look_at(lastKnowLoc)
 			$ViewControl/vision/WeaponController/Weapon.look_at(lastKnowLoc)
-	if is_on_floor():
-		velocity.x = 0
-		velocity.z = 0
-		if currentState == state.CHASING:
-			move()
-		elif currentState != state.ATTACKING:
-			playAnim("Attack_Idle",true,false)
-	else:
-		playAnim("Attack_Idle",true,false)
+		if is_on_floor():
+			velocity.x = 0
+			velocity.z = 0
+			if currentState == state.CHASING:
+				move()
+			elif currentState == state.ATTACKING:
+				playAnim("Attack_Idle",false)
+		else:
+			playAnim("Attack_Idle",false)
 	move_and_slide()
 
 func handleStates(_delta):
 	match currentState:
 		state.CHASING:
-			if see.size() > 0 and distanceCheck(lastKnowLoc):
+			if see.size() > 0 and distanceCheck(lastKnowLoc,attackDist):
 				stateChange(state.ATTACKING)
+				if attackGrace:
+					attack()
+					attackGrace = false
+					attackTimer.start()
 			elif see.size() == 0 \
-			and distanceCheck(player.global_transform.origin):
+			and distanceCheck(player.global_transform.origin,attackDist):
 				look_at(player.position,Vector3.UP)
 				rotation.x = 0.0
 				rotation.z = 0.0
@@ -114,7 +122,7 @@ func handleStates(_delta):
 			else:
 				lastKnowLoc = player.global_transform.origin
 		state.ATTACKING:
-			if !distanceCheck(lastKnowLoc):
+			if !distanceCheck(lastKnowLoc,moveDist):
 				stateChange(state.CHASING)
 			elif see.size() == 0:
 				stateChange(state.CHASING)
@@ -128,10 +136,10 @@ func move():
 	if global_transform.origin.distance_to(lastKnowLoc) <= (REACH_DIST/2.0):
 		return
 	var nextNavPoint = nav_agent.get_next_path_position()
-	if currentState == state.CHASING and !frozen:
+	if !frozen:
 		velocity = ((nextNavPoint - global_transform.origin) \
 		* Vector3(1,0,1)).normalized() * speed * (1 - (COLD_SPEED * cold))
-		playAnim("Run",true,false)
+		playAnim("Run",false)
 
 func reached(point):
 	var e = Vector2(global_transform.origin.x,global_transform.origin.z)
@@ -140,8 +148,8 @@ func reached(point):
 	if v:
 		pass
 	return v
-func distanceCheck(point):
-	return global_transform.origin.distance_to(point) <= attackDist
+func distanceCheck(point,dist):
+	return global_transform.origin.distance_to(point) <= dist
 
 func stateChange(nState):
 	match nState:
@@ -245,6 +253,10 @@ func shatter():
 	anim.speed_scale = (1 - (COLD_SPEED * cold)) * (speed/4.0)
 	freezeImmuneTimer.start()
 
+func attack():
+	playAnim("Attack",true)
+	$ViewControl/vision/WeaponController/Weapon/Gun.shoot()
+
 func dead(_point, source):
 	if !dying:
 		dying = true
@@ -253,11 +265,12 @@ func dead(_point, source):
 		rag.global_transform.basis = global_transform.basis
 		rag.global_position = global_position
 		rag.rotation = rotation
+		rag.scale = $ModelController/doll.scale
 		var skele = $ModelController/doll/Armature/Skeleton3D
 		for bone in 36:
 			rag.skel.set_bone_pose_position(bone,skele.get_bone_pose_position(bone))
 			rag.skel.set_bone_pose_rotation(bone,skele.get_bone_pose_rotation(bone))
-		rag.setup(source)
+		rag.setup(source,get_node("/root/World"))
 		if frozen:
 			shatter()
 		match source:
@@ -275,8 +288,9 @@ func dead(_point, source):
 				queue_free()
 				
 
-func playAnim(n,_looping,_override):
-	anim.play(n)
+func playAnim(n,override):
+	if override or !anim.is_playing():
+		anim.play(n)
 
 func _on_vision_body_entered(body):
 	if body.collision_layer == 8:
@@ -317,10 +331,12 @@ func _on_look_check_timeout():
 func _on_pathfind_timer_timeout():
 	nav_agent.set_target_position(lastKnowLoc)
 
-func _on_shoot_timer_timeout():
+func _on_attack_timer_timeout():
 	if currentState == state.ATTACKING:
-		playAnim("Attack",false,true)
-		$ViewControl/vision/WeaponController/Weapon/Gun.shoot()
+		attack()
+	else:
+		attackGrace = true
+		attackTimer.stop()
 
 func _on_tick_timer_timeout():
 	if fire > 0:

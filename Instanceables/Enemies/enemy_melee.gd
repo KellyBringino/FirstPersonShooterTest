@@ -1,7 +1,28 @@
 extends Enemy_General
 
+var meleeList : Array = []
+
 func _ready():
-	speed = 8.0
-	attackDist = 3.5
-	$ViewControl/vision/WeaponController/Weapon/Gun.setup(Game.enemyStats.damage, Game.enemyStats.bullet_speed)
+	speed = 5.5
+	attackDist = 1.5
+	moveDist = 2.5
 	super._ready()
+
+func _physics_process(_delta):
+	super._physics_process(_delta)
+
+func attack():
+	playAnim("Attack",true)
+	if meleeList.size() > 0:
+		player.hit(attackdamage,global_position)
+	#$ViewControl/vision/WeaponController/Weapon/Knife
+
+func _on_melee_body_entered(body):
+	meleeList.append(body)
+	print(meleeList)
+func _on_melee_body_exited(body):
+	for i in meleeList.size():
+		if body == meleeList[i]:
+			meleeList.remove_at(i)
+			break
+	print(meleeList)

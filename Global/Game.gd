@@ -111,6 +111,8 @@ const grenadelauncher = {
 const fireAOEPreload = preload("res://Instanceables/Guns/Projectile/FireAOE.tscn")
 const iceAOEPreload = preload("res://Instanceables/Guns/Projectile/IceAOE.tscn")
 const enemyRagdollPreload = preload("res://Assets/Models/Mobs/enemyragdoll.tscn")
+const enemyBasicPreload = preload("res://Instanceables/Enemies/enemy_basic.tscn")
+const enemyMeleePreload = preload("res://Instanceables/Enemies/enemy_melee.tscn")
 
 const firemat = preload("res://Assets/Models/Materials/Fade Shaders/FireFadeShader.tres")
 const icemat = preload("res://Assets/Models/Materials/Fade Shaders/IceFadeShader.tres")

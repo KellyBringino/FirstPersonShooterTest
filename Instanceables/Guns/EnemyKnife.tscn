@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://duvettyljva34"]
+
+[ext_resource type="PackedScene" uid="uid://ccdpkewextwpn" path="res://Assets/Models/Guns/knifescene.tscn" id="1_ofjie"]
+
+[node name="Knife" type="Node3D"]
+
+[node name="knife" parent="." instance=ExtResource("1_ofjie")]

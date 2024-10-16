@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cws761jb04ib5"]
+[gd_scene load_steps=32 format=3 uid="uid://cws761jb04ib5"]
 
 [ext_resource type="Script" path="res://Instanceables/Enemies/enemy_melee.gd" id="1_ik4gr"]
 [ext_resource type="PackedScene" uid="uid://hoew73apnqtm" path="res://Assets/Models/Mobs/enemydollAnim_melee.tscn" id="2_bnugj"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://64oe63qgpvk4" path="res://Assets/Sprites/Gun Property Icons/Elemental Property/Fire.svg" id="7_qr75o"]
 [ext_resource type="Texture2D" uid="uid://bggsmnwygrmlc" path="res://Assets/Sprites/Gun Property Icons/Elemental Property/Ice.svg" id="8_gft46"]
 [ext_resource type="PackedScene" uid="uid://t4fxq0m12mut" path="res://Assets/Models/Collider Shapes/cone.tscn" id="9_0k7ge"]
-[ext_resource type="PackedScene" uid="uid://dmfisp3uskoet" path="res://Instanceables/Guns/EnemyPistol.tscn" id="10_3sgsc"]
+[ext_resource type="PackedScene" uid="uid://duvettyljva34" path="res://Instanceables/Guns/EnemyKnife.tscn" id="10_052kx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2p6i3"]
 
@@ -98,6 +98,9 @@ viewport_path = NodePath("Sprite3D/SubViewport")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0qlg0"]
 points = PackedVector3Array(-9.78708e-05, 0, -9.78708e-05, 0.0974941, -1, -0.490407, -9.78708e-05, -1, -0.5, -0.097592, -1, -0.490407, -0.191366, -1, -0.46202, -0.2778, -1, -0.415818, -0.353563, -1, -0.353563, -0.415818, -1, -0.2778, -0.46202, -1, -0.191366, -0.490407, -1, -0.097592, -0.5, -1, -9.78708e-05, -0.490407, -1, 0.0974941, -0.46202, -1, 0.191269, -0.415818, -1, 0.277702, -0.353563, -1, 0.353465, -0.2778, -1, 0.41572, -0.191366, -1, 0.461922, -0.097592, -1, 0.490309, -9.78708e-05, -1, 0.5, 0.0974941, -1, 0.490309, 0.191269, -1, 0.461922, 0.277702, -1, 0.41572, 0.353465, -1, 0.353465, 0.41572, -1, 0.277702, 0.461922, -1, 0.191269, 0.490309, -1, 0.0974941, 0.499902, -1, -9.78708e-05, 0.490309, -1, -0.097592, 0.461922, -1, -0.191366, 0.41572, -1, -0.2778, 0.353465, -1, -0.353563, 0.277702, -1, -0.415818, 0.191269, -1, -0.46202)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vio3k"]
+radius = 0.75
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_45hed"]
 radius = 2.5
@@ -266,7 +269,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11331, -0.315432, -0.479749
 
 [node name="Weapon" type="Node3D" parent="ViewControl/vision/WeaponController"]
 
-[node name="Gun" parent="ViewControl/vision/WeaponController/Weapon" instance=ExtResource("10_3sgsc")]
+[node name="Knife" parent="ViewControl/vision/WeaponController/Weapon" instance=ExtResource("10_052kx")]
+
+[node name="melee" type="Area3D" parent="ViewControl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.75)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewControl/melee"]
+shape = SubResource("SphereShape3D_vio3k")
 
 [node name="TimerController" type="Node3D" parent="."]
 
@@ -280,7 +291,7 @@ autostart = true
 [node name="WalkCycleTimer" type="Timer" parent="TimerController"]
 wait_time = 0.1
 
-[node name="ShootTimer" type="Timer" parent="TimerController"]
+[node name="AttackTimer" type="Timer" parent="TimerController"]
 autostart = true
 
 [node name="FireTimer" type="Timer" parent="TimerController"]
@@ -314,10 +325,12 @@ shape = SubResource("SphereShape3D_45hed")
 
 [connection signal="body_entered" from="ViewControl/vision" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="ViewControl/vision" to="." method="_on_vision_body_exited"]
+[connection signal="body_entered" from="ViewControl/melee" to="." method="_on_melee_body_entered"]
+[connection signal="body_exited" from="ViewControl/melee" to="." method="_on_melee_body_exited"]
 [connection signal="timeout" from="TimerController/LookCheck" to="." method="_on_look_check_timeout"]
 [connection signal="timeout" from="TimerController/PathfindTimer" to="." method="_on_pathfind_timer_timeout"]
 [connection signal="timeout" from="TimerController/WalkCycleTimer" to="." method="_on_walk_cycle_timer_timeout"]
-[connection signal="timeout" from="TimerController/ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="TimerController/AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="TimerController/FireTimer" to="." method="_on_fire_timer_timeout"]
 [connection signal="timeout" from="TimerController/ChillTimer" to="." method="_on_chill_timer_timeout"]
 [connection signal="timeout" from="TimerController/FreezeTimer" to="." method="_on_freeze_timer_timeout"]

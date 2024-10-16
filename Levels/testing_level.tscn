@@ -96,7 +96,7 @@ omni_range = 9.93915
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.08544, 0, 0)
 
 [node name="Enemy_Basic2" parent="Enemies" instance=ExtResource("15_j6f0j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.55923, 0.598818, 2.39881)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.559, 0, 2.399)
 
 [node name="RigidBody3D" parent="." instance=ExtResource("6_na5i8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.37752, 1.26173, -0.444065)
