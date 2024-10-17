@@ -7,13 +7,19 @@ enum GunType {
 	ROCKETLAUNCHER, GRENADELAUNCHER
 }
 
-const enemyStats = \
-{\
-	health = 2000.0,\
-	damage = 200.0,\
-	bullet_speed = 4.0,\
-	levelHealth = 80,\
-	partCount = 20\
+const enemyStats = {
+	health = 2000.0,
+	damage = 200.0,
+	bullet_speed = 4.0,
+	levelHealth = 80,
+	partCount = 20
+}
+const enemyMeleeStats = {
+	health = 1500.0,
+	damage = 200.0,
+	bullet_speed = 4.0,
+	levelHealth = 80,
+	partCount = 25
 }
 const playerStats = \
 {\

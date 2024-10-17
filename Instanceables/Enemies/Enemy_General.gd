@@ -60,7 +60,7 @@ func _ready():
 	player = $"../../Player"
 	playAnim("Attack_Idle",false)
 
-func startup(h,d,l):
+func startup(h,d,l,_object):
 	maxHealth = h
 	health = h
 	attackdamage = d
@@ -160,6 +160,9 @@ func stateChange(nState):
 			currentState = state.ATTACKING
 			suspicious = true
 
+func setAnimSpeed():
+	anim.speed_scale = (1 - (COLD_SPEED * cold)) * (speed/2.0)
+
 func damage(point, amount, source):
 	if source != 2:
 		health -= amount * (1 +  (cold * COLD_DAMAGE_MULT))
@@ -230,7 +233,7 @@ func chill(t):
 			iceIconContainer.get_child(2).show()
 			pass
 	if !frozen:
-		anim.speed_scale = (1 - (COLD_SPEED * cold)) * (speed/4.0)
+		setAnimSpeed()
 	chillTimer.wait_time = t
 	chillTimer.start()
 func freeze(t):
@@ -250,7 +253,7 @@ func shatter():
 	for part in shatterRange:
 		if part != self:
 			part.hit(part.global_position,maxHealth/3,3)
-	anim.speed_scale = (1 - (COLD_SPEED * cold)) * (speed/4.0)
+	setAnimSpeed()
 	freezeImmuneTimer.start()
 
 func attack():
@@ -368,7 +371,7 @@ func _on_chill_timer_timeout():
 				iceIconContainer.get_child(1).show()
 				iceIconContainer.get_child(2).hide()
 				chillTimer.start()
-	anim.speed_scale = (1 - (COLD_SPEED * cold)) * (speed/4.0)
+	setAnimSpeed()
 
 func _on_fire_timer_timeout():
 	if fire > 0:
@@ -398,6 +401,6 @@ func _on_fire_timer_timeout():
 func _on_freeze_timer_timeout():
 	frozen = false
 	iceEffect.emitting = false
-	anim.speed_scale = (1 - (COLD_SPEED * cold)) * (speed/4.0)
+	setAnimSpeed()
 func _on_freeze_immune_timer_timeout():
 	pass # Replace with function body.

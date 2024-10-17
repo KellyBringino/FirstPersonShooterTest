@@ -10,6 +10,7 @@ func _ready():
 
 func _physics_process(_delta):
 	super._physics_process(_delta)
+	$ViewControl/vision/WeaponController/Weapon.global_rotation = $ModelController/doll/HandAttachment.global_rotation
 
 func attack():
 	playAnim("Attack",true)
@@ -19,10 +20,8 @@ func attack():
 
 func _on_melee_body_entered(body):
 	meleeList.append(body)
-	print(meleeList)
 func _on_melee_body_exited(body):
 	for i in meleeList.size():
 		if body == meleeList[i]:
 			meleeList.remove_at(i)
 			break
-	print(meleeList)

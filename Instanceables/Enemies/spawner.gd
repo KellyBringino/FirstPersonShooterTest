@@ -1,5 +1,9 @@
 extends Node3D
 
+const CHANCE_OF_MELEE = 0.25
+
+enum EnemyTypes {NORMAL, MELEE}
+
 var rng = RandomNumberGenerator.new()
 var amount : int = 5
 var level : int
@@ -17,22 +21,25 @@ func startup(a,l):
 func spawn():
 	while amount > 0:
 		var mob
+		var stats
 		if firstEnemy:
 			var rng = randf()
-			mob = Game.enemyBasicPreload if rng < .75 else Game.enemyMeleePreload
+			mob = Game.enemyBasicPreload if rng < 1.0 - CHANCE_OF_MELEE else Game.enemyMeleePreload
+			stats = Game.enemyStats if rng < 1.0 - CHANCE_OF_MELEE else Game.enemyMeleeStats
 			mob = mob.instantiate()
 			firstEnemy = false
 		else:
 			mob = Game.enemyBasicPreload.instantiate()
+			stats = Game.enemyStats
 		mob.position = position + \
 			Vector3(rng.randf_range(-2,2),0,rng.randf_range(-2,2))
 		get_node("/root/World/Enemies").add_child(mob)
-		mob.startup\
-		(\
-			Game.enemyStats.health + \
-			(Game.enemyStats.levelHealth * level),\
-			Game.enemyStats.damage,\
-			level\
+		mob.startup(
+			stats.health + \
+			(stats.levelHealth * level),
+			stats.damage,
+			level,
+			stats
 		)
 		amount -= 1
 		await get_tree().create_timer(1.0).timeout
