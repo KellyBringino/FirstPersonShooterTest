@@ -21,10 +21,9 @@ const enemyMeleeStats = {
 	levelHealth = 80,
 	partCount = 25
 }
-const playerStats = \
-{\
-	health = 2000.0,\
-	healthCost = 0.1\
+const playerStats = {
+	health = 2000.0,
+	healthCost = 0.1
 }
 
 #primary stats

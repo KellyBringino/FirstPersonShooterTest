@@ -1,12 +1,15 @@
-[gd_scene load_steps=51 format=3 uid="uid://e7rnwed4wvdv"]
+[gd_scene load_steps=52 format=3 uid="uid://e7rnwed4wvdv"]
 
 [ext_resource type="Material" uid="uid://ce70xqjg3paws" path="res://Assets/Models/Materials/Fade Shaders/FireFadeShader.tres" id="1_gytii"]
+[ext_resource type="AudioStream" uid="uid://dhl0ptcdu3bl" path="res://Assets/Sound/Mobs/ChurchBell.wav" id="2_pfj5i"]
 
 [sub_resource type="GDScript" id="GDScript_jnro4"]
 script/source = "extends Node3D
 
 @onready var skel : Skeleton3D = $Armature/Skeleton3D
 var mat
+var pitchModMax = 0.5
+@onready var bSound = $AudioStreamPlayer3D
 @onready var parts = [
 	$Armature/Skeleton3D/forearm_L/forearm_L,
 	$Armature/Skeleton3D/bicept_L/bicept_L,
@@ -25,6 +28,9 @@ var mat
 	$Armature/Skeleton3D/thigh_L/thigh_L
 ]
 func setup(num,level):
+	var modulation = (randf() * pitchModMax) - (pitchModMax/2.0)
+	bSound.set_pitch_scale(1.0 + modulation)
+	bSound.play()
 	mat = level.getMat(num)
 	for p in parts:
 		p.material_override = mat
@@ -1117,3 +1123,7 @@ bone_idx = 43
 visible = false
 mesh = SubResource("ArrayMesh_0cehf")
 skin = SubResource("Skin_p72pc")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_pfj5i")
+volume_db = -25.0
