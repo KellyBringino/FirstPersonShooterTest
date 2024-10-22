@@ -19,6 +19,23 @@ const weaponMap = {
 	GunType.GRENADELAUNCHER: grenadelauncher
 }
 
+const primaryWeaponMap = {
+	GunType.NONE: noOne,
+	GunType.RIFLE: rifle,
+	GunType.SNIPER: sniper,
+	GunType.SHOTGUN: shotgun
+}
+const secondaryWeaponMap = {
+	GunType.PISTOL: pistol,
+	GunType.REVOLVER: revolver,
+	GunType.SMG: smg,
+}
+const heavyWeaponMap = {
+	GunType.NONE: noOne,
+	GunType.ROCKETLAUNCHER: rocketlauncher,
+	GunType.GRENADELAUNCHER: grenadelauncher
+}
+
 const enemyStats = {
 	health = 2000.0,
 	damage = 200.0,
@@ -229,6 +246,38 @@ func setWeaponIcons(object):
 		ImageTexture.create_from_image(s),
 		ImageTexture.create_from_image(h)
 		)
+
+func setupLevelSelectIcons(object):
+	var priLabels = []
+	var priIcons = []
+	var secLabels = []
+	var secIcons = []
+	var heaLabels = []
+	var heaIcons = []
+	for g in primaryWeaponMap:
+		priLabels.append(primaryWeaponMap[g].name)
+		priIcons.append(load(primaryWeaponMap[g].iconpath))
+	for g in secondaryWeaponMap:
+		secLabels.append(secondaryWeaponMap[g].name)
+		secIcons.append(load(secondaryWeaponMap[g].iconpath))
+	for g in heavyWeaponMap:
+		heaLabels.append(heavyWeaponMap[g].name)
+		heaIcons.append(load(heavyWeaponMap[g].iconpath))
+	var values = {
+		mapMax = len(Utils.levels),
+		priMax = len(primaryWeaponMap),
+		secMax = len(secondaryWeaponMap),
+		heaMax = len(heavyWeaponMap),
+		mapLabels = Utils.levelNames,
+		priLabels = priLabels,
+		secLabels = secLabels,
+		heaLabels = heaLabels,
+		mapIcons = Utils.levelIcons,
+		priIcons = priIcons,
+		secIcons = secIcons,
+		heaIcons = heaIcons
+	}
+	object.setup(values)
 
 func decipherWeaponNumber(weapon):
 	match weapon:

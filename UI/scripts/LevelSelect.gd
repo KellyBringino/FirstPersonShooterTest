@@ -12,14 +12,14 @@ extends Node2D
 @onready var secIcon = $CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/CardsContainer/WeaponCardsContainer/SecondaryCard/VBoxContainer/SecondaryCardContainer/VBoxContainer/SecondaryCard/GunIconContainer/SecondaryGunIcon
 @onready var heaIcon = $CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/SelectionsContainer/VBoxContainer/CardsContainer/WeaponCardsContainer/HeavyCard/VBoxContainer/HeavyCardContainer/VBoxContainer/HeavyCard/GunIconContainer/HeavyGunIcon
 
-const mapMax = 2
-const priMax = 4
-const secMax = 3
-const heaMax = 3
-const mapLabels = ["test", "Rooms"]
-const priLabels = ["None", "Rifle", "Sniper", "Shotgun"]
-const secLabels = ["Pistol", "Revolver", "SMG"]
-const heaLabels = ["None", "Rocket Launcher", "Grenade Launcher"]
+var mapMax = 2
+var priMax = 4
+var secMax = 3
+var heaMax = 3
+var mapLabels = ["test", "Rooms"]
+var priLabels = ["None", "Rifle", "Sniper", "Shotgun"]
+var secLabels = ["Pistol", "Revolver", "SMG"]
+var heaLabels = ["None", "Rocket Launcher", "Grenade Launcher"]
 var mapIcons = [
 	load("res://Assets/Sprites/UI/null.svg"),
 	load("res://Assets/Sprites/Gun Icons/rifle_icon.png")]
@@ -46,6 +46,21 @@ var map = 0
 func _ready():
 	moveCardTo(0)
 	setMap()
+	Game.setupLevelSelectIcons(self)
+
+func setup(object):
+	mapMax = object.mapMax
+	priMax = object.priMax
+	secMax = object.secMax
+	heaMax = object.heaMax
+	mapLabels = object.mapLabels
+	priLabels = object.priLabels
+	secLabels = object.secLabels
+	heaLabels = object.heaLabels
+	mapIcons = object.mapIcons
+	priIcons = object.priIcons
+	secIcons = object.secIcons
+	heaIcons = object.heaIcons
 
 func _on_back_button_pressed():
 	Utils.switchToMainMenu()

@@ -6,6 +6,14 @@ const levels = [
 	"res://Levels/testing_level.tscn",
 	"res://Levels/rooms.tscn"
 ]
+const levelNames = [
+	"Testing",
+	"Rooms"
+]
+var levelIcons = [
+	load("res://Assets/Sprites/UI/null.svg"),
+	load("res://Assets/Sprites/Gun Icons/pistol_icon.png")
+]
 
 var currentLevel = 0
 
