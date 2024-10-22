@@ -507,10 +507,7 @@ func setGuns(allThree):
 		_:
 			heavy = $CameraController/GunController/Weapon3/Gun
 	
-	if allThree[0] == Game.GunType.NONE:
-		equipSecondary()
-	else:
-		equipPrimary()
+	equipSecondary()
 
 func _on_swap_button_timer_timeout():
 	equipHeavy()

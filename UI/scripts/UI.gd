@@ -153,6 +153,7 @@ func setWeapons(w):
 	var sec = Game.decipherWeaponNumber(weapons[1])
 	var hea = Game.decipherWeaponNumber(weapons[2])
 	selectionWheel.setWeapons(pri,sec,hea)
+	Game.setWeaponIcons(selectionWheel)
 	iconWheel.setStats(0,0,0)
 
 func equip(hea,pri,dam,mag,elem):

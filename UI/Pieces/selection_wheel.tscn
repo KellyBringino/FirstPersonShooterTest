@@ -27,8 +27,25 @@ const SPRITE_SIZE = Vector2(1080,1080)
 @export var secText : Array[AtlasTexture]
 @export var heaText : Array[AtlasTexture]
 @export var currentText : Array[AtlasTexture]
+var equipedText : Array[AtlasTexture]
 
 var currentWeapons:Array[int] = [0,0,0]
+
+func setup(priT,secT,heaT):
+	equipedText = []
+	var cur = AtlasTexture.new()
+	cur.atlas = priT
+	cur.region = Rect2(0,0,1080,1080)
+	equipedText.append(cur)
+	cur = AtlasTexture.new()
+	cur.atlas = secT
+	cur.region = Rect2(0,0,1080,1080)
+	equipedText.append(cur)
+	cur = AtlasTexture.new()
+	cur.atlas = heaT
+	cur.region = Rect2(0,0,1080,1080)
+	equipedText.append(cur)
+	equip(false,false)
 
 func _draw():
 	var offset = SPRITE_SIZE/(-2.0 * picture_scale)
@@ -52,32 +69,34 @@ func _process(_delta):
 	queue_redraw()
 
 func setWeapons(pri,sec,hea):
-	currentText[0] = priText[pri]
-	currentText[1] = secText[sec]
-	currentText[2] = heaText[hea]
+	#currentText[0] = priText[pri]
+	#currentText[1] = secText[sec]
+	#currentText[2] = heaText[hea]
 	currentWeapons = [pri,sec,hea]
 
 func equip(hea,pri):
-	if hea:
-		if pri:
-			equipHelp([2,0,1])
+	if len(equipedText) > 0:
+		if hea:
+			if pri:
+				equipHelp([2,0,1])
+			else:
+				equipHelp([2,1,0])
 		else:
-			equipHelp([2,1,0])
-	else:
-		if pri:
-			equipHelp([0,1,2])
-		else:
-			equipHelp([1,0,2])
+			if pri:
+				equipHelp([0,1,2])
+			else:
+				equipHelp([1,0,2])
 
 func equipHelp(help):
-	for i in range(0,3):
-		match help[i]:
-			0:
-				currentText[i] = priText[currentWeapons[0]]
-			1:
-				currentText[i] = secText[currentWeapons[1]]
-			2:
-				currentText[i] = heaText[currentWeapons[2]]
+	for i in 3:
+		currentText[i] = equipedText[help[i]]
+		#match help[i]:
+			#0:
+				#currentText[i] = priText[currentWeapons[0]]
+			#1:
+				#currentText[i] = secText[currentWeapons[1]]
+			#2:
+				#currentText[i] = heaText[currentWeapons[2]]
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j83ai"]
