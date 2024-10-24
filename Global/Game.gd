@@ -234,12 +234,10 @@ func playerReady():
 	$"../World/GUI".setWeapons(weapons)
 
 func setWeaponIcons(object):
-	var p = Image.new()
-	p.load(weaponMap[weapons[0]].iconpath)
-	var s = Image.new()
-	s.load(weaponMap[weapons[1]].iconpath)
-	var h = Image.new()
-	h.load(weaponMap[weapons[2]].iconpath)
+	var p = load(weaponMap[weapons[0]].iconpath).get_image()
+	var s = load(weaponMap[weapons[1]].iconpath).get_image()
+	var h = load(weaponMap[weapons[2]].iconpath).get_image()
+	
 	print(type_string(typeof(p)))
 	object.setup(
 		ImageTexture.create_from_image(p),

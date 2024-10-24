@@ -18,6 +18,8 @@ func activate():
 func rejectHelper():
 	get_node("/root/World/GUI").rejectToolTip()
 	rejectSound.play()
+func acceptHelper():
+	workbenchSound.play()
 func tooltip(stri,number,accessAllowed):
 	get_node("/root/World/GUI").showTooltip(stri,number,accessAllowed)
 func endtooltip():

@@ -44,7 +44,7 @@ func activate():
 			heavy.upgradeDamage()
 			player.pay(due)
 			weaponStatHelper(heavy)
-			workbenchSound.play()
+			acceptHelper()
 		else:
 			rejectHelper()
 	else:
@@ -54,7 +54,7 @@ func activate():
 				primary.upgradeDamage()
 				player.pay(due)
 				weaponStatHelper(primary)
-				workbenchSound.play()
+				acceptHelper()
 			else:
 				rejectHelper()
 		else: 
@@ -63,6 +63,6 @@ func activate():
 				secondary.upgradeDamage()
 				player.pay(due)
 				weaponStatHelper(secondary)
-				workbenchSound.play()
+				acceptHelper()
 			else:
 				rejectHelper()

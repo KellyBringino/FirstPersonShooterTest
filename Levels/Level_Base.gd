@@ -60,7 +60,6 @@ func make_spawner():
 		spawner_at(candidates[rng.randi_range(0,len(candidates)-1)].position)
 
 func getMat(index):
-	var mat
 	match index:
 		0:
 			for m in NormMatPreload:
