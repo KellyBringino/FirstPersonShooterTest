@@ -9,7 +9,7 @@ extends Node2D
 @onready var healthbar = $CanvasLayer/InGameGUI/HealthBarContainer/HealthBarController/HealthBar
 @onready var ammobar = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoBar
 @onready var ammocounter = $CanvasLayer/InGameGUI/AmmoContainer/AmmoController/AmmoBar/VBoxContainer/AmmoCounter
-@onready var partscounter = $CanvasLayer/InGameGUI/InfoBox/InfoContainer/PartsLabel
+@onready var partscounter = $CanvasLayer/InGameGUI/InfoBox/InfoContainer/HBoxContainer/PartsLabel
 @onready var tooltipcontainer = $CanvasLayer/InGameGUI/ToolTipCenterContainer
 @onready var selectionWheel = $CanvasLayer/InGameGUI/AmmoContainer/selection_wheel
 @onready var iconWheel = $CanvasLayer/InGameGUI/AmmoContainer/icon_wheel
@@ -91,22 +91,34 @@ func showTooltip(s,n,a):
 	if !scoped and !gameover:
 		tooltipcontainer.show()
 		tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipLabel").text = s
-		tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").text = n
-		if a:
-			tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").set("theme_override_colors/font_color", Color.WHITE)
+		if n != "":
+			tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipInitLabel").text = " ("
+			tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/PartsIconContainer").show()
+			tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").text = n + ")"
+			if a:
+				tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipInitLabel").set("theme_override_colors/font_color", Color.WHITE)
+				tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").set("theme_override_colors/font_color", Color.WHITE)
+			else:
+				tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipInitLabel").set("theme_override_colors/font_color", Color.RED)
+				tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").set("theme_override_colors/font_color", Color.RED)
 		else:
-			tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").set("theme_override_colors/font_color", Color.RED)
+			tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipInitLabel").text = ""
+			tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/PartsIconContainer").hide()
+			tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").text = ""
 func hideTooltip():
 	if !scoped and !gameover:
 		tooltipcontainer.hide()
 func correctToolTip(a):
 	if a:
+		tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipInitLabel").set("theme_override_colors/font_color", Color.WHITE)
 		tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").set("theme_override_colors/font_color", Color.WHITE)
 	else:
+		tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipInitLabel").set("theme_override_colors/font_color", Color.RED)
 		tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipNumberLabel").set("theme_override_colors/font_color", Color.RED)
 func rejectToolTip():
 	textFlash = true
 	rejectFlashCycles = 5
+	tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipInitLabel").set("theme_override_colors/font_color", Color.RED)
 	tooltipcontainer.get_node("ToolTipContainer/HBoxContainer/ToolTipLabel").set("theme_override_colors/font_color", Color.RED)
 	$FlashTimer.start() 
 

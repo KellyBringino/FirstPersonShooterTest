@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://b5gjr4qrdvma7"]
+[gd_scene load_steps=20 format=3 uid="uid://b5gjr4qrdvma7"]
 
 [ext_resource type="Script" path="res://UI/scripts/UI.gd" id="1_81un3"]
 [ext_resource type="Texture2D" uid="uid://drchcncoxm6r2" path="res://Assets/Sprites/Crosshairs/crosshair.svg" id="2_ekvqs"]
 [ext_resource type="PackedScene" uid="uid://c8vge7q0v1mk6" path="res://UI/Pieces/crosshair_wheel.tscn" id="2_ia3kd"]
+[ext_resource type="Texture2D" uid="uid://cpmqa7d5j5fkv" path="res://Assets/Sprites/UI/partsref.png" id="2_vh33m"]
 [ext_resource type="PackedScene" uid="uid://bsjyb8wyeokxq" path="res://UI/Pieces/selection_wheel.tscn" id="3_7ldfk"]
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Assets/Sprites/UI/bar back.svg" id="3_mt0so"]
 [ext_resource type="PackedScene" uid="uid://dub2f54202j2y" path="res://UI/Pieces/icon_wheel.tscn" id="3_tcnvg"]
@@ -73,11 +74,48 @@ theme_override_constants/outline_size = 10
 text = "Press E to"
 horizontal_alignment = 1
 
+[node name="ToolTipInitLabel" type="Label" parent="CanvasLayer/InGameGUI/ToolTipCenterContainer/ToolTipContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+text = "  ("
+
+[node name="PartsIconContainer" type="MarginContainer" parent="CanvasLayer/InGameGUI/ToolTipCenterContainer/ToolTipContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = -6
+theme_override_constants/margin_right = -5
+
+[node name="PartsIcon2" type="TextureRect" parent="CanvasLayer/InGameGUI/ToolTipCenterContainer/ToolTipContainer/HBoxContainer/PartsIconContainer"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+texture = ExtResource("2_vh33m")
+expand_mode = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/InGameGUI/ToolTipCenterContainer/ToolTipContainer/HBoxContainer/PartsIconContainer/PartsIcon2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/InGameGUI/ToolTipCenterContainer/ToolTipContainer/HBoxContainer/PartsIconContainer/PartsIcon2/CenterContainer"]
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("2_vh33m")
+
+[node name="PartsIcon" type="TextureRect" parent="CanvasLayer/InGameGUI/ToolTipCenterContainer/ToolTipContainer/HBoxContainer/PartsIconContainer"]
+layout_mode = 2
+texture = ExtResource("2_vh33m")
+expand_mode = 3
+
 [node name="ToolTipNumberLabel" type="Label" parent="CanvasLayer/InGameGUI/ToolTipCenterContainer/ToolTipContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
-text = "(20 needed)"
+text = "20 needed)"
 
 [node name="CrosshairCenterContainer" type="CenterContainer" parent="CanvasLayer/InGameGUI"]
 layout_mode = 1
@@ -208,17 +246,32 @@ texture_progress = ExtResource("4_0u4fy")
 layout_mode = 1
 anchors_preset = 0
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 40.415
 
 [node name="InfoContainer" type="MarginContainer" parent="CanvasLayer/InGameGUI/InfoBox"]
+layout_direction = 2
 layout_mode = 1
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 101.0
+offset_bottom = 48.0
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 25
 
-[node name="PartsLabel" type="Label" parent="CanvasLayer/InGameGUI/InfoBox/InfoContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/InGameGUI/InfoBox/InfoContainer"]
+layout_direction = 2
 layout_mode = 2
+
+[node name="PartsIconContainer" type="MarginContainer" parent="CanvasLayer/InGameGUI/InfoBox/InfoContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PartsIcon" type="TextureRect" parent="CanvasLayer/InGameGUI/InfoBox/InfoContainer/HBoxContainer/PartsIconContainer"]
+layout_mode = 2
+texture = ExtResource("2_vh33m")
+expand_mode = 3
+
+[node name="PartsLabel" type="Label" parent="CanvasLayer/InGameGUI/InfoBox/InfoContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Parts: "
 vertical_alignment = 2
 
