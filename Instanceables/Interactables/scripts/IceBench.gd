@@ -7,6 +7,9 @@ func _ready():
 	maxPhrase = "Weapon is Already Consumed"
 
 func accessToolTip():
+	super.accessToolTip()
+	if locked:
+		return
 	var a
 	if player.holdingHeavy:
 		if (player.heavy.checkElement() != 0):
@@ -29,6 +32,9 @@ func accessToolTip():
 				tooltip(phrase + "Secondary weapon"," (" + str(a) + " needed)",player.parts>=a)
 
 func activate():
+	super.activate()
+	if locked:
+		return
 	var due = 0
 	if player.holdingHeavy:
 		due = ceil(player.heavy.elementalUpgradeCost)

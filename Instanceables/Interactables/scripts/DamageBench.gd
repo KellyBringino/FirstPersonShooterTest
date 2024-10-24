@@ -6,6 +6,9 @@ func _ready():
 	maxPhrase = "Weapon is Max Level"
 
 func accessToolTip():
+	super.accessToolTip()
+	if locked:
+		return
 	var a
 	if player.holdingHeavy:
 		if !player.heavy.checkDamageLevel():
@@ -28,6 +31,9 @@ func accessToolTip():
 				tooltip(phrase + "Secondary weapon"," (" + str(a) + " needed)",player.parts>=a)
 
 func activate():
+	super.activate()
+	if locked:
+		return
 	var heavy = player.heavy
 	var primary = player.primary
 	var secondary = player.secondary

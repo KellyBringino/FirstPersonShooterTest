@@ -24,7 +24,7 @@ func _ready():
 		ExplMatPreload[Game.explmat.duplicate(true)] = true
 		FireMatPreload[Game.firemat.duplicate(true)] = true
 		IceMatPreload[Game.icemat.duplicate(true)] = true
-	make_spawner()
+	#make_spawner()
 
 func spawner_at(point):
 	var s = spawnerinstance.instantiate()
