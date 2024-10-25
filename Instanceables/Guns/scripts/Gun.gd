@@ -160,9 +160,9 @@ func _on_aoe_trigger_body_exited(body):
 			inRange.remove_at(index)
 			break
 
-func strike(object):
-	var point = shootRay.get_collision_point()
+func strike(object,point):
 	var dam = damage
+	#if object is an enemy, target correct object and apply crit damage if hit head 
 	if object.collision_layer == 16 or object.collision_layer == 32:
 		while !object.editor_description.contains("Enemy"):
 			if object == null:
@@ -176,7 +176,7 @@ func strike(object):
 	if object.collision_layer == 1:
 		var misfire = misfireInst.instantiate()
 		get_tree().root.add_child(misfire)
-		misfire.global_transform.origin = shootRay.get_collision_point()
+		misfire.global_transform.origin = point
 	else:#if hit object is not environment do elemental effects
 		if fireWeapon and spreadingWeapon:
 			object.burn(5)
@@ -187,6 +187,7 @@ func strike(object):
 		
 		object.hit(point,dam,0)
 	
+	#make fire explosion effect regaurdless of where it is
 	if fireWeapon and !spreadingWeapon:
 		var misfire = fireRing.instantiate()
 		get_tree().root.add_child(misfire)

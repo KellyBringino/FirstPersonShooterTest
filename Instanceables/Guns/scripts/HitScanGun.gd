@@ -27,7 +27,7 @@ func fire():
 				(shootRay.get_collision_point())
 			bullet.startup(dist)
 			#print(object.collision_layer)
-			strike(object)
+			strike(object,shootRay.get_collision_point())
 		else:
 			var bullet = bulletInst.instantiate()
 			get_tree().root.add_child(bullet)
