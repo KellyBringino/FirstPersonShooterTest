@@ -7,45 +7,52 @@
 [node name="model" instance=ExtResource("1_vvpc3")]
 
 [node name="Skeleton3D" parent="Armature" index="0"]
-bones/1/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
-bones/1/scale = Vector3(1, 1, 1)
-bones/2/rotation = Quaternion(0.707107, 0, 0, 0.707107)
+bones/0/rotation = Quaternion(0.707107, 5.33851e-08, 5.33851e-08, 0.707107)
+bones/3/rotation = Quaternion(0.707107, 0.707107, 5.44728e-08, 5.33851e-08)
+bones/4/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
+bones/5/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
+bones/6/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
+bones/7/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
 
 [node name="Rocket" parent="Armature/Skeleton3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08167e-17, 0.193527, 0.298012)
+transform = Transform3D(1, -3.24959e-14, 2.98023e-08, 2.84917e-14, 1, 1.34359e-07, -2.98023e-08, -1.34359e-07, 1, -3.66924e-09, 0.193527, 0.298012)
 
 [node name="Rocket" parent="Armature/Skeleton3D/Rocket" index="0"]
 material_override = ExtResource("2_e6fkb")
 
 [node name="Chassis" parent="Armature/Skeleton3D" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.65661e-10, 0.075, 0)
+transform = Transform3D(1, -1.50996e-07, 0, 1.50996e-07, 1, 0, 0, 0, 1, -1.0859e-08, 0.075, 0)
 
 [node name="Chassis" parent="Armature/Skeleton3D/Chassis" index="0"]
 material_override = ExtResource("3_gvx0d")
 
 [node name="Handle" parent="Armature/Skeleton3D" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.65661e-10, 0.075, -0.204235)
+transform = Transform3D(1, -1.50996e-07, 0, 1.50996e-07, 1, 0, 0, 0, 1, -1.0859e-08, 0.075, -0.204235)
 
 [node name="Handle" parent="Armature/Skeleton3D/Handle" index="0"]
 material_override = ExtResource("3_gvx0d")
 
 [node name="Sight" parent="Armature/Skeleton3D" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00109514, 0.284958, 0.077688)
+transform = Transform3D(1, -1.50996e-07, 0, 1.50996e-07, 1, 0, 0, 0, 1, -0.00109518, 0.284958, 0.077688)
 
 [node name="Sight" parent="Armature/Skeleton3D/Sight" index="0"]
 material_override = ExtResource("3_gvx0d")
 
 [node name="Tube" parent="Armature/Skeleton3D" index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.193439, 0)
+transform = Transform3D(1, -1.50996e-07, 0, 1.50996e-07, 1, 0, 0, 0, 1, -2.92084e-08, 0.193439, 0)
 
 [node name="Tube" parent="Armature/Skeleton3D/Tube" index="0"]
 material_override = ExtResource("2_e6fkb")
 
 [node name="GripAttachment" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="5"]
+transform = Transform3D(1, 0, 1.50996e-07, 1.50996e-07, 0, -1, 0, 1, 0, 0, 0.0702794, 0)
 bone_name = "RootBone"
 bone_idx = 0
 
 [node name="OffhandAttachment" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="6"]
-transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 8.00355e-11, 0.193527, 0.421131)
-bone_name = "RocketBone"
-bone_idx = 1
+transform = Transform3D(2.32267e-16, 1, 1.53823e-09, -1.53823e-09, -1.53823e-09, 1, 1, 0, 1.53823e-09, -1.16415e-08, 0.075, -0.204235)
+bone_name = "OffhandBone"
+bone_idx = 3
+
+[node name="Plane" parent="Armature/Skeleton3D" index="7"]
+visible = false

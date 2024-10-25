@@ -10,9 +10,10 @@
 script = ExtResource("1_3tl4e")
 
 [node name="model" parent="." instance=ExtResource("2_bjcj1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0976784)
 
 [node name="BarrelEnd" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.429893)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.320758)
 
 [node name="ShootRay" type="RayCast3D" parent="BarrelEnd"]
 target_position = Vector3(0, 0, -50)
