@@ -21,15 +21,10 @@ func spawn():
 	while amount > 0:
 		var mob
 		var stats
-		if firstEnemy:
-			var rng = randf()
-			mob = Game.enemyBasicPreload if rng < 1.0 - CHANCE_OF_MELEE else Game.enemyMeleePreload
-			stats = Game.enemyStats if rng < 1.0 - CHANCE_OF_MELEE else Game.enemyMeleeStats
-			mob = mob.instantiate()
-			firstEnemy = false
-		else:
-			mob = Game.enemyBasicPreload.instantiate()
-			stats = Game.enemyStats
+		var rng = randf()
+		mob = Game.enemyBasicPreload if rng < 1.0 - CHANCE_OF_MELEE else Game.enemyMeleePreload
+		stats = Game.enemyStats if rng < 1.0 - CHANCE_OF_MELEE else Game.enemyMeleeStats
+		mob = mob.instantiate()
 		mob.position = position + \
 			Vector3(randf_range(-2,2),0,randf_range(-2,2))
 		get_node("/root/World/Enemies").add_child(mob)

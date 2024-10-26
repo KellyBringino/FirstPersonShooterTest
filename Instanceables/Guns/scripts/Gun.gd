@@ -164,13 +164,12 @@ func strike(object,point):
 	var dam = damage
 	#if object is an enemy, target correct object and apply crit damage if hit head 
 	if object.collision_layer == 16 or object.collision_layer == 32:
+		if object.collision_layer == 32:
+			dam = dam * critMult
 		while !object.editor_description.contains("Enemy"):
 			if object == null:
 				break
 			object = object.get_node("../")
-		if object != null:
-			if object.collision_layer == 32:
-				dam *= critMult
 	
 	#if hit object is environment, make misfire
 	if object.collision_layer == 1:
