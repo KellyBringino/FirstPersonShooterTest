@@ -40,14 +40,14 @@ const enemyStats = {
 	health = 2000.0,
 	damage = 200.0,
 	bullet_speed = 4.0,
-	levelHealth = 80,
+	levelHealth = 200,
 	partCount = 20
 }
 const enemyMeleeStats = {
 	health = 1500.0,
 	damage = 200.0,
 	bullet_speed = 4.0,
-	levelHealth = 80,
+	levelHealth = 150,
 	partCount = 25
 }
 const playerStats = {
@@ -75,30 +75,30 @@ const rifle = {
 	flinch = 0.2, adsOffset = -0.5,
 	adsZoom = 50.0, scope = false,
 	ammoCost = 1.0, upgradeCost = 600, magUpgradeCost = 400, elementalUpgradeCost = 1000,
-	damageUpgrade = 500, magUpgrade = 80, spreadingWeapon = true,
+	damageUpgrade = 1540, magUpgrade = 20, spreadingWeapon = true,
 	instance = preload("res://Instanceables/Guns/rifle.tscn"),
 	iconpath = "res://Assets/Sprites/Gun Icons/rifle_icon.png"
 }
 const sniper = {
 	name = "Sniper Rifle", ammoLimited = true, gunType = 1,
 	damage = 2500.0, crit = 2.0, 
-	magsize = 3, ammoMax = 18, reloadMult = 1.0,
+	magsize = 5, ammoMax = 25, reloadMult = 1.0,
 	flinch = 1.0, adsOffset = 0.0,
 	adsZoom = 20.0, scope = true,
 	ammoCost = 20.0, upgradeCost = 600, magUpgradeCost = 800, elementalUpgradeCost = 1000,
-	damageUpgrade = 500, magUpgrade = 2, spreadingWeapon = false,
+	damageUpgrade = 3500, magUpgrade = 2, spreadingWeapon = false,
 	instance = preload("res://Instanceables/Guns/sniper.tscn"),
 	iconpath = "res://Assets/Sprites/Gun Icons/sniper_icon.png"
 }
 const shotgun = {
 	name = "Shotgun", ammoLimited = true, gunType = 1,
-	damage = 700.0, crit = 1.3, 
+	damage = 650.0, crit = 1.3, 
 	magsize = 5, ammoMax = 50, reloadMult = 1.0,
 	pellets = 60, rings = 10,
 	flinch = 1.0, adsOffset = 0.0,
 	adsZoom = 60.0, scope = false,
 	ammoCost = 20.0, upgradeCost = 600, magUpgradeCost = 800, elementalUpgradeCost = 1000,
-	damageUpgrade = 520, magUpgrade = 2, spreadingWeapon = true,
+	damageUpgrade = 1300, magUpgrade = 2, spreadingWeapon = true,
 	instance = preload("res://Instanceables/Guns/shotgun.tscn"),
 	iconpath = "res://Assets/Sprites/Gun Icons/shotgun_icon.png"
 }
@@ -110,18 +110,18 @@ const pistol = {
 	flinch = 0.2, adsOffset = 0.0,
 	adsZoom = 60.0, scope = false,
 	ammoCost = 0, upgradeCost = 1, magUpgradeCost = 1, elementalUpgradeCost = 1,
-	damageUpgrade = 255, magUpgrade = 3, spreadingWeapon = false,
+	damageUpgrade = 890, magUpgrade = 3, spreadingWeapon = false,
 	instance = preload("res://Instanceables/Guns/pistol.tscn"),
 	iconpath = "res://Assets/Sprites/Gun Icons/pistol_icon.png"
 }
 const revolver = {
 	name = "Revolver", ammoLimited = false, gunType = 0,
-	damage = 550.0, crit = 1.7, 
+	damage = 1177.0, crit = 1.7, 
 	magsize = 6, reloadMult = 1.3,
 	flinch = 0.8, adsOffset = 0.0,
 	adsZoom = 50.0, scope = false,
 	ammoCost = 0, upgradeCost = 400, magUpgradeCost = 600, elementalUpgradeCost = 1000,
-	damageUpgrade = 370, magUpgrade = 2, spreadingWeapon = false,
+	damageUpgrade = 2354, magUpgrade = 2, spreadingWeapon = false,
 	instance = preload("res://Instanceables/Guns/revolver.tscn"),
 	iconpath = "res://Assets/Sprites/Gun Icons/revolver_icon.png"
 }
@@ -132,19 +132,19 @@ const smg = {
 	flinch = 0.4, adsOffset = 0.0,
 	adsZoom = 60.0, scope = false,
 	ammoCost = 0, upgradeCost = 1, magUpgradeCost = 1, elementalUpgradeCost = 1,
-	damageUpgrade = 150, magUpgrade = 5, spreadingWeapon = true,
+	damageUpgrade = 400, magUpgrade = 5, spreadingWeapon = true,
 	instance = preload("res://Instanceables/Guns/smg.tscn"),
 	iconpath = "res://Assets/Sprites/Gun Icons/smg_icon.png"
 }
 #heavy stats
 const rocketlauncher = {
 	name = "Rocket Launcher", ammoLimited = true, gunType = 2,
-	damage = 150.0, crit = 1.0, 
-	magsize = 1, ammoMax = 4, reloadMult = 1.0,
+	damage = 170.0, crit = 1.0, 
+	magsize = 1, ammoMax = 7, reloadMult = 1.0,
 	flinch = 0.0, adsOffset = 0.0,
 	adsZoom = 50.0, scope = true,
 	ammoCost = 40.0, upgradeCost = 1000, magUpgradeCost = 5000, elementalUpgradeCost = 1000,
-	damageUpgrade = 100, magUpgrade = 1, spreadingWeapon = true,
+	damageUpgrade = 340, magUpgrade = 1, spreadingWeapon = true,
 	proj = preload("res://Instanceables/Guns/Projectile/rocket.tscn"),
 	instance = preload("res://Instanceables/Guns/rocketlauncher.tscn"),
 	iconpath = "res://Assets/Sprites/Gun Icons/rocketlauncher_icon.png"
@@ -156,7 +156,7 @@ const grenadelauncher = {
 	flinch = 0.5, adsOffset = 0.0,
 	adsZoom = 50.0, scope = true,
 	ammoCost = 40.0, upgradeCost = 1000, magUpgradeCost = 2000, elementalUpgradeCost = 1000,
-	damageUpgrade = 70, magUpgrade = 1, spreadingWeapon = true,
+	damageUpgrade = 200, magUpgrade = 1, spreadingWeapon = true,
 	proj = preload("res://Instanceables/Guns/Projectile/grenade.tscn"),
 	instance = preload("res://Instanceables/Guns/grenadelauncher.tscn"),
 	iconpath = "res://Assets/Sprites/Gun Icons/grenadelauncher_icon.png"
@@ -234,12 +234,10 @@ func playerReady():
 	$"../World/GUI".setWeapons(weapons)
 
 func setWeaponIcons(object):
-	var p = Image.new()
-	p.load(weaponMap[weapons[0]].iconpath)
-	var s = Image.new()
-	s.load(weaponMap[weapons[1]].iconpath)
-	var h = Image.new()
-	h.load(weaponMap[weapons[2]].iconpath)
+	var p = load(weaponMap[weapons[0]].iconpath).get_image()
+	var s = load(weaponMap[weapons[1]].iconpath).get_image()
+	var h = load(weaponMap[weapons[2]].iconpath).get_image()
+	
 	print(type_string(typeof(p)))
 	object.setup(
 		ImageTexture.create_from_image(p),

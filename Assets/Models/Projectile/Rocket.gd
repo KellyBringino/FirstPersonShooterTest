@@ -41,7 +41,7 @@ func destructableCheck(object):
 func _on_detonator_shape_body_entered(_body):
 	if !isExploding:
 		isExploding = true
-		process_mode = Node.PROCESS_MODE_DISABLED
+		#process_mode = Node.PROCESS_MODE_DISABLED
 		for cur in objects:
 			strike(cur)
 		var expl = explosionInstance.instantiate()

@@ -20,6 +20,7 @@ func activate():
 		if player.heavy.getReserveDiff() > 0:
 			var due = ceil(player.heavy.getReserveDiff() * player.heavy.ammoCost)
 			if player.parts >= due:
+				acceptHelper()
 				player.heavy.fillReserve()
 				player.pay(due)
 			else:

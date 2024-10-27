@@ -22,7 +22,7 @@ func activate():
 		if player.parts >= due:
 			player.heal()
 			player.pay(due)
-			workbenchSound.play()
+			acceptHelper()
 			endtooltip()
 		else:
 			rejectHelper()

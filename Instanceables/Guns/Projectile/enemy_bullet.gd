@@ -4,7 +4,6 @@ var damage
 
 func setup(d):
 	damage = d
-	$GPUParticles3D.emitting = true
 
 func _on_area_3d_body_entered(body):
 	while !body.editor_description.contains("Player") && body != get_node("/root/World"):

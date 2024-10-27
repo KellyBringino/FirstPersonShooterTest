@@ -149,7 +149,7 @@ region = Rect2(0, 0, 1080, 1080)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tvqba"]
 atlas = ExtResource("1_hf77t")
-region = Rect2(0, 0, 4080, 4080)
+region = Rect2(0, 0, 1080, 1080)
 
 [node name="selection_wheel" type="Control"]
 layout_mode = 3

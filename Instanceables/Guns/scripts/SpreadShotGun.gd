@@ -22,15 +22,18 @@ func fire():
 	if chambered && !reloading && mag > 0:
 		super.fire()
 		mag -= 1
-		for i in pellets:
+		for i in pellets:#shoot once per bullet
+			#rotate shooting ray upward to the right ring
 			splinterRay.rotation = Vector3.ZERO
 			var rotref = -(shootRay.get_global_transform().basis.z)
 			splinterRay.rotation_degrees.x = (i / floor(pellets/4.0))*4
-			var angle = (i % (floor(float(pellets)/float(rings)))) * ((2*PI)/(floor(float(pellets)/float(rings))))
+			#rotate around that ring a random amount
+			var angle = (i % int(floor(float(pellets)/float(rings)))) * ((2*PI)/(floor(float(pellets)/float(rings))))
 			splinterRay.global_rotate(
 				rotref,
 				(angle + (((rng.randf() - 0.5) * rings)) * PI / floor(float(pellets)/float(rings)))
 			)
+			#update ray and get object its pointing at
 			splinterRay.force_raycast_update()
 			var object = splinterRay.get_collider()
 			if (object != null):
@@ -43,7 +46,7 @@ func fire():
 					(colPoint)
 				bullet.startup(dist)
 				#print(object.collision_layer)
-				strike(object)
+				strike(object,splinterRay.get_collision_point())
 			else:
 				var bullet = bulletInst.instantiate()
 				get_tree().root.add_child(bullet)

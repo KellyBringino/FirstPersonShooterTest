@@ -160,45 +160,47 @@ func _on_aoe_trigger_body_exited(body):
 			inRange.remove_at(index)
 			break
 
-func strike(object):
-	var point = shootRay.get_collision_point()
+func strike(object,point):
 	var dam = damage
+	#if object is an enemy, target correct object and apply crit damage if hit head 
 	if object.collision_layer == 16 or object.collision_layer == 32:
+		if object.collision_layer == 32:
+			dam = dam * critMult
 		while !object.editor_description.contains("Enemy"):
 			if object == null:
 				break
 			object = object.get_node("../")
-		if object != null:
-			if object.collision_layer == 32:
-				dam *= critMult
 	
+	#if hit object is environment, make misfire
 	if object.collision_layer == 1:
 		var misfire = misfireInst.instantiate()
 		get_tree().root.add_child(misfire)
-		misfire.global_transform.origin = shootRay.get_collision_point()
-	else:
+		misfire.global_transform.origin = point
+	else:#if hit object is not environment do elemental effects
 		if fireWeapon and spreadingWeapon:
 			object.burn(5)
-		elif fireWeapon:
-			var misfire = fireRing.instantiate()
-			get_tree().root.add_child(misfire)
-			misfire.global_transform.origin = shootRay.get_collision_point()
-			misfire.setup(aoeTrigger.get_child(0).shape.radius)
-			aoeTrigger.global_position = point
-			aoeTrigger.force_update_transform()
-			var hits = []
-			for o in inRange:
-				while !o.editor_description.contains("Enemy"):
-						if o == null:
-							break
-						o = o.get_node("../")
-				if o != null and !hits.has(o):
-					hits.append(o)
-			for o in hits:
-				o.hit(point,dam,1)
 		elif iceWeapon and spreadingWeapon:
 			object.chill(10)
 		elif iceWeapon:
 			object.freeze(15)
 		
 		object.hit(point,dam,0)
+	
+	#make fire explosion effect regaurdless of where it is
+	if fireWeapon and !spreadingWeapon:
+		var misfire = fireRing.instantiate()
+		get_tree().root.add_child(misfire)
+		misfire.global_transform.origin = shootRay.get_collision_point()
+		misfire.setup(aoeTrigger.get_child(0).shape.radius)
+		aoeTrigger.global_position = point
+		aoeTrigger.force_update_transform()
+		var hits = []
+		for o in inRange:
+			while !o.editor_description.contains("Enemy"):
+					if o == null:
+						break
+					o = o.get_node("../")
+			if o != null and !hits.has(o):
+				hits.append(o)
+		for o in hits:
+			o.hit(point,dam,1)

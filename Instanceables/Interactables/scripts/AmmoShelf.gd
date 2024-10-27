@@ -20,6 +20,7 @@ func activate():
 		if player.primary.getReserveDiff() > 0:
 			var due = ceil(player.primary.getReserveDiff() * player.primary.ammoCost)
 			if player.parts >= due:
+				acceptHelper()
 				player.primary.fillReserve()
 				player.pay(due)
 				endtooltip()
