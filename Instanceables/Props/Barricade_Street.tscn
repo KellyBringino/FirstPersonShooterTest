@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://drofoakyp2qbi"]
+
+[ext_resource type="PackedScene" uid="uid://bdwnqewwhh7o2" path="res://Assets/Models/Props/barricade_street_scene.tscn" id="1_4n7uy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yttli"]
+size = Vector3(2, 1.9, 1.5)
+
+[node name="Barricade_Street" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -0.75)
+shape = SubResource("BoxShape3D_yttli")
+
+[node name="Barricade_Street" parent="." instance=ExtResource("1_4n7uy")]

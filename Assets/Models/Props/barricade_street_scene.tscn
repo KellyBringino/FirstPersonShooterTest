@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdwnqewwhh7o2"]
+
+[ext_resource type="PackedScene" uid="uid://bwlke23eoani0" path="res://Assets/Models/Props/Barricade_Street.glb" id="1_mvglp"]
+
+[node name="Barricade_Street" instance=ExtResource("1_mvglp")]

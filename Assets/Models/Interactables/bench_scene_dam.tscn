@@ -89,5 +89,6 @@ material_override = ExtResource("3_4kbsc")
 material_override = ExtResource("3_4kbsc")
 
 [node name="Decal" type="Decal" parent="." index="13"]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0.171203, 1.6, 0)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, -0.463151, 1.6, 2.77285e-08)
+size = Vector3(2, 0.04599, 2)
 texture_albedo = ExtResource("4_frvcf")
