@@ -490,7 +490,7 @@ func heal():
 func hit(d,_point):
 	health -= d
 	get_node("/root/World/GUI").setHealth(health)
-	if health <= 0:
+	if health <= 0 and !gameover:
 		gameover = true
 		Game.GameOver()
 

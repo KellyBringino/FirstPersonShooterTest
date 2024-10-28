@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dqlc6fb5v8aft"]
+[gd_scene load_steps=11 format=3 uid="uid://dqlc6fb5v8aft"]
 
 [ext_resource type="PackedScene" uid="uid://gnrh0udtgvel" path="res://Assets/Models/Levels/Rooms.glb" id="1_2fe6d"]
 [ext_resource type="Material" uid="uid://l5rob7segohk" path="res://Assets/Models/Materials/Wood.tres" id="2_pr7tk"]
+[ext_resource type="Material" uid="uid://b6mlinomnobvf" path="res://Assets/Models/Materials/Carpet.tres" id="3_4bugx"]
 [ext_resource type="Material" uid="uid://cv53w0h70o0po" path="res://Assets/Models/Materials/Gray.tres" id="4_88mik"]
 [ext_resource type="Shader" uid="uid://dgqfg5u3bqfmo" path="res://Assets/Models/Materials/Dirt.tres" id="4_bsmr8"]
 [ext_resource type="Material" uid="uid://biu7slach4qyq" path="res://Assets/Models/Materials/Black.tres" id="5_kdob5"]
@@ -22,6 +23,24 @@ data = PackedVector3Array(-2.0003, 0.1998, 1, 0, 0.1998, -1, 0, 0.1998, 1, -2.00
 
 [node name="Rooms" instance=ExtResource("1_2fe6d")]
 
+[node name="Chair_Bases" parent="Room_Stage" index="0"]
+material_override = ExtResource("2_pr7tk")
+
+[node name="Chair_Seats" parent="Room_Stage" index="1"]
+material_override = ExtResource("3_4bugx")
+
+[node name="Curtain" parent="Room_Stage" index="2"]
+material_override = ExtResource("3_4bugx")
+
+[node name="Curtain_Destructable" parent="Room_Stage" index="3"]
+material_override = ExtResource("3_4bugx")
+
+[node name="Curtain_Left" parent="Room_Stage" index="4"]
+material_override = ExtResource("3_4bugx")
+
+[node name="Curtain_Right" parent="Room_Stage" index="5"]
+material_override = ExtResource("3_4bugx")
+
 [node name="Room_Stage_Collider" parent="Room_Stage" index="11"]
 visible = false
 
@@ -29,6 +48,18 @@ visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Room_Stage/Room_Stage_Collider/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_ljubs")
+
+[node name="Room_Stage_Floor" parent="Room_Stage" index="13"]
+material_override = ExtResource("5_kdob5")
+
+[node name="Room_Stage_Stage" parent="Room_Stage" index="14"]
+material_override = ExtResource("2_pr7tk")
+
+[node name="StageStairsLeft" parent="Room_Stage" index="16"]
+material_override = ExtResource("2_pr7tk")
+
+[node name="StageStairsRight" parent="Room_Stage" index="17"]
+material_override = ExtResource("2_pr7tk")
 
 [node name="Barricade_M" parent="Room_Crater/Barricades" index="0"]
 material_override = ExtResource("2_pr7tk")

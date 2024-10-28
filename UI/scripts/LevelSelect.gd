@@ -61,6 +61,18 @@ func setup(object):
 	priIcons = object.priIcons
 	secIcons = object.secIcons
 	heaIcons = object.heaIcons
+	pri = object.pri
+	sec = object.sec
+	hea = object.hea
+	map = object.map
+	moveCardTo(1)
+	priLabel.text = priLabels[pri]
+	priIcon.texture = priIcons[pri]
+	secLabel.text = secLabels[sec]
+	secIcon.texture = secIcons[sec]
+	heaLabel.text = heaLabels[hea]
+	heaIcon.texture = heaIcons[hea]
+	moveCardTo(0)
 
 func _on_back_button_pressed():
 	Utils.switchToMainMenu()

@@ -9,7 +9,6 @@
 bones/0/rotation = Quaternion(-0.142264, 1.17997e-07, -1.69592e-08, 0.989829)
 bones/1/rotation = Quaternion(0.0118479, -1.19201e-07, 1.41237e-09, 0.99993)
 bones/2/rotation = Quaternion(0.130526, -2.44688e-15, -6.02952e-16, 0.991445)
-bones/2/scale = Vector3(1, 1, 1)
 bones/3/rotation = Quaternion(-0.599319, -9.54282e-08, -7.14444e-08, 0.80051)
 bones/4/rotation = Quaternion(0.707107, 0, -1.50729e-14, 0.707107)
 bones/5/rotation = Quaternion(0.000661545, -1.19209e-07, 7.88567e-11, 1)
@@ -17,19 +16,19 @@ bones/5/scale = Vector3(1, 1, 1)
 bones/6/rotation = Quaternion(0.142264, -1.17997e-07, 1.69592e-08, 0.989829)
 
 [node name="Mag" parent="Armature/Skeleton3D" index="0"]
-transform = Transform3D(1, -3.00248e-15, -6.29042e-14, -5.56824e-16, 1, -8.9407e-08, 6.18527e-14, 8.9407e-08, 1, -3.44641e-15, 2.98023e-08, 1.76951e-08)
+transform = Transform3D(1, 6.1614e-14, 2.43449e-13, -7.87165e-14, 1, 1.16229e-06, -2.79208e-13, -1.16229e-06, 1, -9.04917e-16, 1.49012e-08, -2.14204e-08)
 
 [node name="Mag" parent="Armature/Skeleton3D/Mag" index="0"]
 material_override = ExtResource("1_5vgho")
 
 [node name="Slide" parent="Armature/Skeleton3D" index="1"]
-transform = Transform3D(1, 7.10543e-15, -2.13163e-14, -2.13163e-14, 1, 1.19209e-07, 2.13163e-14, -1.19209e-07, 1, -1.35409e-15, -1.28057e-09, -8.3819e-09)
+transform = Transform3D(1, 1.56319e-13, 3.48166e-13, -1.63425e-13, 1, 7.7486e-07, -3.90798e-13, -7.7486e-07, 1, 4.44931e-15, -3.60887e-09, -5.30854e-08)
 
 [node name="Slide" parent="Armature/Skeleton3D/Slide" index="0"]
 material_override = ExtResource("1_5vgho")
 
 [node name="Chassis" parent="Armature/Skeleton3D" index="2"]
-transform = Transform3D(1, 7.10543e-15, 0, -7.10543e-15, 1, -5.96046e-08, 0, 5.96046e-08, 1, -4.4753e-16, 7.45058e-09, 1.02445e-08)
+transform = Transform3D(1, 0, -1.42109e-14, 0, 1, 0, 0, 0, 1, 5.32563e-15, 0, -3.44589e-08)
 
 [node name="Chassis" parent="Armature/Skeleton3D/Chassis" index="0"]
 material_override = ExtResource("1_5vgho")
@@ -38,11 +37,11 @@ material_override = ExtResource("1_5vgho")
 visible = false
 
 [node name="GripAttachment" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="4"]
-transform = Transform3D(1, 0, 2.38419e-07, -6.71466e-08, 0.959522, 0.281633, -2.28768e-07, -0.281633, 0.959522, -8.91619e-16, -0.107953, 0.00580641)
+transform = Transform3D(1, -3.19744e-14, 2.38419e-07, -6.71468e-08, 0.959522, 0.281634, -2.28768e-07, -0.281634, 0.959522, -8.91619e-16, -0.107953, 0.00580641)
 bone_name = "MainBone"
 bone_idx = 0
 
 [node name="OffhandAttachment" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="5"]
-transform = Transform3D(1, 1.113e-14, -2.84217e-14, -1.42109e-14, 0.959894, 0.280364, 0, -0.280364, 0.959894, 8.84738e-16, -0.118101, -0.0579781)
+transform = Transform3D(1, -1.99285e-14, 9.09495e-13, -2.55795e-13, 0.959894, 0.280364, -9.37916e-13, -0.280364, 0.959894, -2.39843e-14, -0.118101, -0.0579781)
 bone_name = "OffhandBone"
 bone_idx = 5

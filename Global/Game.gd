@@ -28,7 +28,7 @@ const primaryWeaponMap = {
 const secondaryWeaponMap = {
 	GunType.PISTOL: pistol,
 	GunType.REVOLVER: revolver,
-	GunType.SMG: smg,
+	GunType.SMG: smg
 }
 const heavyWeaponMap = {
 	GunType.NONE: noOne,
@@ -175,12 +175,12 @@ const normalmat = preload("res://Assets/Models/Materials/Fade Shaders/NormalFade
 
 var weaponText : Array[ImageTexture]
 var paused : bool = false
-var horizontalSensitivity = 0.8
-var verticalSensitivity = 0.8
+var horizontalSensitivity : float = 0.8
+var verticalSensitivity : float = 0.8
 var highScore : int = 0
 var score : int = 0
 var kills : int = 0
-var weapons = [GunType.RIFLE,GunType.REVOLVER,GunType.ROCKETLAUNCHER]
+var weapons = [GunType.RIFLE,GunType.PISTOL,GunType.ROCKETLAUNCHER]
 
 func _ready():
 	if FileAccess.file_exists(Utils.SAVE_PATH):
@@ -238,7 +238,6 @@ func setWeaponIcons(object):
 	var s = load(weaponMap[weapons[1]].iconpath).get_image()
 	var h = load(weaponMap[weapons[2]].iconpath).get_image()
 	
-	print(type_string(typeof(p)))
 	object.setup(
 		ImageTexture.create_from_image(p),
 		ImageTexture.create_from_image(s),
@@ -273,7 +272,11 @@ func setupLevelSelectIcons(object):
 		mapIcons = Utils.levelIcons,
 		priIcons = priIcons,
 		secIcons = secIcons,
-		heaIcons = heaIcons
+		heaIcons = heaIcons,
+		pri = decipherWeaponNumber(weapons[0]),
+		sec = decipherWeaponNumber(weapons[1]),
+		hea = decipherWeaponNumber(weapons[2]),
+		map = 0
 	}
 	object.setup(values)
 
@@ -299,6 +302,28 @@ func decipherWeaponNumber(weapon):
 			return 2
 		_:
 			return 0
+func decipherWeaponType(weapon,slot):
+	var i = 0
+	match slot:
+		0:
+			for w in primaryWeaponMap:
+				if i == weapon:
+					return w
+				else:
+					i+=1
+		1:
+			for w in secondaryWeaponMap:
+				print(w)
+				if i == weapon:
+					return w
+				else:
+					i+=1
+		2:
+			for w in heavyWeaponMap:
+				if i == weapon:
+					return w
+				else:
+					i+=1
 
 func choose(pri,sec,hea):
 	match pri:
