@@ -301,6 +301,10 @@ autostart = true
 wait_time = 0.25
 one_shot = true
 
+[node name="ShatterImmuneTimer" type="Timer" parent="TimerController"]
+wait_time = 0.1
+one_shot = true
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 
@@ -323,5 +327,6 @@ shape = SubResource("SphereShape3D_45hed")
 [connection signal="timeout" from="TimerController/FreezeTimer" to="." method="_on_freeze_timer_timeout"]
 [connection signal="timeout" from="TimerController/TickTimer" to="." method="_on_tick_timer_timeout"]
 [connection signal="timeout" from="TimerController/FreezeImmuneTimer" to="." method="_on_freeze_immune_timer_timeout"]
+[connection signal="timeout" from="TimerController/ShatterImmuneTimer" to="." method="_on_shatter_immune_timer_timeout"]
 [connection signal="body_entered" from="ShatterArea" to="." method="_on_shatter_area_body_entered"]
 [connection signal="body_exited" from="ShatterArea" to="." method="_on_shatter_area_body_exited"]

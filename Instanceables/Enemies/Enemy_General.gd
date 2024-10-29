@@ -16,6 +16,7 @@ extends CharacterBody3D
 @onready var chillTimer : Timer = $TimerController/ChillTimer
 @onready var freezeTimer : Timer = $TimerController/FreezeTimer
 @onready var freezeImmuneTimer : Timer = $TimerController/FreezeImmuneTimer
+@onready var shatterImmuneTimer : Timer = $TimerController/ShatterImmuneTimer
 @onready var iceEffect : GPUParticles3D = $ModelController/Ice
 
 const REACH_DIST = 0.5
@@ -59,6 +60,7 @@ func _ready():
 	iceEffect.emitting = false
 	player = $"../../Player"
 	playAnim("Attack_Idle",false)
+	setAnimSpeed()
 
 func startup(h,d,l,_object):
 	maxHealth = h
@@ -238,23 +240,27 @@ func chill(t):
 	chillTimer.start()
 func freeze(t):
 	if freezeImmuneTimer.is_stopped():
+		if !frozen:
+			shatterImmuneTimer.start()
 		frozen = true
 		iceEffect.emitting = true
 		anim.speed_scale = 0
 		freezeTimer.wait_time = t
 		freezeTimer.start()
 func shatter():
-	var iceEx = Game.iceAOEPreload.instantiate()
-	add_child(iceEx)
-	iceEx.position += Vector3(0,1,0)
-	iceEx.setup($ShatterArea/CollisionShape3D.shape.radius)
-	frozen = false
-	iceEffect.emitting = false
-	for part in shatterRange:
-		if part != self:
-			part.hit(part.global_position,maxHealth/3,3)
-	setAnimSpeed()
-	freezeImmuneTimer.start()
+	if shatterImmuneTimer.is_stopped():
+		print("shatter")
+		var iceEx = Game.iceAOEPreload.instantiate()
+		add_child(iceEx)
+		iceEx.position += Vector3(0,1,0)
+		iceEx.setup($ShatterArea/CollisionShape3D.shape.radius)
+		frozen = false
+		iceEffect.emitting = false
+		for part in shatterRange:
+			if part != self:
+				part.hit(part.global_position,maxHealth/3,3)
+		setAnimSpeed()
+		freezeImmuneTimer.start()
 
 func attack():
 	playAnim("Attack",true)
@@ -403,4 +409,7 @@ func _on_freeze_timer_timeout():
 	iceEffect.emitting = false
 	setAnimSpeed()
 func _on_freeze_immune_timer_timeout():
+	pass # Replace with function body.
+
+func _on_shatter_immune_timer_timeout():
 	pass # Replace with function body.

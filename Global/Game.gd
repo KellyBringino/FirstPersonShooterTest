@@ -109,7 +109,7 @@ const pistol = {
 	magsize = 10, reloadMult = 1.0,
 	flinch = 0.2, adsOffset = 0.0,
 	adsZoom = 60.0, scope = false,
-	ammoCost = 0, upgradeCost = 1, magUpgradeCost = 1, elementalUpgradeCost = 1,
+	ammoCost = 0, upgradeCost = 0, magUpgradeCost = 0, elementalUpgradeCost = 0,
 	damageUpgrade = 890, magUpgrade = 3, spreadingWeapon = false,
 	instance = preload("res://Instanceables/Guns/pistol.tscn"),
 	iconpath = "res://Assets/Sprites/Gun Icons/pistol_icon.png"
@@ -131,7 +131,7 @@ const smg = {
 	magsize = 20, reloadMult = 1.0,
 	flinch = 0.4, adsOffset = 0.0,
 	adsZoom = 60.0, scope = false,
-	ammoCost = 0, upgradeCost = 1, magUpgradeCost = 1, elementalUpgradeCost = 1,
+	ammoCost = 0, upgradeCost = 0, magUpgradeCost = 0, elementalUpgradeCost = 0,
 	damageUpgrade = 400, magUpgrade = 5, spreadingWeapon = true,
 	instance = preload("res://Instanceables/Guns/smg.tscn"),
 	iconpath = "res://Assets/Sprites/Gun Icons/smg_icon.png"
