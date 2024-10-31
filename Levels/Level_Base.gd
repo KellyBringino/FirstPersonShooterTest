@@ -6,10 +6,10 @@ const spawnDis = 25.0
 
 @onready var spawns : Array = $Spawns.get_children()
 var rng = RandomNumberGenerator.new()
-var enemyMax : int = 15;
+var enemyMax : int = 10;
 var enemyCount : int = 0;
-var enemiesAtOnce : int = 5
-var roundMax : int = 5
+var enemiesAtOnce : int = 4
+var roundMax : int = 10
 var curRound : int = 0
 var spawnRound : int = 0
 
@@ -41,6 +41,7 @@ func spawner_at(point):
 		curRound += dif
 	if curRound >= roundMax:
 		spawnRound += 1
+		curRound = 0
 
 func make_spawner():
 	var mainCandi = null
