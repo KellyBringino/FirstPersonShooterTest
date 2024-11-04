@@ -1,0 +1,91 @@
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://rli2ise35no5"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3unix"]
+noise_type = 3
+frequency = 0.054
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0i4m6"]
+noise = SubResource("FastNoiseLite_3unix")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_erudg"]
+expanded_output_ports = [0]
+texture = SubResource("NoiseTexture2D_0i4m6")
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_70ebv"]
+expanded_output_ports = [0]
+parameter_name = "ColorParameter"
+default_value_enabled = true
+default_value = Color(0.222498, 0.147845, 0.0786134, 1)
+
+[sub_resource type="VisualShaderNodeColorOp" id="VisualShaderNodeColorOp_bagd1"]
+operator = 4
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform vec4 ColorParameter : source_color = vec4(0.222498, 0.147845, 0.078613, 1.000000);
+uniform sampler2D tex_frg_2;
+
+
+
+void fragment() {
+// ColorParameter:7
+	vec4 n_out7p0 = ColorParameter;
+	float n_out7p1 = n_out7p0.r;
+	float n_out7p2 = n_out7p0.g;
+	float n_out7p3 = n_out7p0.b;
+
+
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, UV);
+	float n_out2p1 = n_out2p0.r;
+	float n_out2p2 = n_out2p0.g;
+	float n_out2p3 = n_out2p0.b;
+
+
+	vec3 n_out8p0;
+// ColorOp:8
+	{
+		float base = vec3(n_out7p0.xyz).x;
+		float blend = vec3(n_out2p0.xyz).x;
+		if (base < 0.5) {
+			n_out8p0.x = 2.0 * base * blend;
+		} else {
+			n_out8p0.x = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base = vec3(n_out7p0.xyz).y;
+		float blend = vec3(n_out2p0.xyz).y;
+		if (base < 0.5) {
+			n_out8p0.y = 2.0 * base * blend;
+		} else {
+			n_out8p0.y = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base = vec3(n_out7p0.xyz).z;
+		float blend = vec3(n_out2p0.xyz).z;
+		if (base < 0.5) {
+			n_out8p0.z = 2.0 * base * blend;
+		} else {
+			n_out8p0.z = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+
+
+// Output:0
+	ALBEDO = n_out8p0;
+
+
+}
+"
+graph_offset = Vector2(-820.67, 31.3093)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_erudg")
+nodes/fragment/2/position = Vector2(-1240, 300)
+nodes/fragment/7/node = SubResource("VisualShaderNodeColorParameter_70ebv")
+nodes/fragment/7/position = Vector2(-1100, 60)
+nodes/fragment/8/node = SubResource("VisualShaderNodeColorOp_bagd1")
+nodes/fragment/8/position = Vector2(-220, 140)
+nodes/fragment/connections = PackedInt32Array(8, 0, 0, 0, 2, 0, 8, 1, 7, 0, 8, 0)
