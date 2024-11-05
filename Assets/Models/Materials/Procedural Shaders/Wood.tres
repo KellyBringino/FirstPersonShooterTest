@@ -9,7 +9,7 @@ default_input_values = [0, 1.0, 1, 0.0]
 operator = 1
 
 [sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_7nyw2"]
-default_input_values = [0, 0.0, 1, 0.0, 2, 0.0, 3, 1.0]
+default_input_values = [0, 0.0, 1, 0.0, 2, 0.0, 3, 0.0]
 op_type = 2
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_3unix"]
@@ -114,7 +114,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-760.968, -35.7547)
+graph_offset = Vector2(-1526.79, 211.21)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_erudg")
 nodes/fragment/2/position = Vector2(-1240, 300)
 nodes/fragment/7/node = SubResource("VisualShaderNodeColorParameter_70ebv")
