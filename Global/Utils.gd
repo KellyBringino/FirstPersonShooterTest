@@ -4,11 +4,11 @@ const SAVE_PATH = "res://Save/savegame.bin"
 
 const levels = [
 	"res://Levels/testing_level.tscn",
-	"res://Levels/rooms.tscn"
+	"res://Levels/flatbush.tscn"
 ]
 const levelNames = [
 	"Testing",
-	"Rooms"
+	"Flatbush"
 ]
 var levelIcons = [
 	load("res://Assets/Sprites/UI/null.svg"),
