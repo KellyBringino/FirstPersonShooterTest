@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cm28wnjxm83ll"]
+[gd_scene load_steps=14 format=3 uid="uid://cm28wnjxm83ll"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_t15kf"]
 [ext_resource type="Script" path="res://Levels/flatbush.gd" id="1_y0464"]
@@ -12,6 +12,19 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_dcbsx"]
 size = Vector3(60, 4.25, 2)
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qt7mn"]
+
+[sub_resource type="Sky" id="Sky_c7t3e"]
+sky_material = SubResource("ProceduralSkyMaterial_qt7mn")
+
+[sub_resource type="Environment" id="Environment_eudgh"]
+background_mode = 2
+sky = SubResource("Sky_c7t3e")
+fog_enabled = true
+fog_light_color = Color(0.705882, 0.658824, 0.607843, 1)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_cnocp"]
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_y0464")
 
@@ -21,8 +34,11 @@ script = ExtResource("1_y0464")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.999, 0, 27.9478)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="lights"]
-transform = Transform3D(0.776013, -0.445984, 0.445984, 0, 0.707107, 0.707107, -0.630717, -0.548724, 0.548724, 38, 40.6501, 0)
+transform = Transform3D(0.775128, -0.479241, 0.41171, 0.0370558, 0.685004, 0.727596, -0.630717, -0.548724, 0.548724, 38, 40.6501, 0)
+light_color = Color(1, 0.909804, 0.831373, 1)
+light_angular_distance = 1.0
 shadow_enabled = true
+shadow_reverse_cull_face = true
 shadow_opacity = 0.65
 shadow_blur = 4.96
 
@@ -46,10 +62,6 @@ omni_range = 9.93915
 [node name="OmniLight3D5" type="OmniLight3D" parent="lights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.3771, 4.13006, -28.7321)
 omni_range = 9.93915
-
-[node name="OmniLight3D6" type="OmniLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5304, 4.13006, -4.78486)
-omni_range = 20.359
 
 [node name="OmniLight3D7" type="OmniLight3D" parent="lights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.5556, 4.13006, -4.78486)
@@ -117,3 +129,7 @@ transform = Transform3D(0.806537, 0, 0.591183, 0, 1, 0, -0.591183, 0, 0.806537, 
 transform = Transform3D(0.646976, 0, -0.76251, 0, 1, 0, 0.76251, 0, 0.646976, -5.70106, 0.0982285, 14.3536)
 
 [node name="Rooms" parent="Environment" instance=ExtResource("2_nknt2")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_eudgh")
+camera_attributes = SubResource("CameraAttributesPractical_cnocp")
