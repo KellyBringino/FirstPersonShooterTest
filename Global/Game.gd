@@ -181,6 +181,7 @@ var highScore : int = 0
 var score : int = 0
 var kills : int = 0
 var weapons = [GunType.RIFLE,GunType.PISTOL,GunType.ROCKETLAUNCHER]
+var level : int = 0
 
 func _ready():
 	if FileAccess.file_exists(Utils.SAVE_PATH):
@@ -251,6 +252,8 @@ func setupLevelSelectIcons(object):
 	var secIcons = []
 	var heaLabels = []
 	var heaIcons = []
+	var mapLabels = []
+	var mapIcons = []
 	for g in primaryWeaponMap:
 		priLabels.append(primaryWeaponMap[g].name)
 		priIcons.append(load(primaryWeaponMap[g].iconpath))
@@ -260,23 +263,26 @@ func setupLevelSelectIcons(object):
 	for g in heavyWeaponMap:
 		heaLabels.append(heavyWeaponMap[g].name)
 		heaIcons.append(load(heavyWeaponMap[g].iconpath))
+	for m in len(Utils.levels):
+		mapLabels.append(Utils.levels[m].name)
+		mapIcons.append(load(Utils.levels[m].iconpath))
 	var values = {
 		mapMax = len(Utils.levels),
 		priMax = len(primaryWeaponMap),
 		secMax = len(secondaryWeaponMap),
 		heaMax = len(heavyWeaponMap),
-		mapLabels = Utils.levelNames,
+		mapLabels = mapLabels,
 		priLabels = priLabels,
 		secLabels = secLabels,
 		heaLabels = heaLabels,
-		mapIcons = Utils.levelIcons,
+		mapIcons = mapIcons,
 		priIcons = priIcons,
 		secIcons = secIcons,
 		heaIcons = heaIcons,
 		pri = decipherWeaponNumber(weapons[0]),
 		sec = decipherWeaponNumber(weapons[1]),
 		hea = decipherWeaponNumber(weapons[2]),
-		map = 0
+		map = level
 	}
 	object.setup(values)
 
@@ -313,7 +319,6 @@ func decipherWeaponType(weapon,slot):
 					i+=1
 		1:
 			for w in secondaryWeaponMap:
-				print(w)
 				if i == weapon:
 					return w
 				else:
@@ -325,7 +330,7 @@ func decipherWeaponType(weapon,slot):
 				else:
 					i+=1
 
-func choose(pri,sec,hea):
+func choose(pri,sec,hea,map):
 	match pri:
 		0:
 			weapons[0] = GunType.NONE
@@ -351,6 +356,9 @@ func choose(pri,sec,hea):
 			weapons[2] = GunType.ROCKETLAUNCHER
 		2:
 			weapons[2] = GunType.GRENADELAUNCHER
+			
+	level = map
+	Utils.loadLevel(level)
 
 func setSensitivity(h,v):
 	horizontalSensitivity = h

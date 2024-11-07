@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dqlc6fb5v8aft"]
+[gd_scene load_steps=23 format=3 uid="uid://dqlc6fb5v8aft"]
 
 [ext_resource type="PackedScene" uid="uid://gnrh0udtgvel" path="res://Assets/Models/Levels/Flatbush.glb" id="1_2fe6d"]
 [ext_resource type="Material" uid="uid://b6mlinomnobvf" path="res://Assets/Models/Materials/Carpet.tres" id="3_4bugx"]
@@ -65,11 +65,6 @@ render_priority = 0
 shader = ExtResource("7_nfvua")
 shader_parameter/ColorParameter = Color(0.329412, 0.329412, 0.329412, 1)
 shader_parameter/texture_extreme = 0.1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sjkke"]
-render_priority = 0
-shader = ExtResource("5_j24k3")
-shader_parameter/ColorParameter = Color(0.690196, 0.505882, 0.337255, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0g3q8"]
 render_priority = 0
@@ -256,8 +251,8 @@ material_override = SubResource("ShaderMaterial_oveyx")
 [node name="Sidewalk_Stage" parent="Room_Start" index="10"]
 material_override = SubResource("ShaderMaterial_oveyx")
 
-[node name="Plane_001" parent="Outside" index="0"]
-material_override = SubResource("ShaderMaterial_sjkke")
+[node name="Ground_North" parent="Outside" index="0"]
+material_override = SubResource("ShaderMaterial_0g3q8")
 
-[node name="Plane_002" parent="Outside" index="1"]
+[node name="Ground_South" parent="Outside" index="1"]
 material_override = SubResource("ShaderMaterial_0g3q8")

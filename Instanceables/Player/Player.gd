@@ -18,7 +18,11 @@ const WALK_DOWNSPEED = 0.1
 const STRAFE_UPSPEED = .05
 const STRAFE_DOWNSPEED = .05
 
-enum movestate {SPRINTING, WALKING, STANDING, JUMPING, BACKWARDS, STRAFE}
+enum movestate {
+	STANDING, WALKING, BACKWARDS, STRAFEING,
+	CROUCHING, SNEAKING, BACKSNEAKING, CRABWALKING,
+	SPRINTING, JUMPING
+}
 
 var sprinting : bool = false
 var health : float
@@ -98,6 +102,7 @@ func _physics_process(delta):
 		skl.set_bone_pose_rotation(headBone,headrot)
 		
 		handleInteractionTooltips()
+		handleCrouch()
 		handleState()
 		
 		curMoveState = movestate.STANDING
@@ -133,6 +138,18 @@ func interact():
 
 func pay(amount):
 	parts -= amount
+
+func handleCrouch():
+	if crouching:
+		$CollisionShape3D.position.y = 0.5
+		$CollisionShape3D.shape.height = 1.5
+		$CameraController.position.y = 1.2
+		$ModelController.position.y = -0.5
+	else:
+		$CollisionShape3D.position.y = 1.0
+		$CollisionShape3D.shape.height = 2.0
+		$CameraController.position.y = 1.7
+		$ModelController.position.y = 0.0
 
 func handleGrip():
 	var handle = $ModelController/doll/WeaponTarget.global_transform.origin
@@ -202,7 +219,7 @@ func handleState():
 			!leftStepNext:
 				take_step(rightSprint,rightSprintRaise,SPRINT_UPSPEED,\
 					SPRINT_UPSPEED,false)
-		movestate.STRAFE:
+		movestate.STRAFEING:
 			if abs($ModelController/doll/LeftLegTarget.global_position\
 			.distance_to(leftStrafe.global_position)) > STRAFE_STEP_DIS && \
 			leftStepNext:
@@ -346,13 +363,13 @@ func move(_delta):
 	# Get the input direction
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y))
-	var sprintDir = (transform.basis * Vector3(0 , 0, -SPRINT_MULT))
+	var sprintDir = (transform.basis * Vector3(input_dir.x , 0, -SPRINT_MULT))
 	
 	#change state according to movement
 	if input_dir.x < 0:
-		curMoveState = movestate.STRAFE
+		curMoveState = movestate.STRAFEING
 	if input_dir.x > 0:
-		curMoveState = movestate.STRAFE
+		curMoveState = movestate.STRAFEING
 	if input_dir.y > 0:
 		curMoveState = movestate.BACKWARDS
 	if input_dir.y < 0:

@@ -3,17 +3,20 @@ extends Node
 const SAVE_PATH = "res://Save/savegame.bin"
 
 const levels = [
-	"res://Levels/testing_level.tscn",
-	"res://Levels/flatbush.tscn"
+	testinglevel,
+	flatbush
 ]
-const levelNames = [
-	"Testing",
-	"Flatbush"
-]
-var levelIcons = [
-	load("res://Assets/Sprites/UI/null.svg"),
-	load("res://Assets/Sprites/Gun Icons/pistol_icon.png")
-]
+
+const testinglevel = {
+	name = "Testing",
+	iconpath = "res://Assets/Sprites/UI/null.svg",
+	levelpath = "res://Levels/testing_level.tscn"
+}
+const flatbush = {
+	name = "Flatbush",
+	iconpath = "res://Assets/Sprites/Gun Icons/pistol_icon.png",
+	levelpath = "res://Levels/flatbush.tscn"
+}
 
 var currentLevel = 0
 
@@ -29,7 +32,8 @@ func saveGame():
 		"vsens": Game.verticalSensitivity,
 		"primary": p,
 		"secondary": s,
-		"heavy": h
+		"heavy": h,
+		"map": Game.level
 	}
 	var jstr = JSON.stringify(data)
 	file.store_line(jstr)
@@ -42,18 +46,39 @@ func loadGame():
 		if not file.eof_reached():
 			var current_line = JSON.parse_string(file.get_line())
 			if current_line:
-				if typeof(current_line["highscore"]) == TYPE_FLOAT:
+				#load high score
+				if current_line.has("highscore") and typeof(current_line["highscore"]) == TYPE_FLOAT:
 					Game.highScore = current_line["highscore"]
-				if typeof(current_line["hsens"]) == TYPE_FLOAT:
+				else:
+					Game.highScore = 0
+				
+				#load sensitivity
+				if current_line.has("hsens") and typeof(current_line["hsens"]) == TYPE_FLOAT:
 					Game.horizontalSensitivity = current_line["hsens"]
-				if  typeof(current_line["vsens"]) == TYPE_FLOAT:
+				else:
+					Game.horizontalSensitivity = 0.8
+				if current_line.has("vsens") and  typeof(current_line["vsens"]) == TYPE_FLOAT:
 					Game.verticalSensitivity = current_line["vsens"]
-				if typeof(current_line["primary"]) == TYPE_FLOAT:
+				else:
+					Game.verticalSensitivity = 0.8
+				
+				#load weapons
+				if current_line.has("primary") and typeof(current_line["primary"]) == TYPE_FLOAT:
 					Game.weapons[0] = Game.decipherWeaponType(int(current_line["primary"]),0)
-				if typeof(current_line["secondary"]) == TYPE_FLOAT:
+				else:
+					Game.weapons[0] = Game.decipherWeaponType(0,0)
+				if current_line.has("secondary") and typeof(current_line["secondary"]) == TYPE_FLOAT:
 					Game.weapons[1] = Game.decipherWeaponType(int(current_line["secondary"]),1)
-				if typeof(current_line["heavy"]) == TYPE_FLOAT:
+				else:
+					Game.weapons[1] = Game.decipherWeaponType(0,1)
+				if current_line.has("heavy") and typeof(current_line["heavy"]) == TYPE_FLOAT:
 					Game.weapons[2] = Game.decipherWeaponType(int(current_line["heavy"]),2)
+				else:
+					Game.weapons[2] = Game.decipherWeaponType(0,2)
+				
+				#load map
+				if current_line.has("map") and typeof(current_line["map"]) == TYPE_FLOAT:
+					Game.level = current_line["map"]
 	print("Loaded")
 
 func quitGame():
@@ -85,12 +110,12 @@ func optionsMenu():
 func loadLevel(number : int):
 	saveGame()
 	currentLevel = 2 + number
-	get_tree().change_scene_to_file(levels[number])
+	get_tree().change_scene_to_file(levels[number].levelpath)
 	Game.StartLevel()
 	loadGame()
 
 func retryLevel():
-	get_tree().change_scene_to_file(levels[currentLevel - 2])
+	get_tree().change_scene_to_file(levels[currentLevel - 2].levelpath)
 	Game.StartLevel()
 	Game.resume()
 	loadGame()

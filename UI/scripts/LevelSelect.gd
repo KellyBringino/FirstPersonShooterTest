@@ -16,10 +16,10 @@ var mapMax = 2
 var priMax = 4
 var secMax = 3
 var heaMax = 3
-var mapLabels = ["test", "Rooms"]
-var priLabels = ["None", "Rifle", "Sniper", "Shotgun"]
-var secLabels = ["Pistol", "Revolver", "SMG"]
-var heaLabels = ["None", "Rocket Launcher", "Grenade Launcher"]
+var mapLabels = ["test"]
+var priLabels = ["None"]
+var secLabels = ["Pistol"]
+var heaLabels = ["None"]
 var mapIcons = [
 	load("res://Assets/Sprites/UI/null.svg"),
 	load("res://Assets/Sprites/Gun Icons/rifle_icon.png")]
@@ -73,12 +73,12 @@ func setup(object):
 	heaLabel.text = heaLabels[hea]
 	heaIcon.texture = heaIcons[hea]
 	moveCardTo(0)
+	setMap()
 
 func _on_back_button_pressed():
 	Utils.switchToMainMenu()
 func _on_start_button_pressed():
-	Game.choose(pri,sec,hea)
-	Utils.loadLevel(map)
+	Game.choose(pri,sec,hea,map)
 
 func moveCardTo(page):
 	match page:
