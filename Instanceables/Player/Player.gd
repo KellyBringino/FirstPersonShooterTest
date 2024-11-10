@@ -21,10 +21,9 @@ const STRAFE_DOWNSPEED = .05
 enum movestate {
 	STANDING, WALKING, BACKWARDS, STRAFEING,
 	CROUCHING, SNEAKING, BACKSNEAKING, CRABWALKING,
-	SPRINTING, JUMPING
+	SPRINTING, JUMPING, SLIDING
 }
 
-var sprinting : bool = false
 var health : float
 var maxHealth : float
 var parts : int
@@ -33,13 +32,17 @@ var holdingPrimary : bool = true
 var holdingHeavy : bool = false
 var ADS : bool = false
 var leadTrigger : bool = false
+var sprinting : bool = false
+var holdingSprint : bool = false
 var crouching : bool = false
+var holdingCrouch : bool = false
+var sliding : bool = false
 var leftStepNext : bool = false
 var jumpGrace : bool = false
 var gameover : bool = false
 var curMoveState : movestate = movestate.STANDING
 var interactNear : Array = []
-var heldGun
+var heldGun : Gun
 var primary : Gun
 var secondary : Gun
 var heavy : Gun
@@ -48,6 +51,9 @@ var mouseRot : Vector3
 var rotInput : float
 var tiltInput : float
 var flinchadd : float = 0.0
+
+var toggleCrouch : bool = false
+var toggleSprint : bool = true
 var horizontalsens : float = 1.0
 var verticalsens : float = 1.0
 
@@ -105,16 +111,17 @@ func _physics_process(delta):
 		handleCrouch()
 		handleState()
 		
-		curMoveState = movestate.STANDING
+		if !sliding:
+			curMoveState = movestate.STANDING
 		if !Game.pauseCheck():
 			move(delta)
 			holdADS()
 			pointGun()
 			holdFireHeldGun()
 			updateCamera(delta)
-		if not is_on_floor():
-			curMoveState = movestate.JUMPING
-			velocity.y -= gravity * delta
+			if not is_on_floor():
+				curMoveState = movestate.JUMPING
+				velocity.y -= gravity * delta
 		move_and_slide()
 
 func closestInteract():
@@ -140,11 +147,13 @@ func pay(amount):
 	parts -= amount
 
 func handleCrouch():
-	if crouching:
-		$CollisionShape3D.position.y = 0.5
+	if holdingCrouch or sliding:
+		$CollisionShape3D.position.y = 0.75
 		$CollisionShape3D.shape.height = 1.5
 		$CameraController.position.y = 1.2
 		$ModelController.position.y = -0.5
+		if !sliding:
+			crouching = true
 	else:
 		$CollisionShape3D.position.y = 1.0
 		$CollisionShape3D.shape.height = 2.0
@@ -231,6 +240,15 @@ func handleState():
 				take_step(rightStrafe,rightStrafeRaise, STRAFE_UPSPEED,\
 					STRAFE_DOWNSPEED,false)
 		movestate.JUMPING:
+			$ModelController/doll/LeftLegTarget.global_position = leftJump\
+				.global_position
+			$ModelController/doll/LeftLegTarget.global_rotation = leftJump\
+				.global_rotation
+			$ModelController/doll/RightLegTarget.global_position = rightJump\
+				.global_position
+			$ModelController/doll/RightLegTarget.global_rotation = rightJump\
+				.global_rotation
+		movestate.SLIDING:
 			$ModelController/doll/LeftLegTarget.global_position = leftJump\
 				.global_position
 			$ModelController/doll/LeftLegTarget.global_rotation = leftJump\
@@ -374,10 +392,12 @@ func move(_delta):
 		curMoveState = movestate.BACKWARDS
 	if input_dir.y < 0:
 		curMoveState = movestate.WALKING
+	if sliding:
+		curMoveState = movestate.SLIDING
+		return
 	
 	#check if sprinting, then modify speed if sprinting
-	sprinting = Input.is_action_pressed("sprint") && \
-		Input.is_action_pressed("forward")
+	sprinting = holdingSprint && Input.is_action_pressed("forward") && !holdingCrouch
 	if sprinting:
 		releaseADS()
 		$CameraController/Camera3D/AnimationPlayer.play("SHeadBob")
@@ -386,9 +406,14 @@ func move(_delta):
 		velocity.z = sprintDir.z * SPEED
 	#handle movement and deceleration
 	elif direction:
-		$CameraController/Camera3D/AnimationPlayer.play("HeadBob")
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		var cmod = 1.0
+		if crouching:
+			$CameraController/Camera3D/AnimationPlayer.play("CHeadBob")
+			cmod = 0.75
+		else:
+			$CameraController/Camera3D/AnimationPlayer.play("HeadBob")
+		velocity.x = direction.x * SPEED * cmod
+		velocity.z = direction.z * SPEED * cmod
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
@@ -400,6 +425,21 @@ func move(_delta):
 	# Handle jump.
 	if jumpGrace and is_on_floor():
 		jump()
+
+func slide():
+	curMoveState = movestate.SLIDING
+	holdingCrouch = false
+	crouching = false
+	holdingSprint = false
+	sprinting = false
+	sliding = true
+	var t = get_tree().create_tween()
+	t.set_parallel(true)
+	t.tween_property(self,":velocity:x",velocity.x,1.5)
+	t.tween_property(self,":velocity:z",velocity.z,1.5)
+	t.set_parallel(false)
+	t.tween_property(self,":velocity",Vector3.ZERO,0.5)
+	t.tween_callback(func(): sliding = false)
 
 func jump():
 	curMoveState = movestate.JUMPING
@@ -554,11 +594,33 @@ func _input(event):
 		
 		if event.is_action_pressed("reload"):
 			reloadHeldGun()
-			
+		
 		if event.is_action_pressed("crouch"):
-			crouching = true
+			handleCrouchInput(true)
 		elif event.is_action_released("crouch"):
-			crouching = false
+			handleCrouchInput(false)
+			
+		if event.is_action_pressed("sprint"):
+			handleSprintInput(true)
+		elif event.is_action_released("sprint"):
+			handleSprintInput(false)
+		if event.is_action_released("forward"):
+			holdingSprint = false
+
+func handleCrouchInput(pressed:bool):
+	if toggleCrouch:
+		if pressed:
+			holdingCrouch = !holdingCrouch
+	else:
+		holdingCrouch = pressed
+	if sprinting and holdingCrouch:
+		slide()
+func handleSprintInput(pressed:bool):
+	if toggleSprint:
+		if pressed:
+			holdingSprint = !holdingSprint
+	else:
+		holdingSprint = pressed
 
 func _unhandled_input(event):
 	if !Game.pauseCheck() and event is InputEventMouseMotion:
