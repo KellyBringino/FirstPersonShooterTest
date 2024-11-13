@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Utils="*res://Global/Utils.gd"
 Game="*res://Global/Game.gd"
+FadeCanvas="*res://Global/fade_canvas.tscn"
 
 [filesystem]
 

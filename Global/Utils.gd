@@ -10,11 +10,13 @@ const levels = [
 const testinglevel = {
 	name = "Testing",
 	iconpath = "res://Assets/Sprites/UI/null.svg",
+	loadingscene = "res://Levels/loading_testing.tscn",
 	levelpath = "res://Levels/testing_level.tscn"
 }
 const flatbush = {
 	name = "Flatbush",
 	iconpath = "res://Assets/Sprites/Gun Icons/pistol_icon.png",
+	loadingscene = "res://Levels/loading_flatbush.tscn",
 	levelpath = "res://Levels/flatbush.tscn"
 }
 
@@ -40,7 +42,7 @@ func saveGame():
 	print("Saved")
 
 func loadGame():
-	print("Loading")
+	print("Loading save")
 	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
 	if FileAccess.file_exists(SAVE_PATH) == true:
 		if not file.eof_reached():
@@ -110,12 +112,12 @@ func optionsMenu():
 func loadLevel(number : int):
 	saveGame()
 	currentLevel = 2 + number
-	get_tree().change_scene_to_file(levels[number].levelpath)
-	Game.StartLevel()
+	get_tree().change_scene_to_file(levels[number].loadingscene)
 	loadGame()
 
 func retryLevel():
-	get_tree().change_scene_to_file(levels[currentLevel - 2].levelpath)
-	Game.StartLevel()
-	Game.resume()
+	get_tree().change_scene_to_file(levels[currentLevel - 2].loadingscene)
 	loadGame()
+
+func getcurrentlevel():
+	return levels[currentLevel-2].levelpath

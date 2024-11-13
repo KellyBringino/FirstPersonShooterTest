@@ -204,7 +204,7 @@ func resume():
 	paused = false
 	if get_node_or_null("../World/GUI") != null:
 		$"../World/GUI".unpause()
-	StartLevel()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func StartLevel():
 	score = 0

@@ -77,6 +77,8 @@ func reload():
 			get_node("/root/World/Player").releaseADS()
 		await anim.animation_finished
 		for i in MAG_MAX - mag:
+			if reserve == 0:
+				break
 			anim.play("Reload",-1,reloadMult,false)
 			await anim.animation_finished
 			if limited:

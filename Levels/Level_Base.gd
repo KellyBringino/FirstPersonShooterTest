@@ -60,6 +60,11 @@ func make_spawner():
 	else:
 		spawner_at(candidates[rng.randi_range(0,len(candidates)-1)].position)
 
+func eventTrigger(eventName:String, eventNumber:int):
+	print(eventName + " occurred!")
+func eventRegister(eventName:String, object):
+	print("registered event " + eventName)
+
 func getMat(index):
 	match index:
 		0:

@@ -102,7 +102,6 @@ func _ready():
 
 func _physics_process(delta):
 	if !gameover:
-		handleGrip()
 		
 		var headrot = Quaternion(Vector3.FORWARD,-$CameraController.rotation.x)
 		skl.set_bone_pose_rotation(headBone,headrot)
@@ -111,18 +110,19 @@ func _physics_process(delta):
 		handleCrouch()
 		handleState()
 		
+		pointGun()
+		handleGrip()
 		if !sliding:
 			curMoveState = movestate.STANDING
 		if !Game.pauseCheck():
 			move(delta)
 			holdADS()
-			pointGun()
 			holdFireHeldGun()
 			updateCamera(delta)
-			if not is_on_floor():
-				curMoveState = movestate.JUMPING
-				velocity.y -= gravity * delta
-		move_and_slide()
+	if not is_on_floor():
+		curMoveState = movestate.JUMPING
+		velocity.y -= gravity * delta
+	move_and_slide()
 
 func closestInteract():
 	var dist = 10
@@ -350,14 +350,13 @@ func pointGun():
 			curgun = secondary
 	if $CameraController/Camera3D/lookRay.is_colliding() && !sprinting:
 		var lookpoint = $CameraController/Camera3D/lookRay.get_collision_point()
-		
 		curgun.look_at(lookpoint, Vector3(0,1,0))
 	elif sprinting:
 		curgun.rotation = Vector3.UP
 	else:
 		var lookpoint = $CameraController/Camera3D/lookRay/DistanceRef\
 			.global_position
-		$CameraController/GunController.look_at(lookpoint, Vector3(0,1,0))
+		curgun.look_at(lookpoint, Vector3(0,1,0))
 		
 	curgun.shootRay.force_raycast_update()
 	if curgun.shootRay.is_colliding():
