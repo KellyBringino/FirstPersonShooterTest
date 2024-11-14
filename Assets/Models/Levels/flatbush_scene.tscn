@@ -247,19 +247,19 @@ shape = SubResource("ConcavePolygonShape3D_d85bq")
 [node name="Room_Crater_Walls" parent="Room_Crater" index="6"]
 material_override = SubResource("ShaderMaterial_je328")
 
-[node name="Barricade_Street_Uppersigns" parent="Room_Start" index="5"]
+[node name="Barricade_Street_Uppersigns" parent="Room_Start" index="4"]
 material_override = SubResource("StandardMaterial3D_pgtha")
 
-[node name="Dirts_001" parent="Room_Start" index="6"]
+[node name="Dirts_001" parent="Room_Start" index="5"]
 material_override = SubResource("ShaderMaterial_opbv6")
 
-[node name="Hedges" parent="Room_Start" index="7"]
+[node name="Hedges" parent="Room_Start" index="6"]
 material_override = SubResource("ShaderMaterial_gptkc")
 
-[node name="Pots" parent="Room_Start" index="8"]
+[node name="Pots" parent="Room_Start" index="7"]
 material_override = SubResource("ShaderMaterial_3r11r")
 
-[node name="Room_Start_Collider" parent="Room_Start" index="9"]
+[node name="Room_Start_Collider" parent="Room_Start" index="8"]
 visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Room_Start/Room_Start_Collider" index="0"]
@@ -267,19 +267,19 @@ visible = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Room_Start/Room_Start_Collider/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_od77c")
 
-[node name="Room_Start_Ground" parent="Room_Start" index="10"]
+[node name="Room_Start_Ground" parent="Room_Start" index="9"]
 material_override = SubResource("ShaderMaterial_ijeop")
 
-[node name="Room_Start_Road" parent="Room_Start" index="11"]
+[node name="Room_Start_Road" parent="Room_Start" index="10"]
 material_override = SubResource("ShaderMaterial_jimj7")
 
-[node name="Sidewalk_Crater" parent="Room_Start" index="12"]
+[node name="Sidewalk_Crater" parent="Room_Start" index="11"]
 material_override = SubResource("ShaderMaterial_oveyx")
 
-[node name="Sidewalk_Stage" parent="Room_Start" index="13"]
+[node name="Sidewalk_Stage" parent="Room_Start" index="12"]
 material_override = SubResource("ShaderMaterial_oveyx")
 
-[node name="Stems" parent="Room_Start" index="14"]
+[node name="Stems" parent="Room_Start" index="13"]
 material_override = SubResource("ShaderMaterial_wybgu")
 
 [node name="Ground_North" parent="Outside" index="0"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cm28wnjxm83ll"]
+[gd_scene load_steps=23 format=3 uid="uid://cm28wnjxm83ll"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_t15kf"]
 [ext_resource type="Script" path="res://Levels/flatbush.gd" id="1_y0464"]
@@ -31,6 +31,21 @@ albedo_color = Color(1, 0.827451, 0.568627, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_cyjmp"]
 material = SubResource("StandardMaterial3D_btgd5")
 size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5sbb6"]
+size = Vector3(100, 16, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_480ha"]
+size = Vector3(1, 16, 60)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jdrp7"]
+size = Vector3(0.1, 16, 25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fgqye"]
+size = Vector3(0.1, 16, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wpt7e"]
+size = Vector3(0.1, 5.5, 12)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qt7mn"]
 
@@ -162,12 +177,16 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -115, 
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
+collision_layer = 1024
+collision_mask = 6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/StaticBody3D"]
 shape = SubResource("BoxShape3D_dcbsx")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30)
+collision_layer = 1024
+collision_mask = 6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/StaticBody3D2"]
 shape = SubResource("BoxShape3D_dcbsx")
@@ -193,6 +212,48 @@ lifetime = 10.0
 visibility_aabb = AABB(-30, 0, -30, 60, 8.775, 60)
 process_material = SubResource("ParticleProcessMaterial_cxa3d")
 draw_pass_1 = SubResource("BoxMesh_cyjmp")
+
+[node name="Room_Crater_South_Wall" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, 30.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Room_Crater_South_Wall"]
+shape = SubResource("BoxShape3D_5sbb6")
+
+[node name="Room_Crater_North_Wall" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, -30.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Room_Crater_North_Wall"]
+shape = SubResource("BoxShape3D_5sbb6")
+
+[node name="Room_Crater_West_Wall" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.5, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Room_Crater_West_Wall"]
+shape = SubResource("BoxShape3D_480ha")
+
+[node name="Room_Crater_East_Wall" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 18.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Room_Crater_East_Wall"]
+shape = SubResource("BoxShape3D_jdrp7")
+
+[node name="Room_Crater_East_Wall2" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -18.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Room_Crater_East_Wall2"]
+shape = SubResource("BoxShape3D_jdrp7")
+
+[node name="Room_Crater_East_Wall3" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Room_Crater_East_Wall3"]
+shape = SubResource("BoxShape3D_fgqye")
+
+[node name="Room_Crater_East_Wall4" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 5.25, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Room_Crater_East_Wall4"]
+shape = SubResource("BoxShape3D_wpt7e")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_eudgh")
