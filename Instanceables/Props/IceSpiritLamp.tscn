@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://bccnfqqo04dyl"]
+
+[ext_resource type="PackedScene" uid="uid://c3plh2nk1ffk2" path="res://Assets/Models/Props/lamp_icespirit_scene.tscn" id="1_d7qwx"]
+[ext_resource type="Material" uid="uid://cnj5t1nwfoo4p" path="res://Assets/Models/Materials/BlueLight.tres" id="2_hwo0d"]
+
+[sub_resource type="GDScript" id="GDScript_7mfoa"]
+script/source = "extends StaticBody3D
+
+func _ready():
+	get_node(\"/root/World\").eventRegister(\"IceLamp\",self)
+
+func pickup():
+	get_node(\"/root/World\").eventTrigger(\"IceLamp\",0)
+	queue_free()
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qqaun"]
+size = Vector3(0.399061, 0.961792, 0.39917)
+
+[sub_resource type="Curve" id="Curve_v855c"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fws3s"]
+curve = SubResource("Curve_v855c")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0ce5u"]
+emission_shape = 2
+emission_sphere_radius = 0.5
+orbit_velocity_min = 0.2
+orbit_velocity_max = 0.2
+orbit_velocity_curve = SubResource("CurveTexture_fws3s")
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d7g0x"]
+material = ExtResource("2_hwo0d")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="IceSpiritLantern" type="StaticBody3D"]
+editor_description = "Pickup"
+collision_layer = 2048
+collision_mask = 2048
+script = SubResource("GDScript_7mfoa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000463992, 0.480364, 0.000737309)
+shape = SubResource("BoxShape3D_qqaun")
+
+[node name="Lamp" parent="." instance=ExtResource("1_d7qwx")]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.707107, -0.707107, 0, 0.5, 0.5, 0.707107, -0.5, -0.5, 0.707107, 0, 0.45126, 0)
+process_material = SubResource("ParticleProcessMaterial_0ce5u")
+draw_pass_1 = SubResource("BoxMesh_d7g0x")

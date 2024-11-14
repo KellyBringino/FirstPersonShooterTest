@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3plh2nk1ffk2"]
+
+[ext_resource type="PackedScene" uid="uid://byqos5qfv6vsb" path="res://Assets/Models/Props/Lamp.glb" id="1_vmkd6"]
+[ext_resource type="Material" uid="uid://c6v6m61tsjjla" path="res://Assets/Models/Materials/blackGunMetal.tres" id="2_dosgk"]
+[ext_resource type="Material" uid="uid://cnj5t1nwfoo4p" path="res://Assets/Models/Materials/BlueLight.tres" id="3_qojqv"]
+
+[node name="Lamp" instance=ExtResource("1_vmkd6")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="Cube_001" parent="." index="0"]
+material_override = ExtResource("2_dosgk")
+
+[node name="Cube_003" parent="." index="1"]
+material_override = ExtResource("3_qojqv")

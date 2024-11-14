@@ -119,10 +119,18 @@ func _physics_process(delta):
 			holdADS()
 			holdFireHeldGun()
 			updateCamera(delta)
+			handlePickup()
 	if not is_on_floor():
 		curMoveState = movestate.JUMPING
 		velocity.y -= gravity * delta
 	move_and_slide()
+
+func handlePickup():
+	var r:RayCast3D = $CameraController/Camera3D/pickupRay
+	if r.is_colliding() and r.get_collider() != null:
+		if r.get_collider().editor_description.contains("Pickup") and \
+		Input.is_action_pressed("interact"):
+			r.get_collider().pickup()
 
 func closestInteract():
 	var dist = 10

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cm28wnjxm83ll"]
+[gd_scene load_steps=24 format=3 uid="uid://cm28wnjxm83ll"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_t15kf"]
 [ext_resource type="Script" path="res://Levels/flatbush.gd" id="1_y0464"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://hnn4b7yok2fh" path="res://Instanceables/Interactables/ice_bench.tscn" id="7_njfc4"]
 [ext_resource type="PackedScene" uid="uid://dd2w077s3y1ll" path="res://Instanceables/Interactables/damage_bench.tscn" id="8_3u8s1"]
 [ext_resource type="PackedScene" uid="uid://owse7elq2ptw" path="res://Instanceables/Props/Lamp.tscn" id="10_18rj2"]
+[ext_resource type="PackedScene" uid="uid://bccnfqqo04dyl" path="res://Instanceables/Props/IceSpiritLamp.tscn" id="10_bid18"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dcbsx"]
 size = Vector3(60, 4.25, 2)
@@ -258,3 +259,8 @@ shape = SubResource("BoxShape3D_wpt7e")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_eudgh")
 camera_attributes = SubResource("CameraAttributesPractical_cnocp")
+
+[node name="Pickups" type="Node3D" parent="."]
+
+[node name="IceSpiritLantern" parent="Pickups" instance=ExtResource("10_bid18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.5286, -0.000200033, -1.5775)

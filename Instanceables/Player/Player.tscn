@@ -127,6 +127,10 @@ collision_mask = 177
 [node name="DistanceRef" type="Node3D" parent="CameraController/Camera3D/lookRay"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 
+[node name="pickupRay" type="RayCast3D" parent="CameraController/Camera3D"]
+target_position = Vector3(0, 0, -5)
+collision_mask = 2225
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CameraController/Camera3D"]
 libraries = {
 "": SubResource("AnimationLibrary_rtkms")

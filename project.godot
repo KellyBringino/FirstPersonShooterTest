@@ -138,6 +138,7 @@ ads={
 3d_physics/layer_9="Interactable"
 3d_physics/layer_10="Ragdoll"
 3d_physics/layer_11="Wall"
+3d_physics/layer_12="Pickup"
 
 [physics]
 
