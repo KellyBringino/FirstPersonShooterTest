@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cm28wnjxm83ll"]
+[gd_scene load_steps=26 format=3 uid="uid://cm28wnjxm83ll"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_t15kf"]
 [ext_resource type="Script" path="res://Levels/flatbush.gd" id="1_y0464"]
@@ -9,14 +9,13 @@
 [ext_resource type="PackedScene" uid="uid://hnn4b7yok2fh" path="res://Instanceables/Interactables/ice_bench.tscn" id="7_njfc4"]
 [ext_resource type="PackedScene" uid="uid://dd2w077s3y1ll" path="res://Instanceables/Interactables/damage_bench.tscn" id="8_3u8s1"]
 [ext_resource type="PackedScene" uid="uid://owse7elq2ptw" path="res://Instanceables/Props/Lamp.tscn" id="10_18rj2"]
-[ext_resource type="PackedScene" uid="uid://bccnfqqo04dyl" path="res://Instanceables/Props/IceSpiritLamp.tscn" id="10_bid18"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dcbsx"]
 size = Vector3(60, 4.25, 2)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cxa3d"]
 emission_shape_offset = Vector3(0, 0, 50)
-emission_shape_scale = Vector3(30, 1, 1)
+emission_shape_scale = Vector3(25, 1, 1)
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 1)
 direction = Vector3(0, 0, -1)
@@ -31,6 +30,24 @@ albedo_color = Color(1, 0.827451, 0.568627, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cyjmp"]
 material = SubResource("StandardMaterial3D_btgd5")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qdan6"]
+emission_shape_offset = Vector3(0, 8, 0)
+emission_shape_scale = Vector3(45, 1, 40)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.5
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m4g2h"]
+albedo_color = Color(0.686275, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sigvl"]
+material = SubResource("StandardMaterial3D_m4g2h")
 size = Vector3(0.1, 0.1, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5sbb6"]
@@ -206,13 +223,21 @@ transform = Transform3D(0.646976, 0, -0.76251, 0, 1, 0, 0.76251, 0, 0.646976, -5
 
 [node name="Rooms" parent="Environment" instance=ExtResource("2_nknt2")]
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="Environment"]
+[node name="Sandstorm" type="GPUParticles3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.232, 0)
 amount = 500
 lifetime = 10.0
 visibility_aabb = AABB(-30, 0, -30, 60, 8.775, 60)
 process_material = SubResource("ParticleProcessMaterial_cxa3d")
 draw_pass_1 = SubResource("BoxMesh_cyjmp")
+
+[node name="Snow" type="GPUParticles3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, 0)
+amount = 500
+lifetime = 10.0
+visibility_aabb = AABB(-50, 0, -30, 100, 8.775, 60)
+process_material = SubResource("ParticleProcessMaterial_qdan6")
+draw_pass_1 = SubResource("BoxMesh_sigvl")
 
 [node name="Room_Crater_South_Wall" type="StaticBody3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, 30.5)
@@ -262,5 +287,22 @@ camera_attributes = SubResource("CameraAttributesPractical_cnocp")
 
 [node name="Pickups" type="Node3D" parent="."]
 
-[node name="IceSpiritLantern" parent="Pickups" instance=ExtResource("10_bid18")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.5286, -0.000200033, -1.5775)
+[node name="IceSpiritSpawns" type="Node3D" parent="."]
+
+[node name="spawn1" type="Node3D" parent="IceSpiritSpawns"]
+transform = Transform3D(-0.647269, 0, -0.762262, 0, 1, 0, 0.762262, 0, -0.647269, -55.1249, 4.52995e-06, -0.543146)
+
+[node name="spawn2" type="Node3D" parent="IceSpiritSpawns"]
+transform = Transform3D(0.629944, 0, -0.77664, 0, 1, 0, 0.77664, 0, 0.629944, -58.7279, 4.52995e-06, 29.1375)
+
+[node name="spawn3" type="Node3D" parent="IceSpiritSpawns"]
+transform = Transform3D(-0.683019, 0, -0.730401, 0, 1, 0, 0.730401, 0, -0.683019, -50.7413, 4.05312e-06, -15.7579)
+
+[node name="spawn4" type="Node3D" parent="IceSpiritSpawns"]
+transform = Transform3D(-0.683019, 0, -0.730401, 0, 1, 0, 0.730401, 0, -0.683019, -60.5488, 4.05312e-06, -25.445)
+
+[node name="spawn5" type="Node3D" parent="IceSpiritSpawns"]
+transform = Transform3D(0.0912062, 0, -0.995832, 0, 1, 0, 0.995832, 0, 0.0912062, -60.7811, 4.05312e-06, 0.0018537)
+
+[node name="spawn6" type="Node3D" parent="IceSpiritSpawns"]
+transform = Transform3D(0.978126, 0, 0.208014, 0, 1, 0, -0.208014, 0, 0.978126, -64.5436, 4.29153e-06, 20.7689)

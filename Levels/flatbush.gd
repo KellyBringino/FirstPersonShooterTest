@@ -1,5 +1,9 @@
 extends Level_Base
 
+const IceLampPreload = preload("res://Instanceables/Props/IceSpiritLamp.tscn")
+
+@onready var iceLampSpawns = $IceSpiritSpawns.get_children()
+
 var currentItems = {"IceLamp":false}
 var lamps = []
 var iceLamp
@@ -7,6 +11,9 @@ var currentblueLamp = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var ice = IceLampPreload.instantiate()
+	$Pickups.add_child(ice)
+	ice.transform = iceLampSpawns[rng.randi_range(0,len(iceLampSpawns)-1)].transform
 	super._ready()
 
 func eventTrigger(eventName:String, eventNumber:int):
