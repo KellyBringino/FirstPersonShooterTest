@@ -110,16 +110,16 @@ func _physics_process(delta):
 		handleCrouch()
 		handleState()
 		
-		pointGun()
-		handleGrip()
 		if !sliding:
 			curMoveState = movestate.STANDING
 		if !Game.pauseCheck():
 			move(delta)
 			holdADS()
 			holdFireHeldGun()
+			pointGun()
 			updateCamera(delta)
 			handlePickup()
+		handleGrip()
 	if not is_on_floor():
 		curMoveState = movestate.JUMPING
 		velocity.y -= gravity * delta
