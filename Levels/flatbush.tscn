@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cm28wnjxm83ll"]
+[gd_scene load_steps=27 format=3 uid="uid://cm28wnjxm83ll"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_t15kf"]
 [ext_resource type="Script" path="res://Levels/flatbush.gd" id="1_y0464"]
@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://hnn4b7yok2fh" path="res://Instanceables/Interactables/ice_bench.tscn" id="7_njfc4"]
 [ext_resource type="PackedScene" uid="uid://dd2w077s3y1ll" path="res://Instanceables/Interactables/damage_bench.tscn" id="8_3u8s1"]
 [ext_resource type="PackedScene" uid="uid://owse7elq2ptw" path="res://Instanceables/Props/Lamp.tscn" id="10_18rj2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kkc4i"]
+size = Vector3(60, 4, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dcbsx"]
 size = Vector3(2, 3, 20)
@@ -34,7 +37,7 @@ size = Vector3(0.1, 0.1, 0.1)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qdan6"]
 emission_shape_offset = Vector3(0, 8, 0)
-emission_shape_scale = Vector3(45, 1, 40)
+emission_shape_scale = Vector3(45, 1, 30)
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 1)
 direction = Vector3(0, -1, 0)
@@ -199,7 +202,7 @@ collision_layer = 1024
 collision_mask = 6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/StaticBody3D"]
-shape = SubResource("BoxShape3D_dcbsx")
+shape = SubResource("BoxShape3D_kkc4i")
 
 [node name="Theaterblock_L" type="StaticBody3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.7, 0, -20)
@@ -220,8 +223,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30)
 collision_layer = 1024
 collision_mask = 6
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/StaticBody3D2"]
-shape = SubResource("BoxShape3D_dcbsx")
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Environment/StaticBody3D2"]
+shape = SubResource("BoxShape3D_kkc4i")
 
 [node name="Barricade_Street" parent="Environment" instance=ExtResource("7_gnc7w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.74962, 0.162993, -17.3184)
