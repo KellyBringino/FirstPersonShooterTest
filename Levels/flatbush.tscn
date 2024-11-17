@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://owse7elq2ptw" path="res://Instanceables/Props/Lamp.tscn" id="10_18rj2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dcbsx"]
-size = Vector3(60, 4.25, 2)
+size = Vector3(2, 3, 20)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cxa3d"]
 emission_shape_offset = Vector3(0, 0, 50)
@@ -51,19 +51,19 @@ material = SubResource("StandardMaterial3D_m4g2h")
 size = Vector3(0.1, 0.1, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5sbb6"]
-size = Vector3(100, 16, 1)
+size = Vector3(100, 20, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_480ha"]
-size = Vector3(1, 16, 60)
+size = Vector3(1, 20, 60)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jdrp7"]
-size = Vector3(0.1, 16, 25)
+size = Vector3(0.1, 20, 25)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fgqye"]
-size = Vector3(0.1, 16, 8)
+size = Vector3(0.1, 20, 8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wpt7e"]
-size = Vector3(0.1, 5.5, 12)
+size = Vector3(0.1, 7.5, 12)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qt7mn"]
 
@@ -201,6 +201,20 @@ collision_mask = 6
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/StaticBody3D"]
 shape = SubResource("BoxShape3D_dcbsx")
 
+[node name="Theaterblock_L" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.7, 0, -20)
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Theaterblock_L"]
+shape = SubResource("BoxShape3D_dcbsx")
+
+[node name="Theaterblock_R" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.7, 0, 20)
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Theaterblock_R"]
+shape = SubResource("BoxShape3D_dcbsx")
+
 [node name="StaticBody3D2" type="StaticBody3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30)
 collision_layer = 1024
@@ -276,7 +290,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 0)
 shape = SubResource("BoxShape3D_fgqye")
 
 [node name="Room_Crater_East_Wall4" type="StaticBody3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 5.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 6.25, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Room_Crater_East_Wall4"]
 shape = SubResource("BoxShape3D_wpt7e")

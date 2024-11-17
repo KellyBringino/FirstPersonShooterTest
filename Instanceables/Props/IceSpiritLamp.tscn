@@ -4,14 +4,12 @@
 [ext_resource type="Material" uid="uid://cnj5t1nwfoo4p" path="res://Assets/Models/Materials/BlueLight.tres" id="2_hwo0d"]
 
 [sub_resource type="GDScript" id="GDScript_7mfoa"]
-script/source = "extends StaticBody3D
+script/source = "extends Pickup
 
 func _ready():
 	get_node(\"/root/World\").eventRegister(\"IceLamp\",self)
-
-func pickup():
-	get_node(\"/root/World\").eventTrigger(\"IceLamp\",0)
-	queue_free()
+	eventStr = \"IceLamp\"
+	tooltipStr = \"Ice Spirit Container\"
 "
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qqaun"]

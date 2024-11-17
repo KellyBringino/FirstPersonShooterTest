@@ -128,9 +128,10 @@ func _physics_process(delta):
 func handlePickup():
 	var r:RayCast3D = $CameraController/Camera3D/pickupRay
 	if r.is_colliding() and r.get_collider() != null:
-		if r.get_collider().editor_description.contains("Pickup") and \
-		Input.is_action_pressed("interact"):
-			r.get_collider().pickup()
+		if r.get_collider().editor_description.contains("Pickup"):
+			r.get_collider().accessTooltip()
+			if Input.is_action_pressed("interact"):
+				r.get_collider().pickup()
 
 func closestInteract():
 	var dist = 10

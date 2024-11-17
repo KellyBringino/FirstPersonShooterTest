@@ -4,15 +4,17 @@ const IceLampPreload = preload("res://Instanceables/Props/IceSpiritLamp.tscn")
 
 @onready var iceLampSpawns = $IceSpiritSpawns.get_children()
 
-var currentItems = {"IceLamp":false}
+var currentItems = {
+	"IceLamp":false
+}
 var lamps = []
-var iceLamp
 var currentblueLamp = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var ice = IceLampPreload.instantiate()
 	$Pickups.add_child(ice)
+	len(iceLampSpawns)
 	ice.transform = iceLampSpawns[rng.randi_range(0,len(iceLampSpawns)-1)].transform
 	super._ready()
 
@@ -37,5 +39,4 @@ func eventRegister(eventName:String, object):
 				object.turnBlue()
 			super.eventRegister(eventName + " " + str(len(lamps) - 1),object)
 		"IceLamp":
-			iceLamp = object
 			super.eventRegister(eventName,object)

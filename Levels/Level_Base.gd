@@ -63,7 +63,8 @@ func make_spawner():
 func eventTrigger(eventName:String, eventNumber:int):
 	print(eventName + " occurred!")
 func eventRegister(eventName:String, object):
-	print("registered event " + eventName)
+	#print("registered event " + eventName)
+	pass
 
 func getMat(index):
 	match index:
