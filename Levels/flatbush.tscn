@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cm28wnjxm83ll"]
+[gd_scene load_steps=28 format=3 uid="uid://cm28wnjxm83ll"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_t15kf"]
 [ext_resource type="Script" path="res://Levels/flatbush.gd" id="1_y0464"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cc5i0c47hk2vc" path="res://Instanceables/Interactables/fire_bench.tscn" id="6_8wxyr"]
 [ext_resource type="PackedScene" uid="uid://drofoakyp2qbi" path="res://Instanceables/Props/Barricade_Street.tscn" id="7_gnc7w"]
 [ext_resource type="PackedScene" uid="uid://hnn4b7yok2fh" path="res://Instanceables/Interactables/ice_bench.tscn" id="7_njfc4"]
+[ext_resource type="PackedScene" uid="uid://dqsabc7qppe4i" path="res://Assets/Models/Collider Shapes/ice_lake.tscn" id="8_0oikv"]
 [ext_resource type="PackedScene" uid="uid://dd2w077s3y1ll" path="res://Instanceables/Interactables/damage_bench.tscn" id="8_3u8s1"]
 [ext_resource type="PackedScene" uid="uid://owse7elq2ptw" path="res://Instanceables/Props/Lamp.tscn" id="10_18rj2"]
 
@@ -195,6 +196,8 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 131.76
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -115, -0.5, 0)
 
 [node name="Environment" type="Node3D" parent="."]
+
+[node name="IceLake2" parent="Environment" instance=ExtResource("8_0oikv")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
