@@ -197,7 +197,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -115, 
 
 [node name="Environment" type="Node3D" parent="."]
 
-[node name="IceLake2" parent="Environment" instance=ExtResource("8_0oikv")]
+[node name="IceLake" parent="Environment" instance=ExtResource("8_0oikv")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
@@ -326,3 +326,15 @@ transform = Transform3D(0.0912062, 0, -0.995832, 0, 1, 0, 0.995832, 0, 0.0912062
 
 [node name="spawn6" type="Node3D" parent="IceSpiritSpawns"]
 transform = Transform3D(0.978126, 0, 0.208014, 0, 1, 0, -0.208014, 0, 0.978126, -64.5436, 4.29153e-06, 20.7689)
+
+[node name="Navigation" type="Node3D" parent="."]
+
+[node name="Room_Start" type="Node3D" parent="Navigation"]
+
+[node name="Area_1" type="Node3D" parent="Navigation/Room_Start"]
+
+[node name="Room_Crater" type="Node3D" parent="Navigation"]
+
+[node name="Room_Theater" type="Node3D" parent="Navigation"]
+
+[node name="Room_Stage" type="Node3D" parent="Navigation"]

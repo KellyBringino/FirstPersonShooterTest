@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg2f6xntlaorh"]
+
+[ext_resource type="Script" path="res://Instanceables/Navigation/NavRoom.gd" id="1_sptwn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vljh5"]
+
+[node name="NavRoom" type="Node3D"]
+script = ExtResource("1_sptwn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_vljh5")
