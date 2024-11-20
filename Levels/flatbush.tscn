@@ -336,65 +336,80 @@ transform = Transform3D(0.978126, 0, 0.208014, 0, 1, 0, -0.208014, 0, 0.978126, 
 
 [node name="StartRoom" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
 roomName = "Start Room"
-boundingCube = AABB(0.5, 0, 0, 61, 2, 58)
+boundingCube = AABB(0.5, 0, 0, 61.5, 3, 59)
 doors = Array[Vector3]([Vector3(-30, 0, 5), Vector3(-30, 0, -5), Vector3(31, 0, -7), Vector3(31, 0, 7), Vector3(31, 0, 1), Vector3(31, 0, -1)])
 
 [node name="CraterRoom_Entrance" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
 roomName = "CraterRoom_Entrance"
-boundingCube = AABB(-35, 0, 0, 10, 2, 60)
+boundingCube = AABB(-35, 0, 0, 10, 3, 60)
 doors = Array[Vector3]([Vector3(-30, 0, 5), Vector3(-30, 0, -5), Vector3(-40, 0, -17.5), Vector3(-40, 0, -27.5), Vector3(-40, 0, 17.5), Vector3(-40, 0, 27.5)])
 
 [node name="CraterRoom_Righthall" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
 roomName = "CraterRoom_Righthall"
-boundingCube = AABB(-50, 0, -27.5, 20, 2, 5)
+boundingCube = AABB(-50, 0, -27.5, 20, 3, 5)
 doors = Array[Vector3]([Vector3(-40, 0, -27.5), Vector3(-60, 0, -27.5)])
 
 [node name="CraterRoom_S1" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
 roomName = "CraterRoom_S1"
-boundingCube = AABB(-45, 0, -20, 10, 2, 10)
+boundingCube = AABB(-45, 0, -20, 10, 3, 10)
 doors = Array[Vector3]([Vector3(-40, 0, -17.5), Vector3(-50, 0, -22.5)])
 
 [node name="CraterRoom_S2" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
 roomName = "CraterRoom_S2"
-boundingCube = AABB(-55, 0, -20, 10, 2, 10)
+boundingCube = AABB(-55, 0, -20, 10, 3, 10)
 doors = Array[Vector3]([Vector3(-50, 0, -22.5), Vector3(-60, 0, -17.5)])
 
 [node name="CraterRoom_Centerright" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
 roomName = "CraterRoom_Centerright"
-boundingCube = AABB(-50, 0, -7.5, 20, 2, 15)
+boundingCube = AABB(-50, 0, -7.5, 20, 3, 15)
 doors = Array[Vector3]([Vector3(-60, 0, -12.5), Vector3(-57.5, 0, 0), Vector3(-42.5, 0, 0)])
 
 [node name="CraterRoom_Centerleft" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
 roomName = "CraterRoom_Centerleft"
-boundingCube = AABB(-50, 0, 7.5, 20, 2, 15)
+boundingCube = AABB(-50, 0, 7.5, 20, 3, 15)
 doors = Array[Vector3]([Vector3(-57.5, 0, 0), Vector3(-42.5, 0, 0), Vector3(-57.5, 0, 15)])
 
 [node name="CraterRoom_Lefthall" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
 roomName = "CraterRoom_Lefthall"
-boundingCube = AABB(-50, 0, 17.5, 20, 2, 5)
+boundingCube = AABB(-50, 0, 17.5, 20, 3, 5)
 doors = Array[Vector3]([Vector3(-40, 0, 17.5), Vector3(-60, 0, 17.5), Vector3(-57.5, 0, 15)])
 
 [node name="CraterRoom_Figure1" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
 roomName = "CraterRoom_Figure1"
-boundingCube = AABB(-45, 0, 25, 10, 2, 10)
+boundingCube = AABB(-45, 0, 25, 10, 3, 10)
 doors = Array[Vector3]([Vector3(-40, 0, 27.5), Vector3(-50, 0, 29), Vector3(-50, 0, 21.5)])
 
 [node name="CraterRoom_Figure2" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
 roomName = "CraterRoom_Figure2"
-boundingCube = AABB(-55, 0, 25, 10, 2, 10)
+boundingCube = AABB(-55, 0, 25, 10, 3, 10)
 doors = Array[Vector3]([Vector3(-50, 0, 29), Vector3(-50, 0, 21.5), Vector3(-60, 0, 22.5)])
 
 [node name="CraterRoom_Farhall" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
 roomName = "CraterRoom_Farhall"
-boundingCube = AABB(-65, 0, 0, 10, 2, 60)
+boundingCube = AABB(-65, 0, 0, 10, 3, 60)
 doors = Array[Vector3]([Vector3(-60, 0, -27.5), Vector3(-60, 0, -17.5), Vector3(-60, 0, -12.5), Vector3(-60, 0, 17.5), Vector3(-60, 0, 22.5), Vector3(-70, 0, 27.5), Vector3(-70, 0, -17.5)])
 
 [node name="CraterRoom_Farroom" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
 roomName = "CraterRoom_Farroom"
-boundingCube = AABB(-100, 0, 0, 60, 4, 60)
+boundingCube = AABB(-100, 0, 0, 60, 6, 60)
 doors = Array[Vector3]([Vector3(-70, 0, 27.5), Vector3(-70, 0, -17.5)])
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Navigation/NavMain/CraterRoom_Farroom"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0)
+[node name="StageRoom_Entrance" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Entrance"
+boundingCube = AABB(35.5, 0, 0, 9, 3, 60)
+doors = Array[Vector3]([Vector3(31, 0, 1), Vector3(31, 0, -1), Vector3(31, 0, 7), Vector3(31, 0, -7), Vector3(40, 0, 28)])
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Navigation/NavMain/StageRoom_Entrance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5, -0.4, 0)
 mesh = SubResource("BoxMesh_vol08")
 skeleton = NodePath("../../StartRoom")
+
+[node name="StageRoom_Row1" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Row1"
+boundingCube = AABB(42.5, -0.2, 0, 5, 3, 60)
+doors = Array[Vector3]([Vector3(40, 0, 28), Vector3(45, -0.2, 0), Vector3(45, -0.2, -28)])
+
+[node name="StageRoom_Row2" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Row1"
+boundingCube = AABB(47.5, -0.4, 0, 5, 3, 60)
+doors = Array[Vector3]([Vector3(45, -0.2, 0), Vector3(45, -0.2, -28), Vector3(50, -0.4, 0), Vector3(50, -0.4, 28), Vector3(50, -0.4, -28)])

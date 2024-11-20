@@ -240,6 +240,7 @@ material_override = SubResource("ShaderMaterial_shabj")
 material_override = SubResource("ShaderMaterial_dsrkt")
 
 [node name="Room_Stage_outsidecover" parent="Room_Stage" index="14"]
+visible = false
 material_override = SubResource("ShaderMaterial_shabj")
 
 [node name="Room_Stage_Stage" parent="Room_Stage" index="15"]
@@ -332,7 +333,6 @@ visible = false
 shape = SubResource("ConcavePolygonShape3D_d85bq")
 
 [node name="Room_Crater_outsidecover" parent="Room_Crater" index="7"]
-visible = false
 material_override = SubResource("ShaderMaterial_je328")
 
 [node name="Room_Crater_Walls" parent="Room_Crater" index="8"]

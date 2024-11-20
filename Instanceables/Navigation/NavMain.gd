@@ -10,6 +10,9 @@ func _ready():
 	connectRooms()
 	pass
 
+func _process(_delta):
+	print(locate(get_node("/root/World/Player").global_position).roomName)
+
 func connectRooms():
 	var roomdoors = {}
 	var roomdoorsback = {}
@@ -19,16 +22,24 @@ func connectRooms():
 				if door not in roomdoors and door not in roomdoorsback:
 					roomdoors[door] = rooms[roomnum]
 				elif door in roomdoors and rooms[roomnum] != roomdoors[door]:
-					connectadd(rooms[roomnum],door,roomdoors[door])
+					_connectadd(rooms[roomnum],door,roomdoors[door])
 					roomdoors.erase(door)
 					roomdoorsback[door] = rooms[roomnum]
 				elif door in roomdoorsback and rooms[roomnum] != roomdoorsback[door]:
-					connectadd(rooms[roomnum],door,roomdoorsback[door])
+					_connectadd(rooms[roomnum],door,roomdoorsback[door])
 					roomdoorsback.erase(door)
 
-func connectadd(room, door, r):
+func _connectadd(room, door, r):
 	if room != r:
 		if !connectedRooms.has(room):
 			connectedRooms[room] = {door : r}
 		else:
 			connectedRooms[room][door] = r
+
+func generatePath(to:Vector3,from:Vector3):
+	pass
+
+func locate(point:Vector3):
+	for room in get_children():
+		if room.isInRoom(point):
+			return room.getRoom()
