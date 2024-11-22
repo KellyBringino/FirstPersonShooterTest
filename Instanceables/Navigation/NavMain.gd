@@ -36,10 +36,24 @@ func _connectadd(room, door, r):
 		else:
 			connectedRooms[room][door] = r
 
-func generatePath(to:Vector3,from:Vector3):
-	pass
+func generatePath(from:Vector3,to:Vector3):
+	_generatePathHelper(from,to,[])
+func _generatePathHelper(from:Vector3,to:Vector3,visited:Array):
+	var source = locate(from,visited)
+	var dest = locate(to)
+	if source == dest:
+		return from - to
+	var closest := (from - to) * INF
+	for door in connectedRooms[source]:
+		var v = visited
+		v.append(source)
+		var stuff = _generatePathHelper(door,to,v)
+		var dist = stuff.length() + (from - door).length()
+		if dist < closest.length():
+			closest = (from - door).normalized() * dist
+	return closest
 
-func locate(point:Vector3):
+func locate(point:Vector3,omit:Array = []):
 	for room in get_children():
-		if room.isInRoom(point):
+		if room.isInRoom(point) and not room in omit:
 			return room.getRoom()

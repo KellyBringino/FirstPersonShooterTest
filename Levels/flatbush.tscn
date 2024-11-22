@@ -262,7 +262,7 @@ draw_pass_1 = SubResource("BoxMesh_cyjmp")
 
 [node name="Snow" type="GPUParticles3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, 0)
-amount = 300
+amount = 200
 lifetime = 10.0
 visibility_aabb = AABB(-50, 0, -30, 100, 8.775, 60)
 process_material = SubResource("ParticleProcessMaterial_qdan6")
