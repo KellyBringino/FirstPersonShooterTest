@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cm28wnjxm83ll"]
+[gd_scene load_steps=32 format=3 uid="uid://cm28wnjxm83ll"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_t15kf"]
 [ext_resource type="Script" path="res://Levels/flatbush.gd" id="1_y0464"]
@@ -56,6 +56,12 @@ albedo_color = Color(0.686275, 1, 1, 1)
 material = SubResource("StandardMaterial3D_m4g2h")
 size = Vector3(0.1, 0.1, 0.1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_msnwl"]
+size = Vector3(101, 33, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_srgs8"]
+size = Vector3(1, 33, 60)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_5sbb6"]
 size = Vector3(100, 20, 1)
 
@@ -79,11 +85,10 @@ sky_material = SubResource("ProceduralSkyMaterial_qt7mn")
 [sub_resource type="Environment" id="Environment_eudgh"]
 background_mode = 2
 sky = SubResource("Sky_c7t3e")
+fog_enabled = true
 fog_light_color = Color(0.733333, 0.658824, 0.552941, 1)
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_cnocp"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_vol08"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_y0464")
@@ -93,11 +98,12 @@ script = ExtResource("1_y0464")
 [node name="lights" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.999, 0, 27.9478)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="lights"]
+[node name="Sun" type="DirectionalLight3D" parent="lights"]
 transform = Transform3D(0.775128, -0.479241, 0.41171, 0.0370558, 0.685004, 0.727596, -0.630717, -0.548724, 0.548724, 38, 40.6501, 0)
 light_color = Color(1, 0.909804, 0.831373, 1)
 light_angular_distance = 1.0
 shadow_enabled = true
+shadow_bias = 0.0
 shadow_reverse_cull_face = true
 shadow_opacity = 0.65
 shadow_blur = 4.96
@@ -262,6 +268,24 @@ visibility_aabb = AABB(-50, 0, -30, 100, 8.775, 60)
 process_material = SubResource("ParticleProcessMaterial_qdan6")
 draw_pass_1 = SubResource("BoxMesh_sigvl")
 
+[node name="Room_Stage_South_Wall" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0, 30.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Room_Stage_South_Wall"]
+shape = SubResource("BoxShape3D_msnwl")
+
+[node name="Room_Stage_North_Wall" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0, -30.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Room_Stage_North_Wall"]
+shape = SubResource("BoxShape3D_msnwl")
+
+[node name="Room_Stage_East_Wall" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132.5, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Room_Stage_East_Wall"]
+shape = SubResource("BoxShape3D_srgs8")
+
 [node name="Room_Crater_South_Wall" type="StaticBody3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, 30.5)
 
@@ -399,17 +423,82 @@ roomName = "StageRoom_Entrance"
 boundingCube = AABB(35.5, 0, 0, 9, 3, 60)
 doors = Array[Vector3]([Vector3(31, 0, 1), Vector3(31, 0, -1), Vector3(31, 0, 7), Vector3(31, 0, -7), Vector3(40, 0, 28)])
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Navigation/NavMain/StageRoom_Entrance"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5, -0.4, 0)
-mesh = SubResource("BoxMesh_vol08")
-skeleton = NodePath("../../StartRoom")
-
 [node name="StageRoom_Row1" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
 roomName = "StageRoom_Row1"
-boundingCube = AABB(42.5, -0.2, 0, 5, 3, 60)
+boundingCube = AABB(42.5, -0.2, 0, 5, 4, 60)
 doors = Array[Vector3]([Vector3(40, 0, 28), Vector3(45, -0.2, 0), Vector3(45, -0.2, -28)])
 
 [node name="StageRoom_Row2" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
-roomName = "StageRoom_Row1"
-boundingCube = AABB(47.5, -0.4, 0, 5, 3, 60)
+roomName = "StageRoom_Row2"
+boundingCube = AABB(47.5, -0.4, 0, 5, 4, 60)
 doors = Array[Vector3]([Vector3(45, -0.2, 0), Vector3(45, -0.2, -28), Vector3(50, -0.4, 0), Vector3(50, -0.4, 28), Vector3(50, -0.4, -28)])
+
+[node name="StageRoom_Row3" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Row3"
+boundingCube = AABB(52.5, -0.6, 0, 5, 4, 60)
+doors = Array[Vector3]([Vector3(50, -0.4, 0), Vector3(50, -0.4, 28), Vector3(50, -0.4, -28), Vector3(55, -0.6, 28), Vector3(55, -0.6, -28)])
+
+[node name="StageRoom_Row4" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Row4"
+boundingCube = AABB(57.5, -0.8, 0, 5, 4, 60)
+doors = Array[Vector3]([Vector3(55, -0.6, 28), Vector3(55, -0.6, -28), Vector3(60, -0.8, 0), Vector3(60, -0.8, 28), Vector3(60, -0.8, -28)])
+
+[node name="StageRoom_Row5" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Row5"
+boundingCube = AABB(62.5, -1, 0, 5, 4, 60)
+doors = Array[Vector3]([Vector3(60, -0.8, 0), Vector3(60, -0.8, 28), Vector3(60, -0.8, -28), Vector3(65, -1, 0), Vector3(65, -1, -28)])
+
+[node name="StageRoom_Row6" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Row6"
+boundingCube = AABB(67.5, -1.2, 0, 5, 4, 60)
+doors = Array[Vector3]([Vector3(65, -1, 0), Vector3(65, -1, -28), Vector3(70, -1.2, 28), Vector3(70, -1.2, -28)])
+
+[node name="StageRoom_Row7" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Row7"
+boundingCube = AABB(72.5, -1.4, 0, 5, 4, 60)
+doors = Array[Vector3]([Vector3(70, -1.2, 28), Vector3(70, -1.2, -28), Vector3(75, -1.4, 0), Vector3(75, -1.4, 28)])
+
+[node name="StageRoom_Row8" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Row8"
+boundingCube = AABB(77.5, -1.6, 0, 5, 4, 60)
+doors = Array[Vector3]([Vector3(75, -1.4, 0), Vector3(75, -1.4, 28), Vector3(80, -1.6, 0), Vector3(80, -1.6, -28)])
+
+[node name="StageRoom_Row9" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Row9"
+boundingCube = AABB(82.5, -1.8, 0, 5, 4, 60)
+doors = Array[Vector3]([Vector3(80, -1.6, 0), Vector3(80, -1.6, -28), Vector3(85, -1.8, 0), Vector3(85, -1.8, 28), Vector3(85, -1.8, -28)])
+
+[node name="StageRoom_Row10" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Row10"
+boundingCube = AABB(90, -2, 0, 10, 7, 60)
+doors = Array[Vector3]([Vector3(85, -1.8, 0), Vector3(85, -1.8, 28), Vector3(85, -1.8, -28), Vector3(95, -2, 12), Vector3(95, -2, 8), Vector3(95, -2, 4), Vector3(95, -2, 0), Vector3(95, -2, -4), Vector3(95, -2, -8), Vector3(95, -2, -12)])
+
+[node name="StageRoom_Stagefront" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Stagefront"
+boundingCube = AABB(97.5, -2, 0, 5, 7, 30)
+doors = Array[Vector3]([Vector3(95, -2, 12), Vector3(95, -2, 8), Vector3(95, -2, 4), Vector3(95, -2, 0), Vector3(95, -2, -4), Vector3(95, -2, -8), Vector3(95, -2, -12), Vector3(97.5, -1.667, 15), Vector3(97.5, -1.667, -15)])
+
+[node name="StageRoom_StageStairsR" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_StageStairsR"
+boundingCube = AABB(97.5, -2, 22.5, 5, 7, 15)
+doors = Array[Vector3]([Vector3(97.5, -1.667, 15), Vector3(100, 0, 27.5)])
+
+[node name="StageRoom_StageStairsL" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_StageStairsL"
+boundingCube = AABB(97.5, -2, -22.5, 5, 7, 15)
+doors = Array[Vector3]([Vector3(97.5, -1.667, -15), Vector3(100, 0, -27.5)])
+
+[node name="StageRoom_Stage" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Stage"
+boundingCube = AABB(107.75, 0, 0, 15.5, 3, 60)
+doors = Array[Vector3]([Vector3(100, 0, -27.5), Vector3(100, 0, 27.5), Vector3(115.5, 0, 0), Vector3(115.5, 0, 4), Vector3(115.5, 0, 8), Vector3(115.5, 0, 12), Vector3(115.5, 0, -4), Vector3(115.5, 0, -8), Vector3(115.5, 0, -12)])
+
+[node name="StageRoom_Curtain" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Curtain"
+boundingCube = AABB(118.5, 0, 0, 6, 3, 60)
+doors = Array[Vector3]([Vector3(115.5, 0, 0), Vector3(115.5, 0, 4), Vector3(115.5, 0, 8), Vector3(115.5, 0, 12), Vector3(115.5, 0, -4), Vector3(115.5, 0, -8), Vector3(115.5, 0, -12), Vector3(121.5, 0, 28), Vector3(121.5, 0, 24), Vector3(121.5, 0, -24), Vector3(121.5, 0, -28)])
+
+[node name="StageRoom_Backstage" parent="Navigation/NavMain" instance=ExtResource("12_nuf46")]
+roomName = "StageRoom_Backstage"
+boundingCube = AABB(126.75, 0, 0, 10.5, 3, 60)
+doors = Array[Vector3]([Vector3(121.5, 0, 28), Vector3(121.5, 0, 24), Vector3(121.5, 0, -24), Vector3(121.5, 0, -28)])
