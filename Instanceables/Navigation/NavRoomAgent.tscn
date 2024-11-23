@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c303sajef7fo1"]
+
+[ext_resource type="Script" path="res://Instanceables/Navigation/NavRoomAgent.gd" id="1_qvtiw"]
+
+[node name="NavRoomAgent" type="Node3D"]
+script = ExtResource("1_qvtiw")

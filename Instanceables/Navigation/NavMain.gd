@@ -10,9 +10,6 @@ func _ready():
 	connectRooms()
 	pass
 
-func _process(_delta):
-	print(locate(get_node("/root/World/Player").global_position).roomName)
-
 func connectRooms():
 	var roomdoors = {}
 	var roomdoorsback = {}
@@ -37,23 +34,52 @@ func _connectadd(room, door, r):
 			connectedRooms[room][door] = r
 
 func generatePath(from:Vector3,to:Vector3):
-	_generatePathHelper(from,to,[])
+	return _generatePathHelper(from,to,[])[0]
 func _generatePathHelper(from:Vector3,to:Vector3,visited:Array):
-	var source = locate(from,visited)
+	var source :Array = locate(from)
 	var dest = locate(to)
-	if source == dest:
-		return from - to
-	var closest := (from - to) * INF
-	for door in connectedRooms[source]:
-		var v = visited
-		v.append(source)
-		var stuff = _generatePathHelper(door,to,v)
-		var dist = stuff.length() + (from - door).length()
-		if dist < closest.length():
-			closest = (from - door).normalized() * dist
-	return closest
+	var areaLock = true
+	for s in source:
+		for d in dest:
+			if s == d:
+				return [to,(to - from).length()]
+			if s.area != d.area:
+				areaLock = false
+	var closest = null
+	var closeDist := 100000
+	for s in source:
+		if visited.has(s):
+			continue
+		for door in connectedRooms[s]:
+			if visited.has(connectedRooms[s][door]) or (areaLock and connectedRooms[s][door].area != s.area):
+				continue
+			print(connectedRooms[s][door].roomName)
+			var v = visited.duplicate(true)
+			v.append(s)
+			var forwardPath = _generatePathHelper(door,to,v)
+			if forwardPath[0] != null:
+				var dist = forwardPath[1] + (door - from).length()
+				if dist < closeDist:
+					closest = door
+					closeDist = (door-from).length()
+			visited.append(connectedRooms[s][door])
+	pass
+	return [closest,closeDist]
+
+func distSort(arr:Array,target:Vector3):
+	for i in len(arr):
+		var minindex = i
+		for j in range(i+1,len(arr)):
+			if arr[j].distance_to(target) < arr[minindex].distance_to(target):
+				minindex = j
+		var temp = arr[i]
+		arr[i] = arr[minindex]
+		arr[minindex] = temp
+	return arr
 
 func locate(point:Vector3,omit:Array = []):
+	var rlst = []
 	for room in get_children():
-		if room.isInRoom(point) and not room in omit:
-			return room.getRoom()
+		if room.isInRoom(point) and not omit.has(room.getRoom()):
+			rlst.append(room.getRoom())
+	return rlst
