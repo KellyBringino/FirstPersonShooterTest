@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Levels/flatbush.gd" id="1_y0464"]
 [ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Instanceables/Player/Player.tscn" id="2_74qte"]
 [ext_resource type="PackedScene" uid="uid://dqlc6fb5v8aft" path="res://Assets/Models/Levels/flatbush_scene.tscn" id="2_nknt2"]
-[ext_resource type="PackedScene" uid="uid://c7jm7q0tevsh5" path="res://Instanceables/Navigation/TestNavRoomAgent.tscn" id="5_6h4bl"]
+[ext_resource type="PackedScene" uid="uid://c7jm7q0tevsh5" path="res://Instanceables/Navigation/TestNavRoomAgent.tscn" id="5_fhdi0"]
 [ext_resource type="PackedScene" uid="uid://cc5i0c47hk2vc" path="res://Instanceables/Interactables/fire_bench.tscn" id="6_8wxyr"]
 [ext_resource type="PackedScene" uid="uid://drofoakyp2qbi" path="res://Instanceables/Props/Barricade_Street.tscn" id="7_gnc7w"]
 [ext_resource type="PackedScene" uid="uid://hnn4b7yok2fh" path="res://Instanceables/Interactables/ice_bench.tscn" id="7_njfc4"]
@@ -192,8 +192,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 0, -22)
 
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="TestNavRoomAgent" parent="Enemies" instance=ExtResource("5_6h4bl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.2488, 0, -17)
+[node name="TestNavRoomAgent" parent="Enemies" instance=ExtResource("5_fhdi0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0, -18)
 
 [node name="Spawns" type="Node3D" parent="."]
 
@@ -493,42 +493,42 @@ doors = Array[Vector3]([Vector3(80, -1.6, 0), Vector3(80, -1.6, -28), Vector3(85
 
 [node name="StageRoom_Row10" parent="NavMain" instance=ExtResource("12_nuf46")]
 roomName = "StageRoom_Row10"
-area = 2
+area = 3
 boundingCube = AABB(90, -2, 0, 10, 7, 60)
 doors = Array[Vector3]([Vector3(85, -1.8, 0), Vector3(85, -1.8, 28), Vector3(85, -1.8, -28), Vector3(95, -2, 12), Vector3(95, -2, 8), Vector3(95, -2, 4), Vector3(95, -2, 0), Vector3(95, -2, -4), Vector3(95, -2, -8), Vector3(95, -2, -12)])
 
 [node name="StageRoom_Stagefront" parent="NavMain" instance=ExtResource("12_nuf46")]
 roomName = "StageRoom_Stagefront"
-area = 2
+area = 3
 boundingCube = AABB(97.5, -2, 0, 5, 7, 30)
 doors = Array[Vector3]([Vector3(95, -2, 12), Vector3(95, -2, 8), Vector3(95, -2, 4), Vector3(95, -2, 0), Vector3(95, -2, -4), Vector3(95, -2, -8), Vector3(95, -2, -12), Vector3(97.5, -1.667, 15), Vector3(97.5, -1.667, -15)])
 
 [node name="StageRoom_StageStairsR" parent="NavMain" instance=ExtResource("12_nuf46")]
 roomName = "StageRoom_StageStairsR"
-area = 2
+area = 3
 boundingCube = AABB(97.5, -2, 22.5, 5, 7, 15)
 doors = Array[Vector3]([Vector3(97.5, -1.667, 15), Vector3(100, 0, 27.5)])
 
 [node name="StageRoom_StageStairsL" parent="NavMain" instance=ExtResource("12_nuf46")]
 roomName = "StageRoom_StageStairsL"
-area = 2
+area = 3
 boundingCube = AABB(97.5, -2, -22.5, 5, 7, 15)
 doors = Array[Vector3]([Vector3(97.5, -1.667, -15), Vector3(100, 0, -27.5)])
 
 [node name="StageRoom_Stage" parent="NavMain" instance=ExtResource("12_nuf46")]
 roomName = "StageRoom_Stage"
-area = 2
+area = 3
 boundingCube = AABB(107.75, 0, 0, 15.5, 3, 60)
 doors = Array[Vector3]([Vector3(100, 0, -27.5), Vector3(100, 0, 27.5), Vector3(115.5, 0, 0), Vector3(115.5, 0, 4), Vector3(115.5, 0, 8), Vector3(115.5, 0, 12), Vector3(115.5, 0, -4), Vector3(115.5, 0, -8), Vector3(115.5, 0, -12)])
 
 [node name="StageRoom_Curtain" parent="NavMain" instance=ExtResource("12_nuf46")]
 roomName = "StageRoom_Curtain"
-area = 2
+area = 3
 boundingCube = AABB(118.5, 0, 0, 6, 3, 60)
 doors = Array[Vector3]([Vector3(115.5, 0, 0), Vector3(115.5, 0, 4), Vector3(115.5, 0, 8), Vector3(115.5, 0, 12), Vector3(115.5, 0, -4), Vector3(115.5, 0, -8), Vector3(115.5, 0, -12), Vector3(121.5, 0, 28), Vector3(121.5, 0, 24), Vector3(121.5, 0, -24), Vector3(121.5, 0, -28)])
 
 [node name="StageRoom_Backstage" parent="NavMain" instance=ExtResource("12_nuf46")]
 roomName = "StageRoom_Backstage"
-area = 2
+area = 3
 boundingCube = AABB(126.75, 0, 0, 10.5, 3, 60)
 doors = Array[Vector3]([Vector3(121.5, 0, 28), Vector3(121.5, 0, 24), Vector3(121.5, 0, -24), Vector3(121.5, 0, -28)])
