@@ -116,6 +116,7 @@ func dijkstra(start:Vector3,end:Vector3):
 					#current node as visited and remove it from the unvisited set. This is so that a visited 
 					#node is never checked again, which is correct because the distance recorded on the 
 					#current node is minimal (as ensured in step 3), and thus final. Go back to step 3.
+				unvisited.erase(cur[0])
 			#Once the loop exits (steps 3–5), every visited node will contain its shortest distance 
 				#from the starting node.
 		pass
