@@ -188,12 +188,12 @@ transform = Transform3D(-4.37114e-08, 0.165048, -0.986286, 0, 0.986286, 0.165048
 transform = Transform3D(-1, 1.44289e-08, -8.62238e-08, 0, 0.986286, 0.165048, 8.74228e-08, 0.165048, -0.986286, -27.0025, 1.98454, -53.0818)
 
 [node name="Player" parent="." instance=ExtResource("2_74qte")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 0, -22)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="Enemies" type="Node3D" parent="."]
 
 [node name="TestNavRoomAgent" parent="Enemies" instance=ExtResource("5_fhdi0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0, -18)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, -2)
 
 [node name="Spawns" type="Node3D" parent="."]
 
