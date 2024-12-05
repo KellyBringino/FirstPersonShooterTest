@@ -116,14 +116,16 @@ func dijkstra(start:Vector3,end:Vector3):
 					#with a distance greater than 8, then update it to 8 (the path to B through A is 
 					#shorter). Otherwise, keep its current distance (the path to B through A is not the 
 					#shortest).
+				var doors = connectedRooms[s].keys()
+				doors = distSort(doors,from)
 				for door in connectedRooms[cur[0]]:
 					if not unvisited.has(connectedRooms[cur[0]][door]):
 						continue
 					var doordist
 					if len(dist[cur[0]][1]) > 1:
-						doordist = dist[cur[0]][0] + (door - dist[cur[0]][1][1]).length()
+						doordist = dist[cur[0]][0] + (door - dist[cur[0]][1][1]).length() + 0.05
 					else:
-						doordist = dist[cur[0]][0] + (door - dist[cur[0]][1][0]).length()
+						doordist = dist[cur[0]][0] + (door - dist[cur[0]][1][0]).length() + 0.05
 					if not dist.has(connectedRooms[cur[0]][door]) or \
 					dist[connectedRooms[cur[0]][door]][0] > doordist:
 						var newpath = dist[cur[0]][1].duplicate(true)
@@ -133,6 +135,7 @@ func dijkstra(start:Vector3,end:Vector3):
 					#current node as visited and remove it from the unvisited set. This is so that a visited 
 					#node is never checked again, which is correct because the distance recorded on the 
 					#current node is minimal (as ensured in step 3), and thus final. Go back to step 3.
+				print(cur[0].roomName)
 				unvisited.erase(cur[0])
 			#Once the loop exits (steps 3–5), every visited node will contain its shortest distance 
 				#from the starting node.
