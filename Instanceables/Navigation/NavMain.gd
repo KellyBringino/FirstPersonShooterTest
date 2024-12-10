@@ -2,19 +2,21 @@ extends Node3D
 
 var rooms : Array
 var connectedRooms :Dictionary = {}
+var  curArea := [0]
 
 func _ready():
 	for room in get_children():
 		var r = room.registerRoom()
 		rooms.append(r)
 	connectRooms()
-	pass
 
 func connectRooms():
 	var roomdoors = {}
 	var roomdoorsback = {}
 	for i in 2:
 		for roomnum in len(rooms):
+			if !curArea.has(rooms[roomnum].area):
+				continue
 			for door in rooms[roomnum].doors:
 				if door not in roomdoors and door not in roomdoorsback:
 					roomdoors[door] = rooms[roomnum]
@@ -32,6 +34,11 @@ func _connectadd(room, door, r):
 			connectedRooms[room] = {door : r}
 		else:
 			connectedRooms[room][door] = r
+
+func unlockArea(area):
+	if !curArea.has(area):
+		curArea.append(area)
+	connectRooms()
 
 func generatePath(from:Vector3,to:Vector3):
 	return _generatePathHelper(from,to,[])[1]
@@ -63,7 +70,6 @@ func _generatePathHelper(from:Vector3,to:Vector3,visited:Array):
 					closest = forwardPath
 					forwardPath[0] = dist
 					forwardPath.insert(1,door)
-	pass
 	return closest
 
 #instructions for Dijkstra's algorithm taken from wikipedia page
@@ -72,12 +78,19 @@ func _generatePathHelper(from:Vector3,to:Vector3,visited:Array):
 func dijkstra(start:Vector3,end:Vector3):
 		var source : Array = locate(start)
 		var dest : Array = locate(end)
-		var dist
-		for s in source:
+		if len(dest) == 0 or len(source) == 0:
+			return null
+		var dist = []
+		for i in len(source):
+			dist.append({source[i] : [0.0,[start]]})
+			#points to a list. the list has the distance to get there and the path of doorways 
+			#traveled to get to this room, so dist[room][0] gets the distance to this room, and 
+			#dist[room][1][0] gets the start position, dist[room][1][1] gets the first choice, 
+			#and dist[room][1][-1] gets the door traveled through to get into this room
+		for si in len(source):
 			#if the two are in the same room then go straight there
-			if dest.has(s):
+			if dest.has(source[si]):
 				return end
-			
 			#Create a set of all the unvisited nodes called the unvisited set.
 			var unvisited := connectedRooms.keys()
 			var visited := []
@@ -86,12 +99,7 @@ func dijkstra(start:Vector3,end:Vector3):
 				#nodes. During execution of the algorithm, the distance of a node N is the length 
 				#of the shortest path discovered so far between the starting node and N.
 			
-			dist = {s : [0.0,[start]]} #dist is a dictionary where each entry is a room that 
-				#points to a list. the list has the distance to get there and the path of doorways 
-				#traveled to get to this room, so dist[room][0] gets the distance to this room, and 
-				#dist[room][1][0] gets the start position, dist[room][1][1] gets the first choice, 
-				#and dist[room][1][-1] gets the door traveled through to get into this room
-			pass
+			
 			#From the unvisited set, select the current node to be the one with the smallest finite 
 				#distance; initially, this will be the starting node, which has distance zero. If 
 				#the unvisited set is empty, or contains only nodes with infinite distance (which 
@@ -99,18 +107,16 @@ func dijkstra(start:Vector3,end:Vector3):
 				#concerned about the path to a target node, we may terminate here if the current 
 				#node is the target node. Otherwise, we can continue to find the shortest paths to 
 				#all reachable nodes.
-			var cur = [s,dist[s][0]]
+			var cur = [source[si],dist[si][source[si]][0]]
 			while true:
-				pass
-				var beforecheckcheck = unvisited.has(cur[0])
 				if len(unvisited) == 0:
 					break
-				cur = [s,10000000]
+				cur = [source[si],10000000]
 				for room in unvisited:
-					if dist.has(room) and cur[1] > dist[room][0]:
-						cur = [room,dist[room][0]]
-				if dest.has(cur[0]):
-					break
+					if dist[si].has(room) and cur[1] > dist[si][room][0]:
+						cur = [room,dist[si][room][0]]
+				#if dest.has(cur[0]):
+					#break
 				#For the current node, consider all of its unvisited neighbors and update their distances 
 					#through the current node; compare the newly calculated distance to the one currently 
 					#assigned to the neighbor and assign it the smaller one. For example, if the current 
@@ -120,36 +126,36 @@ func dijkstra(start:Vector3,end:Vector3):
 					#shorter). Otherwise, keep its current distance (the path to B through A is not the 
 					#shortest).
 				var doors = connectedRooms[cur[0]].keys()
-				doors = distSort(doors,dist[cur[0]][1][-1])
+				doors = distSort(doors,dist[si][cur[0]][1][-1])
 				for door in doors:
 					if visited.has(connectedRooms[cur[0]][door]):
 						continue
-					var doordist = dist[cur[0]][0] + (door - dist[cur[0]][1][-1]).length() + 0.05
-					if not dist.has(connectedRooms[cur[0]][door]) or \
-					dist[connectedRooms[cur[0]][door]][0] > doordist:
-						var newpath = dist[cur[0]][1].duplicate(true)
+					var doordist = dist[si][cur[0]][0] + (door - dist[si][cur[0]][1][-1]).length() + 0.2
+					if not dist[si].has(connectedRooms[cur[0]][door]) or \
+					dist[si][connectedRooms[cur[0]][door]][0] > doordist:
+						var newpath = dist[si][cur[0]][1].duplicate(true)
 						newpath.append(door)
-						dist[connectedRooms[cur[0]][door]] = [doordist,newpath]
+						dist[si][connectedRooms[cur[0]][door]] = [doordist,newpath]
 				#When we are done considering all of the unvisited neighbors of the current node, mark the 
 					#current node as visited and remove it from the unvisited set. This is so that a visited 
 					#node is never checked again, which is correct because the distance recorded on the 
 					#current node is minimal (as ensured in step 3), and thus final. Go back to step 3.
-				print(cur[0].roomName)
-				pass
-				var checkcheck = unvisited.has(cur[0])
 				unvisited.erase(cur[0])
 				visited.append(cur[0])
-				var aftercheckcheck = unvisited.has(cur[0])
-				pass
 			#Once the loop exits (steps 3–5), every visited node will contain its shortest distance 
 				#from the starting node.
-		if len(dest) == 1:
-			return dist[dest[0]][1][1]
-		var bestpath = dest[0]
-		for d in dest:
-			if dist[d][0] < dist[bestpath][0]:
-				bestpath = d
-		return dist[bestpath][1][1]
+		if len(dest) == 1 and len(source) == 1:
+			if dist[0].has(dest[0]):
+				return dist[0][dest[0]][1][1]
+			return null
+		var bestpath = dist[0][dest[0]][1]
+		var shortpath = dist[0][dest[0]][0]
+		for si in len(source):
+			for d in dest:
+				if dist[si][d][0] < shortpath:
+					bestpath = dist[si][d][1]
+					shortpath = dist[si][d][0]
+		return bestpath[1]
 
 func distSort(arr:Array,target:Vector3):
 	for i in len(arr):
