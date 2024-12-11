@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Levels/flatbush.gd" id="1_y0464"]
 [ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Instanceables/Player/Player.tscn" id="2_74qte"]
 [ext_resource type="PackedScene" uid="uid://dqlc6fb5v8aft" path="res://Assets/Models/Levels/flatbush_scene.tscn" id="2_nknt2"]
-[ext_resource type="PackedScene" uid="uid://c7jm7q0tevsh5" path="res://Instanceables/Navigation/TestNavRoomAgent.tscn" id="5_fhdi0"]
+[ext_resource type="PackedScene" uid="uid://bb1i806nt4qjq" path="res://Instanceables/Enemies/enemy_basic.tscn" id="5_716w6"]
 [ext_resource type="PackedScene" uid="uid://cc5i0c47hk2vc" path="res://Instanceables/Interactables/fire_bench.tscn" id="6_8wxyr"]
 [ext_resource type="PackedScene" uid="uid://drofoakyp2qbi" path="res://Instanceables/Props/Barricade_Street.tscn" id="7_gnc7w"]
 [ext_resource type="PackedScene" uid="uid://hnn4b7yok2fh" path="res://Instanceables/Interactables/ice_bench.tscn" id="7_njfc4"]
@@ -192,8 +192,14 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 
 
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="TestNavRoomAgent" parent="Enemies" instance=ExtResource("5_fhdi0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 0)
+[node name="Enemy_Basic" parent="Enemies" instance=ExtResource("5_716w6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, -3)
+
+[node name="Enemy_Basic3" parent="Enemies" instance=ExtResource("5_716w6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 0, -3)
+
+[node name="Enemy_Basic2" parent="Enemies" instance=ExtResource("5_716w6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, 5)
 
 [node name="Spawns" type="Node3D" parent="."]
 

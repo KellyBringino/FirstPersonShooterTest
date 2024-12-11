@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bb1i806nt4qjq"]
+[gd_scene load_steps=32 format=3 uid="uid://bb1i806nt4qjq"]
 
 [ext_resource type="Script" path="res://Instanceables/Enemies/enemy_basic.gd" id="1_75185"]
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Assets/Sprites/UI/bar back.svg" id="2_5kol5"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dooshswk0j1vx" path="res://Assets/Sprites/UI/health_freeze.svg" id="5_p61uy"]
 [ext_resource type="Texture2D" uid="uid://bggsmnwygrmlc" path="res://Assets/Sprites/Gun Property Icons/Elemental Property/Ice.svg" id="6_upg5e"]
 [ext_resource type="PackedScene" uid="uid://dmfisp3uskoet" path="res://Instanceables/Guns/EnemyPistol.tscn" id="6_uv3cp"]
+[ext_resource type="PackedScene" uid="uid://c303sajef7fo1" path="res://Instanceables/Navigation/NavRoomAgent.tscn" id="11_oe12o"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2p6i3"]
 
@@ -111,6 +112,16 @@ script = ExtResource("1_75185")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_2p6i3")
+
+[node name="RayCast3D" type="RayCast3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+target_position = Vector3(0, 0, -3)
+collision_mask = 1153
+
+[node name="RayCast3D2" type="RayCast3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0)
+target_position = Vector3(0, 0, -3)
+collision_mask = 1153
 
 [node name="ModelController" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -275,6 +286,7 @@ wait_time = 0.1
 autostart = true
 
 [node name="PathfindTimer" type="Timer" parent="TimerController"]
+wait_time = 0.1
 autostart = true
 
 [node name="WalkCycleTimer" type="Timer" parent="TimerController"]
@@ -315,6 +327,8 @@ collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShatterArea"]
 shape = SubResource("SphereShape3D_45hed")
+
+[node name="NavRoomAgent" parent="." instance=ExtResource("11_oe12o")]
 
 [connection signal="body_entered" from="ViewControl/vision" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="ViewControl/vision" to="." method="_on_vision_body_exited"]

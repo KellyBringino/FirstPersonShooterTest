@@ -1,7 +1,8 @@
 class_name Enemy_General
 extends CharacterBody3D
 
-@onready var nav_agent : NavigationAgent3D = $NavigationAgent3D
+#@onready var nav_agent : NavigationAgent3D = $NavigationAgent3D
+@onready var navRoomAgent : NavRoomAgent = $NavRoomAgent
 @onready var skl : Skeleton3D = $ModelController/doll/Armature/Skeleton3D
 @onready var anim : AnimationPlayer = $ModelController/doll/AnimationPlayer
 @onready var healthbar : TextureProgressBar = $Sprite3D/SubViewport/TextureProgressBar
@@ -30,7 +31,7 @@ const HEALTH_BAR_FIRE_TEXT = preload("res://Assets/Sprites/UI/health_fire.svg")
 enum state {CHASING, HIDING, ATTACKING}
 
 var speed = 4.0
-var attackDist = 10.0
+var attackDist = 30.0
 var attackGrace = false
 var moveDist = 12.0
 var currentState : state = state.CHASING
@@ -82,11 +83,13 @@ func _physics_process(delta):
 	= $ModelController/doll/HandAttachment.global_transform.origin
 	
 	if !dying and !frozen:
-		nav_agent.set_target_position(lastKnowLoc)
+		#nav_agent.set_target_position(lastKnowLoc)
+		navRoomAgent.setPOI(lastKnowLoc)
 		handleStates(delta)
 	
 		#look at player
-		look_at(lastKnowLoc,Vector3.UP)
+		
+		look_at(global_position+velocity,Vector3.UP)
 		rotation.x = 0.0
 		rotation.z = 0.0
 		
@@ -95,14 +98,16 @@ func _physics_process(delta):
 			$ViewControl.look_at(lastKnowLoc)
 			$ViewControl/vision/WeaponController/Weapon.look_at(lastKnowLoc)
 		if is_on_floor():
-			velocity.x = 0
-			velocity.z = 0
 			if currentState == state.CHASING:
 				move()
 			elif currentState == state.ATTACKING:
+				velocity = lerp(velocity,Vector3.ZERO,0.2)
 				playAnim("Attack_Idle",false)
 		else:
 			playAnim("Attack_Idle",false)
+	else:
+		velocity.x = 0
+		velocity.z = 0
 	move_and_slide()
 
 func handleStates(_delta):
@@ -137,10 +142,12 @@ func alert(point):
 func move():
 	if global_transform.origin.distance_to(lastKnowLoc) <= (REACH_DIST/2.0):
 		return
-	var nextNavPoint = nav_agent.get_next_path_position()
+	#var nextNavPoint = nav_agent.get_next_path_position()
+	var nextNavPoint = navRoomAgent.getNextPath()
 	if !frozen:
-		velocity = ((nextNavPoint - global_transform.origin) \
+		var optimalVelocity = ((nextNavPoint - global_transform.origin).normalized() \
 		* Vector3(1,0,1)).normalized() * speed * (1 - (COLD_SPEED * cold))
+		velocity = lerp(velocity,optimalVelocity,0.2)
 		playAnim("Run",false)
 
 func reached(point):
@@ -338,7 +345,9 @@ func _on_look_check_timeout():
 		lastKnowLoc = player.global_transform.origin
 
 func _on_pathfind_timer_timeout():
-	nav_agent.set_target_position(lastKnowLoc)
+	#nav_agent.set_target_position(lastKnowLoc)
+	navRoomAgent.setPOI(lastKnowLoc)
+	navRoomAgent.setNextPath()
 
 func _on_attack_timer_timeout():
 	if currentState == state.ATTACKING:
