@@ -116,6 +116,16 @@ script = ExtResource("1_ik4gr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_2p6i3")
 
+[node name="AvoidRay_R" type="RayCast3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+target_position = Vector3(0, 0, -3)
+collision_mask = 1153
+
+[node name="AvoidRay_L" type="RayCast3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0)
+target_position = Vector3(0, 0, -3)
+collision_mask = 1153
+
 [node name="ModelController" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 

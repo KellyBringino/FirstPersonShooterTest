@@ -3,6 +3,8 @@ extends CharacterBody3D
 
 #@onready var nav_agent : NavigationAgent3D = $NavigationAgent3D
 @onready var navRoomAgent : NavRoomAgent = $NavRoomAgent
+@onready var avoidRay_R : RayCast3D = $CollisionShape3D/AvoidRay_R
+@onready var avoidRay_L : RayCast3D = $CollisionShape3D/AvoidRay_L
 @onready var skl : Skeleton3D = $ModelController/doll/Armature/Skeleton3D
 @onready var anim : AnimationPlayer = $ModelController/doll/AnimationPlayer
 @onready var healthbar : TextureProgressBar = $Sprite3D/SubViewport/TextureProgressBar
@@ -147,7 +149,15 @@ func move():
 	if !frozen:
 		var optimalVelocity = ((nextNavPoint - global_transform.origin).normalized() \
 		* Vector3(1,0,1)).normalized() * speed * (1 - (COLD_SPEED * cold))
-		velocity = lerp(velocity,optimalVelocity,0.2)
+		var avoidance = 0.0
+		avoidRay_R.force_raycast_update()
+		if avoidRay_R.is_colliding():
+			avoidance = (avoidRay_R.get_collision_point() - global_position).length()
+		avoidRay_L.force_raycast_update()
+		if avoidRay_L.is_colliding():
+			avoidance -= (avoidRay_L.get_collision_point() - global_position).length()
+		optimalVelocity = optimalVelocity.rotated(Vector3(0,1,0),avoidance)
+		velocity = velocity.lerp(optimalVelocity,0.2)
 		playAnim("Run",false)
 
 func reached(point):

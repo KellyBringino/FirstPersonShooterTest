@@ -113,12 +113,12 @@ script = ExtResource("1_75185")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_2p6i3")
 
-[node name="RayCast3D" type="RayCast3D" parent="CollisionShape3D"]
+[node name="AvoidRay_R" type="RayCast3D" parent="CollisionShape3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
 target_position = Vector3(0, 0, -3)
 collision_mask = 1153
 
-[node name="RayCast3D2" type="RayCast3D" parent="CollisionShape3D"]
+[node name="AvoidRay_L" type="RayCast3D" parent="CollisionShape3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0)
 target_position = Vector3(0, 0, -3)
 collision_mask = 1153
