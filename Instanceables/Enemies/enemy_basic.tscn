@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bb1i806nt4qjq"]
+[gd_scene load_steps=33 format=3 uid="uid://bb1i806nt4qjq"]
 
 [ext_resource type="Script" path="res://Instanceables/Enemies/enemy_basic.gd" id="1_75185"]
 [ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Assets/Sprites/UI/bar back.svg" id="2_5kol5"]
@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://bggsmnwygrmlc" path="res://Assets/Sprites/Gun Property Icons/Elemental Property/Ice.svg" id="6_upg5e"]
 [ext_resource type="PackedScene" uid="uid://dmfisp3uskoet" path="res://Instanceables/Guns/EnemyPistol.tscn" id="6_uv3cp"]
 [ext_resource type="PackedScene" uid="uid://c303sajef7fo1" path="res://Instanceables/Navigation/NavRoomAgent.tscn" id="11_oe12o"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_b1s0b"]
+size = Vector3(0.1, 0.1, 20)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2p6i3"]
 
@@ -109,17 +112,23 @@ collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_75185")
 
+[node name="RayCast3D" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RayCast3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+mesh = SubResource("BoxMesh_b1s0b")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_2p6i3")
 
 [node name="AvoidRay_R" type="RayCast3D" parent="CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.25, 0)
 target_position = Vector3(0, 0, -3)
 collision_mask = 1153
 
 [node name="AvoidRay_L" type="RayCast3D" parent="CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.25, 0)
 target_position = Vector3(0, 0, -3)
 collision_mask = 1153
 
@@ -316,9 +325,6 @@ one_shot = true
 [node name="ShatterImmuneTimer" type="Timer" parent="TimerController"]
 wait_time = 0.1
 one_shot = true
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-avoidance_enabled = true
 
 [node name="ShatterArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

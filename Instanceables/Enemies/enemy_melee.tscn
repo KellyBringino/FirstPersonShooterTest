@@ -117,12 +117,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_2p6i3")
 
 [node name="AvoidRay_R" type="RayCast3D" parent="CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.25, 0)
 target_position = Vector3(0, 0, -3)
 collision_mask = 1153
 
 [node name="AvoidRay_L" type="RayCast3D" parent="CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.25, 0)
 target_position = Vector3(0, 0, -3)
 collision_mask = 1153
 
@@ -297,6 +297,7 @@ wait_time = 0.1
 autostart = true
 
 [node name="PathfindTimer" type="Timer" parent="TimerController"]
+wait_time = 0.1
 autostart = true
 
 [node name="WalkCycleTimer" type="Timer" parent="TimerController"]
@@ -326,9 +327,6 @@ one_shot = true
 [node name="ShatterImmuneTimer" type="Timer" parent="TimerController"]
 wait_time = 0.1
 one_shot = true
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-avoidance_enabled = true
 
 [node name="ShatterArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

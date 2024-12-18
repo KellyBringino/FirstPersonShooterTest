@@ -5,7 +5,7 @@ var meleeList : Array = []
 func _ready():
 	speed = 5.5
 	attackDist = 1.5
-	moveDist = 2.5
+	moveDiff = 1.0
 	super._ready()
 
 func _physics_process(_delta):

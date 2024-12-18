@@ -33,9 +33,10 @@ const HEALTH_BAR_FIRE_TEXT = preload("res://Assets/Sprites/UI/health_fire.svg")
 enum state {CHASING, HIDING, ATTACKING}
 
 var speed = 4.0
-var attackDist = 30.0
+var attackDist = 25.0
 var attackGrace = false
-var moveDist = 12.0
+var moveDiff = 2.0
+var moveChange = 0.03
 var currentState : state = state.CHASING
 var maxHealth = 2000.0
 var health : float = 2000.0
@@ -91,19 +92,20 @@ func _physics_process(delta):
 	
 		#look at player
 		
-		look_at(global_position+velocity,Vector3.UP)
+		look_at(global_position + velocity + Vector3(0,.1,0),Vector3.UP)
 		rotation.x = 0.0
 		rotation.z = 0.0
 		
 		#if the player is in the vision cone, look at them and point the gun at them
 		if(see.size() > 0):
+			look_at(player.global_position,Vector3.UP)
 			$ViewControl.look_at(lastKnowLoc)
 			$ViewControl/vision/WeaponController/Weapon.look_at(lastKnowLoc)
 		if is_on_floor():
 			if currentState == state.CHASING:
 				move()
 			elif currentState == state.ATTACKING:
-				velocity = lerp(velocity,Vector3.ZERO,0.2)
+				velocity = lerp(velocity,Vector3.ZERO,moveChange)
 				playAnim("Attack_Idle",false)
 		else:
 			playAnim("Attack_Idle",false)
@@ -131,7 +133,7 @@ func handleStates(_delta):
 			else:
 				lastKnowLoc = player.global_transform.origin
 		state.ATTACKING:
-			if !distanceCheck(lastKnowLoc,moveDist):
+			if !distanceCheck(lastKnowLoc,attackDist + moveDiff):
 				stateChange(state.CHASING)
 			elif see.size() == 0:
 				stateChange(state.CHASING)
@@ -143,6 +145,7 @@ func alert(point):
 
 func move():
 	if global_transform.origin.distance_to(lastKnowLoc) <= (REACH_DIST/2.0):
+		velocity = velocity.lerp(Vector3.ZERO,moveChange)
 		return
 	#var nextNavPoint = nav_agent.get_next_path_position()
 	var nextNavPoint = navRoomAgent.getNextPath()
@@ -156,8 +159,10 @@ func move():
 		avoidRay_L.force_raycast_update()
 		if avoidRay_L.is_colliding():
 			avoidance -= (avoidRay_L.get_collision_point() - global_position).length()
-		optimalVelocity = optimalVelocity.rotated(Vector3(0,1,0),avoidance)
-		velocity = velocity.lerp(optimalVelocity,0.2)
+		print(avoidance)
+		optimalVelocity = optimalVelocity.rotated(Vector3(0,1,0),avoidance * 1)
+		velocity = velocity.lerp(optimalVelocity,moveChange)
+		$RayCast3D.look_at(global_position + velocity)
 		playAnim("Run",false)
 
 func reached(point):
@@ -266,7 +271,6 @@ func freeze(t):
 		freezeTimer.start()
 func shatter():
 	if shatterImmuneTimer.is_stopped():
-		print("shatter")
 		var iceEx = Game.iceAOEPreload.instantiate()
 		add_child(iceEx)
 		iceEx.position += Vector3(0,1,0)
