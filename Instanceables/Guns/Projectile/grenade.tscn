@@ -9,9 +9,8 @@ radius = 0.03
 [sub_resource type="SphereShape3D" id="SphereShape3D_3ol2q"]
 radius = 2.0
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8f0d1"]
-radius = 0.03
-height = 0.3
+[sub_resource type="SphereShape3D" id="SphereShape3D_sktva"]
+radius = 0.1
 
 [node name="Grenade" type="RigidBody3D"]
 disable_mode = 1
@@ -43,7 +42,7 @@ collision_layer = 64
 collision_mask = 177
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetonatorShape"]
-shape = SubResource("CapsuleShape3D_8f0d1")
+shape = SubResource("SphereShape3D_sktva")
 
 [connection signal="body_entered" from="ExplosionArea" to="." method="_on_explosion_area_body_entered"]
 [connection signal="body_exited" from="ExplosionArea" to="." method="_on_explosion_area_body_exited"]

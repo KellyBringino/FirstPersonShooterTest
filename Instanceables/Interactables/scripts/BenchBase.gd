@@ -27,6 +27,5 @@ func lock():
 	locked = true
 func unlock():
 	locked = false
-
 func setLockPhrase(p:String):
 	lockPhrase = p

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cws761jb04ib5"]
+[gd_scene load_steps=33 format=3 uid="uid://cws761jb04ib5"]
 
 [ext_resource type="Script" path="res://Instanceables/Enemies/enemy_melee.gd" id="1_ik4gr"]
 [ext_resource type="PackedScene" uid="uid://hoew73apnqtm" path="res://Assets/Models/Mobs/enemydollAnim_melee.tscn" id="2_bnugj"]
@@ -105,9 +105,6 @@ radius = 0.75
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_45hed"]
 radius = 2.5
-
-[sub_resource type="BoxMesh" id="BoxMesh_q2o6i"]
-size = Vector3(0.1, 0.1, 20)
 
 [node name="Enemy_Basic" type="CharacterBody3D"]
 editor_description = "Enemy"
@@ -340,12 +337,6 @@ collision_mask = 4
 shape = SubResource("SphereShape3D_45hed")
 
 [node name="NavRoomAgent" parent="." instance=ExtResource("11_8agg3")]
-
-[node name="RayCast3D" type="Node3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RayCast3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
-mesh = SubResource("BoxMesh_q2o6i")
 
 [connection signal="body_entered" from="ViewControl/vision" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="ViewControl/vision" to="." method="_on_vision_body_exited"]

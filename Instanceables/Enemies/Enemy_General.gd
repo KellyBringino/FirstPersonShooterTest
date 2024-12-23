@@ -162,7 +162,6 @@ func move():
 			avoidance -= (avoidRay_L.get_collision_point() - global_position).length()
 		optimalVelocity = optimalVelocity.rotated(Vector3(0,1,0),avoidance * 0.1)
 		velocity = velocity.lerp(optimalVelocity,moveChange)
-		$RayCast3D.look_at(global_position + velocity)
 		playAnim("Run",false)
 
 func reached(point):
