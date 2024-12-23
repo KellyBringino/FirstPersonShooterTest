@@ -33,10 +33,11 @@ const HEALTH_BAR_FIRE_TEXT = preload("res://Assets/Sprites/UI/health_fire.svg")
 enum state {CHASING, HIDING, ATTACKING}
 
 var speed = 4.0
-var attackDist = 25.0
+var attackDist = 5.0
 var attackGrace = false
 var moveDiff = 2.0
-var moveChange = 0.03
+var moveChange = 0.06
+var stopChange = 0.1
 var currentState : state = state.CHASING
 var maxHealth = 2000.0
 var health : float = 2000.0
@@ -92,7 +93,7 @@ func _physics_process(delta):
 	
 		#look at player
 		
-		look_at(global_position + velocity + Vector3(0,.1,0),Vector3.UP)
+		look_at(global_position + velocity + Vector3(0,0,.01),Vector3.UP)
 		rotation.x = 0.0
 		rotation.z = 0.0
 		
@@ -105,7 +106,7 @@ func _physics_process(delta):
 			if currentState == state.CHASING:
 				move()
 			elif currentState == state.ATTACKING:
-				velocity = lerp(velocity,Vector3.ZERO,moveChange)
+				velocity = lerp(velocity,Vector3.ZERO,stopChange)
 				playAnim("Attack_Idle",false)
 		else:
 			playAnim("Attack_Idle",false)
@@ -145,7 +146,7 @@ func alert(point):
 
 func move():
 	if global_transform.origin.distance_to(lastKnowLoc) <= (REACH_DIST/2.0):
-		velocity = velocity.lerp(Vector3.ZERO,moveChange)
+		velocity = velocity.lerp(Vector3.ZERO,stopChange)
 		return
 	#var nextNavPoint = nav_agent.get_next_path_position()
 	var nextNavPoint = navRoomAgent.getNextPath()
@@ -159,8 +160,7 @@ func move():
 		avoidRay_L.force_raycast_update()
 		if avoidRay_L.is_colliding():
 			avoidance -= (avoidRay_L.get_collision_point() - global_position).length()
-		print(avoidance)
-		optimalVelocity = optimalVelocity.rotated(Vector3(0,1,0),avoidance * 1)
+		optimalVelocity = optimalVelocity.rotated(Vector3(0,1,0),avoidance * 0.1)
 		velocity = velocity.lerp(optimalVelocity,moveChange)
 		$RayCast3D.look_at(global_position + velocity)
 		playAnim("Run",false)

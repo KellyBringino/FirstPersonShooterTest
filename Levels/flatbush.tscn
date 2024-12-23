@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cm28wnjxm83ll"]
+[gd_scene load_steps=34 format=3 uid="uid://cm28wnjxm83ll"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_t15kf"]
 [ext_resource type="Script" path="res://Levels/flatbush.gd" id="1_y0464"]
@@ -90,6 +90,9 @@ fog_enabled = true
 fog_light_color = Color(0.733333, 0.658824, 0.552941, 1)
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_cnocp"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wtu2y"]
+size = Vector3(10, 1, 10)
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_y0464")
@@ -412,8 +415,18 @@ doors = Array[Vector3]([Vector3(-50, 0, 29), Vector3(-50, 0, 21.5), Vector3(-60,
 
 [node name="CraterRoom_Farhall" parent="NavMain" instance=ExtResource("12_nuf46")]
 roomName = "CraterRoom_Farhall"
-boundingCube = AABB(-65, 0, 0, 10, 3, 60)
-doors = Array[Vector3]([Vector3(-60, 0, -27.5), Vector3(-60, 0, -17.5), Vector3(-60, 0, -12.5), Vector3(-60, 0, 17.5), Vector3(-60, 0, 22.5), Vector3(-70, 0, 27.5), Vector3(-70, 0, -17.5)])
+boundingCube = AABB(-65, 0, -5, 10, 3, 50)
+doors = Array[Vector3]([Vector3(-60, 0, -27.5), Vector3(-60, 0, -17.5), Vector3(-60, 0, -12.5), Vector3(-60, 0, 17.5), Vector3(-70, 0, -17.5), Vector3(-67.5, 0, 20)])
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavMain/CraterRoom_Farhall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 0, 25)
+visible = false
+mesh = SubResource("BoxMesh_wtu2y")
+
+[node name="CraterRoom_Farhall_Cap" parent="NavMain" instance=ExtResource("12_nuf46")]
+roomName = "CraterRoom_Farhall_Cap"
+boundingCube = AABB(-65, 0, 25, 10, 3, 10)
+doors = Array[Vector3]([Vector3(-60, 0, 22.5), Vector3(-70, 0, 27.5), Vector3(-67.5, 0, 20)])
 
 [node name="CraterRoom_Farroom" parent="NavMain" instance=ExtResource("12_nuf46")]
 roomName = "CraterRoom_Farroom"

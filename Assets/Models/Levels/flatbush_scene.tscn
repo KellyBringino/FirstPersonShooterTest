@@ -566,7 +566,6 @@ material_override = SubResource("ShaderMaterial_3yjgd")
 shape = SubResource("ConcavePolygonShape3D_4vjac")
 
 [node name="Barricade_T_003" parent="Room_Crater/Barricades" index="3"]
-visible = false
 material_override = SubResource("ShaderMaterial_3yjgd")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Room_Crater/Barricades/Barricade_T_003" index="0"]
@@ -655,7 +654,6 @@ material_override = SubResource("ShaderMaterial_3yjgd")
 shape = SubResource("ConcavePolygonShape3D_miupm")
 
 [node name="Barricade_T_018" parent="Room_Crater/Barricades" index="14"]
-visible = false
 material_override = SubResource("ShaderMaterial_3yjgd")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Room_Crater/Barricades/Barricade_T_018" index="0"]
