@@ -20,8 +20,8 @@ var IceQuestStage = 0
 
 # 0 -> Locate Brazier: find and pick up the four pieces of the big stone bowl
 # 1 -> With a Thud: place stone pieces in front of curtain
-# 2 -> From Afar: shoot fire shaped "crowd memebers" (spawns enemy infested with spirits)
-# 3 -> Into the Cauldron: kill spirit infested enemy near stone bowl
+# 2 -> From Afar: shoot _ fire shaped "crowd memebers" (spawns enemy infested with spirits)
+# 3 -> Into the Oven: kill spirit infested enemy near stone bowl
 var FireQuestStage = 0
 
 # Called when the node enters the scene tree for the first time.
