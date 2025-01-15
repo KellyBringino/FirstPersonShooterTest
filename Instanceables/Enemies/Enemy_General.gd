@@ -289,6 +289,11 @@ func attack():
 func dead(_point, source):
 	if !dying:
 		dying = true
+		
+		var select = randi_range(1,5)
+		playAnim("Flinch_" + str(select),true)
+		await anim.animation_finished
+		
 		var rag = Game.enemyRagdollPreload.instantiate()
 		get_node("/root/World").add_child(rag)
 		rag.global_transform.basis = global_transform.basis
@@ -296,7 +301,7 @@ func dead(_point, source):
 		rag.rotation = rotation
 		rag.scale = $ModelController/doll.scale
 		var skele = $ModelController/doll/Armature/Skeleton3D
-		for bone in 36:
+		for bone in skele.get_bone_count(): 
 			rag.skel.set_bone_pose_position(bone,skele.get_bone_pose_position(bone))
 			rag.skel.set_bone_pose_rotation(bone,skele.get_bone_pose_rotation(bone))
 		rag.setup(source,get_node("/root/World"))

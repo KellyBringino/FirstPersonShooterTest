@@ -168,4 +168,4 @@ shader = SubResource("VisualShader_udcx6")
 shader_parameter/ColorParameter = Color(1, 0, 0, 1)
 shader_parameter/Strength = 5.0
 shader_parameter/Light_Color = Color(1, 0.952941, 0, 1)
-shader_parameter/Value = 0.43
+shader_parameter/Value = 0.4

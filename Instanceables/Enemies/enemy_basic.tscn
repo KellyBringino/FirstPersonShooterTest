@@ -278,6 +278,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11331, -0.315432, -0.479749
 [node name="Weapon" type="Node3D" parent="ViewControl/vision/WeaponController"]
 
 [node name="Gun" parent="ViewControl/vision/WeaponController/Weapon" instance=ExtResource("6_uv3cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0987591, 0)
 
 [node name="TimerController" type="Node3D" parent="."]
 
