@@ -3,8 +3,8 @@ extends Control
 var progress = []
 var levelstr = ""
 var fading : bool = false
-@onready var bar = $"CanvasLayer/Main Container/Level Select Container/Control/VBoxContainer/Bar Container/Progress Bar"
-@onready var percent = $"CanvasLayer/Main Container/Level Select Container/Control/VBoxContainer/Percent Container/Percent Label"
+@onready var bar = $"CanvasLayer/Main Container/Content Container/Control/MainBarContainer/VBoxContainer/Bar Container/Progress Bar"
+@onready var percent = $"CanvasLayer/Main Container/Content Container/Control/MainBarContainer/VBoxContainer/Percent Container/Percent Label"
 
 func _ready():
 	ResourceLoader.load_threaded_request(Utils.getcurrentlevel())
