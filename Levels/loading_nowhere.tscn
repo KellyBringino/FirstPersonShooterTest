@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cf25wkhcrinh6"]
+[gd_scene load_steps=4 format=3 uid="uid://blab311xvk3vs"]
 
-[ext_resource type="Script" path="res://Levels/scripts/loading.gd" id="1_ruquj"]
+[ext_resource type="Script" path="res://Levels/scripts/loading.gd" id="1_h3hwj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0bum"]
 bg_color = Color(0.313726, 0.313726, 0.313726, 0.407843)
@@ -8,14 +8,14 @@ bg_color = Color(0.313726, 0.313726, 0.313726, 0.407843)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_81bsp"]
 bg_color = Color(0.588235, 0.588235, 0.588235, 0.694118)
 
-[node name="Loading_Flatbush" type="Control"]
+[node name="Loading_Nowhere" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ruquj")
+script = ExtResource("1_h3hwj")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -55,7 +55,7 @@ theme_override_constants/margin_bottom = 50
 
 [node name="Title Label" type="Label" parent="CanvasLayer/Main Container/Content Container/Control/Title Container"]
 layout_mode = 2
-text = "Loading Flatbush, USA"
+text = "Loading Nowhere Field"
 horizontal_alignment = 1
 
 [node name="MainBarContainer" type="MarginContainer" parent="CanvasLayer/Main Container/Content Container/Control"]

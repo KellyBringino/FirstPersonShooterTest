@@ -4,6 +4,7 @@ const SAVE_PATH = "res://Save/savegame.bin"
 
 const levels = [
 	testinglevel,
+	nowhere,
 	flatbush
 ]
 
@@ -12,6 +13,12 @@ const testinglevel = {
 	iconpath = "res://Assets/Sprites/UI/null.svg",
 	loadingscene = "res://Levels/loading_testing.tscn",
 	levelpath = "res://Levels/testing_level.tscn"
+}
+const nowhere = {
+	name = "Nowhere Field",
+	iconpath = "res://Assets/Sprites/Gun Icons/pistol_icon.png",
+	loadingscene = "res://Levels/loading_nowhere.tscn",
+	levelpath = "res://Levels/Nowhere.tscn"
 }
 const flatbush = {
 	name = "Flatbush",

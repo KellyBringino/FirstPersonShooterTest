@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://d1barp0vxbbrl"]
+
+[ext_resource type="Script" path="res://Levels/scripts/Nowhere.gd" id="1_qlukc"]
+[ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="2_fgvpt"]
+[ext_resource type="PackedScene" uid="uid://c0bn0toygtdsg" path="res://Assets/Models/Levels/nowhere_field_scene.tscn" id="3_ctgsb"]
+[ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Instanceables/Player/Player.tscn" id="4_gtcjn"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4qw45"]
+
+[sub_resource type="Sky" id="Sky_c7t3e"]
+sky_material = SubResource("ProceduralSkyMaterial_4qw45")
+
+[sub_resource type="Environment" id="Environment_drppy"]
+background_mode = 2
+sky = SubResource("Sky_c7t3e")
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_0acqi"]
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_qlukc")
+
+[node name="GUI" parent="." instance=ExtResource("2_fgvpt")]
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="Interactables" type="Node3D" parent="."]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="NowhereField" parent="Environment" instance=ExtResource("3_ctgsb")]
+
+[node name="Pickups" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_drppy")
+camera_attributes = SubResource("CameraAttributesPractical_0acqi")
+
+[node name="Player" parent="." instance=ExtResource("4_gtcjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)

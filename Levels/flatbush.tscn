@@ -1,7 +1,7 @@
 [gd_scene load_steps=33 format=3 uid="uid://cm28wnjxm83ll"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_t15kf"]
-[ext_resource type="Script" path="res://Levels/flatbush.gd" id="1_y0464"]
+[ext_resource type="Script" path="res://Levels/scripts/flatbush.gd" id="1_y0464"]
 [ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Instanceables/Player/Player.tscn" id="2_74qte"]
 [ext_resource type="PackedScene" uid="uid://dqlc6fb5v8aft" path="res://Assets/Models/Levels/flatbush_scene.tscn" id="2_nknt2"]
 [ext_resource type="PackedScene" uid="uid://bb1i806nt4qjq" path="res://Instanceables/Enemies/enemy_basic.tscn" id="5_716w6"]
@@ -80,12 +80,12 @@ size = Vector3(0.1, 7.5, 12)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qt7mn"]
 
-[sub_resource type="Sky" id="Sky_c7t3e"]
+[sub_resource type="Sky" id="Sky_b48da"]
 sky_material = SubResource("ProceduralSkyMaterial_qt7mn")
 
 [sub_resource type="Environment" id="Environment_eudgh"]
 background_mode = 2
-sky = SubResource("Sky_c7t3e")
+sky = SubResource("Sky_b48da")
 fog_enabled = true
 fog_light_color = Color(0.733333, 0.658824, 0.552941, 1)
 

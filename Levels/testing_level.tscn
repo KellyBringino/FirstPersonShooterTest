@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://mp7msrg85bwo"]
 
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="1_8n7cw"]
-[ext_resource type="Script" path="res://Levels/testing_level.gd" id="1_e1co7"]
+[ext_resource type="Script" path="res://Levels/scripts/testing_level.gd" id="1_e1co7"]
 [ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Instanceables/Player/Player.tscn" id="1_q3npf"]
 [ext_resource type="PackedScene" uid="uid://bxjeujmi3bung" path="res://Assets/Models/Levels/battlefield_1.tscn" id="4_yirrq"]
 [ext_resource type="PackedScene" uid="uid://xrpu33s0xidh" path="res://Assets/Models/Levels/stairsscene.tscn" id="5_y6sba"]
