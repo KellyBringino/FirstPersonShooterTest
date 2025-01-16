@@ -49,7 +49,10 @@ func setup(priT,secT,heaT):
 
 func _draw():
 	var offset = SPRITE_SIZE/(-2.0 * picture_scale)
-	draw_circle(Vector2.ZERO,outer_radius,bkr_color)
+	draw_set_transform(Vector2.ZERO,PI/4,Vector2.ONE)
+	var squaresize = outer_radius * 1.5
+	draw_rect(Rect2(Vector2(-squaresize/2,-squaresize/2),Vector2(squaresize,squaresize)),bkr_color)
+	draw_set_transform(Vector2.ZERO,0,Vector2.ONE)
 	
 	for i in range(1,4):
 		var start_rads = (((TAU * (end_angle/360.0)) * (i-1)) / 3) + (TAU * (start_angle/360.0))
@@ -59,7 +62,8 @@ func _draw():
 		
 		var draw_pos = radius_mid * Vector2.from_angle(mid_rad) + offset
 		if i == 1:
-			draw_circle(draw_pos - offset,SPRITE_SIZE.x/(2*picture_scale),bkr_color)
+			squaresize = SPRITE_SIZE.x/(2*picture_scale) * 1.5
+			draw_rect(Rect2((draw_pos - offset) - Vector2(squaresize/2,squaresize/2),Vector2(squaresize,squaresize)),bkr_color)
 		draw_texture_rect_region(
 			currentText[i-1].atlas,
 			Rect2(draw_pos, SPRITE_SIZE/picture_scale),
@@ -67,6 +71,8 @@ func _draw():
 		)
 func _process(_delta):
 	queue_redraw()
+
+
 
 func setWeapons(pri,sec,hea):
 	#currentText[0] = priText[pri]
@@ -90,13 +96,6 @@ func equip(hea,pri):
 func equipHelp(help):
 	for i in 3:
 		currentText[i] = equipedText[help[i]]
-		#match help[i]:
-			#0:
-				#currentText[i] = priText[currentWeapons[0]]
-			#1:
-				#currentText[i] = secText[currentWeapons[1]]
-			#2:
-				#currentText[i] = heaText[currentWeapons[2]]
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j83ai"]

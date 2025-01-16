@@ -5,16 +5,15 @@
 [ext_resource type="PackedScene" uid="uid://c8vge7q0v1mk6" path="res://UI/Pieces/crosshair_wheel.tscn" id="2_ia3kd"]
 [ext_resource type="Texture2D" uid="uid://cpmqa7d5j5fkv" path="res://Assets/Sprites/UI/partsref.png" id="2_vh33m"]
 [ext_resource type="PackedScene" uid="uid://bsjyb8wyeokxq" path="res://UI/Pieces/selection_wheel.tscn" id="3_7ldfk"]
-[ext_resource type="Texture2D" uid="uid://b1owhjin572wr" path="res://Assets/Sprites/UI/bar back.svg" id="3_mt0so"]
 [ext_resource type="PackedScene" uid="uid://dub2f54202j2y" path="res://UI/Pieces/icon_wheel.tscn" id="3_tcnvg"]
 [ext_resource type="Texture2D" uid="uid://crmjikty86roj" path="res://Assets/Sprites/UI/circle bar.svg" id="3_wyimq"]
-[ext_resource type="Texture2D" uid="uid://cjrf3h3xoxrj0" path="res://Assets/Sprites/UI/health.svg" id="4_0u4fy"]
 [ext_resource type="Texture2D" uid="uid://bt4116u3kliy3" path="res://Assets/Sprites/UI/null.svg" id="4_dvvja"]
 [ext_resource type="Texture2D" uid="uid://c3p0w407rsla6" path="res://Assets/Sprites/Gun Icons/rifle_icon.png" id="5_bi2n4"]
 [ext_resource type="Texture2D" uid="uid://dfn0k6x8ocd8o" path="res://Assets/Sprites/Gun Icons/sniper_icon.png" id="6_o34eo"]
 [ext_resource type="Texture2D" uid="uid://cyvgtgfpwye8m" path="res://Assets/Sprites/Crosshairs/hitmark.svg" id="7_kq6is"]
 [ext_resource type="Texture2D" uid="uid://1caw0w1gbavd" path="res://Assets/Sprites/Gun Icons/shotgun_icon.png" id="7_thkrn"]
 [ext_resource type="Texture2D" uid="uid://cukx82xutv6ek" path="res://Assets/Sprites/Crosshairs/scopesilhouette.svg" id="8_ih7td"]
+[ext_resource type="Texture2D" uid="uid://1sy65uar4sl3" path="res://Assets/Sprites/UI/health.png" id="14_aoig5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j83ai"]
 atlas = ExtResource("4_dvvja")
@@ -31,6 +30,12 @@ region = Rect2(0, 0, 1080, 1080)
 [sub_resource type="AtlasTexture" id="AtlasTexture_4kuab"]
 atlas = ExtResource("7_thkrn")
 region = Rect2(0, 0, 1080, 1080)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_giday"]
+texture = ExtResource("14_aoig5")
+texture_margin_left = 5.0
+texture_margin_right = 5.0
+axis_stretch_horizontal = 2
 
 [node name="GUI" type="Node2D"]
 script = ExtResource("1_81un3")
@@ -229,18 +234,19 @@ mouse_filter = 2
 [node name="HealthBarController" type="Node2D" parent="CanvasLayer/InGameGUI/HealthBarContainer"]
 scale = Vector2(0.5, 0.4)
 
-[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer/InGameGUI/HealthBarContainer/HealthBarController"]
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/InGameGUI/HealthBarContainer/HealthBarController"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 102.0
-offset_top = -102.0
+offset_top = -50.0
 offset_right = 858.0
+offset_bottom = -30.0
 grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxTexture_giday")
 max_value = 2000.0
-value = 500.0
-texture_under = ExtResource("3_mt0so")
-texture_progress = ExtResource("4_0u4fy")
+value = 2000.0
+show_percentage = false
 
 [node name="InfoBox" type="Control" parent="CanvasLayer/InGameGUI"]
 layout_mode = 1
