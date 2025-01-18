@@ -15,7 +15,7 @@ const testinglevel = {
 	levelpath = "res://Levels/testing_level.tscn"
 }
 const nowhere = {
-	name = "Nowhere Field",
+	name = "Nowhere",
 	iconpath = "res://Assets/Sprites/Gun Icons/pistol_icon.png",
 	loadingscene = "res://Levels/loading_nowhere.tscn",
 	levelpath = "res://Levels/Nowhere.tscn"
