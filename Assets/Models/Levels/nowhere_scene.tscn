@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c0bn0toygtdsg"]
+[gd_scene load_steps=11 format=3 uid="uid://c0bn0toygtdsg"]
 
 [ext_resource type="PackedScene" uid="uid://clsbkk5r57ff0" path="res://Assets/Models/Levels/Nowhere.glb" id="1_yx6pb"]
 [ext_resource type="Shader" uid="uid://djmkci4ajvcs0" path="res://Assets/Models/Materials/Procedural Shaders/Grass.tres" id="2_hi1pb"]
@@ -32,6 +32,8 @@ render_priority = 0
 shader = ExtResource("3_f75cr")
 shader_parameter/ColorParameter = Color(0.352941, 0.223529, 0, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_gja5h"]
+
 [node name="Nowhere" instance=ExtResource("1_yx6pb")]
 
 [node name="GroundPlane" parent="." index="0"]
@@ -62,6 +64,12 @@ material_override = SubResource("ShaderMaterial_mhff1")
 
 [node name="Shed_Wall_L" parent="." index="7"]
 material_override = SubResource("ShaderMaterial_868m1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Shed_Wall_L" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shed_Wall_L/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, -1.13687e-13, -1.38778e-17, 1, 2.79801e-16, 0, 2.21096e-14, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_gja5h")
 
 [node name="Cube_001" parent="." index="8"]
 material_override = SubResource("ShaderMaterial_il0cy")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1barp0vxbbrl"]
+[gd_scene load_steps=10 format=3 uid="uid://d1barp0vxbbrl"]
 
 [ext_resource type="Script" path="res://Levels/scripts/Nowhere.gd" id="1_qlukc"]
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="2_fgvpt"]
+[ext_resource type="PackedScene" uid="uid://dd2w077s3y1ll" path="res://Instanceables/Interactables/damage_bench.tscn" id="3_3yxms"]
 [ext_resource type="PackedScene" uid="uid://c0bn0toygtdsg" path="res://Assets/Models/Levels/nowhere_scene.tscn" id="3_ctgsb"]
 [ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Instanceables/Player/Player.tscn" id="4_gtcjn"]
 
@@ -28,6 +29,9 @@ script = ExtResource("1_qlukc")
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="Interactables" type="Node3D" parent="."]
+
+[node name="Damage Bench" parent="Interactables" instance=ExtResource("3_3yxms")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35, 0, -9)
 
 [node name="Environment" type="Node3D" parent="."]
 
