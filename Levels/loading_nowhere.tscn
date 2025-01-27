@@ -55,7 +55,7 @@ theme_override_constants/margin_bottom = 50
 
 [node name="Title Label" type="Label" parent="CanvasLayer/Main Container/Content Container/Control/Title Container"]
 layout_mode = 2
-text = "Loading Nowhere Field"
+text = "Loading a field in the middle of Nowhere"
 horizontal_alignment = 1
 
 [node name="MainBarContainer" type="MarginContainer" parent="CanvasLayer/Main Container/Content Container/Control"]
