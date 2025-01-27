@@ -13,6 +13,7 @@ sky_material = SubResource("ProceduralSkyMaterial_4qw45")
 [sub_resource type="Environment" id="Environment_drppy"]
 background_mode = 2
 sky = SubResource("Sky_c7t3e")
+ambient_light_source = 3
 ambient_light_color = Color(0.847059, 0.843137, 0.72549, 1)
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_0acqi"]
@@ -40,3 +41,15 @@ camera_attributes = SubResource("CameraAttributesPractical_0acqi")
 
 [node name="Player" parent="." instance=ExtResource("4_gtcjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="Sun" type="DirectionalLight3D" parent="Lights"]
+transform = Transform3D(0.775128, -0.479241, 0.41171, 0.0370558, 0.685004, 0.727596, -0.630717, -0.548724, 0.548724, 38, 40.6501, 0)
+light_color = Color(1, 0.909804, 0.831373, 1)
+light_angular_distance = 1.0
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+shadow_opacity = 0.65
+shadow_blur = 4.96
