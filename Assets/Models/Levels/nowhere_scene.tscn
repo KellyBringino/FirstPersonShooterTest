@@ -62,3 +62,15 @@ material_override = SubResource("ShaderMaterial_mhff1")
 
 [node name="Shed_Wall_L" parent="." index="7"]
 material_override = SubResource("ShaderMaterial_868m1")
+
+[node name="Cube_001" parent="." index="8"]
+material_override = SubResource("ShaderMaterial_il0cy")
+
+[node name="Cube_002" parent="." index="9"]
+material_override = SubResource("ShaderMaterial_il0cy")
+
+[node name="Cube_003" parent="." index="10"]
+material_override = SubResource("ShaderMaterial_il0cy")
+
+[node name="Cube_004" parent="." index="11"]
+material_override = SubResource("ShaderMaterial_il0cy")
