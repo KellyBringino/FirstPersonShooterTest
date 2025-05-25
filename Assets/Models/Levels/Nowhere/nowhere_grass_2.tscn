@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4j3336ncdtun"]
+
+[ext_resource type="PackedScene" uid="uid://bispjvsknuxkh" path="res://Assets/Models/Levels/Nowhere/NowhereGrass2.glb" id="1_wsibs"]
+[ext_resource type="Material" uid="uid://d4m7ct6ipm15q" path="res://Assets/Models/Materials/Green.tres" id="2_oddtc"]
+
+[node name="NowhereGrass2" instance=ExtResource("1_wsibs")]
+
+[node name="Og_Grass_2" parent="." index="0"]
+material_override = ExtResource("2_oddtc")

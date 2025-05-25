@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://h6gc6w7443yy"]
+
+[ext_resource type="PackedScene" uid="uid://b72210rbg4r4r" path="res://Assets/Models/Levels/Nowhere/NowhereStick.glb" id="1_vsmf1"]
+[ext_resource type="Material" uid="uid://l5rob7segohk" path="res://Assets/Models/Materials/Wood.tres" id="2_7peg7"]
+
+[node name="NowhereStick" instance=ExtResource("1_vsmf1")]
+
+[node name="Og_Stick" parent="." index="0"]
+material_override = ExtResource("2_7peg7")

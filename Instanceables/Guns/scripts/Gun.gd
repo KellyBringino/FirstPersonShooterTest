@@ -172,7 +172,7 @@ func strike(object,point):
 			object = object.get_node("../")
 	
 	#if hit object is environment, make misfire
-	if object.collision_layer == 1:
+	if object.collision_layer == 1 or object.collision_layer == 4096 or object.collision_layer == 4097:
 		var misfire = misfireInst.instantiate()
 		get_tree().root.add_child(misfire)
 		misfire.global_transform.origin = point

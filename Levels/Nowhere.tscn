@@ -1,21 +1,30 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1barp0vxbbrl"]
+[gd_scene load_steps=18 format=3 uid="uid://d1barp0vxbbrl"]
 
 [ext_resource type="Script" path="res://Levels/scripts/Nowhere.gd" id="1_qlukc"]
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="2_fgvpt"]
 [ext_resource type="PackedScene" uid="uid://dd2w077s3y1ll" path="res://Instanceables/Interactables/damage_bench.tscn" id="3_3yxms"]
 [ext_resource type="PackedScene" uid="uid://c0bn0toygtdsg" path="res://Assets/Models/Levels/nowhere_scene.tscn" id="3_ctgsb"]
+[ext_resource type="PackedScene" uid="uid://w2ge7ctr4s8t" path="res://Instanceables/Interactables/ammocrate.tscn" id="3_nr71u"]
 [ext_resource type="PackedScene" uid="uid://dq3sqbqaxx6kc" path="res://Instanceables/Player/Player.tscn" id="4_gtcjn"]
+[ext_resource type="PackedScene" uid="uid://cf300nryotnq0" path="res://Instanceables/Interactables/ammoshelf.tscn" id="4_nn8l6"]
+[ext_resource type="PackedScene" uid="uid://cc5i0c47hk2vc" path="res://Instanceables/Interactables/fire_bench.tscn" id="5_hyh16"]
+[ext_resource type="PackedScene" uid="uid://hww1jlp5kjip" path="res://Instanceables/Interactables/healthpack.tscn" id="6_d32eq"]
+[ext_resource type="PackedScene" uid="uid://hnn4b7yok2fh" path="res://Instanceables/Interactables/ice_bench.tscn" id="7_733hx"]
+[ext_resource type="PackedScene" uid="uid://gyh0fk81tnoo" path="res://Instanceables/Interactables/mag_bench.tscn" id="8_xyk8n"]
+[ext_resource type="PackedScene" uid="uid://psxvkcnkpw1b" path="res://Instanceables/Navigation/NavMain.tscn" id="12_lhx5t"]
+[ext_resource type="PackedScene" uid="uid://dg2f6xntlaorh" path="res://Instanceables/Navigation/NavRoom.tscn" id="13_hv3j1"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4qw45"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4iav2"]
 
 [sub_resource type="Sky" id="Sky_c7t3e"]
-sky_material = SubResource("ProceduralSkyMaterial_4qw45")
+sky_material = SubResource("ProceduralSkyMaterial_4iav2")
 
 [sub_resource type="Environment" id="Environment_drppy"]
 background_mode = 2
 sky = SubResource("Sky_c7t3e")
-ambient_light_source = 3
-ambient_light_color = Color(0.847059, 0.843137, 0.72549, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.756863, 0.756863, 0.913725, 1)
+ambient_light_energy = 0.6
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_0acqi"]
 
@@ -30,8 +39,26 @@ script = ExtResource("1_qlukc")
 
 [node name="Interactables" type="Node3D" parent="."]
 
+[node name="ammocrate" parent="Interactables" instance=ExtResource("3_nr71u")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 78, 0.2, 5)
+
+[node name="Ammo Shelf" parent="Interactables" instance=ExtResource("4_nn8l6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 30.1, -0.5, -2)
+
+[node name="Fire Bench" parent="Interactables" instance=ExtResource("5_hyh16")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 55, 1.3, 61)
+
+[node name="Healthpack" parent="Interactables" instance=ExtResource("6_d32eq")]
+transform = Transform3D(0.911403, 0, 0.411514, 0, 1, 0, -0.411514, 0, 0.911403, -40, 4, 39)
+
+[node name="Ice Bench" parent="Interactables" instance=ExtResource("7_733hx")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -57, 0, -61)
+
+[node name="Mag Bench" parent="Interactables" instance=ExtResource("8_xyk8n")]
+transform = Transform3D(0.861629, 0, -0.507538, 0, 1, 0, 0.507538, 0, 0.861629, 39, -1.5, -67)
+
 [node name="Damage Bench" parent="Interactables" instance=ExtResource("3_3yxms")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35, 0, -9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 5.5)
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -48,12 +75,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
 
 [node name="Lights" type="Node3D" parent="."]
 
-[node name="Sun" type="DirectionalLight3D" parent="Lights"]
-transform = Transform3D(0.775128, -0.479241, 0.41171, 0.0370558, 0.685004, 0.727596, -0.630717, -0.548724, 0.548724, 38, 40.6501, 0)
+[node name="Sun2" type="DirectionalLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 0.809017, 0.587785, 0, -0.587785, 0.809016, 0, 0, 0)
 light_color = Color(1, 0.909804, 0.831373, 1)
-light_angular_distance = 1.0
+light_energy = 1.25
+light_angular_distance = 5.99
 shadow_enabled = true
 shadow_bias = 0.0
 shadow_reverse_cull_face = true
 shadow_opacity = 0.65
 shadow_blur = 4.96
+
+[node name="NavMain" parent="." instance=ExtResource("12_lhx5t")]
+
+[node name="NavRoom" parent="NavMain" instance=ExtResource("13_hv3j1")]

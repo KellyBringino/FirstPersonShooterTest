@@ -1,19 +1,39 @@
 extends Node3D
 
+enum RoomType {BOX, CYLINDER}
 @export var roomName : String
+var roomNum : int
 @export var area : int
+@export var type : RoomType
 @export var boundingCube : AABB
+@export var radius : float
+@export var height : float
 @export var doors : Array[Vector3]
-func registerRoom():
+func registerRoom(ref : int):
+	roomNum = ref
 	boundingCube.position.x -= boundingCube.size.x/2
 	boundingCube.position.y -= boundingCube.size.y/2
 	boundingCube.position.z -= boundingCube.size.z/2
 	return getRoom()
 func getRoom():
-	return {roomName = roomName, area = area, bounds = boundingCube,doors = doors}
+	return {roomName = roomName, 
+		roomNum = roomNum,
+		area = area, 
+		type = type, 
+		bounds = boundingCube, 
+		radius = radius, 
+		height = height,
+		doors = doors, 
+	}
 
 func isInRoom(point : Vector3):
-	var inside = boundingCube.has_point(point)
+	var inside = false
+	if type == RoomType.BOX:
+		inside = boundingCube.has_point(point)
+	elif type == RoomType.CYLINDER:
+		inside = radius > Vector2(boundingCube.position.x,boundingCube.position.z).distance_to(Vector2(point.x,point.z))
+		inside = inside and point.y > boundingCube.position.y
+		inside = inside and point.y < boundingCube.position.y + height
 	for door in doors:
 		inside = inside or point.distance_to(door) < 0.1
 	return inside

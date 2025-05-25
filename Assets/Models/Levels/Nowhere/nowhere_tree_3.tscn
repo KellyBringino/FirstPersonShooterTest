@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlutahyhw1r0r"]
+
+[ext_resource type="PackedScene" uid="uid://dy3gayvnh3rm2" path="res://Assets/Models/Levels/Nowhere/NowhereTree3.glb" id="1_mqqax"]
+[ext_resource type="Shader" uid="uid://chuq3sgsb3v0l" path="res://Assets/Models/Materials/Procedural Shaders/Wood.tres" id="2_ju5sy"]
+[ext_resource type="Shader" uid="uid://crqp18tdyyhg1" path="res://Assets/Models/Materials/Procedural Shaders/Leaves.tres" id="3_n4ssh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_32a4e"]
+render_priority = 0
+shader = ExtResource("2_ju5sy")
+shader_parameter/ColorParameter = Color(0.352941, 0.223529, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gjuwp"]
+render_priority = 0
+shader = ExtResource("3_n4ssh")
+shader_parameter/ColorParameter = Color(0, 0.388235, 0, 1)
+
+[node name="NowhereTree3" instance=ExtResource("1_mqqax")]
+
+[node name="Og_treetrunk_3" parent="." index="0"]
+material_override = SubResource("ShaderMaterial_32a4e")
+
+[node name="Og_tree_3" parent="." index="1"]
+material_override = SubResource("ShaderMaterial_gjuwp")

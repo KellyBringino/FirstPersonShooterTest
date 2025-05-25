@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dci0it3t3ivke"]
+
+[ext_resource type="PackedScene" uid="uid://cpvil8skdh55j" path="res://Assets/Models/Levels/Nowhere/NowhereRock.glb" id="1_4iqyc"]
+[ext_resource type="Material" uid="uid://cv53w0h70o0po" path="res://Assets/Models/Materials/Gray.tres" id="2_pg37a"]
+
+[node name="NowhereRock" instance=ExtResource("1_4iqyc")]
+
+[node name="Og_Rock" parent="." index="0"]
+material_override = ExtResource("2_pg37a")

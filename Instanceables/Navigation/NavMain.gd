@@ -2,11 +2,12 @@ extends Node3D
 
 var rooms : Array
 var connectedRooms :Dictionary = {}
+var exits : Dictionary = {}
 var  curArea := [0]
 
 func _ready():
 	for room in get_children():
-		var r = room.registerRoom()
+		var r = room.registerRoom(rooms.size())
 		rooms.append(r)
 	connectRooms()
 
@@ -20,6 +21,9 @@ func connectRooms():
 			for door in rooms[roomnum].doors:
 				if door not in roomdoors and door not in roomdoorsback:
 					roomdoors[door] = rooms[roomnum]
+				elif door in roomdoors and rooms[roomnum] == roomdoors[door]:
+					if !door in exits:
+						exits[door] = roomdoors[door]
 				elif door in roomdoors and rooms[roomnum] != roomdoors[door]:
 					_connectadd(rooms[roomnum],door,roomdoors[door])
 					roomdoors.erase(door)
@@ -46,30 +50,37 @@ func _generatePathHelper(from:Vector3,to:Vector3,visited:Array):
 	var source :Array = locate(from)
 	var dest = locate(to)
 	var areaLock = true
-	for s in source:
-		for d in dest:
-			if s == d:
-				return [(to - from).length(),to]
-			if s.area != d.area:
-				areaLock = false
 	var closest = []
-	for s in source:
-		if visited.has(s):
-			continue
-		visited.append(s)
-		var doors = connectedRooms[s].keys()
-		doors = distSort(doors,from)
-		for door in connectedRooms[s]:
-			if visited.has(connectedRooms[s][door]) or (areaLock and connectedRooms[s][door].area != s.area):
+	if source.size() == 0 and dest.size() == 0:
+		pass
+	elif source.size() == 0 and dest.size() > 0:
+		pass
+	elif source.size() > 0 and dest.size() == 0:
+		pass
+	elif source.size() > 0 and dest.size() > 0:
+		for s in source:
+			for d in dest:
+				if s == d:
+					return [(to - from).length(),to]
+				if s.area != d.area:
+					areaLock = false
+		for s in source:
+			if visited.has(s):
 				continue
-			var v = visited.duplicate(true)
-			var forwardPath = _generatePathHelper(door,to,v)
-			if len(forwardPath) > 0:
-				var dist = forwardPath[0] + (door - from).length()
-				if len(closest) == 0 or dist < closest[0]:
-					closest = forwardPath
-					forwardPath[0] = dist
-					forwardPath.insert(1,door)
+			visited.append(s)
+			var doors = connectedRooms[s].keys()
+			doors = distSort(doors,from)
+			for door in connectedRooms[s]:
+				if visited.has(connectedRooms[s][door]) or (areaLock and connectedRooms[s][door].area != s.area):
+					continue
+				var v = visited.duplicate(true)
+				var forwardPath = _generatePathHelper(door,to,v)
+				if len(forwardPath) > 0:
+					var dist = forwardPath[0] + (door - from).length()
+					if len(closest) == 0 or dist < closest[0]:
+						closest = forwardPath
+						forwardPath[0] = dist
+						forwardPath.insert(1,door)
 	return closest
 
 #instructions for Dijkstra's algorithm taken from wikipedia page
