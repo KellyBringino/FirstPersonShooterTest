@@ -1,11 +1,16 @@
 extends Node3D
 
+const mark = preload("res://Instanceables/Guns/Projectile/pointMark.tscn")
+
 enum RoomType {BOX, CYLINDER}
 @export var roomName : String
 var roomNum : int
 @export var area : int
+
 @export var type : RoomType
+#if box
 @export var boundingCube : AABB
+#if cylinder
 @export var radius : float
 @export var height : float
 @export var doors : Array[Vector3]
@@ -28,12 +33,19 @@ func getRoom():
 
 func isInRoom(point : Vector3):
 	var inside = false
-	if type == RoomType.BOX:
-		inside = boundingCube.has_point(point)
-	elif type == RoomType.CYLINDER:
-		inside = radius > Vector2(boundingCube.position.x,boundingCube.position.z).distance_to(Vector2(point.x,point.z))
-		inside = inside and point.y > boundingCube.position.y
-		inside = inside and point.y < boundingCube.position.y + height
+	match type:
+		RoomType.BOX:
+			if rotation != Vector3.ZERO:
+				var locpoint = to_local(point)
+				locpoint = locpoint.rotated(Vector3.UP, -rotation.y)
+				point = to_global(locpoint)
+			inside = boundingCube.has_point(point)
+		RoomType.CYLINDER:
+			inside = radius > \
+				Vector2(boundingCube.position.x,boundingCube.position.z).\
+				distance_to(Vector2(point.x,point.z))
+			inside = inside and point.y > boundingCube.position.y
+			inside = inside and point.y < boundingCube.position.y + height
 	for door in doors:
 		inside = inside or point.distance_to(door) < 0.1
 	return inside

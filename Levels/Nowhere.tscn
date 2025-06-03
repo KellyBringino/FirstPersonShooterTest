@@ -88,4 +88,23 @@ shadow_blur = 4.96
 
 [node name="NavMain" parent="." instance=ExtResource("12_lhx5t")]
 
-[node name="NavRoom" parent="NavMain" instance=ExtResource("13_hv3j1")]
+[node name="Log" parent="NavMain" instance=ExtResource("13_hv3j1")]
+transform = Transform3D(0.566406, 0, -0.824126, 0, 1, 0, 0.824126, 0, 0.566406, -58.9045, -0.129444, -62.761)
+roomName = "Log"
+boundingCube = AABB(-58.905, -0.129, -62.761, 8, 5, 30)
+doors = Array[Vector3]([Vector3(-46.5426, -0.129444, -71.2571), Vector3(-71.2664, -0.129444, -54.2649), Vector3(-61.1702, -0.129444, -66.0575)])
+
+[node name="Cabin" parent="NavMain" instance=ExtResource("13_hv3j1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, -1.75)
+roomName = "Cabin"
+boundingCube = AABB(35, 0, -1.75, 10, 5, 15)
+doors = Array[Vector3]([Vector3(40, 0, -7.15)])
+
+[node name="FoxTrunk" parent="NavMain" instance=ExtResource("13_hv3j1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.0935, -0.5, 57.3219)
+roomName = "FoxTrunk"
+type = 1
+boundingCube = AABB(50.093, -0.5, 57.322, 0, 0, 0)
+radius = 9.0
+height = 5.0
+doors = Array[Vector3]([Vector3(44.7169, 1.66794, 50.1181)])

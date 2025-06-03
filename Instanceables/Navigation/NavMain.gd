@@ -7,8 +7,10 @@ var  curArea := [0]
 
 func _ready():
 	for room in get_children():
-		var r = room.registerRoom(rooms.size())
-		rooms.append(r)
+		if room.has_method("registerRoom"):
+			var r = room.registerRoom(rooms.size())
+			rooms.append(r)
+			print("registered room \"" + room.roomName + "\"")
 	connectRooms()
 
 func connectRooms():
