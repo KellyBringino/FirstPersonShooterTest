@@ -6,6 +6,8 @@ enum RoomType {BOX, CYLINDER}
 @export var roomName : String
 var roomNum : int
 @export var area : int
+@export var doors : Array[Vector3]
+@export var NavAroundPoints : Array[Vector3]
 
 @export var type : RoomType
 #if box
@@ -13,7 +15,6 @@ var roomNum : int
 #if cylinder
 @export var radius : float
 @export var height : float
-@export var doors : Array[Vector3]
 func registerRoom(ref : int):
 	roomNum = ref
 	boundingCube.position.x -= boundingCube.size.x/2

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://4me0i4rhftda"]
+
+[ext_resource type="Script" path="res://Instanceables/Navigation/NavOutside.gd" id="1_7d15j"]
+
+[node name="NavOutside" type="Node3D"]
+script = ExtResource("1_7d15j")

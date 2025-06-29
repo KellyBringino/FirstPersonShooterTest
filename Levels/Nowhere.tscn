@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d1barp0vxbbrl"]
+[gd_scene load_steps=20 format=3 uid="uid://d1barp0vxbbrl"]
 
 [ext_resource type="Script" path="res://Levels/scripts/Nowhere.gd" id="1_qlukc"]
 [ext_resource type="PackedScene" uid="uid://b5gjr4qrdvma7" path="res://UI/GUI.tscn" id="2_fgvpt"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://hnn4b7yok2fh" path="res://Instanceables/Interactables/ice_bench.tscn" id="7_733hx"]
 [ext_resource type="PackedScene" uid="uid://gyh0fk81tnoo" path="res://Instanceables/Interactables/mag_bench.tscn" id="8_xyk8n"]
 [ext_resource type="PackedScene" uid="uid://psxvkcnkpw1b" path="res://Instanceables/Navigation/NavMain.tscn" id="12_lhx5t"]
+[ext_resource type="PackedScene" uid="uid://4me0i4rhftda" path="res://Instanceables/Navigation/NavOutside.tscn" id="13_3q0u3"]
 [ext_resource type="PackedScene" uid="uid://dg2f6xntlaorh" path="res://Instanceables/Navigation/NavRoom.tscn" id="13_hv3j1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4iav2"]
@@ -28,6 +29,9 @@ ambient_light_energy = 0.6
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_0acqi"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_qq10g"]
+size = Vector3(1, 7.63, 1)
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_qlukc")
 
@@ -36,6 +40,9 @@ script = ExtResource("1_qlukc")
 [node name="Enemies" type="Node3D" parent="."]
 
 [node name="Spawns" type="Node3D" parent="."]
+
+[node name="Node3D" type="Node3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02604, 0)
 
 [node name="Interactables" type="Node3D" parent="."]
 
@@ -88,23 +95,46 @@ shadow_blur = 4.96
 
 [node name="NavMain" parent="." instance=ExtResource("12_lhx5t")]
 
+[node name="Field" parent="NavMain" node_paths=PackedStringArray("enclosedRooms") instance=ExtResource("13_3q0u3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+roomName = "Field"
+doors = Array[Vector3]([Vector3(-46.5426, -0.129444, -71.2571), Vector3(-71.2664, -0.129444, -54.2649), Vector3(-61.1702, -0.129444, -66.0575), Vector3(40, 0, -7.15), Vector3(44.7169, 1.66794, 50.1181)])
+enclosedRooms = [NodePath("../Log"), NodePath("../Cabin"), NodePath("../FoxTrunk")]
+type = 1
+boundingCube = AABB(0, -2, 0, 0, 0, 0)
+radius = 120.0
+height = 10.0
+
 [node name="Log" parent="NavMain" instance=ExtResource("13_hv3j1")]
 transform = Transform3D(0.566406, 0, -0.824126, 0, 1, 0, 0.824126, 0, 0.566406, -58.9045, -0.129444, -62.761)
 roomName = "Log"
-boundingCube = AABB(-58.905, -0.129, -62.761, 8, 5, 30)
 doors = Array[Vector3]([Vector3(-46.5426, -0.129444, -71.2571), Vector3(-71.2664, -0.129444, -54.2649), Vector3(-61.1702, -0.129444, -66.0575)])
+boundingCube = AABB(-58.905, -0.129, -62.761, 8, 5, 30)
 
 [node name="Cabin" parent="NavMain" instance=ExtResource("13_hv3j1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, -1.75)
 roomName = "Cabin"
-boundingCube = AABB(35, 0, -1.75, 10, 5, 15)
 doors = Array[Vector3]([Vector3(40, 0, -7.15)])
+NavAroundPoints = Array[Vector3]([Vector3(28.297, -0.269, -10.73), Vector3(41.6515, -0.268843, -10.7298), Vector3(41.652, -0.269, 7.133), Vector3(28.2966, -0.268843, 7.1333)])
+boundingCube = AABB(35, 0, -1.75, 10, 5, 15)
+height = 4.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavMain/Cabin"]
+mesh = SubResource("BoxMesh_qq10g")
 
 [node name="FoxTrunk" parent="NavMain" instance=ExtResource("13_hv3j1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.0935, -0.5, 57.3219)
 roomName = "FoxTrunk"
+doors = Array[Vector3]([Vector3(44.7169, 1.66794, 50.1181)])
 type = 1
 boundingCube = AABB(50.093, -0.5, 57.322, 0, 0, 0)
 radius = 9.0
 height = 5.0
-doors = Array[Vector3]([Vector3(44.7169, 1.66794, 50.1181)])
+
+[node name="WorldComponents" type="Node3D" parent="."]
+
+[node name="SpawnTimer" type="Timer" parent="WorldComponents"]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="WorldComponents/SpawnTimer" to="." method="_on_spawn_timer_timeout"]

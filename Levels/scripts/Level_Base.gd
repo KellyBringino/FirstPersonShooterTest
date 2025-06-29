@@ -44,6 +44,7 @@ func spawner_at(point):
 		curRound = 0
 
 func make_spawner():
+	print("spawner")
 	var mainCandi = null
 	var candidates :Array = []
 	for s in spawns:

@@ -1,7 +1,7 @@
 extends Level_Base
 
 @onready var navmain = $NavMain
-@onready var roomtest = $NavMain/FoxTrunk
+@onready var roomtest = $NavMain/Field
 func _ready():
 	super._ready()
 

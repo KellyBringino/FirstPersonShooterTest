@@ -1,6 +1,7 @@
 extends Node3D
 
 var rooms : Array
+var outsideAreas : Array
 var connectedRooms :Dictionary = {}
 var exits : Dictionary = {}
 var  curArea := [0]
@@ -11,6 +12,10 @@ func _ready():
 			var r = room.registerRoom(rooms.size())
 			rooms.append(r)
 			print("registered room \"" + room.roomName + "\"")
+		elif room.has_method("registerOutside"):
+			var o = room.registerOutside(rooms.size())
+			rooms.append(o)
+			outsideAreas.append(o)
 	connectRooms()
 
 func connectRooms():
