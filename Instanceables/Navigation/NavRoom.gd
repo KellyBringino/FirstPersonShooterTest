@@ -2,7 +2,7 @@ extends Node3D
 
 const mark = preload("res://Instanceables/Guns/Projectile/pointMark.tscn")
 
-enum RoomType {BOX, CYLINDER}
+enum RoomType {BOX, CYLINDER, OUTSIDEBOX, OUTSIDECYLINDER}
 @export var roomName : String
 var roomNum : int
 @export var area : int
@@ -31,6 +31,8 @@ func getRoom():
 		height = height,
 		doors = doors, 
 	}
+	
+
 
 func isInRoom(point : Vector3):
 	var inside = false

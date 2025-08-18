@@ -108,6 +108,8 @@ func dijkstra(start:Vector3,end:Vector3):
 		for si in len(source):
 			#if the two are in the same room then go straight there
 			if dest.has(source[si]):
+				if source[si].type == 2 or source[si].type == 3:
+					pass
 				return end
 			#Create a set of all the unvisited nodes called the unvisited set.
 			var unvisited := connectedRooms.keys()
@@ -174,6 +176,9 @@ func dijkstra(start:Vector3,end:Vector3):
 					bestpath = dist[si][d][1]
 					shortpath = dist[si][d][0]
 		return bestpath[1]
+
+func outsideNav(from,to):
+	pass
 
 func distSort(arr:Array,target:Vector3):
 	for i in len(arr):
