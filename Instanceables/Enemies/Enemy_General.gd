@@ -1,8 +1,7 @@
 class_name Enemy_General
 extends CharacterBody3D
 
-#@onready var nav_agent : NavigationAgent3D = $NavigationAgent3D
-@onready var navRoomAgent : NavRoomAgent = $NavRoomAgent
+@onready var nav_agent : NavigationAgent3D = $NavigationAgent3D
 @onready var avoidRay_R : RayCast3D = $CollisionShape3D/AvoidRay_R
 @onready var avoidRay_L : RayCast3D = $CollisionShape3D/AvoidRay_L
 @onready var skl : Skeleton3D = $ModelController/doll/Armature/Skeleton3D
@@ -87,8 +86,7 @@ func _physics_process(delta):
 	= $ModelController/doll/HandAttachment.global_transform.origin
 	
 	if !dying and !frozen:
-		#nav_agent.set_target_position(lastKnowLoc)
-		navRoomAgent.setPOI(lastKnowLoc)
+		nav_agent.set_target_position(lastKnowLoc)
 		handleStates(delta)
 	
 		#look at player
@@ -148,8 +146,7 @@ func move():
 	if global_transform.origin.distance_to(lastKnowLoc) <= (REACH_DIST/2.0):
 		velocity = velocity.lerp(Vector3.ZERO,stopChange)
 		return
-	#var nextNavPoint = nav_agent.get_next_path_position()
-	var nextNavPoint = navRoomAgent.getNextPath()
+	var nextNavPoint = nav_agent.get_next_path_position()
 	if !frozen:
 		var optimalVelocity = ((nextNavPoint - global_transform.origin).normalized() \
 		* Vector3(1,0,1)).normalized() * speed * (1 - (COLD_SPEED * cold))
@@ -363,9 +360,7 @@ func _on_look_check_timeout():
 		lastKnowLoc = player.global_transform.origin
 
 func _on_pathfind_timer_timeout():
-	#nav_agent.set_target_position(lastKnowLoc)
-	navRoomAgent.setPOI(lastKnowLoc)
-	navRoomAgent.setNextPath()
+	nav_agent.set_target_position(lastKnowLoc)
 
 func _on_attack_timer_timeout():
 	if currentState == state.ATTACKING:
