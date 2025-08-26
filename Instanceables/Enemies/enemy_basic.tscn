@@ -108,6 +108,14 @@ collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_75185")
 
+[node name="VoidDetector" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 8192
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="VoidDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_2p6i3")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_2p6i3")
@@ -327,6 +335,8 @@ shape = SubResource("SphereShape3D_45hed")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
+[connection signal="body_entered" from="VoidDetector" to="." method="_on_void_detector_body_entered"]
+[connection signal="body_exited" from="VoidDetector" to="." method="_on_void_detector_body_exited"]
 [connection signal="body_entered" from="ViewControl/vision" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="ViewControl/vision" to="." method="_on_vision_body_exited"]
 [connection signal="timeout" from="TimerController/LookCheck" to="." method="_on_look_check_timeout"]

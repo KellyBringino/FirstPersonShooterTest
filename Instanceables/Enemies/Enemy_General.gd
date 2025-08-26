@@ -46,6 +46,7 @@ var lastKnowLoc : Vector3
 var vision : Array = []
 var see : Array = []
 var suspicious : bool = false
+var voided : bool = false
 var fire = 0
 var cold = 0
 var frozen = false
@@ -149,6 +150,12 @@ func move():
 	var nextNavPoint = nav_agent.get_next_path_position()
 	if !frozen:
 		var optimalVelocity = ((nextNavPoint - global_transform.origin).normalized() \
+		* Vector3(1,0,1)).normalized() * speed * (1 - (COLD_SPEED * cold))
+		#print()
+		#print(optimalVelocity)
+		#print(optimalVelocity.length())
+		if(voided):
+			optimalVelocity = ((lastKnowLoc - global_transform.origin).normalized() \
 		* Vector3(1,0,1)).normalized() * speed * (1 - (COLD_SPEED * cold))
 		var avoidance = 0.0
 		avoidRay_R.force_raycast_update()
@@ -435,3 +442,11 @@ func _on_freeze_immune_timer_timeout():
 
 func _on_shatter_immune_timer_timeout():
 	pass # Replace with function body.
+
+func _on_void_detector_body_entered(body):
+	print("void")
+	voided = true
+
+func _on_void_detector_body_exited(body):
+	print("void leave")
+	voided = false

@@ -140,6 +140,7 @@ ads={
 3d_physics/layer_11="Wall"
 3d_physics/layer_12="Pickup"
 3d_physics/layer_13="Ground"
+3d_physics/layer_14="VoidArea"
 
 [physics]
 
