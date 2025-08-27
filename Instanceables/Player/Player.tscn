@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dq3sqbqaxx6kc"]
+[gd_scene load_steps=13 format=3 uid="uid://dq3sqbqaxx6kc"]
 
 [ext_resource type="Script" path="res://Instanceables/Player/Player.gd" id="1_c8ruj"]
 [ext_resource type="PackedScene" uid="uid://q5w6ovnnrknu" path="res://Assets/Models/Mobs/playerdoll.tscn" id="2_3l5dt"]
@@ -78,6 +78,10 @@ _data = {
 "SHeadBob": SubResource("Animation_ocnqp")
 }
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a7u1g"]
+radius = 1.0
+height = 4.0
+
 [sub_resource type="GDScript" id="GDScript_6ur5u"]
 script/source = "extends RayCast3D
 
@@ -135,6 +139,34 @@ collision_mask = 2225
 libraries = {
 "": SubResource("AnimationLibrary_rtkms")
 }
+
+[node name="MeleeArea" type="Area3D" parent="CameraController/Camera3D"]
+collision_layer = 0
+collision_mask = 48
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraController/Camera3D/MeleeArea"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -2)
+shape = SubResource("CapsuleShape3D_a7u1g")
+
+[node name="PunchPoints" type="Node3D" parent="CameraController/Camera3D"]
+transform = Transform3D(0.934186, 0, -0.356787, 0, 1, 0, 0.356787, 0, 0.934186, -0.185613, -0.146144, -0.271672)
+
+[node name="PunchStart" type="Node3D" parent="CameraController/Camera3D/PunchPoints"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+
+[node name="Punch1" type="Node3D" parent="CameraController/Camera3D/PunchPoints"]
+
+[node name="Punch2" type="Node3D" parent="CameraController/Camera3D/PunchPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.262399)
+
+[node name="Punch3" type="Node3D" parent="CameraController/Camera3D/PunchPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
+
+[node name="Punch4" type="Node3D" parent="CameraController/Camera3D/PunchPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, 0, -0.24)
+
+[node name="Punch5" type="Node3D" parent="CameraController/Camera3D/PunchPoints"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -0.01, 0, -0.25)
 
 [node name="GunController" type="Node3D" parent="CameraController"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185, 0.048058, -0.306158)
@@ -276,6 +308,10 @@ collision_mask = 256
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableDetection"]
 shape = SubResource("SphereShape3D_0jb3p")
 
+[node name="KnockAngle" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 1.897, 0)
+target_position = Vector3(0, 0, -1)
+
 [node name="SwapButtonTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
@@ -283,6 +319,8 @@ one_shot = true
 [node name="JumpGraceTimer" type="Timer" parent="."]
 wait_time = 0.25
 
+[connection signal="body_entered" from="CameraController/Camera3D/MeleeArea" to="." method="_on_melee_area_body_entered"]
+[connection signal="body_exited" from="CameraController/Camera3D/MeleeArea" to="." method="_on_melee_area_body_exited"]
 [connection signal="area_entered" from="InteractableDetection" to="." method="_on_interactable_detection_area_entered"]
 [connection signal="area_exited" from="InteractableDetection" to="." method="_on_interactable_detection_area_exited"]
 [connection signal="timeout" from="SwapButtonTimer" to="." method="_on_swap_button_timer_timeout"]

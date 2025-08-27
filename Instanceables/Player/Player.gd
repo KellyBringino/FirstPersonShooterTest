@@ -3,6 +3,7 @@ extends CharacterBody3D
 const SPEED = 4.0
 const SPRINT_MULT = 2.0
 const JUMP_VELOCITY = 7
+const punchPower = 12.0
 const TILT_LOWER_LIMIT := deg_to_rad(-90.0)
 const TILT_UPPER_LIMIT := deg_to_rad(90.0)
 
@@ -56,6 +57,9 @@ var toggleCrouch : bool = false
 var toggleSprint : bool = true
 var horizontalsens : float = 1.0
 var verticalsens : float = 1.0
+
+var meleeList : Array = []
+var punching : bool = false
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -189,7 +193,14 @@ func handleGrip():
 			offhand = $CameraController/GunController/Weapon2/Gun/OffhandGrip\
 				.global_transform.origin
 	$ModelController/doll/WeaponTarget.global_transform.origin = handle
-	$ModelController/doll/OffhandTarget.global_transform.origin = offhand
+	if !punching:
+		$ModelController/doll/OffhandTarget.global_transform.origin = offhand
+	else:
+		$ModelController/doll/OffhandTarget.global_transform.origin = \
+		$CameraController/Camera3D/PunchPoints/PunchStart.global_position
+		$ModelController/doll/OffhandTarget.global_rotation = \
+		$CameraController/Camera3D/PunchPoints/PunchStart.global_rotation
+	
 
 func handleState():
 	match curMoveState:
@@ -446,7 +457,8 @@ func slide():
 	t.tween_property(self,":velocity:x",velocity.x,1.5)
 	t.tween_property(self,":velocity:z",velocity.z,1.5)
 	t.set_parallel(false)
-	t.tween_property(self,":velocity",Vector3.ZERO,0.5)
+	t.set_ease(Tween.EASE_IN)
+	t.tween_property(self,":velocity",Vector3.ZERO,0.1)
 	t.tween_callback(func(): sliding = false)
 
 func jump():
@@ -614,6 +626,10 @@ func _input(event):
 			handleSprintInput(false)
 		if event.is_action_released("forward"):
 			holdingSprint = false
+		
+		if event.is_action_pressed("melee"):
+			if!punching:
+				handleMeleeInput()
 
 func handleCrouchInput(pressed:bool):
 	if toggleCrouch:
@@ -630,6 +646,42 @@ func handleSprintInput(pressed:bool):
 	else:
 		holdingSprint = pressed
 
+func handleMeleeInput():
+	var trueMeleeList = []
+	for cur in meleeList:
+		while !cur.editor_description.contains("Enemy"):
+			if cur == null:
+				break
+			cur = cur.get_node("../")
+		if cur != null:
+			if !trueMeleeList.has(cur):
+				trueMeleeList.append(cur)
+	print(trueMeleeList)
+	var punch1 = $CameraController/Camera3D/PunchPoints/Punch1.transform.origin
+	var punch2 = $CameraController/Camera3D/PunchPoints/Punch2.transform.origin
+	var punch3 = $CameraController/Camera3D/PunchPoints/Punch3.transform.origin
+	var punch4 = $CameraController/Camera3D/PunchPoints/Punch4.transform.origin
+	var punch5 = $CameraController/Camera3D/PunchPoints/Punch5.transform.origin
+	var t = get_tree().create_tween()
+	t.tween_callback(func(): punching = true)
+	t.tween_property(get_node("CameraController/Camera3D/PunchPoints/PunchStart"),\
+		"position",punch1,0.0)
+	t.tween_property(get_node("CameraController/Camera3D/PunchPoints/PunchStart"),\
+		"position",punch2,0.07)
+	t.set_ease(Tween.EASE_IN)
+	t.tween_property(get_node("CameraController/Camera3D/PunchPoints/PunchStart"),\
+		"position",punch3,0.15)
+	t.tween_callback(func():for cur in trueMeleeList:punch(cur))
+	t.tween_property(get_node("CameraController/Camera3D/PunchPoints/PunchStart"),\
+		"position",punch4,0.10)
+	t.tween_property(get_node("CameraController/Camera3D/PunchPoints/PunchStart"),\
+		"position",punch5,0.15)
+	t.tween_callback(func(): punching = false)
+func punch(obj):
+	var punchAngle = -$KnockAngle.get_global_transform().basis.z * punchPower
+	obj.velocity = obj.velocity + punchAngle
+	obj.hit($CameraController/Camera3D/PunchPoints/Punch3.global_transform.origin,500,0)
+
 func _unhandled_input(event):
 	if !Game.pauseCheck() and event is InputEventMouseMotion:
 		rotInput = -event.relative.x
@@ -645,3 +697,8 @@ func _on_interactable_detection_area_exited(area):
 		if interactNear[index] == area:
 			interactNear.remove_at(index)
 			break
+
+func _on_melee_area_body_entered(body):
+	meleeList.append(body)
+func _on_melee_area_body_exited(body):
+	meleeList.erase(body)
